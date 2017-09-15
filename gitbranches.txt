@@ -1,0 +1,26 @@
+Using branches in git:
+	Using branches in git is useful as it means you can develop your own libaries, commit and push without potentially breaking the master code.
+	When ready a given branch can me merged with the master then adopted by everyone else.
+
+	(The main branch is called master)
+
+	To create a new branch:
+		git checkout -b <new-branch-name>
+
+	To switch to an existing branch:
+		git checkout <existing-branch>
+
+	To merge the master branch with your working branch:
+	(Useful to get everyones elses updates without breaking their stuff)
+
+		git checkout master
+		git pull
+		git checkout <your-branch>
+		git merge master
+
+	To merge your working branch into the master:
+	(To allow everyone else to use your changes)
+
+		git checkout master
+		git merge <your-branch>
+		git push
