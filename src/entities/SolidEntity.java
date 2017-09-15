@@ -1,17 +1,22 @@
 package entities;
 
 public abstract class SolidEntity implements Entity {
-
+	private float x;
+	private float y;
+	
+	public SolidEntity(float x, float y) {
+		this.x = x;
+		this.y = y;
+	}
+	
 	@Override
 	public float getX() {
-		// TODO Auto-generated method stub
-		return 0;
+		return x;
 	}
 
 	@Override
 	public float getY() {
-		// TODO Auto-generated method stub
-		return 0;
+		return y;
 	}
 
 }
