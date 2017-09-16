@@ -8,13 +8,14 @@ import java.io.ObjectOutputStream;
 import game.Game;
 
 public class Save {
+	
 	static Game game;
 	
 	public Save(Game game) {
 		this.game = game;
 	}
 	
-	private void saveGame() {
+	public void saveGame() {
 		try {
 			//Write file to disk
 			FileOutputStream f_out = new FileOutputStream(new File("game_save"));

@@ -10,14 +10,11 @@ public class Load {
 	
 	private String fileName;
 	
-	private Game gameSave;
-	
 	public Load(String fileName) {
 		this.fileName = fileName;
-		gameSave = loadGame();
 	}
 	
-	private Game loadGame() {
+	public Game loadGame() {
 		try {
 			
 			//Read file from disk
@@ -43,7 +40,4 @@ public class Load {
 		return null;
 	}
 	
-	public Game getGameSave() {
-		return gameSave;
-	}
 }
