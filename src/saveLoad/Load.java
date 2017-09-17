@@ -6,14 +6,30 @@ import java.io.ObjectInputStream;
 
 import game.Game;
 
+/**
+ * Functional class that loads a saved game from a file
+ * @author Tim Gastrell
+ *
+ */
 public class Load {
 	
+	/**
+	 * Name of save game file
+	 */
 	private String fileName;
 	
+	/**
+	 * Constructs a new Load object
+	 * @param name of game save file
+	 */
 	public Load(String fileName) {
 		this.fileName = fileName;
 	}
 	
+	/**
+	 * Loads a save game from a file
+	 * @return save game
+	 */
 	public Game loadGame() {
 		try {
 			
