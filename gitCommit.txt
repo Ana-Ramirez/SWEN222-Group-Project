@@ -1,7 +1,7 @@
 To commit your work:
 
-1. git add src //this "stages" the files you are working on so you can add a whole bunch of files here.
-    src is just an example becuase it's easiest to do from the directory you are likely to be in
+1. git add . //this "stages" the files you are working on so you can add a whole bunch of files here.
+    '.' stages all unstaged files
     
 2. git commit -m "commit message here"
 
