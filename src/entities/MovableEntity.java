@@ -1,15 +1,17 @@
 package entities;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public abstract class MovableEntity implements Entity {
 	private float x;
 	private float y;
 	private int size;
+	private Type type;
 	
-	public MovableEntity(float x, float y) {
+	public MovableEntity(float x, float y, Type type) {
 		this.x = x;
 		this.y = y;
+		this.type = type;
+		
 	}
 	
 	@Override
@@ -31,8 +33,12 @@ public abstract class MovableEntity implements Entity {
 		return size;
 	}
 	
-	public boolean attack(Weapon weapon) {
-		throw new NotImplementedException();
+	public boolean receiveHit(Weapon weapon) {
+		return false;
+	}
+	
+	public Type getType() {
+		return type;
 	}
 
 }

@@ -1,6 +1,6 @@
 package entities;
 
-enum Type {
+public enum Type {
 	FIRE,
 	WATER,
 	AIR,
