@@ -24,3 +24,8 @@ Using branches in git:
 		git checkout master
 		git merge <your-branch>
 		git push
+
+	To push your branch for the first time:
+	(After first time push as normal)
+		git push -u origin <your-branch>
+		
