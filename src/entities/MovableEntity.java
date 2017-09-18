@@ -18,5 +18,10 @@ public abstract class MovableEntity implements Entity {
 	public float getY() {
 		return y;
 	}
+	
+	protected void setXY(float x, float y) {
+		this.x = x; 
+		this.y = y;
+	}
 
 }
