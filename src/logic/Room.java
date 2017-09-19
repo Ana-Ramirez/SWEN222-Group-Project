@@ -3,6 +3,7 @@ package logic;
 import java.util.ArrayList;
 import java.util.List;
 
+import entities.Entity;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
