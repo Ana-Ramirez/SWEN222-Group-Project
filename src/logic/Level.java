@@ -17,12 +17,11 @@ public class Level {
 	}
 	
 	/**
-	 * create a room for the amount specified
+	 * create rooms and add to this level
 	 */
 	private void initialise(){
-//		for(int i = 0; i < this.numRooms; i++){
-//			this.rooms.add(room);
-//		}
 		throw new NotImplementedException();
 	}
+	
+	
 }

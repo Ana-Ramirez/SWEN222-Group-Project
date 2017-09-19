@@ -3,6 +3,8 @@ package logic;
 import java.util.ArrayList;
 import java.util.List;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 /**
  * The Room class will be the basis for every room in the game
  * showing what objects are stored in a room and what doors
@@ -32,6 +34,7 @@ public class Room {
 	 * @param d		door to add
 	 */
 	public void addDoor(Door d){
+		//Door door = new Door(this, other);
 		this.doors.add(d);
 	}
 	
@@ -84,6 +87,14 @@ public class Room {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * check if a door is locked
+	 * @return
+	 */
+	public boolean doorLocked(){
+		throw new NotImplementedException();
 	}
 	
 	
