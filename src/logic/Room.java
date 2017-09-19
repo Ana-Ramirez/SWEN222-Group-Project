@@ -30,6 +30,27 @@ public class Room {
 	}
 	
 	/**
+	 * When player wants to move room through a door
+	 * @param d
+	 */
+	public void moveRoom(Door d){
+		throw new NotImplementedException();
+	}
+	
+	/**
+	 * Is player's position move valid
+	 * Will they bump into anything
+	 * @return
+	 */
+	public boolean movePlayer(){
+		throw new NotImplementedException();
+	}
+	
+	public int getMonsterHealth(){
+		throw new NotImplementedException();
+	}
+	
+	/**
 	 * Add a door to this room
 	 * @param d		door to add
 	 */
