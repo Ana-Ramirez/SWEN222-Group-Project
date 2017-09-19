@@ -11,10 +11,10 @@ import java.util.List;
  * @param <T>
  *
  */
-public class Room<T> {
+public class Room {
 	
 	private int roomNum;
-	private List<T> roomItems;
+	private List<Entity> roomItems;
 	private List<Door> doors;
 	
 	/**
@@ -23,7 +23,7 @@ public class Room<T> {
 	 */
 	public Room(int num){
 		this.roomNum = num;
-		this.roomItems = new ArrayList<T>();
+		this.roomItems = new ArrayList<Entity>();
 		this.doors = new ArrayList<Door>();
 	}
 	
@@ -39,7 +39,7 @@ public class Room<T> {
 	 * Add an item to this room
 	 * @param item		item to add
 	 */
-	public void addItem(T item){
+	public void addItem(Entity item){
 		this.roomItems.add(item);
 	}
 	
@@ -77,8 +77,8 @@ public class Room<T> {
 	 * @param s		item name
 	 * @return
 	 */
-	public T getItem(String s){
-		for(T item : this.roomItems){
+	public Entity getItem(String s){
+		for(Entity item : this.roomItems){
 			if(item.getName().equals(s)){
 				return item;
 			}
