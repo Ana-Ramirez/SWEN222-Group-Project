@@ -3,7 +3,9 @@ package view;
 import game.Game;
 import saveLoad.Save;
 import javafx.*;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -36,8 +38,10 @@ public class PauseMenu {
 	 * Resumes the game
 	 */
 	public void resumeGameButton(Game game){
-		toggleDisplay();
-		game.togglePause();
+		Button btn = new Button();
+		btn.setText("Resume Game");
+		btn.setOnAction(new ResumeHandler<ActionEvent>());
+		root.getChildren().add(btn);
 	}
 	
 	/**
@@ -45,17 +49,20 @@ public class PauseMenu {
 	 * @param game
 	 */
 	public void saveGameButton(Game game){
-		Save save = new Save(game);
-		save.saveGame();
+		Button btn = new Button();
+		btn.setText("Save Game");
+		btn.setOnAction(new SaveHandler<ActionEvent>());
+		root.getChildren().add(btn);
 	}
 	
 	/**
 	 * Quits to the main menu
 	 */
 	public void quitToMenuButton(){
-		game.exit();
-		MainMenu mm = new MainMenu();
-		mm.toggleDisplay();
+		Button btn = new Button();
+		btn.setText("Start New Game");
+		btn.setOnAction(new QuitToMenuHandler<ActionEvent>());
+		root.getChildren().add(btn);
 	}
 
 }

@@ -1,6 +1,9 @@
 package view;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import saveLoad.Load;
 
@@ -34,21 +37,29 @@ public class MainMenu {
 	 * Starts a new game
 	 */
 	public void startGameButton(){
-		game.start();
+		Button btn = new Button();
+		btn.setText("Start New Game");
+		btn.setOnAction(new StartHandler<ActionEvent>());
+		root.getChildren().add(btn);
 	}
 	
 	/**
 	 * Loads a game from file
 	 */
 	public Game loadGameButton(String fileName){
-		Load load = new Load(fileName);
-		return load.loadGame();
+		Button btn = new Button();
+		btn.setText("Load Game");
+		btn.setOnAction(new LoadHandler<ActionEvent>());
+		root.getChildren().add(btn);
 	}
 	
 	/**
 	 * Exits the application
 	 */
 	public void quitGameButton(){
-
+		Button btn = new Button();
+		btn.setText("Quit");
+		btn.setOnAction(new QuitHandler<ActionEvent>());
+		root.getChildren().add(btn);
 	}
 }
