@@ -1,16 +1,28 @@
 package game;
 
+
+import java.io.File;
+
+import entities.Player;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import saveLoad.Load;
+import view.Renderer;
 
 public class MainMenuController {
+		
+	public MainMenuController() {
+		
+	}
 
 	public class StartHandler implements EventHandler{
 
 		@Override
 		public void handle(Event event) {
-			// TODO Auto-generated method stub
-			
+			Game game = new Game(new Renderer(), new Player(0, 0, null)); //TODO sort out these parameters
+			game.startGame();
 		}
 		
 	}
@@ -19,8 +31,13 @@ public class MainMenuController {
 
 		@Override
 		public void handle(Event arg0) {
-			// TODO Auto-generated method stub
+			FileChooser fc = new FileChooser();
+			File file = fc.showOpenDialog(new Stage());//I hope this works?
 			
+			Load load = new Load(file.getName());
+			Game game = load.loadGame();
+			
+			game.startGame();
 		}
 		
 	}
@@ -29,8 +46,8 @@ public class MainMenuController {
 
 		@Override
 		public void handle(Event arg0) {
-			// TODO Auto-generated method stub
-			
+			//TODO display a save warning
+			System.exit(0);
 		}
 		
 	}

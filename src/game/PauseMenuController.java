@@ -2,25 +2,21 @@ package game;
 
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import saveLoad.Save;
 
 public class PauseMenuController {
 	
-	public class PauseHandler implements EventHandler{
-
-		@Override
-		public void handle(Event event) {
-			// TODO Auto-generated method stub
-			
-		}
-		
+	private Game game;
+	
+	public PauseMenuController(Game game) {
+		this.game = game;
 	}
 	
 	public class ResumeHandler implements EventHandler{
-
+		
 		@Override
 		public void handle(Event arg0) {
-			// TODO Auto-generated method stub
-			
+			game.resume();
 		}
 		
 	}
@@ -29,17 +25,16 @@ public class PauseMenuController {
 
 		@Override
 		public void handle(Event arg0) {
-			// TODO Auto-generated method stub
-			
+			Save save = new Save(game);
+			save.saveGame();
 		}
 		
 	}
 	
-	public class QuitHandler implements EventHandler{
+	public class QuitToMenuHandler implements EventHandler{
 
 		@Override
 		public void handle(Event arg0) {
-			// TODO Auto-generated method stub
 			
 		}
 		

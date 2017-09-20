@@ -1,5 +1,6 @@
 package view;
 
+import game.Game;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import saveLoad.Load;
@@ -34,15 +35,15 @@ public class MainMenu {
 	 * Starts a new game
 	 */
 	public void startGameButton(){
-		game.start();
+		//game.start();
 	}
 	
 	/**
 	 * Loads a game from file
 	 */
-	public Game loadGameButton(String fileName){
-		Load load = new Load(fileName);
-		return load.loadGame();
+	public void loadGameButton(String fileName){
+//		Load load = new Load(fileName);
+//		return load.loadGame();
 	}
 	
 	/**

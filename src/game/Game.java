@@ -20,8 +20,6 @@ public class Game implements Serializable{
 	/**
 	 * View objects
 	 */
-	private MainMenu mainMenu;
-	private PauseMenu pauseMenu;
 	private Renderer renderer;
 	
 	/**
@@ -37,8 +35,8 @@ public class Game implements Serializable{
 	/**
 	 * Event handling classes for menu buttons
 	 */
-	private PauseMenuController pm_Controller = new PauseMenuController();	
-	private MainMenuController sm_Controller = new MainMenuController();
+//	private PauseMenuController pm_Controller = new PauseMenuController();	
+//	private MainMenuController sm_Controller = new MainMenuController();
 	
 	/**
 	 * Constructs a new Game object
@@ -48,14 +46,24 @@ public class Game implements Serializable{
 	 * @param renderer
 	 * @param player
 	 */
-	public Game(MainMenu mainMenu, PauseMenu pauseMenu, Renderer renderer, Player player) {
-		this.mainMenu = mainMenu;
-		this.pauseMenu = pauseMenu;
+	public Game(Renderer renderer, Player player) {
 		this.renderer = renderer;
 		
 		this.player = player;
 		
 		generateLevels();
+	}
+	
+	public void startGame() {
+		//TODO start game loop
+	}
+	
+	public void pause() {
+		
+	}
+	
+	public void resume() {
+		
 	}
 	
 	/**
@@ -64,9 +72,4 @@ public class Game implements Serializable{
 	private void generateLevels() {
 		//TODO Initialise levels
 	}
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-	}
-
 }
