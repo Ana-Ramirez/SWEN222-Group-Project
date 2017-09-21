@@ -5,7 +5,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import saveLoad.Save;
 
-public class PauseMenuController {
+public abstract class PauseMenuController {
 	
 	private Game game;
 	
