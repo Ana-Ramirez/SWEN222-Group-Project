@@ -1,5 +1,6 @@
 package game;
 
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import saveLoad.Save;
@@ -12,29 +13,29 @@ public class PauseMenuController {
 		this.game = game;
 	}
 	
-	public class ResumeHandler implements EventHandler{
+	public class ResumeHandler<T extends Event> implements EventHandler<ActionEvent>{
 		
 		@Override
-		public void handle(Event arg0) {
+		public void handle(ActionEvent arg0) {
 			game.resume();
 		}
 		
 	}
 	
-	public class SaveHandler implements EventHandler{
+	public class SaveHandler<T extends Event> implements EventHandler<ActionEvent>{
 
 		@Override
-		public void handle(Event arg0) {
+		public void handle(ActionEvent arg0) {
 			Save save = new Save(game);
 			save.saveGame();
 		}
 		
 	}
 	
-	public class QuitToMenuHandler implements EventHandler{
+	public class QuitToMenuHandler<T extends Event> implements EventHandler<ActionEvent>{
 
 		@Override
-		public void handle(Event arg0) {
+		public void handle(ActionEvent arg0) {
 			
 		}
 		
