@@ -18,40 +18,40 @@ public class MainMenuController {
 		
 	}
 
-	
-	
-}
-class StartHandler<T extends Event> implements EventHandler<ActionEvent>{
 
-	@Override
-	public void handle(ActionEvent event) {
-		Game game = new Game(new Renderer(), new Player(0, 0, null)); //TODO sort out these parameters
-		game.startGame();
+	public static class StartHandler<T extends Event> implements EventHandler<ActionEvent>{
+
+		@Override
+		public void handle(ActionEvent event) {
+			Game game = new Game(new Renderer(), new Player(0, 0, null)); //TODO sort out these parameters
+			game.startGame();
+		}
+
 	}
-	
-}
 
-class LoadHandler<T extends Event> implements EventHandler<ActionEvent>{
+	class LoadHandler<T extends Event> implements EventHandler<ActionEvent>{
 
-	@Override
-	public void handle(ActionEvent event) {
-		FileChooser fc = new FileChooser();
-		File file = fc.showOpenDialog(new Stage());//I hope this works?
+		@Override
+		public void handle(ActionEvent event) {
+			FileChooser fc = new FileChooser();
+			File file = fc.showOpenDialog(new Stage());//I hope this works?
+			
+			Load load = new Load(file.getName());
+			Game game = load.loadGame();
+			
+			game.startGame();
+		}
 		
-		Load load = new Load(file.getName());
-		Game game = load.loadGame();
+	}
+
+	class QuitHandler<T extends Event> implements EventHandler<ActionEvent>{
+
+		@Override
+		public void handle(ActionEvent arg0) {
+			//TODO display a save warning
+			System.exit(0);
+		}
 		
-		game.startGame();
 	}
-	
 }
 
-class QuitHandler<T extends Event> implements EventHandler<ActionEvent>{
-
-	@Override
-	public void handle(ActionEvent arg0) {
-		//TODO display a save warning
-		System.exit(0);
-	}
-	
-}
