@@ -1,6 +1,6 @@
 package view;
 
-import game.*;
+import game.Game;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 

@@ -13,24 +13,9 @@ public abstract class PauseMenuController {
 		this.game = game;
 	}
 	
-	public class ResumeHandler<T extends Event> implements EventHandler<ActionEvent>{
-		
-		@Override
-		public void handle(ActionEvent arg0) {
-			game.resume();
-		}
-		
-	}
 	
-	public class SaveHandler<T extends Event> implements EventHandler<ActionEvent>{
+	
 
-		@Override
-		public void handle(ActionEvent arg0) {
-			Save save = new Save(game);
-			save.saveGame();
-		}
-		
-	}
 	
 	public class QuitToMenuHandler<T extends Event> implements EventHandler<ActionEvent>{
 
