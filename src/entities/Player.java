@@ -8,7 +8,9 @@ public class Player extends MovableEntity {
 	private int health;
 	
 	public Player(float x, float y, Type type) {
-		super(x, y, type);
+		super.x = x;
+		super.y = y;
+		super.type = type;
 		health = 100;
 	}
 	

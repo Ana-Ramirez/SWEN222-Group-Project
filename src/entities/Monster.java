@@ -5,8 +5,11 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 public class Monster extends MovableEntity {
 	private Weapon weapon;
 
-	public Monster(float x, float y, Type type) {
-		super(x, y, type);
+	public Monster(String name, float x, float y, Type type) {
+		super.name = name;
+		super.x = x;
+		super.y = y;
+		super.type = type;
 	}
 	
 	@Override

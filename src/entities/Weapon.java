@@ -5,19 +5,24 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 public abstract class Weapon extends Pickupable {
 	private int damage;
 	
-
-	protected Weapon(float x, float y, Type type, int damage) {
-		super(x, y, type);
+	protected Weapon(int damage) {
 		this.damage = damage;
-		// TODO Auto-generated constructor stub
 	}
 	
 	public boolean attack(Entity victim) {
 		throw new NotImplementedException();
 	}
 	
-	private static int modifier() {
+	public int getDamage(Entity victim) {
 		throw new NotImplementedException();
+	}
+	
+	private int getModifier(Entity victim) {
+		throw new NotImplementedException();
+	}
+	
+	protected int getBaseDamage() {
+		return damage;
 	}
 
 }
