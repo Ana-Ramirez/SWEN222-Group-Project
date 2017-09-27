@@ -7,11 +7,13 @@ public class Door {
 	private Room startRoom, endRoom;
 	private boolean doorLocked = true;
 	private Entity unlockItem;
+	private int doorNum;
 	
-	public Door(Room rm1, Room rm2, Entity item){
+	public Door(Room rm1, Room rm2, Entity item, int doorNum){
 		this.startRoom = rm1;
 		this.endRoom = rm2;
 		this.unlockItem = item;
+		this.doorNum = doorNum;
 	}
 	
 	/**
@@ -36,5 +38,9 @@ public class Door {
 	
 	public void setRoom2(){
 		throw new NotImplementedException();
+	}
+	
+	public int getDoorNum(){
+		return this.doorNum;
 	}
 }
