@@ -1,44 +1,28 @@
 package entities;
 
 
-public abstract class MovableEntity implements Entity {
-	private float x;
-	private float y;
-	private int size;
-	private Type type;
+/**
+ * Abstract class for a movable entity
+ * @author Nick Lauder
+ *
+ */
+public abstract class MovableEntity extends Entity {
 	
-	public MovableEntity(float x, float y, Type type) {
-		this.x = x;
-		this.y = y;
-		this.type = type;
-		
-	}
 	
-	@Override
-	public float getX() {
-		return x;
-	}
-
-	@Override
-	public float getY() {
-		return y;
-	}
-	
-	protected void setXY(float x, float y) {
-		this.x = x; 
-		this.y = y;
+	/**
+	 * Moves the entity a given amount on each axis
+	 * @param x
+	 * 		the amount to change x by
+	 * @param y
+	 * 		the amount to change y by
+	 * @return
+	 * 		true if successful, else false
+	 */
+	public boolean move(float x, float y) {
+		this.x += x;
+		this.y += y;
+		return true;
+		//TODO proper success handling
 	}
 	
-	public int getSize() {
-		return size;
-	}
-	
-	public boolean receiveHit(Weapon weapon) {
-		return false;
-	}
-	
-	public Type getType() {
-		return type;
-	}
-
 }
