@@ -1,6 +1,7 @@
 package view;
 
 import game.Game;
+import game.StartHandler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
@@ -18,9 +19,9 @@ import saveLoad.Load;
 public class MainMenu extends Application{
 	Scene scene;
 	StackPane root;
-	
+
 	public void start(Stage primaryStage) throws Exception{
-		
+
 	}
 
 	public MainMenu(){
