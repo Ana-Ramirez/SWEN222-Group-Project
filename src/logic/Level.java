@@ -53,6 +53,14 @@ public class Level {
 		
 	}
 	
+	/**
+	 * Is move by player valid
+	 */
+	public boolean canPlayerMove(){
+		//Room.movePlayer();
+		throw new NotImplementedException();
+	}
+	
 	public Entity getPlayer(){
 		throw new NotImplementedException();
 	}
