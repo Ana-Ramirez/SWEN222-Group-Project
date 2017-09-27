@@ -41,7 +41,8 @@ public class Room {
 		for(Door door : this.doors){
 			if(d == door){
 				Room toMoveInto = (this == d.getRoom1()) ? d.getRoom2() : d.getRoom1();
-				toMoveInto.enterPlayer(this.player);
+				toMoveInto.setPlayer(this.player);
+				this.player = null;
 			}
 		}
 	}
@@ -147,7 +148,7 @@ public class Room {
 	 * and be put into one of the rooms/starting room.
 	 * @param player
 	 */
-	public void enterPlayer(Player player){
+	public void setPlayer(Player player){
 		this.player = player;
 	}
 	
@@ -163,6 +164,13 @@ public class Room {
 	 */
 	public int getRoomNum(){
 		return this.roomNum;
+	}
+	
+	/**
+	 * Get player in room
+	 */
+	public Player getPlayer(){
+		return this.player;
 	}
 	
 }
