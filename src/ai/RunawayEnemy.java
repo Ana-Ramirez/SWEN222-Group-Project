@@ -2,6 +2,7 @@ package ai;
 
 import java.awt.Rectangle;
 
+import entities.Monster;
 import entities.Player;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -27,7 +28,7 @@ public class RunawayEnemy implements Enemies{
 	/**
 	 * Do relevant movement
 	 */
-	public void move() {
+	public void tick(Monster monster) {
 		if (x > player.getX()) {
 			x += speed;
 		}
