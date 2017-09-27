@@ -1,5 +1,7 @@
 package resources;
 
-public class ImgResources {
+import java.awt.Image;
 
+public enum ImgResources {
+	PIG("Pig.png");
 }
