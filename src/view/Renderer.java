@@ -6,7 +6,7 @@ import entities.*;
 
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
-
+import resources.ImgResources;
 import logic.*;
 
 
@@ -35,7 +35,7 @@ public class Renderer{
 	 */
 	public void drawEntities(){
 		for (Entity e : entities){
-			//g.drawImage(e.getImage(), (double)e.getX(), (double)e.getY());
+			g.drawImage(e.getImage(), (double)e.getX(), (double)e.getY());
 		}
 	}
 
@@ -57,7 +57,7 @@ public class Renderer{
 	 */
 	private void setEntityImages() {
 		for (Entity e : this.entities) {
-			//e.setImage(ImgResources.e.getName());
+			//e.setImage(ImgResources.MAINMENUBG);
 		}
 	}
 
