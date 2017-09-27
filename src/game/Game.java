@@ -33,12 +33,6 @@ public class Game implements Serializable{
 	private List<Level> levels;
 	
 	/**
-	 * Event handling classes for menu buttons
-	 */
-//	private PauseMenuController pm_Controller = new PauseMenuController();	
-//	private MainMenuController sm_Controller = new MainMenuController();
-	
-	/**
 	 * Constructs a new Game object
 	 * 
 	 * @param mainMenu
