@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entities.Entity;
+import entities.Player;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -15,10 +16,10 @@ public class Level {
 	
 	private int numRooms = 0;
 	private List<Room> rooms;
-	private Entity player;
+	private Player player;
 	private boolean gotPatrick = false;
 	
-	public Level(Entity player, int numRooms){
+	public Level(Player player, int numRooms){
 		this.player = player;
 		this.numRooms = numRooms;
 		this.rooms = new ArrayList<Room>();
@@ -29,7 +30,11 @@ public class Level {
 	 * create rooms and add to this level
 	 */
 	private void initialise(){
-		throw new NotImplementedException();
+		Room room1 = new Room(1);
+		Room room2 = new Room(2);
+		Room room3 = new Room(3);
+		Room room4 = new Room(4);
+		Room room5 = new Room(5);
 	}
 	
 	/**
@@ -49,8 +54,7 @@ public class Level {
 	}
 	
 	public boolean gotPatrick(){
-//		this.gotPatrick = true;
-		throw new NotImplementedException();
+		return this.gotPatrick;
 	}
 	
 	
