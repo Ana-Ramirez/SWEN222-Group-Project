@@ -41,7 +41,8 @@ public class Room {
 		for(Door door : this.doors){
 			if(d == door){
 				Room toMoveInto = (this == d.getRoom1()) ? d.getRoom2() : d.getRoom1();
-				toMoveInto.enterPlayer(this.player);
+				toMoveInto.setPlayer(this.player);
+				this.player = null;
 			}
 		}
 	}
@@ -65,14 +66,13 @@ public class Room {
 	 * @param monster
 	 * @return
 	 */
-	public int getMonsterHealth(Monster monster){
-		int health = 0;
+	public Entity getMonster(Monster monster){
 		for(Entity e : this.roomItems){
-			if(e == monster){	//if it's the same entity
-				health = e.getLives();
+			if(e instanceof Monster){	//if it's the same entity
+				return e;
 			}
 		}
-		return health;
+		return null;
 	}
 	
 	/**
@@ -148,7 +148,7 @@ public class Room {
 	 * and be put into one of the rooms/starting room.
 	 * @param player
 	 */
-	public void enterPlayer(Entity player){
+	public void setPlayer(Player player){
 		this.player = player;
 	}
 	
@@ -159,5 +159,18 @@ public class Room {
 		return this.doors;
 	}
 	
+	/**
+	 * @return room num
+	 */
+	public int getRoomNum(){
+		return this.roomNum;
+	}
+	
+	/**
+	 * Get player in room
+	 */
+	public Player getPlayer(){
+		return this.player;
+	}
 	
 }
