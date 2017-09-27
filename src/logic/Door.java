@@ -1,5 +1,6 @@
 package logic;
 
+import entities.Entity;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Door {

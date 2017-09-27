@@ -3,8 +3,7 @@ package logic;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.text.html.parser.Entity;
-
+import entities.Entity;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**

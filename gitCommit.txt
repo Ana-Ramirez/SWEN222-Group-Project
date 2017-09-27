@@ -1,0 +1,10 @@
+To commit your work:
+
+1. git add . //this "stages" the files you are working on so you can add a whole bunch of files here.
+    '.' stages all unstaged files
+    
+2. git commit -m "commit message here"
+
+3. git push
+
+done. double check on gitlab just in case
