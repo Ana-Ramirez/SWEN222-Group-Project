@@ -65,14 +65,13 @@ public class Room {
 	 * @param monster
 	 * @return
 	 */
-	public int getMonsterHealth(Monster monster){
-		int health = 0;
+	public Entity getMonster(Monster monster){
 		for(Entity e : this.roomItems){
-			if(e == monster){	//if it's the same entity
-				health = e.getLives();
+			if(e instanceof Monster){	//if it's the same entity
+				return e;
 			}
 		}
-		return health;
+		return null;
 	}
 	
 	/**
@@ -148,7 +147,7 @@ public class Room {
 	 * and be put into one of the rooms/starting room.
 	 * @param player
 	 */
-	public void enterPlayer(Entity player){
+	public void enterPlayer(Player player){
 		this.player = player;
 	}
 	
