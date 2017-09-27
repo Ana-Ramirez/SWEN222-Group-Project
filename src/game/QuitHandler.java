@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 
-class QuitHandler<T extends Event> implements EventHandler<ActionEvent>{
+public class QuitHandler<T extends Event> implements EventHandler<ActionEvent>{
 
 	@Override
 	public void handle(ActionEvent arg0) {
