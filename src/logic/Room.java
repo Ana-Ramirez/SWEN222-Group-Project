@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entities.Entity;
+import entities.Monster;
+import entities.Player;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -19,7 +21,7 @@ public class Room {
 	private int roomNum;
 	private List<Entity> roomItems;
 	private List<Door> doors;
-	private Entity player = null;
+	private Player player = null;
 	
 	/**
 	 * Constructs a new room
@@ -63,10 +65,10 @@ public class Room {
 	 * @param monster
 	 * @return
 	 */
-	public int getMonsterHealth(Entity monster){
+	public int getMonsterHealth(Monster monster){
 		int health = 0;
 		for(Entity e : this.roomItems){
-			if(e.equals(monster)){	//if it's the same entity
+			if(e == monster){	//if it's the same entity
 				health = e.getLives();
 			}
 		}
