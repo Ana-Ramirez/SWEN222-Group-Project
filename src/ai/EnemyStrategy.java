@@ -1,28 +1,22 @@
 package ai;
 
+import entities.Monster;
 
 public class EnemyStrategy implements Enemies{
-
-	private EnemyStrategy.Strategy strategy;
+	private Monster monster;
 	
-	public EnemyStrategy(int xPos, int yPos, int direction, EnemyStrategy.Strategy strategy){
-		//super(xPos, yPos, direction);
-		this.strategy = strategy;
+	public EnemyStrategy(int xPos, int yPos, int direction, Monster monster){
 	}
 	
 	public float speed(){
-		return strategy.speed();
+		return 0f;
 	}
 	
 	
 	public void tick(){
-		strategy.tick();
+		monster.move(1,  2);
 	}
 	
-	
-	interface Strategy{
-		public float speed();
-		public void tick();
-	}
+
 	
 }

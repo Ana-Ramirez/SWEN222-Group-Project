@@ -1,6 +1,8 @@
 package ai;
 
 import java.awt.Rectangle;
+
+import entities.Player;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -9,17 +11,17 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 */
 
 public class PatrollingEnemy implements Enemies{
+	
+	public Player player;
 	public int health;
 	public float speed = 0.5f;
 	public int x;
 	public int y;
 	private Rectangle boundingBox = new Rectangle(((int) x * 6) - 30, ((int) y * 6) - 30, 50, 50);
+	public Goal goal1 = new Goal(100,100);
+	public Goal goal2 = new Goal(200,200);
+	public Goal currentGoal = goal1;
 
-	private Goal g = new Goal(50, 50);
-
-	public Goal getPlayer() {
-		return g;
-	}
 
 	public PatrollingEnemy(float x, float y) {
 
@@ -29,19 +31,21 @@ public class PatrollingEnemy implements Enemies{
 	 * Do relevant movement
 	 */
 	public void move() {
-		if (x > g.x) {
+		
+		
+		if (x > currentGoal.getX()) {
 			x -= speed;
 		}
 
-		if (x < g.x) {
+		if (x < currentGoal.getY()) {
 			x += speed;
 		}
 
-		if (y > g.y) {
+		if (y > currentGoal.getX()) {
 			y -= speed;
 		}
 
-		if (y < g.y) {
+		if (y < currentGoal.getY()) {
 			y += speed;
 		}
 
@@ -77,17 +81,18 @@ public class PatrollingEnemy implements Enemies{
 		throw new NotImplementedException();
 	}
 
-	public class Goal {
+	class Goal {
 
 		float x;
 		float y;
+		public float speed = 2;
 
 		public Goal(float x, float y) {
 
 		}
 
 		private Rectangle boundingBox = new Rectangle(((int) x * 6) - 30, ((int) y * 6) - 30, 50, 50);
-		public final float speed = 2;
+		
 
 		public Rectangle getBoundingBox() {
 			return boundingBox;
@@ -102,6 +107,8 @@ public class PatrollingEnemy implements Enemies{
 		}
 
 	}
+	
+
 }
 
 
