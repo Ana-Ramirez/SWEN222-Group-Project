@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 import entities.Player;
+import javafx.application.Application;
+import javafx.scene.input.KeyEvent;
 import logic.Level;
-import view.MainMenu;
-import view.PauseMenu;
 import view.Renderer;
 
 /**
@@ -65,5 +65,9 @@ public class Game implements Serializable{
 	 */
 	private void generateLevels() {
 		//TODO Initialise levels
+	}
+	
+	private void initialiseKeyListener() {
+		renderer.getScene().onKeyPressed(new KeyPressHandler<KeyEvent>(player));
 	}
 }

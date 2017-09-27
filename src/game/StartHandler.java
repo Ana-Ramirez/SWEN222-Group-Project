@@ -1,5 +1,7 @@
 package game;
 
+import java.awt.Graphics2D;
+
 import entities.Player;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
