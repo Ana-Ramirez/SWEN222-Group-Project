@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 import game.Game;
+import saveLoad.SaveLoadUnitTests.TestClass;
 
 /**
  * Functional class that loads a saved game from a file
@@ -30,7 +31,7 @@ public class Load {
 	 * Loads a save game from a file
 	 * @return save game
 	 */
-	public Game loadGame() {
+	public Object loadGame() {
 		try {
 			
 			//Read file from disk
@@ -44,6 +45,9 @@ public class Load {
 			//Check object is valid
 			if(obj instanceof Game) {
 				return (Game) obj;
+			}
+			else if(obj instanceof TestClass) {
+				return (TestClass) obj;
 			}
 			else {
 				throw new IOException("Invalid File");
