@@ -1,5 +1,6 @@
 package ai;
 
+import entities.Monster;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -19,7 +20,7 @@ public class RandomEnemy implements Enemies{
 	/**
 	 * Do relevant movement
 	 */
-	public void move(){
+	public void tick(Monster monster){
 		throw new NotImplementedException();
 	}
 	
