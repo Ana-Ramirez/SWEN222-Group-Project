@@ -67,7 +67,7 @@ public class Room {
 		int health = 0;
 		for(Entity e : this.roomItems){
 			if(e.equals(monster)){	//if it's the same entity
-				health = e.getHealth();
+				health = e.getLives();
 			}
 		}
 		return health;
