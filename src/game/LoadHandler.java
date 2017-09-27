@@ -9,7 +9,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import saveLoad.Load;
 
-class LoadHandler<T extends Event> implements EventHandler<ActionEvent>{
+public class LoadHandler<T extends Event> implements EventHandler<ActionEvent>{
 
 	@Override
 	public void handle(ActionEvent event) {
