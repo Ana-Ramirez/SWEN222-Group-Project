@@ -1,16 +1,14 @@
 package entities;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 /**
  * Player object, the entity that is controlled by the user
  * @author Nick Lauder
  *
  */
-public class Player extends MovableEntity {
+public class Player extends Character {
 	private Pickupable[] inventory;
 	private Pickupable hand;
-	private int health;
+	
 	
 	/**
 	 * Creates a new playable character
@@ -20,30 +18,13 @@ public class Player extends MovableEntity {
 	 * 		the float of the starting y coordinate
 	 */
 	public Player(float x, float y) {
+		super(3);
 		this.x = x;
 		this.y = y;
-		health = 100;
+		inventory = new Pickupable[2];
+		hand = null;
 	}
 	
-	/**
-	 * Returns the amount of health the player has left
-	 * @return
-	 * 		the int of the players remaining health
-	 */
-	public int getHealth() {
-		return health;
-	}
-	
-	/**
-	 * Sets the new coordinates of the player
-	 * @param x
-	 * 		the float of the new x coordinate
-	 * @param y
-	 * 		the float of the new y coordinate
-	 */
-	public void setCoor(float x, float y) {
-		throw new NotImplementedException();
-	}
 	
 	/**
 	 * Changes the players help item to 
@@ -52,8 +33,35 @@ public class Player extends MovableEntity {
 	 * 		true if successful, else false
 	 */
 	public boolean changeHand() {
-		throw new NotImplementedException();
+		Pickupable holder = hand;
+		hand = inventory[0];
+		inventory[0] = inventory[1];
+		inventory[1] = holder;
+		return true;
+		//TODO proper success checking
 	}
+	
+	
+	/**
+	 * Adds a given item to the players inventory
+	 * @param item
+	 * 		the item to add
+	 * @return
+	 * 		true only if space is available in the inventory
+	 */
+	public boolean pickup(Pickupable item) {
+		if (hand == null) {
+			hand = item;
+		} else if (inventory[0] == null) {
+			inventory[0] = item;
+		} else if (inventory[1] == null) {
+			inventory[1] = item;
+		} else {
+			return false;
+		}
+		return true;
+	}
+	
 	
 	@Override
 	public String getName() {

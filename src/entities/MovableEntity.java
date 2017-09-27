@@ -1,6 +1,5 @@
 package entities;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Abstract class for a movable entity
@@ -8,6 +7,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  *
  */
 public abstract class MovableEntity extends Entity {
+	
 	
 	/**
 	 * Moves the entity a given amount on each axis
@@ -19,7 +19,10 @@ public abstract class MovableEntity extends Entity {
 	 * 		true if successful, else false
 	 */
 	public boolean move(float x, float y) {
-		throw new NotImplementedException();
+		this.x += x;
+		this.y += y;
+		return true;
+		//TODO proper success handling
 	}
 	
 }

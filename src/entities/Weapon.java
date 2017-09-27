@@ -2,13 +2,15 @@ package entities;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+
 /**
  * Abstract class for all the different types of weapons
  * @author Nick Lauder
  *
  */
-public abstract class Weapon extends Pickupable {
-	private int damage;
+public abstract class Weapon extends Pickupable implements Cloneable{
+	private int baseDamage;
+	
 	
 	/**
 	 * Creates a new weapon with a given base damage
@@ -16,8 +18,9 @@ public abstract class Weapon extends Pickupable {
 	 * 		the int base damage to use
 	 */
 	protected Weapon(int damage) {
-		this.damage = damage;
+		this.baseDamage = damage;
 	}
+	
 	
 	/**
 	 * Deals damage to a given entity
@@ -27,8 +30,9 @@ public abstract class Weapon extends Pickupable {
 	 * 		true if damage dealt, else false
 	 */
 	public boolean attack(Entity victim) {
-		throw new NotImplementedException();
+		return victim.hit();
 	}
+	
 	
 	/**
 	 * Returns the amount of damage to give a given entity
@@ -38,8 +42,10 @@ public abstract class Weapon extends Pickupable {
 	 * 		the int value of damage it would give
 	 */
 	private int getDamage(Entity victim) {
-		throw new NotImplementedException();
+		return baseDamage * (int) getModifier(victim);
+		
 	}
+	
 	
 	/**
 	 * Gets the modifier depending on the type of the 
@@ -50,8 +56,37 @@ public abstract class Weapon extends Pickupable {
 	 * 		the float value of the modifier
 	 */
 	private float getModifier(Entity victim) {
-		throw new NotImplementedException();
+		float modifier = 1;
+		int i;
+		
+		for (i = 0; i < Type.values().length; i++) {
+			if (type == Type.values()[i]) {
+				break;
+			}
+		}
+		
+		try {
+			if (Type.values()[i-1] == victim.type) {
+				modifier = 0.5f;
+			} else if (Type.values()[i+1] == victim.type) {
+				modifier = 2;
+			}
+		} catch (IndexOutOfBoundsException e) {
+			if (i == 0) {
+				if (Type.values()[Type.values().length-1] == victim.type) {
+					modifier = 0.5f;
+				}
+			} else if (i == Type.values().length-1) {
+				if (Type.values()[0] == victim.type) {
+					modifier = 2;
+				}
+			}
+		}
+		
+		return modifier;
+		
 	}
+	
 	
 	/**
 	 * Gets the base damage (without modifier) of the weapon
@@ -59,7 +94,13 @@ public abstract class Weapon extends Pickupable {
 	 * 		the int value of the damage
 	 */
 	protected int getBaseDamage() {
-		return damage;
+		return baseDamage;
+	}
+	
+	
+	@Override
+	protected Weapon clone() {
+		return this.clone();
 	}
 
 }

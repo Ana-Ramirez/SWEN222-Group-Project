@@ -9,6 +9,7 @@ package entities;
 public abstract class Entity {
 	protected float x;
 	protected float y;
+	protected int size;
 	protected String name;
 	protected Type type;
 	
@@ -44,7 +45,7 @@ public abstract class Entity {
 	 * 		an int value of the entity dimensions
 	 */
 	public int getSize() {
-		return 0;
+		return size;
 	}
 	
 	/**
@@ -55,5 +56,13 @@ public abstract class Entity {
 	public String getName() {
 		return name;
 	}
+	
+	
+	/**
+	 * Hits the entity
+	 * @return
+	 * 		true if damage taken
+	 */
+	protected abstract boolean hit();
 	
 }

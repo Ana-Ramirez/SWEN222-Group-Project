@@ -14,6 +14,7 @@ package entities;
  */
 public class Projectile extends Weapon {
 
+	
 	/**
 	 * Creates a new projectile
 	 * @param name

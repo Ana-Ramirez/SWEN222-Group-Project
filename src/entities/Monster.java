@@ -6,7 +6,7 @@ package entities;
  * @author Nick Lauder
  *
  */
-public class Monster extends MovableEntity {
+public class Monster extends Character {
 	private Weapon weapon;
 	
 	/**
@@ -23,10 +23,15 @@ public class Monster extends MovableEntity {
 	 * 		the monsters weapon
 	 */
 	public Monster(String name, float x, float y, Type type, Weapon weapon) {
+		super(1);
 		this.name = name;
 		this.x = x;
 		this.y = y;
 		this.type = type;
 		this.weapon = weapon;
+	}
+	
+	public Weapon getWeapon() {
+		return weapon.clone();
 	}
 }
