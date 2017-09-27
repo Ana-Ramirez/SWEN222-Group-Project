@@ -1,6 +1,6 @@
 package entities;
 
-import java.awt.Image;
+import javafx.scene.image.Image;
 
 /**
  * An abstract class that is the super for all entities.
