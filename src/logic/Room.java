@@ -158,5 +158,11 @@ public class Room {
 		return this.doors;
 	}
 	
+	/**
+	 * @return room num
+	 */
+	public int getRoomNum(){
+		return this.roomNum;
+	}
 	
 }
