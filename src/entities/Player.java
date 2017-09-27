@@ -1,29 +1,71 @@
 package entities;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-public class Player extends MovableEntity {
+/**
+ * Player object, the entity that is controlled by the user
+ * @author Nick Lauder
+ *
+ */
+public class Player extends Character {
 	private Pickupable[] inventory;
 	private Pickupable hand;
-	private int health;
 	
-	public Player(float x, float y, Type type) {
-		super(x, y, type);
-		health = 100;
+	
+	/**
+	 * Creates a new playable character
+	 * @param x
+	 * 		the float of the starting x coordinate
+	 * @param y
+	 * 		the float of the starting y coordinate
+	 */
+	public Player(float x, float y) {
+		super(3);
+		this.x = x;
+		this.y = y;
+		inventory = new Pickupable[2];
+		hand = null;
 	}
 	
-	public void setCoor(float x, float y) {
-		setXY(x, y);
+	
+	/**
+	 * Changes the players help item to 
+	 * the next item in the inventory
+	 * @return
+	 * 		true if successful, else false
+	 */
+	public boolean changeHand() {
+		Pickupable holder = hand;
+		hand = inventory[0];
+		inventory[0] = inventory[1];
+		inventory[1] = holder;
+		return true;
+		//TODO proper success checking
 	}
+	
+	
+	/**
+	 * Adds a given item to the players inventory
+	 * @param item
+	 * 		the item to add
+	 * @return
+	 * 		true only if space is available in the inventory
+	 */
+	public boolean pickup(Pickupable item) {
+		if (hand == null) {
+			hand = item;
+		} else if (inventory[0] == null) {
+			inventory[0] = item;
+		} else if (inventory[1] == null) {
+			inventory[1] = item;
+		} else {
+			return false;
+		}
+		return true;
+	}
+	
 	
 	@Override
-	public boolean receiveHit(Weapon weapon) {
-		//TODO implement;
-		throw new NotImplementedException();
-	}
-	
-	public boolean changeHand() {
-		throw new NotImplementedException();
+	public String getName() {
+		return "Tim";
 	}
 	
 	
