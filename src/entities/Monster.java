@@ -1,5 +1,6 @@
 package entities;
 
+import ai.Enemies;
 
 /**
  * The monster object that can move around the level and attack the player
@@ -8,6 +9,8 @@ package entities;
  */
 public class Monster extends Character {
 	private Weapon weapon;
+	private Enemies pattern;
+
 
 	/**
 	 * Creates a new monster
@@ -31,7 +34,29 @@ public class Monster extends Character {
 		this.weapon = weapon;
 	}
 
+
+	/**
+	 * Gets the monsters weapon
+	 * @return
+	 * 		a copy of the weapon object
+	 */
 	public Weapon getWeapon() {
 		return weapon.clone();
+	}
+
+	/**
+	 * Sets the starergy pattern for the monster
+	 * @param pattern
+	 * 		the pattern to use
+	 */
+	public void setStratergy(Enemies pattern) {
+		this.pattern = pattern;
+	}
+
+	/**
+	 * Executes a tick for the monster, updating it's location
+	 */
+	public void tick() {
+		pattern.tick(this);
 	}
 }
