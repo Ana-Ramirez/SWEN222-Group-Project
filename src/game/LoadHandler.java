@@ -17,7 +17,7 @@ public class LoadHandler<T extends Event> implements EventHandler<ActionEvent>{
 		File file = fc.showOpenDialog(new Stage());//I hope this works?
 		
 		Load load = new Load(file.getName());
-		Game game = load.loadGame();
+		Game game = (Game) load.loadGame();
 		
 		game.startGame();
 	}

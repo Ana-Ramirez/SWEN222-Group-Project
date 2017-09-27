@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 import game.Game;
-import saveLoad.SaveLoadUnitTests.TestClass;
+import saveLoad.TestClass;
 
 /**
  * Functional class that loads a saved game from a file
