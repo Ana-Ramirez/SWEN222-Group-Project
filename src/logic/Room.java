@@ -19,6 +19,7 @@ public class Room {
 	private int roomNum;
 	private List<Entity> roomItems;
 	private List<Door> doors;
+	private Entity player = null;
 	
 	/**
 	 * Constructs a new room
@@ -34,8 +35,13 @@ public class Room {
 	 * When player wants to move room through a door
 	 * @param d
 	 */
-	public void moveRoom(Door d){
-		throw new NotImplementedException();
+	public void goThroughDoor(Door d){
+		for(Door door : this.doors){
+			if(d == door){
+				Room toMoveInto = (this == d.getRoom1()) ? d.getRoom2() : d.getRoom1();
+				toMoveInto.enterPlayer(this.player);
+			}
+		}
 	}
 	
 	/**
@@ -43,12 +49,28 @@ public class Room {
 	 * Will they bump into anything
 	 * @return
 	 */
-	public boolean movePlayer(){
-		throw new NotImplementedException();
+	public boolean movePlayer(float x, float y){
+		for(Entity e : this.roomItems){
+			if(x == e.getX() && y == e.getY()){
+				return false;
+			}
+		}
+		return true;	//they can move
 	}
 	
-	public int getMonsterHealth(){
-		throw new NotImplementedException();
+	/**
+	 * 
+	 * @param monster
+	 * @return
+	 */
+	public int getMonsterHealth(Entity monster){
+		int health = 0;
+		for(Entity e : this.roomItems){
+			if(e.equals(monster)){	//if it's the same entity
+				health = e.getLives();
+			}
+		}
+		return health;
 	}
 	
 	/**
@@ -56,7 +78,6 @@ public class Room {
 	 * @param d		door to add
 	 */
 	public void addDoor(Door d){
-		//Door door = new Door(this, other);
 		this.doors.add(d);
 	}
 	
@@ -90,7 +111,7 @@ public class Room {
 	 */
 	public Door getDoor(int i){
 		for(Door d : this.doors){
-			if(d.getNum().equals(i)){
+			if(d.getDoorNum() == i){
 				return d;
 			}
 		}
@@ -117,6 +138,23 @@ public class Room {
 	 */
 	public boolean doorLocked(){
 		throw new NotImplementedException();
+	}
+	
+	/**
+	 * Used to make a player enter into a room through  door.
+	 * Can also be used to make the player enter the game initially
+	 * and be put into one of the rooms/starting room.
+	 * @param player
+	 */
+	public void enterPlayer(Entity player){
+		this.player = player;
+	}
+	
+	/**
+	 * @return the list of doors for this room
+	 */
+	public List<Door> getDoors(){
+		return this.doors;
 	}
 	
 	
