@@ -1,15 +1,15 @@
 package entities;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+/**
+ * Abstract class for a pickupable object
+ * @author Nick Lauder
+ *
+ */
 public abstract class Pickupable extends MovableEntity {
 
-	protected Pickupable(float x, float y, Type type) {
-		super(x, y, type);
+	@Override
+	protected boolean hit() {
+		return false;
 	}
-	
-	public boolean pickup() {
-		throw new NotImplementedException();
-	}
-
 }

@@ -1,15 +1,13 @@
 package view;
 
 import game.Game;
+import game.LoadHandler;
+import game.QuitHandler;
 import game.StartHandler;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import saveLoad.Load;
 
 /**
  * Main menu shown to the player before they enter the game
