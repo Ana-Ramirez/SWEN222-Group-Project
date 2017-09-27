@@ -1,6 +1,8 @@
 package ai;
 
 import java.awt.Rectangle;
+
+import entities.Player;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -11,17 +13,13 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class FollowingEnemy implements Enemies {
 
+	public Player player;
 	public int health;
 	public float speed = 0.5f;
 	public int x;
 	public int y;
 	private Rectangle boundingBox = new Rectangle(((int) x * 6) - 30, ((int) y * 6) - 30, 50, 50);
 
-	private Player p = new Player(50, 50);
-
-	public Player getPlayer() {
-		return p;
-	}
 
 	public FollowingEnemy(float x, float y) {
 
@@ -31,19 +29,19 @@ public class FollowingEnemy implements Enemies {
 	 * Do relevant movement
 	 */
 	public void move() {
-		if (x > p.x) {
+		if (x > player.getX()) {
 			x -= speed;
 		}
 
-		if (x < p.x) {
+		if (x < player.getY()) {
 			x += speed;
 		}
 
-		if (y > p.y) {
+		if (y > player.getX()) {
 			y -= speed;
 		}
 
-		if (y < p.y) {
+		if (y < player.getY()) {
 			y += speed;
 		}
 
@@ -79,29 +77,5 @@ public class FollowingEnemy implements Enemies {
 		throw new NotImplementedException();
 	}
 
-	public class Player {
-
-		float x;
-		float y;
-
-		public Player(float x, float y) {
-
-		}
-
-		private Rectangle boundingBox = new Rectangle(((int) x * 6) - 30, ((int) y * 6) - 30, 50, 50);
-		public final float speed = 2;
-
-		public Rectangle getBoundingBox() {
-			return boundingBox;
-		}
-
-		public float getX() {
-			return x;
-		}// no setter
-
-		public float getY() {
-			return y;
-		}
-
-	}
+	
 }
