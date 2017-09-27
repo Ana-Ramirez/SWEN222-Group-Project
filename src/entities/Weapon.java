@@ -1,7 +1,5 @@
 package entities;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 
 /**
  * Abstract class for all the different types of weapons
@@ -10,8 +8,8 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  */
 public abstract class Weapon extends Pickupable implements Cloneable{
 	private int baseDamage;
-	
-	
+
+
 	/**
 	 * Creates a new weapon with a given base damage
 	 * @param damage
@@ -20,8 +18,8 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 	protected Weapon(int damage) {
 		this.baseDamage = damage;
 	}
-	
-	
+
+
 	/**
 	 * Deals damage to a given entity
 	 * @param victim
@@ -32,8 +30,8 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 	public boolean attack(Entity victim) {
 		return victim.hit();
 	}
-	
-	
+
+
 	/**
 	 * Returns the amount of damage to give a given entity
 	 * @param victim
@@ -43,12 +41,12 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 	 */
 	private int getDamage(Entity victim) {
 		return baseDamage * (int) getModifier(victim);
-		
+
 	}
-	
-	
+
+
 	/**
-	 * Gets the modifier depending on the type of the 
+	 * Gets the modifier depending on the type of the
 	 * weapon compared to the type of the entity
 	 * @param victim
 	 * 		the entity to check
@@ -58,13 +56,13 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 	private float getModifier(Entity victim) {
 		float modifier = 1;
 		int i;
-		
+
 		for (i = 0; i < Type.values().length; i++) {
 			if (type == Type.values()[i]) {
 				break;
 			}
 		}
-		
+
 		try {
 			if (Type.values()[i-1] == victim.type) {
 				modifier = 0.5f;
@@ -82,12 +80,12 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 				}
 			}
 		}
-		
+
 		return modifier;
-		
+
 	}
-	
-	
+
+
 	/**
 	 * Gets the base damage (without modifier) of the weapon
 	 * @return
@@ -96,8 +94,8 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 	protected int getBaseDamage() {
 		return baseDamage;
 	}
-	
-	
+
+
 	@Override
 	protected Weapon clone() {
 		return this.clone();
