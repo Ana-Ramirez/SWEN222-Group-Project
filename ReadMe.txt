@@ -15,5 +15,7 @@ being added but not yet implemented. All the test files will be filled out in
 the near future.
 
 For save/load:
-The Save/Load package is responsibe for saving and loading game objects. There is a small conditional statemant
-checking for an instance of TestClass which is used for testing as the Game object is no where near finished.
+The Save/Load package is responsibe for saving and loading game objects. 
+There is a small conditional statemantchecking for an instance of 
+TestClass which is used for testing as the Game object is no where near finished.
+The one tests passes
