@@ -1,6 +1,9 @@
 package view;
 
 import game.Game;
+import game.QuitToMenuHandler;
+import game.ResumeHandler;
+import game.SaveHandler;
 import saveLoad.Save;
 import javafx.*;
 import javafx.event.ActionEvent;
@@ -40,7 +43,7 @@ public class PauseMenu {
 	public void resumeGameButton(Game game){
 		Button btn = new Button();
 		btn.setText("Resume Game");
-		btn.setOnAction(new ResumeHandler<ActionEvent>());
+		btn.setOnAction(new ResumeHandler<ActionEvent>(game));
 		root.getChildren().add(btn);
 	}
 	
@@ -51,7 +54,7 @@ public class PauseMenu {
 	public void saveGameButton(Game game){
 		Button btn = new Button();
 		btn.setText("Save Game");
-		btn.setOnAction(new SaveHandler<ActionEvent>());
+		btn.setOnAction(new SaveHandler<ActionEvent>(game));
 		root.getChildren().add(btn);
 	}
 	
