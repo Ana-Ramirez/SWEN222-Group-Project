@@ -35,7 +35,7 @@ public class Room {
 	 * When player wants to move room through a door
 	 * @param d
 	 */
-	public void moveRoom(Door d){
+	public void goThroughDoor(Door d){
 		for(Door door : this.doors){
 			if(d == door){
 				Room toMoveInto = (this == d.getRoom1()) ? d.getRoom2() : d.getRoom1();
@@ -58,6 +58,11 @@ public class Room {
 		return true;	//they can move
 	}
 	
+	/**
+	 * 
+	 * @param monster
+	 * @return
+	 */
 	public int getMonsterHealth(Entity monster){
 		int health = 0;
 		for(Entity e : this.roomItems){
@@ -143,6 +148,13 @@ public class Room {
 	 */
 	public void enterPlayer(Entity player){
 		this.player = player;
+	}
+	
+	/**
+	 * @return the list of doors for this room
+	 */
+	public List<Door> getDoors(){
+		return this.doors;
 	}
 	
 	

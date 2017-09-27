@@ -1,18 +1,19 @@
 package logic;
 
 import entities.Entity;
+import entities.Pickupable;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Door {
 	
-	private Room startRoom, endRoom;
+	private Room room1, room2;
 	private boolean doorLocked = true;
-	private Entity unlockItem;
+	private Pickupable unlockItem;
 	private int doorNum;
 	
-	public Door(Room rm1, Room rm2, Entity item, int doorNum){
-		this.startRoom = rm1;
-		this.endRoom = rm2;
+	public Door(Room rm1, Room rm2, Pickupable item, int doorNum){
+		this.room1 = rm1;
+		this.room2 = rm2;
 		this.unlockItem = item;
 		this.doorNum = doorNum;
 	}
@@ -22,26 +23,53 @@ public class Door {
 	 * @param item
 	 */
 	public void unlockDoor(Entity item){
-		throw new NotImplementedException();
+		if(item == this.unlockItem){
+			this.doorLocked = false;
+		}
 	}
 	
+	/**
+	 * @return the first room this door connects to
+	 */
 	public Room getRoom1(){
-		throw new NotImplementedException();
+		return this.room1;
 	}
 	
+	/**
+	 * @return the second room this door connects to
+	 */
 	public Room getRoom2(){
-		throw new NotImplementedException();
+		return this.room2;
 	}
 	
-	public void setRoom1(){
-		throw new NotImplementedException();
+	/**
+	 * Set the first room this door connects to
+	 * @param the room to set room1 to
+	 */
+	public void setRoom1(Room room){
+		this.room1 = room;
 	}
 	
-	public void setRoom2(){
-		throw new NotImplementedException();
+	/**
+	 * Set the second room this door connects to
+	 * @param the room to set room2 to
+	 */
+	public void setRoom2(Room room){
+		this.room2 = room;
 	}
 	
+	/**
+	 * @return the number door this is
+	 */
 	public int getDoorNum(){
 		return this.doorNum;
+	}
+	
+	/**
+	 * Return the unlock item for this door
+	 * @return
+	 */
+	public Entity getUnlockItem(){
+		return this.unlockItem;
 	}
 }
