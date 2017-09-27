@@ -1,49 +1,33 @@
 package view;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.util.List;
 
 import entities.*;
-import javafx.application.Application;
+
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import logic.*;
 import resources.ImgResources;
+import logic.*;
+
 
 /**
  * Renders the room and entities inside the room
  * @author Patrick
  *
  */
-public class Renderer extends Application{
+public class Renderer{
 	private GraphicsContext g;
 	private List<Entity> entities;
 	private Room room;
-	private Stage primaryStage;
 	private Scene scene;
 
-	public Renderer(GraphicsContext g, List<Entity> entities, Room room, Game game){
+	public Renderer(GraphicsContext g, List<Entity> entities, Room room, Scene scene){
 		this.g = g;
 		this.entities = entities;
 		this.room = room;
-
+		this.scene = scene;
 
 		setEntityImages();
-	}
-
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		this.primaryStage = primaryStage;
-		primaryStage.setTitle("Trouble in ChinaTown");
-
-		StackPane layout = new StackPane();
-
-		scene = new Scene(layout, 800, 600);
-		primaryStage.setScene(scene);
-		primaryStage.show();
 	}
 
 	/**
@@ -51,16 +35,19 @@ public class Renderer extends Application{
 	 */
 	public void drawEntities(){
 		for (Entity e : entities){
-			g.drawImage(e.getImage(), e.getX(), e.getY());
+			g.drawImage(e.getImage(), (double)e.getX(), (double)e.getY());
 		}
 	}
 
 	/**
-	 * Draws each door that leads to another room
+	 * Draws each a room and its doors that lead to other rooms
 	 */
 	public void drawRoom(){
-
+		//TODO draw images for the floor
+		
+		
 		for (Door d : room.getDoors()){
+			//TODO not all images implemented yet
 			//g.drawImage(ImgResources.DOOR.img, , , , );
 		}
 	}
@@ -70,7 +57,7 @@ public class Renderer extends Application{
 	 */
 	private void setEntityImages() {
 		for (Entity e : this.entities) {
-			e.setImage(ImgResources.e.getName());
+			//e.setImage(ImgResources.MAINMENUBG);
 		}
 	}
 
