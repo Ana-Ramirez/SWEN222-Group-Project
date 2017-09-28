@@ -13,3 +13,9 @@ For Logic:
 Have written tests for Door.class. Written tests some for Room.class with others
 being added but not yet implemented. All the test files will be filled out in 
 the near future.
+
+For AI:
+Written movement for the AI in all the different strategies. Library is not 
+complete yet because I still need to figure some things out with other team 
+members and their libraries that relate to mineNot made any tests
+yet unfortunately, I will do this tomorrow.
