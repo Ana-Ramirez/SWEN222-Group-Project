@@ -40,12 +40,14 @@ public class Game implements Serializable{
 	 * @param renderer
 	 * @param player
 	 */
-	public Game(Renderer renderer, Player player) {
-		this.renderer = renderer;
-		
-		this.player = player;
-		
+	public Game() {
 		generateLevels();
+		
+		if(levels.isEmpty()) throw new GameException("No level data found");
+		this.renderer = new Renderer();
+		
+		this.player = new Player(0,0);
+		
 	}
 	
 	public void startGame() {
