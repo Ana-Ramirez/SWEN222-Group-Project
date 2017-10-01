@@ -40,6 +40,7 @@ public class Renderer{
 	 * @param room
 	 */
 	public void renderRoom(List<Entity> entities, Room room) {
+		//TODO check for nulls
 		this.entities = entities;
 		this.room = room;
 	}
@@ -48,6 +49,7 @@ public class Renderer{
 	 * Draws the entities in the room
 	 */
 	public void drawEntities(){
+		//TODO check for nulls
 		for (Entity e : entities){
 			g.drawImage(e.getImage(), (double)e.getX(), (double)e.getY());
 		}
@@ -58,10 +60,12 @@ public class Renderer{
 	 */
 	public void drawRoom(){
 		//TODO draw images for the floor
+		//check for nulls
 
 
 		for (Door d : room.getDoors()){
 			//TODO not all images implemented yet
+			//check for nulls
 			//g.drawImage(ImgResources.DOOR.img, , , , );
 		}
 	}
@@ -70,7 +74,9 @@ public class Renderer{
 	 * Assigns images to the entities
 	 */
 	private void setEntityImages() {
+		//TODO check for nulls
 		for (Entity e : this.entities) {
+			//TODO implement this
 			//e.setImage(ImgResources.MAINMENUBG);
 		}
 	}
