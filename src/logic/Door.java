@@ -2,6 +2,8 @@ package logic;
 
 import entities.Entity;
 import entities.Pickupable;
+import entities.StationaryEntity;
+import entities.Type;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -10,7 +12,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * @author lewismcewan
  *
  */
-public class Door {
+public class Door extends StationaryEntity{
 	
 	private Room room1, room2;
 	private boolean doorLocked = true;
@@ -19,6 +21,7 @@ public class Door {
 	private int position;
 	
 	public Door(Room rm1, Room rm2, Pickupable item, int doorNum, int position){
+		super(Integer.toString(doorNum), 10, 10, 10, 10, null);
 		this.room1 = rm1;
 		this.room2 = rm2;
 		this.unlockItem = item;
@@ -79,6 +82,13 @@ public class Door {
 	 */
 	public Entity getUnlockItem(){
 		return this.unlockItem;
+	}
+	
+	/**
+	 * @return status of door lock
+	 */
+	public boolean isLocked(){
+		return this.doorLocked;
 	}
 	
 	/*
