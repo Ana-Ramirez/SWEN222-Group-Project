@@ -22,6 +22,11 @@ import view.Renderer;
 public class Game extends Application implements Serializable{
 	
 	/**
+	 * Player dimensions
+	 */
+	int playerWidth = 10, playerHeight = 10;
+	
+	/**
 	 * View objects
 	 */
 	private Renderer renderer;
@@ -36,15 +41,18 @@ public class Game extends Application implements Serializable{
 	 */
 	private List<Level> levels;
 	
+	/**
+	 * Direction of player movement
+	 */
 	private boolean goUp, goDown, goLeft, goRight;
 	
-	
-	public void pause() {
-		
-	}
-	
-	public void resume() {
-		
+	/**
+	 * Constructs a new Game object
+	 */
+	public Game() {
+		generateLevels();
+		this.renderer = new Renderer();
+		this.player = new Player(0,0, playerWidth, playerHeight);
 	}
 	
 	/**
@@ -59,13 +67,25 @@ public class Game extends Application implements Serializable{
 	 */
 	@Override
 	public void start(Stage stage) throws Exception {
-		generateLevels();
-		if(levels.isEmpty()) throw new GameException("No level data found");
-		this.renderer = new Renderer();
-		this.player = new Player(0,0);
 		
 		Scene scene = renderer.getScene();
 		
+		//Game loop
+		AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                int dx = 0, dy = 0;
+
+                if (goUp) dy -= 1;
+                if (goDown) dy += 1;
+                if (goLeft)  dx -= 1;
+                if (goRight)  dx += 1;
+                
+                player.moveBy(dx, dy);
+            }
+        };
+		
+        //Key listening
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
@@ -83,11 +103,14 @@ public class Game extends Application implements Serializable{
             @Override
             public void handle(KeyEvent event) {
                 switch (event.getCode()) {
-                    case W:    goUp = false; break;
-                    case S:  goDown = false; break;
-                    case A:  goLeft  = false; break;
+                    case W: goUp = false; break;
+                    case S: goDown = false; break;
+                    case A: goLeft  = false; break;
                     case D: goRight  = false; break;
-                    case ESCAPE : 
+//                    case ESCAPE : 
+//                    	timer.stop(); 
+//                    	PauseMenu pm = new PauseMenu(); //Maybe pass the renderer scene?
+//                    	pm.start(stage);
                     default : break;
                 }
             }
@@ -98,19 +121,7 @@ public class Game extends Application implements Serializable{
 		stage.setScene(scene);
 		stage.show();
 		
-		AnimationTimer timer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                int dx = 0, dy = 0;
-
-                if (goUp) dy -= 1;
-                if (goDown) dy += 1;
-                if (goLeft)  dx += 1;
-                if (goRight)  dx -= 1;
-                
-                player.move(dx, dy);
-            }
-        };
+		
         timer.start();
 	}	
 }
