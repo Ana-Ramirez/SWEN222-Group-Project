@@ -7,14 +7,14 @@ package entities;
 
 
 /**
- * Projectile object, handles a weapon that 
+ * Projectile object, handles a weapon that
  * fires projectiles in a given direction
  * @author Nick Lauder
  *
  */
 public class Projectile extends Weapon {
 
-	
+
 	/**
 	 * Creates a new projectile
 	 * @param name
@@ -28,8 +28,8 @@ public class Projectile extends Weapon {
 	 * @param damage
 	 * 		the base damage to use
 	 */
-	public Projectile(String name, float x, float y, Type type, int damage) {
-		super(damage);
+	public Projectile(String name, float x, float y, int width, int height, Type type, int damage) {
+		super(name, x, y, width, height, type, damage);
 		// TODO Auto-generated constructor stub
 	}
 

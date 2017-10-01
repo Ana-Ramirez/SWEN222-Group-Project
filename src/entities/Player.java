@@ -8,8 +8,8 @@ package entities;
 public class Player extends Character {
 	private Pickupable[] inventory;
 	private Pickupable hand;
-	
-	
+
+
 	/**
 	 * Creates a new playable character
 	 * @param x
@@ -17,17 +17,15 @@ public class Player extends Character {
 	 * @param y
 	 * 		the float of the starting y coordinate
 	 */
-	public Player(float x, float y) {
-		super(3);
-		this.x = x;
-		this.y = y;
+	public Player(float x, float y, int width, int height) {
+		super("Tim", x, y, width, height, null, 3);
 		inventory = new Pickupable[2];
 		hand = null;
 	}
-	
-	
+
+
 	/**
-	 * Changes the players help item to 
+	 * Changes the players help item to
 	 * the next item in the inventory
 	 * @return
 	 * 		true if successful, else false
@@ -40,8 +38,8 @@ public class Player extends Character {
 		return true;
 		//TODO proper success checking
 	}
-	
-	
+
+
 	/**
 	 * Adds a given item to the players inventory
 	 * @param item
@@ -61,12 +59,4 @@ public class Player extends Character {
 		}
 		return true;
 	}
-	
-	
-	@Override
-	public String getName() {
-		return "Tim";
-	}
-	
-	
 }

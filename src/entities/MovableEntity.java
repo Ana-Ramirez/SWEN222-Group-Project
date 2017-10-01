@@ -9,6 +9,11 @@ package entities;
 public abstract class MovableEntity extends Entity {
 
 
+	protected MovableEntity(String name, float x, float y, int width, int height, Type type) {
+		super(name, x, y, width, height, type);
+	}
+
+
 	/**
 	 * Moves the entity a given amount on each axis
 	 * @param x

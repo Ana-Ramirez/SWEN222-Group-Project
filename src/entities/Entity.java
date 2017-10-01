@@ -1,5 +1,6 @@
 package entities;
 
+import javafx.geometry.BoundingBox;
 import javafx.scene.image.Image;
 
 /**
@@ -11,10 +12,20 @@ import javafx.scene.image.Image;
 public abstract class Entity {
 	protected float x;
 	protected float y;
-	protected int size;
-	protected String name;
-	protected Type type;
+	private int width;
+	private int height;
+	private String name;
+	private Type type;
 	private Image image;
+
+	protected Entity (String name, float x, float y, int width, int height, Type type) {
+		this.name = name;
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.type = type;
+	}
 
 	/**
 	 * Gets the type assigned to the object
@@ -43,12 +54,21 @@ public abstract class Entity {
 	}
 
 	/**
-	 * Returns the width/height of the entity
+	 * Returns the width of the entity
 	 * @return
 	 * 		an int value of the entity dimensions
 	 */
-	public int getSize() {
-		return size;
+	public int getWidth() {
+		return width;
+	}
+
+	/**
+	 * Returns the width of the entity
+	 * @return
+	 * 		an int value of the entity dimensions
+	 */
+	public int getHeight() {
+		return height;
 	}
 
 	/**
@@ -79,6 +99,26 @@ public abstract class Entity {
 	public Image getImage() {
 		return image;
 	}
+
+
+	/**
+	 * Returns the image assigned to the entity
+	 * @return
+	 * 		the image object
+	 */
+	public BoundingBox getBoundingBox() {
+		return new BoundingBox(x, y, width, height);
+	}
+
+
+	/**
+	 * Removes a specific amount of lives from a caracter
+	 * @param damage
+	 * 		the amount of lives to remove
+	 * @return
+	 * 		true if damage given
+	 */
+	protected abstract boolean hit(int damage);
 
 	/**
 	 * Hits the entity

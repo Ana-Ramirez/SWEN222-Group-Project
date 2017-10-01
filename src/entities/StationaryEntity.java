@@ -6,10 +6,19 @@ package entities;
  * @author Nick Lauder
  *
  */
-public abstract class StationaryEntity extends Entity {
+public class StationaryEntity extends Entity {
+
+	public StationaryEntity(String name, int x, int y, int width, int height, Type type) {
+		super(name, x, y, width, height, type);
+	}
 
 	@Override
 	protected boolean hit() {
+		return false;
+	}
+
+	@Override
+	protected boolean hit(int damage) {
 		return false;
 	}
 }
