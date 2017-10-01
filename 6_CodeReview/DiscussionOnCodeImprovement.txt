@@ -1,0 +1,18 @@
+/**VIEW**/
+Tim and I decided to review each others' code instead of what we had been
+assigned before starting the assignment as our libraries interact with each
+other the most.
+
+Tim told me to change my constructor for the Renderer so that it doesn't take 
+any arguments. This mean only one instance of the Renderer can be used for 
+multiple different levels and rooms, which is much more efficient. Tim and I 
+also decided to remove the main class we previously had in the game, in favour 
+of either placing the main method inside MainMenu or inside the actual Game 
+class. For now I have a main method in my MainMenu class as this makes it easy 
+for me to see my menu progressing. Tim suggested passing my PrimaryStage to his 
+controller code for the EventListeners so that he can start and load games.
+
+/**SAVE/LOAD**/
+More null checks and error handling required.
+Since we started using the Javafx application API Patrick suggested I add a Stage
+object parameters to the load and start button handlers.

@@ -32,6 +32,6 @@ public enum ImgResources {
 	public final Image img;
 
 	ImgResources(String resourceName) {
-		img = new Image(ImgResources.class.getResource(resourceName).toString(), true);
+		img = new Image(ImgResources.class.getResource(resourceName).toString());
 	}
 }

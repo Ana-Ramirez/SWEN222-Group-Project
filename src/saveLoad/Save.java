@@ -12,17 +12,17 @@ import game.Game;
  * @author Tim Gastrell
  *
  */
-public class Save {
+public class Save<T extends Object> {
 	/**
 	 * Game object to be written to file
 	 */
-	static Game game;
+	private T game;
 	
 	/**
 	 * Constructs a new Save object
 	 * @param game to be written
 	 */
-	public Save(Game game) {
+	public Save(T game) {
 		this.game = game;
 	}
 	
