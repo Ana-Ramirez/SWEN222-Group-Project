@@ -8,7 +8,7 @@ package entities;
  */
 public abstract class Pickupable extends MovableEntity {
 
-	public Pickupable(String name, float x, float y, int width, int height, Type type) {
+	protected Pickupable(String name, float x, float y, int width, int height, Type type) {
 		super(name, x, y, width, height, type);
 	}
 
