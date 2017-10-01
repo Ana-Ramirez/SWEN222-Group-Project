@@ -16,3 +16,6 @@ controller code for the EventListeners so that he can start and load games.
 More null checks and error handling required.
 Since we started using the Javafx application API Patrick suggested I add a Stage
 object parameters to the load and start button handlers.
+He also suggested adding type parameters where there were none before and I had
+forgotten to close an object stream in save.java. I need to do more commenting
+in the Game class.
