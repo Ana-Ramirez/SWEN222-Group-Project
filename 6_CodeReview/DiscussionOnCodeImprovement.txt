@@ -22,12 +22,12 @@ forgotten to close an object stream in save.java. I need to do more commenting
 in the Game class.
 
 /**LOGIC**/
-Patrick suggested I add more null checks and error checks. As there is a 
+Tim suggested I add more null checks and error checks. As there is a 
 GameException class to use for throwing exceptions specific to this game, I
 added one check to remember to add more in future. This check was to prevent a 
 door object being made with either of the room objects it is supposed to be 
 connecting being null, as this would be impossible. I also added a null check, 
-with more to be added in future. Upon reviewal of my code, I also need to make a 
-Wall class to create wall objects which will be used as an easy way to draw the 
-walls from the renderer. These wall objects will be placed around the outside of
-the map and each room.
+with more to be added in future. Upon further reviewal of my code from Patrick, 
+I also need to make a Wall class to create wall objects which will be used as an
+easy way to draw the walls from the renderer. These wall objects will be placed
+around the outside of the map and each room.
