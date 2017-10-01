@@ -14,7 +14,7 @@ public class EnemyStrategy implements Enemies{
 	
 	
 	public void tick(Monster monster){
-		monster.move(1,  2);
+		monster.tick();
 	}
 	
 
