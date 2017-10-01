@@ -12,15 +12,26 @@ import javax.imageio.ImageIO;
  *
  */
 public enum ImgResources {
-	MAINMENUBG("menuBackground.jpg");
+	//UI
+	MAINMENUBG("menuBackground.png"),
+	//ENVIRONMENT
+	FLOOR("floor.png"),
+	CONSOLE1("console1.png"),
+	CONSOLE2("console2.png"),
+	CONSOLE3("console3.png"),
+	STAIRSBOT("stairsBot.png"),
+	STAIRSLEFT("stairsLeft.png"),
+	STAIRSRIGHT("stairsRight.png"),
+	STAIRSTOP("stairsTop.png"),
+	WALL("wall.png"),
+	WALLBOT("wallBot.png"),
+	WALLTOP("wallTop.png"),
+	//PLAYER
+	PLAYERDOWN("playerDown.png");
 
 	public final Image img;
 
-	//TODO adapt this from java.awt to javafx
-	  ImgResources(String resourceName) {
-	    //try{ 
-	    	img = null;//ImageIO.read(ImgResources.class.getResource(resourceName)); 
-	    //}
-	    //catch (IOException e){ throw new Error(e); }
-	  }
+	ImgResources(String resourceName) {
+		img = new Image(ImgResources.class.getResource(resourceName).getPath(), true);
+	}
 }
