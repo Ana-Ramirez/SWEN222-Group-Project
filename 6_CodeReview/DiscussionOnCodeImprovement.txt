@@ -33,3 +33,11 @@ easy way to draw the walls for the renderer. These wall objects will be placed
 around the outside of the map of each room through the use of a 2D array, 
 mapping to be the same size as the canvas we are creating/wanting to use for our
 rooms.
+
+/*\/[]\/*\Entities/*\/[]\/*\
+Ana suggested an alternative handling of contructors within the entities libary. 
+Instead of forcing a user to giving an enitity a type/weapon when it would never 
+have any use for it. Now after the initial constructor is called, nulls are passed
+all the way up to the entities abstract class to fill in the infomation. Ana also 
+suggested better java doc commenting throughout for better understandability with
+the other members of the team 
