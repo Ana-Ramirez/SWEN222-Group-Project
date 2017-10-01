@@ -33,7 +33,7 @@ public class EntitiesTest {
 	@Test
 	public void hitPlayer() {
 		Player player = new Player(0, 0, 5, 5);
-		Weapon weapon = new MeleeWeapon(0, 0, 5, 5, Type.WATER, 5);
+		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, 5);
 	}
 
 	@Test
