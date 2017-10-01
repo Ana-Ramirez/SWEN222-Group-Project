@@ -8,4 +8,8 @@ package entities;
  */
 public abstract class StationaryEntity extends Entity {
 
+	@Override
+	protected boolean hit() {
+		return false;
+	}
 }

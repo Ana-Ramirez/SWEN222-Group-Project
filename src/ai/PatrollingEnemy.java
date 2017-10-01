@@ -7,22 +7,23 @@ import entities.Player;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
-* Class controlling the AI for the enemy patrols the screen and has a set path to follow
-* @author Ana Ramirez
-*/
+ * Class controlling the AI for the enemy patrols the screen and has a set path
+ * to follow
+ * 
+ * @author Ana Ramirez
+ */
 
-public class PatrollingEnemy implements Enemies{
-	
+public class PatrollingEnemy implements Enemies {
+
 	public Player player;
 	public int health;
 	public float speed = 0.5f;
 	public int x;
 	public int y;
 	private Rectangle boundingBox = new Rectangle(((int) x * 6) - 30, ((int) y * 6) - 30, 50, 50);
-	public Goal goal1 = new Goal(100,100);
-	public Goal goal2 = new Goal(200,200);
+	public Goal goal1 = new Goal(100, 100);
+	public Goal goal2 = new Goal(200, 200);
 	public Goal currentGoal = goal1;
-
 
 	public PatrollingEnemy(float x, float y) {
 
@@ -32,8 +33,7 @@ public class PatrollingEnemy implements Enemies{
 	 * Do relevant movement
 	 */
 	public void tick(Monster monster) {
-		
-		
+
 		if (x > currentGoal.getX()) {
 			x -= speed;
 		}
@@ -48,6 +48,14 @@ public class PatrollingEnemy implements Enemies{
 
 		if (y < currentGoal.getY()) {
 			y += speed;
+		}
+
+		if (x == goal1.getX() && y == goal1.getY()) {
+			currentGoal = goal2;
+		}
+
+		if (x == goal2.getX() && y == goal2.getY()) {
+			currentGoal = goal1;
 		}
 
 		updateBoundingBox(((int) x * 6) - 30, ((int) y * 6) - 30);
@@ -76,8 +84,8 @@ public class PatrollingEnemy implements Enemies{
 	 * Enemy dies
 	 */
 	public void die() {
-		if(health == 0){
-			//die or disappear or w/e
+		if (health == 0) {
+			// die or disappear or w/e
 		}
 		throw new NotImplementedException();
 	}
@@ -93,7 +101,6 @@ public class PatrollingEnemy implements Enemies{
 		}
 
 		private Rectangle boundingBox = new Rectangle(((int) x * 6) - 30, ((int) y * 6) - 30, 50, 50);
-		
 
 		public Rectangle getBoundingBox() {
 			return boundingBox;
@@ -108,8 +115,5 @@ public class PatrollingEnemy implements Enemies{
 		}
 
 	}
-	
 
 }
-
-

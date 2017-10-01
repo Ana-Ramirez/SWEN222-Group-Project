@@ -98,7 +98,13 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 
 	@Override
 	protected Weapon clone() {
-		return this.clone();
+		if (this instanceof MeleeWeapon) {
+			return new MeleeWeapon(name, x, y, type, baseDamage);
+		} else if (this instanceof Projectile) {
+			return new Projectile(name, x, y, type, baseDamage);
+		} else {
+			return null;
+		}
 	}
 
 }
