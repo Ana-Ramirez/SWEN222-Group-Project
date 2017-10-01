@@ -25,12 +25,8 @@ public class Monster extends Character {
 	 * @param weapon
 	 * 		the monsters weapon
 	 */
-	public Monster(String name, float x, float y, Type type, Weapon weapon) {
-		super(100);
-		this.name = name;
-		this.x = x;
-		this.y = y;
-		this.type = type;
+	public Monster(String name, float x, float y, int width, int height, Type type, Weapon weapon) {
+		super(name, x, y, width, height, type, 100);
 		this.weapon = weapon;
 	}
 

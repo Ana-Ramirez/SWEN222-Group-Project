@@ -15,7 +15,8 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 	 * @param damage
 	 * 		the int base damage to use
 	 */
-	protected Weapon(int damage) {
+	public Weapon(String name, float x, float y, int width, int height, Type type, int damage) {
+		super(name, x, y, width, height, type);
 		this.baseDamage = damage;
 	}
 
@@ -28,7 +29,7 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 	 * 		true if damage dealt, else false
 	 */
 	public boolean attack(Entity victim) {
-		return victim.hit();
+		return victim.hit(getDamage(victim));
 	}
 
 
@@ -58,24 +59,24 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 		int i;
 
 		for (i = 0; i < Type.values().length; i++) {
-			if (type == Type.values()[i]) {
+			if (getType() == Type.values()[i]) {
 				break;
 			}
 		}
 
 		try {
-			if (Type.values()[i-1] == victim.type) {
+			if (Type.values()[i-1] == victim.getType()) {
 				modifier = 0.5f;
-			} else if (Type.values()[i+1] == victim.type) {
+			} else if (Type.values()[i+1] == victim.getType()) {
 				modifier = 2;
 			}
 		} catch (IndexOutOfBoundsException e) {
 			if (i == 0) {
-				if (Type.values()[Type.values().length-1] == victim.type) {
+				if (Type.values()[Type.values().length-1] == victim.getType()) {
 					modifier = 0.5f;
 				}
 			} else if (i == Type.values().length-1) {
-				if (Type.values()[0] == victim.type) {
+				if (Type.values()[0] == victim.getType()) {
 					modifier = 2;
 				}
 			}
@@ -98,7 +99,13 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 
 	@Override
 	protected Weapon clone() {
-		return this.clone();
+		if (this instanceof MeleeWeapon) {
+			return new MeleeWeapon(getName(), x, y, getWidth(), getHeight(), getType(), baseDamage);
+		} else if (this instanceof Projectile) {
+			return new Projectile(getName(), x, y, getWidth(), getHeight(), getType(), baseDamage);
+		} else {
+			return null;
+		}
 	}
 
 }
