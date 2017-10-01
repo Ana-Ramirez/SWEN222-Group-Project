@@ -30,6 +30,6 @@ connecting being null, as this would be impossible. I also added a null check,
 with more to be added in future. Upon further reviewal of my code from Patrick, 
 I also need to make a Wall class to create wall objects which will be used as an
 easy way to draw the walls for the renderer. These wall objects will be placed
-around the outside of the map and each room throughg the use of a 2D array, 
-mapping to be the same size of the canvas we are creating/wanting to use as the 
-size of our rooms.
+around the outside of the map of each room through the use of a 2D array, 
+mapping to be the same size as the canvas we are creating/wanting to use for our
+rooms.
