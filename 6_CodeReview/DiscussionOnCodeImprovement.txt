@@ -12,7 +12,10 @@ class. For now I have a main method in my MainMenu class as this makes it easy
 for me to see my menu progressing. Tim suggested passing my PrimaryStage to his 
 controller code for the EventListeners so that he can start and load games.
 
-/**SAVE/LOAD**/
+/**SAVE/LOAD/CONTROLLER**/
 More null checks and error handling required.
 Since we started using the Javafx application API Patrick suggested I add a Stage
 object parameters to the load and start button handlers.
+He also suggested adding type parameters where there were none before and I had
+forgotten to close an object stream in save.java. I need to do more commenting
+in the Game class.
