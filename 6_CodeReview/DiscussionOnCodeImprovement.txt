@@ -13,4 +13,6 @@ for me to see my menu progressing. Tim suggested passing my PrimaryStage to his
 controller code for the EventListeners so that he can start and load games.
 
 /**SAVE/LOAD**/
-More null checks and error handling are required
+More null checks and error handling required.
+Since we started using the Javafx application API Patrick suggested I add a Stage
+object parameters to the load and start button handlers.
