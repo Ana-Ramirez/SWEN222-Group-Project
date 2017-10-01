@@ -34,10 +34,15 @@ around the outside of the map of each room through the use of a 2D array,
 mapping to be the same size as the canvas we are creating/wanting to use for our
 rooms.
 
-/*\/[]\/*\Entities/*\/[]\/*\
-Ana suggested an alternative handling of contructors within the entities libary. 
-Instead of forcing a user to giving an enitity a type/weapon when it would never 
-have any use for it. Now after the initial constructor is called, nulls are passed
-all the way up to the entities abstract class to fill in the infomation. Ana also 
-suggested better java doc commenting throughout for better understandability with
-the other members of the team 
+/**AI**/
+I have unimplemented contructors so Nick recommended filling these in, which I 
+intended on doing before Wednesday's handin.
+Need to delete some dead/unneeded methods which conflict with some of the 
+methods in the entites library.
+I also have bounding boxes that need to be deleted that were meant to handle
+collisions, but Nick recommended that these now be taken care of in the entities
+library, so these now need to be removed from my library.
+He also recommended taking in the Player object in the constructors for the 
+various AIs, rather than creating a new Player. This was just a placeholder that
+I had for a while which I intended on delecting but completely forgot, so good
+thing it was found
