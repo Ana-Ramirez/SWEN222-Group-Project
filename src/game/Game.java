@@ -6,6 +6,7 @@ import java.util.List;
 import entities.Player;
 import javafx.application.Application;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 import logic.Level;
 import view.Renderer;
 
@@ -15,7 +16,7 @@ import view.Renderer;
  * @author Tim Gastrell
  *
  */
-public class Game implements Serializable{
+public class Game extends Application implements Serializable{
 	
 	/**
 	 * View objects
@@ -32,27 +33,6 @@ public class Game implements Serializable{
 	 */
 	private List<Level> levels;
 	
-	/**
-	 * Constructs a new Game object
-	 * 
-	 * @param mainMenu
-	 * @param pauseMenu
-	 * @param renderer
-	 * @param player
-	 */
-	public Game() {
-		generateLevels();
-		
-		if(levels.isEmpty()) throw new GameException("No level data found");
-		this.renderer = new Renderer();
-		
-		this.player = new Player(0,0);
-		
-	}
-	
-	public void startGame() {
-		//TODO start game loop
-	}
 	
 	public void pause() {
 		
@@ -69,7 +49,19 @@ public class Game implements Serializable{
 		//TODO Initialise levels
 	}
 	
-	private void initialiseKeyListener() {
-		renderer.getScene().onKeyPressed(new KeyPressHandler<KeyEvent>(player));
+	private void initialiseKeyListener() throws GameException {
+		if(renderer == null) throw new GameException("Renderer null Error");
+		renderer.getScene().setOnKeyPressed(new KeyPressHandler<KeyEvent>(player));
 	}
+
+	@Override
+	public void start(Stage stage) throws Exception {
+		generateLevels();
+		if(levels.isEmpty()) throw new GameException("No level data found");
+		this.renderer = new Renderer();
+		
+		this.player = new Player(0,0);
+		
+		initialiseKeyListener();		
+	}	
 }
