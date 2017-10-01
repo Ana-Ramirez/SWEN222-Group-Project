@@ -11,6 +11,12 @@ import entities.Type;
 import logic.Door;
 import logic.Room;
 
+/**
+ * This class tests the actions performed around the door,
+ * hence based around Door.class
+ * @author lewismcewan
+ *
+ */
 public class DoorTests {
 	
 	/**
