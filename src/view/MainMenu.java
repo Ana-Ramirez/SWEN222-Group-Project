@@ -97,7 +97,6 @@ public class MainMenu extends Application{
 	/**
 	 * Loads a game from file
 	 */
-
 	public void loadGameButton(){
 		Button btn = new Button();
 		btn.setText("Load Game");

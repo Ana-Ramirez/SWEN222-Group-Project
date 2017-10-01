@@ -6,23 +6,23 @@ import game.ResumeHandler;
 import game.SaveHandler;
 import saveLoad.Save;
 import javafx.*;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 /**
  * Menu shown while game is paused
  * @author Patrick
  *
  */
-public class PauseMenu {
+public class PauseMenu extends Application{
 	Scene scene;
 	StackPane root;
 	
 	public PauseMenu(){
-		root = new StackPane();
-		this.scene = new Scene(root, 300, 250);
 	}
 	
 	/**
@@ -66,6 +66,13 @@ public class PauseMenu {
 		btn.setText("Start New Game");
 		btn.setOnAction(new QuitToMenuHandler<ActionEvent>());
 		root.getChildren().add(btn);
+	}
+
+	@Override
+	public void start(Stage arg0) throws Exception {
+		//TODO get pause menu working and displaying buttons
+		root = new StackPane();
+		this.scene = new Scene(root, 300, 250);
 	}
 
 }
