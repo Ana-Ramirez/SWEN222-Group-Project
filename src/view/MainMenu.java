@@ -7,9 +7,12 @@ import game.StartHandler;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import resources.ImgResources;
 
 /**
  * Main menu shown to the player before they enter the game
@@ -31,13 +34,19 @@ public class MainMenu extends Application{
 
 		root = new StackPane();
 
+		Canvas canvas = new Canvas(800,600);
+		GraphicsContext g = canvas.getGraphicsContext2D();
+
+		drawBG(g);
+		root.getChildren().add(canvas);
+
 		scene = new Scene(root, 800, 600);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-	}
 
-	public MainMenu(){
-		
+		//startGameButton();
+		//loadGameButton();
+		//quitGameButton();
 	}
 
 	/**
@@ -82,5 +91,20 @@ public class MainMenu extends Application{
 		btn.setText("Quit");
 		btn.setOnAction(new QuitHandler<ActionEvent>());
 		root.getChildren().add(btn);
+	}
+
+	/**
+	 * Draws the menu background
+	 */
+	private void drawBG(GraphicsContext g) {
+		g.drawImage(ImgResources.MAINMENUBG.img, 0.0, 0.0, 800.0, 600.0);
+	}
+
+	/**
+	 * Main method for the application. Calls the Start() method indirectly.
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		launch(args);
 	}
 }
