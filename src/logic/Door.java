@@ -4,18 +4,26 @@ import entities.Entity;
 import entities.Pickupable;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+/**
+ * Door will have position on a wall at N, S, E or W,
+ * specified by 0 - 3
+ * @author lewismcewan
+ *
+ */
 public class Door {
 	
 	private Room room1, room2;
 	private boolean doorLocked = true;
 	private Pickupable unlockItem;
 	private int doorNum;
+	private int position;
 	
-	public Door(Room rm1, Room rm2, Pickupable item, int doorNum){
+	public Door(Room rm1, Room rm2, Pickupable item, int doorNum, int position){
 		this.room1 = rm1;
 		this.room2 = rm2;
 		this.unlockItem = item;
 		this.doorNum = doorNum;
+		this.position = position;
 	}
 	
 	/**
@@ -71,5 +79,12 @@ public class Door {
 	 */
 	public Entity getUnlockItem(){
 		return this.unlockItem;
+	}
+	
+	/*
+	 * return the door position
+	 */
+	public int getDoorPosition(){
+		return this.position;
 	}
 }

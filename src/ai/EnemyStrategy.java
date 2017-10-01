@@ -13,7 +13,7 @@ public class EnemyStrategy implements Enemies{
 	}
 	
 	
-	public void tick(){
+	public void tick(Monster monster){
 		monster.move(1,  2);
 	}
 	
