@@ -4,6 +4,11 @@ import org.junit.Test;
 
 import view.MainMenu;
 
+/**
+ * Tests for the main menu class
+ * @author Patrick
+ *
+ */
 public class MainMenuTests {
 
 	/**

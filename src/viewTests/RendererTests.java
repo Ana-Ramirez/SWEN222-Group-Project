@@ -16,6 +16,11 @@ import javafx.stage.Stage;
 import logic.Room;
 import view.Renderer;
 
+/**
+ * Tests for the renderer class
+ * @author Patrick
+ *
+ */
 public class RendererTests {
 
 	/**
@@ -23,11 +28,7 @@ public class RendererTests {
 	 */
 	@Test
 	public void constructorTest(){
-		GraphicsContext g = null;
-		List<Entity> entities = new ArrayList<>();
-		Room room = new Room(0);
-		Scene scene= new Scene(new StackPane());
-		Renderer r = new Renderer(g, entities, room, scene);
+		Renderer r = new Renderer();
 	}
 	
 	/**
@@ -37,9 +38,8 @@ public class RendererTests {
 	public void drawEntitiesTest(){
 		GraphicsContext g = null;
 		List<Entity> entities = new ArrayList<>();
-		Room room = new Room(0);
-		Scene scene= new Scene(new StackPane());
-		Renderer r = new Renderer(g, entities, room, scene);
+		Renderer r = new Renderer();
+		r.renderRoom(entities, null);
 			
 		r.drawEntities();
 	}
@@ -53,7 +53,7 @@ public class RendererTests {
 		List<Entity> entities = new ArrayList<>();
 		Room room = new Room(0);
 		Scene scene= new Scene(new StackPane());
-		Renderer r = new Renderer(g, entities, room, scene);
+		Renderer r = new Renderer();
 			
 		r.drawRoom();
 	}

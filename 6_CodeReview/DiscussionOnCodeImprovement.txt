@@ -10,9 +10,26 @@ also decided to remove the main class we previously had in the game, in favour
 of either placing the main method inside MainMenu or inside the actual Game 
 class. For now I have a main method in my MainMenu class as this makes it easy 
 for me to see my menu progressing. Tim suggested passing my PrimaryStage to his 
-controller code for the EventListeners so that he can start and load games.
+controller code for the EventListeners so that he can start and load games. He 
+also suggested I make the PauseMenu an application.
 
-/**SAVE/LOAD**/
+/**SAVE/LOAD/CONTROLLER**/
 More null checks and error handling required.
 Since we started using the Javafx application API Patrick suggested I add a Stage
 object parameters to the load and start button handlers.
+He also suggested adding type parameters where there were none before and I had
+forgotten to close an object stream in save.java. I need to do more commenting
+in the Game class.
+
+/**LOGIC**/
+Tim suggested I add more null checks and error checks. As there is a 
+GameException class to use for throwing exceptions specific to this game, I
+added one check to remember to add more in future. This check was to prevent a 
+door object being made with either of the room objects it is supposed to be 
+connecting being null, as this would be impossible. I also added a null check, 
+with more to be added in future. Upon further reviewal of my code from Patrick, 
+I also need to make a Wall class to create wall objects which will be used as an
+easy way to draw the walls for the renderer. These wall objects will be placed
+around the outside of the map and each room throughg the use of a 2D array, 
+mapping to be the same size of the canvas we are creating/wanting to use as the 
+size of our rooms.
