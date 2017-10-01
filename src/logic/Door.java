@@ -82,16 +82,21 @@ public class Door extends StationaryEntity{
 		return this.unlockItem;
 	}
 	
+	/**
+	 * @return status of door lock
+	 */
+	public boolean isLocked(){
+		return this.doorLocked;
+	}
+	
 	/*
 	 * return the door position
 	 */
 	public int getDoorPosition(){
 		return this.position;
 	}
-
-	@Override
-	protected boolean hit() {
-		// TODO Auto-generated method stub
+	
+	public boolean collision(){
 		return false;
 	}
 }

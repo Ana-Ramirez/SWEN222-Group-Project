@@ -115,54 +115,49 @@ public class RoomTests {
 	 */
 	@Test
 	public void get2() {
-		Room room = new Room(4);
-		assertEquals(4, room.getRoomNum());
+		Room room1 = new Room(1);
+		Room room2 = new Room(2);
+		Consumable item = new Consumable("food", 10, 10);
+		Door door = new Door(room1, room2, item, 1, 1);
+		room1.addDoor(door);
+		room2.addDoor(door);
+		assertEquals(door, room1.getDoor(1));
 	}
 	
-//	/**
-//	 * get item from room
-//	 */
-//	@Test
-//	public void get3() {
-//		Room room = new Room(4);
-//		assertEquals(4, room.getRoomNum());
-//	}
-//	
-//	/**
-//	 * Add door to room
-//	 */
-//	@Test
-//	public void add1() {
-//		Room room = new Room(4);
-//		assertEquals(4, room.getRoomNum());
-//	}
-//	
-//	/**
-//	 * Add item to room
-//	 */
-//	@Test
-//	public void add2() {
-//		Room room = new Room(4);
-//		assertEquals(4, room.getRoomNum());
-//	}
-//	
-//	/**
-//	 * Remove item from room
-//	 */
-//	@Test
-//	public void remove1() {
-//		Room room = new Room(4);
-//		assertEquals(4, room.getRoomNum());
-//	}
-//	
-//	/**
-//	 * check door status (if locked)
-//	 */
-//	@Test
-//	public void doorLocked() {
-//		Room room = new Room(4);
-//		assertEquals(4, room.getRoomNum());
-//	}
+	/**
+	 * get item from room
+	 */
+	@Test
+	public void get3() {
+		Room room = new Room(4);
+		Consumable item = new Consumable("food", 10, 10);
+		room.addItem(item);
+		assertEquals(item, room.getItem("food"));
+	}
+	
+	/**
+	 * Remove item from room
+	 */
+	@Test
+	public void remove1() {
+		Room room = new Room(4);
+		Consumable item = new Consumable("food", 10, 10);
+		room.addItem(item);
+		assertTrue(room.removeItem("food"));
+	}
+	
+	/**
+	 * check door status is locked as new door
+	 */
+	@Test
+	public void doorLocked() {
+		Room room1 = new Room(1);
+		Room room2 = new Room(2); 
+		Consumable item = new Consumable("food", 10, 10);
+		Door door = new Door(room1, room2, item, 1, 1);
+		room1.addDoor(door);
+		assertTrue(room1.doorLocked(door));
+	}
 	
 
 }

@@ -143,8 +143,8 @@ public class Room {
 	 * check if a door is locked
 	 * @return
 	 */
-	public boolean doorLocked(){
-		throw new NotImplementedException();
+	public boolean doorLocked(Door d){
+		return d.isLocked();
 	}
 	
 	/**
