@@ -17,28 +17,31 @@ public class FollowingEnemy implements Enemies {
 	public Player player;
 	public int health;
 	public float speed = 0.5f;
-	public int x;
-	public int y;
-	private Rectangle boundingBox = new Rectangle(((int) x * 6) - 30, ((int) y * 6) - 30, 50, 50);
+	public float x = 10;
+	public float y = 100;
 
 
-	public FollowingEnemy(float x, float y) {
-
+	public FollowingEnemy(float x, float y, Player player) {
+		this.x = x;
+		this.y = y;
+		this.player = player;
 	}
 
 	/**
 	 * Do relevant movement
 	 */
 	public void tick(Monster monster) {
-		if (x > player.getX()) {
+		if (monster.getX() > player.getX()) {
 			x -= speed;
+			monster.moveBy(-speed,0f);
+			
 		}
 
-		if (x < player.getY()) {
+		if (x < player.getX()) {
 			x += speed;
 		}
 
-		if (y > player.getX()) {
+		if (y > player.getY()) {
 			y -= speed;
 		}
 
@@ -46,37 +49,24 @@ public class FollowingEnemy implements Enemies {
 			y += speed;
 		}
 
-		updateBoundingBox(((int) x * 6) - 30, ((int) y * 6) - 30);
+	}
+	
+	public float getX(){
+		return x;
 	}
 
-	private void updateBoundingBox(int x, int y) {
-		boundingBox = new Rectangle(x, y, 50, 50);
+	public float getY(){
+		return y;
 	}
 
-	/**
-	 * Decrease health when hit is taken
-	 */
-	public void decreaseHealth() {
-		health--;
-		throw new NotImplementedException();
-	}
 
 	/**
 	 * Speed of movement
 	 */
-	public float speed() {
+	public int speed() {
 		return speed;
 	}
 
-	/**
-	 * Enemy dies
-	 */
-	public void die() {
-		if(health == 0){
-			//die or disappear or w/e
-		}
-		throw new NotImplementedException();
-	}
 
 	
 }

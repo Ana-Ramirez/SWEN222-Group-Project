@@ -52,13 +52,6 @@ public class RunawayEnemy implements Enemies{
 		boundingBox = new Rectangle(x, y, 50, 50);
 	}
 
-	/**
-	 * Decrease health when hit is taken
-	 */
-	public void decreaseHealth() {
-		health--;
-		throw new NotImplementedException();
-	}
 
 	/**
 	 * Speed of movement
@@ -67,15 +60,7 @@ public class RunawayEnemy implements Enemies{
 		return speed;
 	}
 
-	/**
-	 * Enemy dies
-	 */
-	public void die() {
-		if(health == 0){
-			//die or disappear or w/e
-		}
-		throw new NotImplementedException();
-	}
+	
 
 
 	
