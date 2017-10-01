@@ -57,13 +57,26 @@ public class Room {
 	 */
 	public boolean movePlayer(float x, float y){
 		for(Entity e : this.roomItems){
-			if(x == e.getX() && y == e.getY()){
+			if(e.getBoundingBox().intersects(player.getBoundingBox())){
 				if(!(e instanceof Pickupable)){
 					return false;
 				}
 			}
 		}
 		return true;	//they can move
+	}
+	
+	/**
+	 * Check if player's bounding box collides with a door
+	 * @return
+	 */
+	public boolean doorCollision(){
+		for(Door d : this.doors){
+			if(this.player.getBoundingBox().intersects(d.getBoundingBox())){
+				return true;
+			}
+		}
+		return false;	//no collision
 	}
 	
 	/**

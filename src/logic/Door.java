@@ -3,6 +3,7 @@ package logic;
 import entities.Entity;
 import entities.Pickupable;
 import entities.StationaryEntity;
+import entities.Type;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -20,6 +21,7 @@ public class Door extends StationaryEntity{
 	private int position;
 	
 	public Door(Room rm1, Room rm2, Pickupable item, int doorNum, int position){
+		super(Integer.toString(doorNum), 10, 10, 10, 10, null);
 		this.room1 = rm1;
 		this.room2 = rm2;
 		this.unlockItem = item;
@@ -94,9 +96,5 @@ public class Door extends StationaryEntity{
 	 */
 	public int getDoorPosition(){
 		return this.position;
-	}
-	
-	public boolean collision(){
-		return false;
 	}
 }
