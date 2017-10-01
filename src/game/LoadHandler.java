@@ -11,6 +11,12 @@ import saveLoad.Load;
 
 public class LoadHandler<T extends Event> implements EventHandler<ActionEvent>{
 
+	private Stage stage;
+	
+	public LoadHandler(Stage stage) {
+		this.stage = stage;
+	}
+	
 	@SuppressWarnings("unused")
 	@Override
 	public void handle(ActionEvent event) {
@@ -24,7 +30,7 @@ public class LoadHandler<T extends Event> implements EventHandler<ActionEvent>{
 		Game game = (Game) load.loadGame();
 		
 		try {
-			game.start(new Stage());
+			game.start(stage);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
