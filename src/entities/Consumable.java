@@ -6,7 +6,7 @@ package entities;
  *
  */
 public class Consumable extends Pickupable {
-	
+
 	/**
 	 * Creates a new consumable object
 	 * @param name
@@ -16,9 +16,7 @@ public class Consumable extends Pickupable {
 	 * @param y
 	 * 		the float y to use
 	 */
-	public Consumable(String name, float x, float y) {
-		super.name = name;
-		super.x = x;
-		super.y = y;
+	public Consumable(String name, float x, float y, int width, int height, Type type) {
+		super(name, x, y, width, height, type);
 	}
 }
