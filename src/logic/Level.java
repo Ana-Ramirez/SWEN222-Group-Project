@@ -70,4 +70,13 @@ public class Level {
 		return this.gotPatrick;
 	}
 	
+	public Room getRoom(int i){
+		for(Room r : this.rooms){
+			if(r.getRoomNum() == i){
+				return r;
+			}
+		}
+		return null;
+	}
+	
 }

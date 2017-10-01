@@ -2,6 +2,7 @@ package logic;
 
 import entities.Entity;
 import entities.Pickupable;
+import entities.StationaryEntity;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -10,7 +11,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * @author lewismcewan
  *
  */
-public class Door {
+public class Door extends StationaryEntity{
 	
 	private Room room1, room2;
 	private boolean doorLocked = true;
@@ -86,5 +87,11 @@ public class Door {
 	 */
 	public int getDoorPosition(){
 		return this.position;
+	}
+
+	@Override
+	protected boolean hit() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

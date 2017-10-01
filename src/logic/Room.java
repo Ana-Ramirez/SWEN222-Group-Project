@@ -5,6 +5,7 @@ import java.util.List;
 
 import entities.Entity;
 import entities.Monster;
+import entities.Pickupable;
 import entities.Player;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -50,12 +51,16 @@ public class Room {
 	/**
 	 * Is player's position move valid
 	 * Will they bump into anything
+	 * If bumping into a monster, cannot move there
+	 * If bumping into a pickupable, it can still move there
 	 * @return
 	 */
 	public boolean movePlayer(float x, float y){
 		for(Entity e : this.roomItems){
 			if(x == e.getX() && y == e.getY()){
-				return false;
+				if(!(e instanceof Pickupable)){
+					return false;
+				}
 			}
 		}
 		return true;	//they can move
