@@ -13,15 +13,16 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class RunawayEnemy implements Enemies{
 	
-	public Player player;
+	public Player player = new Player(200,200,5,5);
 	public int health;
 	public float speed = 0.5f;
 	public int x;
 	public int y;
-	private Rectangle boundingBox = new Rectangle(((int) x * 6) - 30, ((int) y * 6) - 30, 50, 50);
+	public int width;
+	public int height;
 
 
-	public RunawayEnemy(float x, float y) {
+	public RunawayEnemy(float x, float y, int width, int height) {
 
 	}
 
@@ -29,36 +30,24 @@ public class RunawayEnemy implements Enemies{
 	 * Do relevant movement
 	 */
 	public void tick(Monster monster) {
-		if (x > player.getX()) {
-			x += speed;
+		if (monster.getX() > player.getX()) {
+			monster.moveBy(+speed, 0);
 		}
 
-		if (x < player.getY()) {
-			x -= speed;
+		if (monster.getX() < player.getX()) {
+			monster.moveBy(-speed, 0);
 		}
 
-		if (y > player.getX()) {
-			y += speed;
+		if (monster.getY() > player.getY()) {
+			monster.moveBy(0, +speed);
 		}
 
-		if (y < player.getY()) {
-			y -= speed;
+		if (monster.getY() < player.getY()) {
+			monster.moveBy(0, -speed);
 		}
 
-		updateBoundingBox(((int) x * 6) - 30, ((int) y * 6) - 30);
 	}
-
-	private void updateBoundingBox(int x, int y) {
-		boundingBox = new Rectangle(x, y, 50, 50);
-	}
-
-	/**
-	 * Decrease health when hit is taken
-	 */
-	public void decreaseHealth() {
-		health--;
-		throw new NotImplementedException();
-	}
+	
 
 	/**
 	 * Speed of movement
@@ -66,17 +55,6 @@ public class RunawayEnemy implements Enemies{
 	public float speed() {
 		return speed;
 	}
-
-	/**
-	 * Enemy dies
-	 */
-	public void die() {
-		if(health == 0){
-			//die or disappear or w/e
-		}
-		throw new NotImplementedException();
-	}
-
 
 	
 }
