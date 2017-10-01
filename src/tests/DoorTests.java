@@ -7,6 +7,7 @@ import org.junit.Test;
 import entities.Consumable;
 import entities.MeleeWeapon;
 import entities.Pickupable;
+import entities.Type;
 import logic.Door;
 import logic.Room;
 
@@ -17,7 +18,7 @@ public class DoorTests {
 	 */
 	@Test
 	public void create1() {
-		MeleeWeapon weapon = new MeleeWeapon("weapon", 1, 1, entities.Type.FIRE, 10);
+		MeleeWeapon weapon = new MeleeWeapon("weapon", 1, 1, 1, 1, entities.Type.FIRE, 10);
 		Door door = new Door(new Room(1), new Room(2), weapon, 1, 1);
 		assertEquals(1, door.getDoorNum());
 	}
@@ -27,7 +28,7 @@ public class DoorTests {
 	 */
 	@Test
 	public void create2() {
-		MeleeWeapon weapon = new MeleeWeapon("weapon", 1, 1, entities.Type.FIRE, 10);
+		MeleeWeapon weapon = new MeleeWeapon("weapon", 1, 1, 1, 1, entities.Type.FIRE, 10);
 		Door door = new Door(new Room(1), new Room(2), weapon, 1, 1);
 		assertEquals(1, door.getDoorPosition());
 	}
@@ -37,7 +38,7 @@ public class DoorTests {
 	 */
 	@Test
 	public void create3() {
-		MeleeWeapon weapon = new MeleeWeapon("weapon", 1, 1, entities.Type.FIRE, 10);
+		MeleeWeapon weapon = new MeleeWeapon("weapon", 1, 1, 1, 1, entities.Type.FIRE, 10);
 		Door door = new Door(new Room(1), new Room(2), weapon, 1, 1);
 		assertEquals(weapon, door.getUnlockItem());
 	}
@@ -47,7 +48,7 @@ public class DoorTests {
 	 */
 	@Test
 	public void create4() {
-		Consumable consumable = new Consumable("consumable", 20, 100);
+		Consumable consumable = new Consumable("consumable", 20, 100, 1, 1, Type.EARTH);
 		Door door = new Door(new Room(1), new Room(2), consumable, 1, 1);
 		assertEquals(consumable, door.getUnlockItem());
 	}
@@ -57,7 +58,7 @@ public class DoorTests {
 	 */
 	@Test
 	public void create5() {
-		MeleeWeapon weapon = new MeleeWeapon("weapon", 1, 1, entities.Type.FIRE, 10);
+		MeleeWeapon weapon = new MeleeWeapon("weapon", 1, 1, 1, 1, entities.Type.FIRE, 10);
 		Room room = new Room(5);
 		Door door = new Door(new Room(1), room, weapon, 1, 1);
 		assertEquals(room, door.getRoom2());

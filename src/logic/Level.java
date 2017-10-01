@@ -9,19 +9,19 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * This class is the Model of our MVC patterned game
+ * Level acts as a container for all the classes handling
+ * making up the layout of the game. It ties them all together
  * @author Lewis
  *
  */
 public class Level {
 	
-	private int numRooms = 0;
 	private List<Room> rooms;
 	private Player player;
 	private boolean gotPatrick = false;
 	
-	public Level(Player player, int numRooms){
+	public Level(Player player){
 		this.player = player;
-		this.numRooms = numRooms;
 		this.rooms = new ArrayList<Room>();
 		initialise();
 	}
@@ -63,11 +63,24 @@ public class Level {
 	}
 	
 	public Entity getPlayer(){
-		throw new NotImplementedException();
+		return this.player;
 	}
 	
 	public boolean gameOver(){
 		return this.gotPatrick;
+	}
+	
+	public Room getRoom(int i){
+		for(Room r : this.rooms){
+			if(r.getRoomNum() == i){
+				return r;
+			}
+		}
+		return null;
+	}
+	
+	public List<Room> getRooms(){
+		return this.rooms;
 	}
 	
 }

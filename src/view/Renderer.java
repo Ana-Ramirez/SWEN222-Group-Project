@@ -5,7 +5,9 @@ import java.util.List;
 import entities.*;
 
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.StackPane;
 import resources.ImgResources;
 import logic.*;
 
@@ -20,14 +22,26 @@ public class Renderer{
 	private List<Entity> entities;
 	private Room room;
 	private Scene scene;
+	private Canvas canvas;
 
-	public Renderer(GraphicsContext g, List<Entity> entities, Room room, Scene scene){
-		this.g = g;
-		this.entities = entities;
-		this.room = room;
-		this.scene = scene;
+	public Renderer(){
+		StackPane root = new StackPane();
+		this.scene = new Scene(root, 800, 600);
+
+		this.canvas = new Canvas(800,600);
+		this.g = canvas.getGraphicsContext2D();
 
 		setEntityImages();
+	}
+
+	/**
+	 *
+	 * @param entities
+	 * @param room
+	 */
+	public void renderRoom(List<Entity> entities, Room room) {
+		this.entities = entities;
+		this.room = room;
 	}
 
 	/**
@@ -44,8 +58,8 @@ public class Renderer{
 	 */
 	public void drawRoom(){
 		//TODO draw images for the floor
-		
-		
+
+
 		for (Door d : room.getDoors()){
 			//TODO not all images implemented yet
 			//g.drawImage(ImgResources.DOOR.img, , , , );

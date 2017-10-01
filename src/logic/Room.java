@@ -5,6 +5,7 @@ import java.util.List;
 
 import entities.Entity;
 import entities.Monster;
+import entities.Pickupable;
 import entities.Player;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -50,15 +51,32 @@ public class Room {
 	/**
 	 * Is player's position move valid
 	 * Will they bump into anything
+	 * If bumping into a monster, cannot move there
+	 * If bumping into a pickupable, it can still move there
 	 * @return
 	 */
 	public boolean movePlayer(float x, float y){
 		for(Entity e : this.roomItems){
-			if(x == e.getX() && y == e.getY()){
-				return false;
+			if(e.getBoundingBox().intersects(player.getBoundingBox())){
+				if(!(e instanceof Pickupable)){
+					return false;
+				}
 			}
 		}
 		return true;	//they can move
+	}
+	
+	/**
+	 * Check if player's bounding box collides with a door
+	 * @return
+	 */
+	public boolean doorCollision(){
+		for(Door d : this.doors){
+			if(this.player.getBoundingBox().intersects(d.getBoundingBox())){
+				return true;
+			}
+		}
+		return false;	//no collision
 	}
 	
 	/**
@@ -138,8 +156,8 @@ public class Room {
 	 * check if a door is locked
 	 * @return
 	 */
-	public boolean doorLocked(){
-		throw new NotImplementedException();
+	public boolean doorLocked(Door d){
+		return d.isLocked();
 	}
 	
 	/**

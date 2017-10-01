@@ -32,7 +32,8 @@ public class EntitiesTest {
 
 	@Test
 	public void hitPlayer() {
-		fail("Not yet implemented");
+		Player player = new Player(0, 0, 5, 5);
+		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, 5);
 	}
 
 	@Test
