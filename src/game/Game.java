@@ -87,12 +87,16 @@ public class Game extends Application implements Serializable{
                     case S:  goDown = false; break;
                     case A:  goLeft  = false; break;
                     case D: goRight  = false; break;
+                    case ESCAPE : 
                     default : break;
                 }
             }
         });
 		
-		//TODO MOUSE HANDLING
+		//TODO MOUSE HANDLING\
+		
+		stage.setScene(scene);
+		stage.show();
 		
 		AnimationTimer timer = new AnimationTimer() {
             @Override
