@@ -46,3 +46,11 @@ He also recommended taking in the Player object in the constructors for the
 various AIs, rather than creating a new Player. This was just a placeholder that
 I had for a while which I intended on delecting but completely forgot, so good
 thing it was found
+
+/*\/[]\/*\Entities/*\/[]\/*\
+Ana suggested an alternative handling of contructors within the entities libary. 
+Instead of forcing a user to giving an enitity a type/weapon when it would never 
+have any use for it. Now after the initial constructor is called, nulls are passed
+all the way up to the entities abstract class to fill in the infomation. Ana also 
+suggested better java doc commenting throughout for better understandability with
+the other members of the team 
