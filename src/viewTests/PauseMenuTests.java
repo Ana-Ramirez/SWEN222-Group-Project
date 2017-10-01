@@ -4,6 +4,11 @@ import org.junit.Test;
 
 import view.PauseMenu;
 
+/**
+ * Tests for the PauseMenu class
+ * @author Patrick
+ *
+ */
 public class PauseMenuTests {
 
 	/**

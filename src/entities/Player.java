@@ -13,9 +13,13 @@ public class Player extends Character {
 	/**
 	 * Creates a new playable character
 	 * @param x
-	 * 		the float of the starting x coordinate
+	 * 		the float x to use
 	 * @param y
-	 * 		the float of the starting y coordinate
+	 * 		the float y to use
+	 * @param width
+	 * 		the int width to use
+	 * @param height
+	 * 		the int height to use
 	 */
 	public Player(float x, float y, int width, int height) {
 		super("Tim", x, y, width, height, null, 3);

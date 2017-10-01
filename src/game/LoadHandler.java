@@ -21,11 +21,12 @@ public class LoadHandler<T extends Event> implements EventHandler<ActionEvent>{
 	@Override
 	public void handle(ActionEvent event) {
 		FileChooser fc = new FileChooser();
-		if(fc == null) {
-			return;
-		}
+		
 		File file = fc.showOpenDialog(new Stage());//I hope this works?
 		
+		if(file == null) {
+			return;
+		}
 		Load load = new Load(file.getName());
 		Game game = (Game) load.loadGame();
 		
