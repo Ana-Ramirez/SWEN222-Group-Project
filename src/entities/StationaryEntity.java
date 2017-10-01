@@ -20,11 +20,9 @@ public class StationaryEntity extends Entity {
 	 * 		the int width to use
 	 * @param height
 	 * 		the int height to use
-	 * @param type
-	 * 		the type to use
 	 */
-	public StationaryEntity(String name, int x, int y, int width, int height, Type type) {
-		super(name, x, y, width, height, type);
+	public StationaryEntity(String name, int x, int y, int width, int height) {
+		super(name, x, y, width, height, null);
 	}
 
 	@Override
