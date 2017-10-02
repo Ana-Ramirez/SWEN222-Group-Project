@@ -1,6 +1,5 @@
 package view;
 
-import game.Game;
 import game.LoadHandler;
 import game.QuitHandler;
 import game.StartHandler;

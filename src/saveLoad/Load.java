@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 import game.Game;
-import saveLoad.TestClass;
+import game.GameException;
 
 /**
  * Functional class that loads a saved game from a file
@@ -50,14 +50,12 @@ public class Load {
 				return (TestClass) obj;
 			}
 			else {
-				throw new IOException("Invalid File");
+				throw new GameException("Invalid File");
 			}
 			
-		} catch (IOException | ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (IOException | ClassNotFoundException | GameException e) {
+			return null;
 		}
-		return null;
 	}
 	
 }

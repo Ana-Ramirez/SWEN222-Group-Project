@@ -16,7 +16,12 @@ public class ResumeHandler<T extends Event> implements EventHandler<ActionEvent>
 	}
 	@Override
 	public void handle(ActionEvent arg0) {
-		game.start(stage);
+		try {
+			game.start(stage);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }
