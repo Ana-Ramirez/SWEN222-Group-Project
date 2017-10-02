@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import logic.Level;
+import view.PauseMenu;
 import view.Renderer;
 
 /**
@@ -50,9 +51,9 @@ public class Game extends Application implements Serializable{
 	 * Constructs a new Game object
 	 */
 	public Game() {
-		generateLevels();
 		this.renderer = new Renderer();
 		this.player = new Player(0,0, playerWidth, playerHeight);
+		generateLevels();
 	}
 	
 	/**
@@ -60,6 +61,7 @@ public class Game extends Application implements Serializable{
 	 */
 	private void generateLevels() {
 		//TODO Initialise levels
+		levels.add(new Level(player));
 	}
 	
 	/**
@@ -94,6 +96,16 @@ public class Game extends Application implements Serializable{
 					case S : goDown = true; break;
 					case A : goLeft = true; break;
 					case D : goRight = true; break;
+					case ESCAPE : 
+                	timer.stop(); 
+                	PauseMenu pm = new PauseMenu(); //Maybe pass the renderer scene?
+                	try {
+						pm.start(stage);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					//TODO PICK UP ITEM
 					default : break;
 				}
 			}
@@ -107,16 +119,13 @@ public class Game extends Application implements Serializable{
                     case S: goDown = false; break;
                     case A: goLeft  = false; break;
                     case D: goRight  = false; break;
-//                    case ESCAPE : 
-//                    	timer.stop(); 
-//                    	PauseMenu pm = new PauseMenu(); //Maybe pass the renderer scene?
-//                    	pm.start(stage);
+
                     default : break;
                 }
             }
         });
 		
-		//TODO MOUSE HANDLING\
+		//TODO MOUSE HANDLING
 		
 		stage.setScene(scene);
 		stage.show();
