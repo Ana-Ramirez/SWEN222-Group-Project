@@ -1,6 +1,7 @@
 package game;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import entities.Player;
@@ -11,6 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import logic.Level;
+import logic.Room;
+import resources.ImgResources;
 import view.PauseMenu;
 import view.Renderer;
 
@@ -25,7 +28,7 @@ public class Game extends Application implements Serializable{
 	/**
 	 * Player dimensions
 	 */
-	int playerWidth = 10, playerHeight = 10;
+	private final int playerWidth = 10, playerHeight = 10;
 	
 	/**
 	 * View objects
@@ -45,15 +48,24 @@ public class Game extends Application implements Serializable{
 	/**
 	 * Direction of player movement
 	 */
-	
 	private boolean goUp, goDown, goLeft, goRight;
+	
+	/**
+	 * Current level
+	 */
+	private Level currentLevel;
+	
+	/**
+	 * Current Room
+	 */
+	private Room currentRoom;
 	
 	/**
 	 * Constructs a new Game object
 	 */
 	public Game() {
 		this.renderer = new Renderer();
-		this.player = new Player(0,0, playerWidth, playerHeight);
+		this.player = new Player(0,0, playerWidth, playerHeight, ImgResources.PLAYERDOWN.img);
 		generateLevels();
 	}
 	
@@ -62,7 +74,19 @@ public class Game extends Application implements Serializable{
 	 */
 	private void generateLevels() {
 		//TODO Initialise levels
-		levels.add(new Level(player));
+		levels = new ArrayList<Level>();
+		Level level1 = null;
+		try {
+			level1 = new Level(player);
+			levels.add(level1);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(level1 != null) {
+			currentLevel = level1;
+		}
 	}
 	
 	/**
@@ -72,6 +96,9 @@ public class Game extends Application implements Serializable{
 	public void start(Stage stage) throws Exception {
 		
 		Scene scene = renderer.getScene();
+		
+		//TEMPORARY
+		currentRoom = currentLevel.getRoom(0);
 		
 		//Game loop
 		AnimationTimer timer = new AnimationTimer() {
@@ -84,7 +111,7 @@ public class Game extends Application implements Serializable{
                 if (goLeft)  dx -= 1;
                 if (goRight)  dx += 1;
                 
-                player.moveBy(dx, dy);
+               currentRoom.movePlayer(dx, dy);
             }
         };
 		
@@ -99,6 +126,11 @@ public class Game extends Application implements Serializable{
 					case S : goDown = true; break;
 					case A : goLeft = true; break;
 					case D : goRight = true; break;
+					case DIGIT1 : player.selectItem(0); break;
+					case DIGIT2 : player.selectItem(1); break;
+					case DIGIT3 : player.selectItem(2); break;
+					case E : //TODO PICKUP 
+						break;
 					case ESCAPE : 
 	                	timer.stop(); 
 	                	try {
@@ -107,7 +139,6 @@ public class Game extends Application implements Serializable{
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-					//TODO PICK UP ITEM
 					default : break;
 				}
 			}
