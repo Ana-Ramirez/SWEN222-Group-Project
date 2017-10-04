@@ -4,8 +4,6 @@ import game.Game;
 import game.QuitToMenuHandler;
 import game.ResumeHandler;
 import game.SaveHandler;
-import saveLoad.Save;
-import javafx.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
@@ -27,11 +25,11 @@ import javafx.stage.Stage;
  *
  */
 public class PauseMenu extends Application{
-	Scene scene;
-	StackPane root;
-	VBox vb;
-	Stage primaryStage;
-	Game game;
+	private Scene scene;
+	private StackPane root;
+	private VBox vb;
+	private Stage primaryStage;
+	private Game game;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -85,7 +83,7 @@ public class PauseMenu extends Application{
 	/**
 	 * Resumes the game
 	 */
-	public void resumeGameButton(){
+	private void resumeGameButton(){
 		Button btn = new Button();
 		btn.setText("Resume Game");
 		btn.setOnAction(new ResumeHandler<ActionEvent>(game, primaryStage));
@@ -96,7 +94,7 @@ public class PauseMenu extends Application{
 	 * Saves the game
 	 * @param game
 	 */
-	public void saveGameButton(){
+	private void saveGameButton(){
 		Button btn = new Button();
 		btn.setText("Save Game");
 		btn.setOnAction(new SaveHandler<ActionEvent>(game));
@@ -106,7 +104,7 @@ public class PauseMenu extends Application{
 	/**
 	 * Quits to the main menu
 	 */
-	public void quitToMenuButton(){
+	private void quitToMenuButton(){
 		Button btn = new Button();
 		btn.setText("Start New Game");
 		btn.setOnAction(new QuitToMenuHandler<ActionEvent>());
