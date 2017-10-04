@@ -4,7 +4,6 @@ import java.awt.Rectangle;
 
 import entities.Monster;
 import entities.Player;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Class controlling the AI for the enemy patrols the screen and has a set path
@@ -15,19 +14,14 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class PatrollingEnemy implements Enemies {
 
-	public Player player = new Player(200,200,5,5);
-	public int health;
+	public Player player;
 	public float speed = 0.5f;
-	public int x;
-	public int y;
-	public int width;
-	public int height;
 	public Goal goal1 = new Goal(100, 100);
 	public Goal goal2 = new Goal(100, 200);
 	public Goal currentGoal = goal1;
 
-	public PatrollingEnemy(float x, float y, int width, int height) {
-
+	public PatrollingEnemy(Player player) {
+		this.player = player;
 	}
 
 	/**
@@ -58,7 +52,6 @@ public class PatrollingEnemy implements Enemies {
 		if (monster.getX() == goal2.getX() && monster.getY() == goal2.getY()) {
 			currentGoal = goal1;
 		}
-
 	}
 
 	/**
@@ -67,7 +60,6 @@ public class PatrollingEnemy implements Enemies {
 	public float speed() {
 		return speed;
 	}
-	
 
 	class Goal {
 
