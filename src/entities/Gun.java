@@ -1,5 +1,6 @@
 package entities;
 
+import javafx.scene.image.Image;
 
 //***** Design Discussion *********
 //How to manage a weapon firing something
@@ -7,12 +8,14 @@ package entities;
 
 
 /**
- * Projectile object, handles a weapon that
+ * Gun object, handles a weapon that
  * fires projectiles in a given direction
  * @author Nick Lauder
  *
  */
 public class Gun extends Weapon {
+	private Projectile ammo;
+	private int ammoCount;
 
 	/**
 	 * Creates a new projectile
@@ -31,9 +34,14 @@ public class Gun extends Weapon {
 	 * @param damage
 	 * 		the base damage to use
 	 */
-	public Gun(String name, float x, float y, int width, int height, Type type, int damage) {
+	public Gun(String name, float x, float y, int width, int height, Type type, int damage, Image img, Image ammoImg) {
 		super(name, x, y, width, height, type, damage);
-		// TODO Auto-generated constructor stub
+		setImage(img);
+		ammo = new Projectile(name + "Ammo", x, y, 5, 5, damage, ammoImg);
+	}
+
+	public Image getAmmoImage() {
+		return ammo.getImage();
 	}
 
 }

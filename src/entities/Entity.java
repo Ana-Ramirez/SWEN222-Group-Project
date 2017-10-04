@@ -120,6 +120,7 @@ public abstract class Entity {
 	 */
 	protected abstract boolean hit(int damage);
 
+
 	/**
 	 * Hits the entity
 	 * @return
