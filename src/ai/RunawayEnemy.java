@@ -1,29 +1,21 @@
 package ai;
 
-import java.awt.Rectangle;
-
 import entities.Monster;
 import entities.Player;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
-* Class controlling the AI for the enemy that runs away from the player
-* @author Ana Ramirez
-*/
+ * Class controlling the AI for the enemy that runs away from the player
+ * 
+ * @author Ana Ramirez
+ */
 
-public class RunawayEnemy implements Enemies{
-	
-	public Player player = new Player(200,200,5,5);
-	public int health;
+public class RunawayEnemy implements Enemies {
+
+	public Player player;
 	public float speed = 0.5f;
-	public int x;
-	public int y;
-	public int width;
-	public int height;
 
-
-	public RunawayEnemy(float x, float y, int width, int height) {
-
+	public RunawayEnemy(Player player) {
+		this.player = player;
 	}
 
 	/**
@@ -46,7 +38,6 @@ public class RunawayEnemy implements Enemies{
 			monster.moveBy(0, -speed);
 		}
 	}
-	
 
 	/**
 	 * Speed of movement
@@ -55,4 +46,3 @@ public class RunawayEnemy implements Enemies{
 		return speed;
 	}
 }
-
