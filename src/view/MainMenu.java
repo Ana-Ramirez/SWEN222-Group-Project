@@ -101,7 +101,6 @@ public class MainMenu extends Application{
 		btn.setText("Load Game");
 		btn.setOnAction(new LoadHandler<ActionEvent>(primaryStage));
 		vb.getChildren().add(btn);
-
 	}
 
 	/**

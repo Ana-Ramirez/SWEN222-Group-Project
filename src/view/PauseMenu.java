@@ -21,10 +21,13 @@ import javafx.stage.Stage;
 public class PauseMenu extends Application{
 	Scene scene;
 	StackPane root;
-	
-	public PauseMenu(){
+	Stage primaryStage;
+	Game game;
+
+	public PauseMenu(Game game){
+		this.game = game;
 	}
-	
+
 	/**
 	 * Displays/hides the pause menu
 	 */
@@ -36,28 +39,28 @@ public class PauseMenu extends Application{
 			root.setVisible(true);
 		}
 	}
-	
+
 	/**
 	 * Resumes the game
 	 */
-	public void resumeGameButton(Game game){
+	public void resumeGameButton(){
 		Button btn = new Button();
 		btn.setText("Resume Game");
-		btn.setOnAction(new ResumeHandler<ActionEvent>(game));
+		btn.setOnAction(new ResumeHandler<ActionEvent>(game, primaryStage));
 		root.getChildren().add(btn);
 	}
-	
+
 	/**
 	 * Saves the game
 	 * @param game
 	 */
-	public void saveGameButton(Game game){
+	public void saveGameButton(){
 		Button btn = new Button();
 		btn.setText("Save Game");
 		btn.setOnAction(new SaveHandler<ActionEvent>(game));
 		root.getChildren().add(btn);
 	}
-	
+
 	/**
 	 * Quits to the main menu
 	 */
@@ -69,8 +72,9 @@ public class PauseMenu extends Application{
 	}
 
 	@Override
-	public void start(Stage arg0) throws Exception {
+	public void start(Stage primaryStage) throws Exception {
 		//TODO get pause menu working and displaying buttons
+		this.primaryStage = primaryStage;
 		root = new StackPane();
 		this.scene = new Scene(root, 300, 250);
 	}
