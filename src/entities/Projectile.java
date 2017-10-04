@@ -1,38 +1,17 @@
 package entities;
 
-
-//***** Design Discussion *********
-//How to manage a weapon firing something
-
-
+import javafx.scene.image.Image;
 
 /**
- * Projectile object, handles a weapon that
- * fires projectiles in a given direction
+ * Class that handles the specific projectile fired by a gun
  * @author Nick Lauder
  *
  */
 public class Projectile extends Weapon {
 
-	/**
-	 * Creates a new projectile
-	 * @param name
-	 * 		the string name to use
-	 * @param x
-	 * 		the float x coordinate to use
-	 * @param y
-	 * 		the float y coordinate to use
-	 * @param width
-	 * 		the int width to use
-	 * @param height
-	 * 		the int height to use
-	 * @param type
-	 * 		the type to use
-	 * @param damage
-	 * 		the base damage to use
-	 */
-	public Projectile(String name, float x, float y, int width, int height, Type type, int damage) {
-		super(name, x, y, width, height, type, damage);
+	protected Projectile(String name, float x, float y, int width, int height, int damage, Image img) {
+		super(name, x, y, width, height, null, damage);
+		setImage(img);
 		// TODO Auto-generated constructor stub
 	}
 

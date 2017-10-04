@@ -1,5 +1,6 @@
 package entities;
 
+import javafx.scene.image.Image;
 
 /**
  * Abstract class of all different character types

@@ -1,6 +1,7 @@
 package entities;
 
 import ai.Enemies;
+import javafx.scene.image.Image;
 
 /**
  * The monster object that can move around the level and attack the player
@@ -29,8 +30,9 @@ public class Monster extends Character {
 	 * @param weapon
 	 * 		the weapon to use
 	 */
-	public Monster(String name, float x, float y, int width, int height, Type type, Weapon weapon) {
+	public Monster(String name, float x, float y, int width, int height, Type type, Weapon weapon, Image img) {
 		super(name, x, y, width, height, type, 100);
+		setImage(img);
 		this.weapon = weapon;
 	}
 

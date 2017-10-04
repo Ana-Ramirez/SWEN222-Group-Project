@@ -1,5 +1,6 @@
 package entities;
 
+import javafx.scene.image.Image;
 
 /**
  * Abstract class for all the different types of weapons
@@ -12,6 +13,11 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 	public Weapon(String name, float x, float y, int width, int height, Type type, int damage) {
 		super(name, x, y, width, height, type);
 		this.baseDamage = damage;
+	}
+
+	protected String use() {
+		return "";
+		//TODO: implement properly
 	}
 
 	/**
@@ -86,9 +92,9 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 	@Override
 	protected Weapon clone() {
 		if (this instanceof MeleeWeapon) {
-			return new MeleeWeapon(getName(), x, y, getWidth(), getHeight(), getType(), baseDamage);
-		} else if (this instanceof Projectile) {
-			return new Projectile(getName(), x, y, getWidth(), getHeight(), getType(), baseDamage);
+			return new MeleeWeapon(getName(), x, y, getWidth(), getHeight(), getType(), baseDamage, getImage());
+		} else if (this instanceof Gun) {
+			return new Gun(getName(), x, y, getWidth(), getHeight(), getType(), baseDamage, getImage(),  ((Gun) this).getAmmoImage());
 		} else {
 			return null;
 		}
