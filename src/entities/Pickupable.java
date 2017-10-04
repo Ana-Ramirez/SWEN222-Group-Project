@@ -1,5 +1,6 @@
 package entities;
 
+import javafx.scene.image.Image;
 
 /**
  * Abstract class for a pickupable object
@@ -21,4 +22,6 @@ public abstract class Pickupable extends MovableEntity {
 	protected boolean hit(int damage) {
 		return false;
 	}
+
+	protected abstract String use();
 }
