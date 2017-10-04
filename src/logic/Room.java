@@ -85,6 +85,7 @@ public class Room {
 	 * @return
 	 */
 	public Entity getMonster(Monster monster){
+		if(monster == null){ return null; }
 		for(Entity e : this.roomItems){
 			if(e instanceof Monster){	//if it's the same entity
 				return e;

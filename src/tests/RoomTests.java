@@ -14,6 +14,11 @@ import entities.Weapon;
 import logic.Door;
 import logic.Room;
 
+/**
+ * This class tests the Room class
+ * @author lewismcewan
+ *
+ */
 public class RoomTests {
 	
 	/**
