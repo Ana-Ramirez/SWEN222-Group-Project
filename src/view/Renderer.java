@@ -1,5 +1,6 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import entities.*;
@@ -30,6 +31,7 @@ public class Renderer{
 
 		this.canvas = new Canvas(800,600);
 		this.g = canvas.getGraphicsContext2D();
+		this.entities = new ArrayList<Entity>();
 
 		setEntityImages();
 	}
@@ -49,7 +51,10 @@ public class Renderer{
 	 * Draws the entities in the room
 	 */
 	public void drawEntities(){
-		//TODO check for nulls
+		if (this.entities == null) {
+			return;
+		}
+
 		for (Entity e : entities){
 			g.drawImage(e.getImage(), (double)e.getX(), (double)e.getY());
 		}
@@ -74,7 +79,10 @@ public class Renderer{
 	 * Assigns images to the entities
 	 */
 	private void setEntityImages() {
-		//TODO check for nulls
+		if (this.entities == null) {
+			return;
+		}
+
 		for (Entity e : this.entities) {
 			//TODO implement this
 			//e.setImage(ImgResources.MAINMENUBG);
