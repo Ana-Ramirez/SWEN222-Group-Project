@@ -25,10 +25,10 @@ import resources.ImgResources;
  *
  */
 public class MainMenu extends Application{
-	Scene scene;
-	StackPane root;
-	VBox vb;
-	Stage primaryStage;
+	private Scene scene;
+	private StackPane root;
+	private VBox vb;
+	private Stage primaryStage;
 
 	/**
 	 * Start method. Required by JavaFX applications.
@@ -84,7 +84,7 @@ public class MainMenu extends Application{
 	/**
 	 * Starts a new game
 	 */
-	public void startGameButton(){
+	private void startGameButton(){
 		Button btn = new Button();
 		btn.setText("Start New Game");
 		btn.setOnAction(new StartHandler<ActionEvent>(primaryStage));
@@ -94,7 +94,7 @@ public class MainMenu extends Application{
 	/**
 	 * Loads a game from file
 	 */
-	public void loadGameButton(){
+	private void loadGameButton(){
 		Button btn = new Button();
 		btn.setText("Load Game");
 		btn.setOnAction(new LoadHandler<ActionEvent>(primaryStage));
@@ -104,7 +104,7 @@ public class MainMenu extends Application{
 	/**
 	 * Exits the application
 	 */
-	public void quitGameButton(){
+	private void quitGameButton(){
 		Button btn = new Button();
 		btn.setText("Quit");
 		btn.setOnAction(new QuitHandler<ActionEvent>());
