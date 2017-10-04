@@ -16,34 +16,34 @@ public class PauseMenuTests {
 	 */
 	@Test
 	public void toggleDisplayTest(){
-		PauseMenu pm = new PauseMenu();
+		PauseMenu pm = new PauseMenu(null);
 		pm.toggleDisplay();
 	}
-	
+
 	/**
 	 * Checks if a resume button can be added without error
 	 */
 	@Test
 	public void resumeButtonTest(){
-		PauseMenu pm = new PauseMenu();
-		pm.resumeGameButton(null);
+		PauseMenu pm = new PauseMenu(null);
+		pm.resumeGameButton();
 	}
-	
+
 	/**
 	 * Checks if a save button can be added without error
 	 */
 	@Test
 	public void saveButtonTest(){
-		PauseMenu pm = new PauseMenu();
-		pm.saveGameButton(null);
+		PauseMenu pm = new PauseMenu(null);
+		pm.saveGameButton();
 	}
-	
+
 	/**
 	 * Checks if a quit button can be added without error
 	 */
 	@Test
 	public void quitButtonTest(){
-		PauseMenu pm = new PauseMenu();
+		PauseMenu pm = new PauseMenu(null);
 		pm.quitToMenuButton();
 	}
 }

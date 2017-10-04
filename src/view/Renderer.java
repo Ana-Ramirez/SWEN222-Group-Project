@@ -39,7 +39,7 @@ public class Renderer{
 	 * @param entities
 	 * @param room
 	 */
-	public void renderRoom(List<Entity> entities, Room room) {
+	private void renderRoom(List<Entity> entities, Room room) {
 		if (entities == null || room == null) {
 			return;
 		}
@@ -51,7 +51,7 @@ public class Renderer{
 	/**
 	 * Draws the entities in the room
 	 */
-	public void drawEntities(){
+	private void drawEntities(){
 		if (this.entities == null) {
 			return;
 		}
@@ -64,7 +64,7 @@ public class Renderer{
 	/**
 	 * Draws each a room and its doors that lead to other rooms
 	 */
-	public void drawRoom(){
+	private void drawRoom(){
 		//TODO draw images for the floor
 		//check for nulls
 
