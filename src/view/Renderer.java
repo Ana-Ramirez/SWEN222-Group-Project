@@ -32,8 +32,6 @@ public class Renderer{
 		this.canvas = new Canvas(800,600);
 		this.g = canvas.getGraphicsContext2D();
 		this.entities = new ArrayList<Entity>();
-
-		setEntityImages();
 	}
 
 	/**
@@ -42,7 +40,10 @@ public class Renderer{
 	 * @param room
 	 */
 	public void renderRoom(List<Entity> entities, Room room) {
-		//TODO check for nulls
+		if (entities == null || room == null) {
+			return;
+		}
+
 		this.entities = entities;
 		this.room = room;
 	}
@@ -72,20 +73,6 @@ public class Renderer{
 			//TODO not all images implemented yet
 			//check for nulls
 			//g.drawImage(ImgResources.DOOR.img, , , , );
-		}
-	}
-
-	/**
-	 * Assigns images to the entities
-	 */
-	private void setEntityImages() {
-		if (this.entities == null) {
-			return;
-		}
-
-		for (Entity e : this.entities) {
-			//TODO implement this
-			//e.setImage(ImgResources.MAINMENUBG);
 		}
 	}
 
