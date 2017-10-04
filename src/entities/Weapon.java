@@ -13,6 +13,11 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 		super(name, x, y, width, height, type);
 		this.baseDamage = damage;
 	}
+	
+	protected String use() {
+		return "";
+		//TODO: implement properly
+	}
 
 	/**
 	 * Deals damage to a given entity
@@ -87,8 +92,8 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 	protected Weapon clone() {
 		if (this instanceof MeleeWeapon) {
 			return new MeleeWeapon(getName(), x, y, getWidth(), getHeight(), getType(), baseDamage);
-		} else if (this instanceof Projectile) {
-			return new Projectile(getName(), x, y, getWidth(), getHeight(), getType(), baseDamage);
+		} else if (this instanceof Gun) {
+			return new Gun(getName(), x, y, getWidth(), getHeight(), getType(), baseDamage);
 		} else {
 			return null;
 		}

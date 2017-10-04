@@ -12,7 +12,7 @@ package entities;
  * @author Nick Lauder
  *
  */
-public class Projectile extends Weapon {
+public class Gun extends Weapon {
 
 	/**
 	 * Creates a new projectile
@@ -31,7 +31,7 @@ public class Projectile extends Weapon {
 	 * @param damage
 	 * 		the base damage to use
 	 */
-	public Projectile(String name, float x, float y, int width, int height, Type type, int damage) {
+	public Gun(String name, float x, float y, int width, int height, Type type, int damage) {
 		super(name, x, y, width, height, type, damage);
 		// TODO Auto-generated constructor stub
 	}
