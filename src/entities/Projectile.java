@@ -14,15 +14,18 @@ package entities;
  */
 public class Projectile extends Weapon {
 
-
 	/**
 	 * Creates a new projectile
 	 * @param name
 	 * 		the string name to use
 	 * @param x
-	 * 		the starting float x coordinate
+	 * 		the float x coordinate to use
 	 * @param y
-	 * 		the starting float y coordinate
+	 * 		the float y coordinate to use
+	 * @param width
+	 * 		the int width to use
+	 * @param height
+	 * 		the int height to use
 	 * @param type
 	 * 		the type to use
 	 * @param damage

@@ -9,17 +9,10 @@ package entities;
 public abstract class Weapon extends Pickupable implements Cloneable{
 	private int baseDamage;
 
-
-	/**
-	 * Creates a new weapon with a given base damage
-	 * @param damage
-	 * 		the int base damage to use
-	 */
 	public Weapon(String name, float x, float y, int width, int height, Type type, int damage) {
 		super(name, x, y, width, height, type);
 		this.baseDamage = damage;
 	}
-
 
 	/**
 	 * Deals damage to a given entity
@@ -32,7 +25,6 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 		return victim.hit(getDamage(victim));
 	}
 
-
 	/**
 	 * Returns the amount of damage to give a given entity
 	 * @param victim
@@ -42,9 +34,7 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 	 */
 	private int getDamage(Entity victim) {
 		return baseDamage * (int) getModifier(victim);
-
 	}
-
 
 	/**
 	 * Gets the modifier depending on the type of the
@@ -81,11 +71,8 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 				}
 			}
 		}
-
 		return modifier;
-
 	}
-
 
 	/**
 	 * Gets the base damage (without modifier) of the weapon
@@ -95,7 +82,6 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 	protected int getBaseDamage() {
 		return baseDamage;
 	}
-
 
 	@Override
 	protected Weapon clone() {
@@ -107,5 +93,4 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 			return null;
 		}
 	}
-
 }

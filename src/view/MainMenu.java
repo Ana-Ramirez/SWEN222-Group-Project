@@ -1,6 +1,5 @@
 package view;
 
-import game.Game;
 import game.LoadHandler;
 import game.QuitHandler;
 import game.StartHandler;
@@ -62,8 +61,6 @@ public class MainMenu extends Application{
 
 		scene = new Scene(root, 816, 480);
 
-
-
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
@@ -97,13 +94,11 @@ public class MainMenu extends Application{
 	/**
 	 * Loads a game from file
 	 */
-
 	public void loadGameButton(){
 		Button btn = new Button();
 		btn.setText("Load Game");
 		btn.setOnAction(new LoadHandler<ActionEvent>(primaryStage));
 		vb.getChildren().add(btn);
-
 	}
 
 	/**

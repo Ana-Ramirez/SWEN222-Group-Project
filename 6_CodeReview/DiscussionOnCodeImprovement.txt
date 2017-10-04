@@ -10,7 +10,8 @@ also decided to remove the main class we previously had in the game, in favour
 of either placing the main method inside MainMenu or inside the actual Game 
 class. For now I have a main method in my MainMenu class as this makes it easy 
 for me to see my menu progressing. Tim suggested passing my PrimaryStage to his 
-controller code for the EventListeners so that he can start and load games.
+controller code for the EventListeners so that he can start and load games. He 
+also suggested I make the PauseMenu an application.
 
 /**SAVE/LOAD/CONTROLLER**/
 More null checks and error handling required.
@@ -19,3 +20,37 @@ object parameters to the load and start button handlers.
 He also suggested adding type parameters where there were none before and I had
 forgotten to close an object stream in save.java. I need to do more commenting
 in the Game class.
+
+/**LOGIC**/
+Tim suggested I add more null checks and error checks. As there is a 
+GameException class to use for throwing exceptions specific to this game, I
+added one check to remember to add more in future. This check was to prevent a 
+door object being made with either of the room objects it is supposed to be 
+connecting being null, as this would be impossible. I also added a null check, 
+with more to be added in future. Upon further reviewal of my code from Patrick, 
+I also need to make a Wall class to create wall objects which will be used as an
+easy way to draw the walls for the renderer. These wall objects will be placed
+around the outside of the map of each room through the use of a 2D array, 
+mapping to be the same size as the canvas we are creating/wanting to use for our
+rooms.
+
+/**AI**/
+I have unimplemented contructors so Nick recommended filling these in, which I 
+intended on doing before Wednesday's handin.
+Need to delete some dead/unneeded methods which conflict with some of the 
+methods in the entites library.
+I also have bounding boxes that need to be deleted that were meant to handle
+collisions, but Nick recommended that these now be taken care of in the entities
+library, so these now need to be removed from my library.
+He also recommended taking in the Player object in the constructors for the 
+various AIs, rather than creating a new Player. This was just a placeholder that
+I had for a while which I intended on delecting but completely forgot, so good
+thing it was found
+
+/*\/[]\/*\Entities/*\/[]\/*\
+Ana suggested an alternative handling of contructors within the entities libary. 
+Instead of forcing a user to giving an enitity a type/weapon when it would never 
+have any use for it. Now after the initial constructor is called, nulls are passed
+all the way up to the entities abstract class to fill in the infomation. Ana also 
+suggested better java doc commenting throughout for better understandability with
+the other members of the team 

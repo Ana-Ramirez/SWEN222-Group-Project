@@ -15,7 +15,7 @@ public class SaveHandler<T extends Event> implements EventHandler<ActionEvent>{
 	
 	@Override
 	public void handle(ActionEvent arg0) {
-		Save save = new Save(game);
+		Save<Game> save = new Save<Game>(game);
 		save.saveGame();
 	}
 	

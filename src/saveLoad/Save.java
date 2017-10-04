@@ -40,9 +40,11 @@ public class Save<T extends Object> {
 			//Pass object to object stream
 			obj_out.writeObject(game);
 			
+			obj_out.close();
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return;
 		}
 	}
 }
