@@ -83,4 +83,9 @@ public class Player extends Character {
 		inventory[itemSelected] = null;
 		return holder;
 	}
+
+	@Override
+	public boolean hit(int damage) {
+		return false;
+	}
 }

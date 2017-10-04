@@ -31,7 +31,7 @@ public abstract class Character extends MovableEntity {
 	@Override
 	protected boolean hit(int damage) {
 		if (lives > 0) {
-			lives--;
+			lives-=damage;
 			return true;
 		}
 		return false;
