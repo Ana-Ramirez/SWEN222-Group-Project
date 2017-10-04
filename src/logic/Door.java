@@ -30,7 +30,7 @@ public class Door extends StationaryEntity{
 	 * @param position		the wall this door sits on
 	 */
 	public Door(Room rm1, Room rm2, Pickupable item, int doorNum, int position) throws Exception{
-		super(Integer.toString(doorNum), 10, 10, 10, 10, null);
+		super(Integer.toString(doorNum), 10, 10, 10, 10);
 		if(rm1 == null || rm2 == null) throw new GameException("A room cannot be null for a door");
 		this.room1 = rm1;
 		this.room2 = rm2;
