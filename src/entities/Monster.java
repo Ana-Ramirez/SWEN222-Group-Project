@@ -61,4 +61,8 @@ public class Monster extends Character {
 	public void tick() {
 		pattern.tick(this);
 	}
+
+	public boolean attack(Player victim) {
+		return weapon.attack(victim);
+	}
 }
