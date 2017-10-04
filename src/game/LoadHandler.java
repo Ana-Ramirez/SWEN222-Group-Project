@@ -11,15 +11,31 @@ import saveLoad.Load;
 
 public class LoadHandler<T extends Event> implements EventHandler<ActionEvent>{
 
+	private Stage stage;
+	
+	public LoadHandler(Stage stage) {
+		this.stage = stage;
+	}
+	
+	@SuppressWarnings("unused")
 	@Override
 	public void handle(ActionEvent event) {
 		FileChooser fc = new FileChooser();
+		
 		File file = fc.showOpenDialog(new Stage());//I hope this works?
 		
+		if(file == null) {
+			return;
+		}
 		Load load = new Load(file.getName());
-		Game game = load.loadGame();
+		Game game = (Game) load.loadGame();
 		
-		game.startGame();
+		try {
+			game.start(stage);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

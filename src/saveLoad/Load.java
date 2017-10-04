@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 import game.Game;
+import game.GameException;
 
 /**
  * Functional class that loads a saved game from a file
@@ -30,7 +31,7 @@ public class Load {
 	 * Loads a save game from a file
 	 * @return save game
 	 */
-	public Game loadGame() {
+	public Object loadGame() {
 		try {
 			
 			//Read file from disk
@@ -39,21 +40,25 @@ public class Load {
 			//Read object from file
 			ObjectInputStream obj_in = new ObjectInputStream(f_in);
 			
-			Object obj = obj_in.readObject();
+			Object obj = obj_in.readObject(); 
+			
+			obj_in.close();
 			
 			//Check object is valid
 			if(obj instanceof Game) {
 				return (Game) obj;
 			}
+			else if(obj instanceof TestClass) {
+				return (TestClass) obj;
+			}
 			else {
-				throw new IOException("Invalid File");
+				throw new GameException("Invalid File");
 			}
 			
-		} catch (IOException | ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+		} catch (IOException | ClassNotFoundException | GameException e) {
+			return null;
 		}
-		return null;
 	}
 	
 }

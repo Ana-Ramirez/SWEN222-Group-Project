@@ -2,6 +2,9 @@ package logic;
 
 import entities.Entity;
 import entities.Pickupable;
+import entities.StationaryEntity;
+import entities.Type;
+import game.GameException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -10,7 +13,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * @author lewismcewan
  *
  */
-public class Door {
+public class Door extends StationaryEntity{
 	
 	private Room room1, room2;
 	private boolean doorLocked = true;
@@ -18,7 +21,16 @@ public class Door {
 	private int doorNum;
 	private int position;
 	
+	/**
+	 * This creates a new door, linking the two rooms for which this door is a passage for.
+	 * @param rm1			first room linked to
+	 * @param rm2			second room linked to
+	 * @param item			item needed to unlock this door
+	 * @param doorNum		which number door in the room this is
+	 * @param position		the wall this door sits on
+	 */
 	public Door(Room rm1, Room rm2, Pickupable item, int doorNum, int position){
+		super(Integer.toString(doorNum), 10, 10, 10, 10);
 		this.room1 = rm1;
 		this.room2 = rm2;
 		this.unlockItem = item;
@@ -81,8 +93,15 @@ public class Door {
 		return this.unlockItem;
 	}
 	
-	/*
-	 * return the door position
+	/**
+	 * @return status of door lock
+	 */
+	public boolean isLocked(){
+		return this.doorLocked;
+	}
+	
+	/**
+	 * @return the door position
 	 */
 	public int getDoorPosition(){
 		return this.position;

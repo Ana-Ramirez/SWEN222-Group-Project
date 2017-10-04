@@ -1,17 +1,28 @@
 package game;
 
-import entities.Player;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import view.Renderer;
+import javafx.stage.Stage;
 
 public class StartHandler<T extends Event> implements EventHandler<ActionEvent>{
-
+	
+	private Stage stage;
+	
+	public StartHandler(Stage stage) {
+		this.stage = stage;
+	}
+	
 	@Override
 	public void handle(ActionEvent event) {
-		Game game = new Game(new Renderer(), new Player(0, 0)); //TODO sort out these parameters
-		game.startGame();
+		Game game;
+		try {
+			game = new Game();
+			game.start(stage);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -13,24 +13,24 @@ public class Monster extends Character {
 
 
 	/**
-	 * Creates a new monster
+	 * Creates a new Monster
 	 * @param name
 	 * 		the string name to use
 	 * @param x
-	 * 		the float x coordinate to use
+	 * 		the float x to use
 	 * @param y
-	 * 		the float y coordinate to use
+	 * 		the float y to use
+	 * @param width
+	 * 		the int width to use
+	 * @param height
+	 * 		the int height to use
 	 * @param type
-	 * 		the type of the monster
+	 * 		the type to use
 	 * @param weapon
-	 * 		the monsters weapon
+	 * 		the weapon to use
 	 */
-	public Monster(String name, float x, float y, Type type, Weapon weapon) {
-		super(100);
-		this.name = name;
-		this.x = x;
-		this.y = y;
-		this.type = type;
+	public Monster(String name, float x, float y, int width, int height, Type type, Weapon weapon) {
+		super(name, x, y, width, height, type, 100);
 		this.weapon = weapon;
 	}
 

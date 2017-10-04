@@ -1,10 +1,10 @@
-package tests;
+package logicTests;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class LevelTests {
+public class LogicTests {
 
 	@Test
 	public void test() {
