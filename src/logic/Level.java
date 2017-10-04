@@ -25,7 +25,7 @@ public class Level {
 	 * @param player
 	 * @throws Exception 
 	 */
-	public Level(Player player) throws Exception{
+	public Level(Player player){
 		this.player = player;
 		this.rooms = new ArrayList<Room>();
 		initialise();
@@ -35,7 +35,7 @@ public class Level {
 	 * create rooms and add to this level
 	 * @throws Exception 
 	 */
-	private void initialise() throws Exception{
+	private void initialise(){
 		//create rooms and doors
 		Room room1 = new Room(1);
 		Room room2 = new Room(2);

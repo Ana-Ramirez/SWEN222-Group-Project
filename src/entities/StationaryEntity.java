@@ -1,5 +1,6 @@
 package entities;
 
+import javafx.scene.image.Image;
 
 /**
  * Abstract class for an entity that cannot move/be moved
@@ -21,8 +22,9 @@ public class StationaryEntity extends Entity {
 	 * @param height
 	 * 		the int height to use
 	 */
-	public StationaryEntity(String name, int x, int y, int width, int height) {
+	public StationaryEntity(String name, int x, int y, int width, int height, Image img) {
 		super(name, x, y, width, height, null);
+		setImage(img);
 	}
 
 	@Override
