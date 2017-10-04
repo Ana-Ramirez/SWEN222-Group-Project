@@ -1,4 +1,4 @@
-package tests;
+package logicTests;
 
 import static org.junit.Assert.*;
 
@@ -14,6 +14,11 @@ import entities.Weapon;
 import logic.Door;
 import logic.Room;
 
+/**
+ * This class tests the Room class
+ * @author lewismcewan
+ *
+ */
 public class RoomTests {
 	
 	/**

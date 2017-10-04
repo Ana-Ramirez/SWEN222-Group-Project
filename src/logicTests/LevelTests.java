@@ -1,4 +1,4 @@
-package tests;
+package logicTests;
 
 import static org.junit.Assert.*;
 
@@ -8,6 +8,11 @@ import entities.Player;
 import logic.Level;
 import logic.Room;
 
+/**
+ * This class tests the use of the Level class
+ * @author lewismcewan
+ *
+ */
 public class LevelTests {
 
 	/**

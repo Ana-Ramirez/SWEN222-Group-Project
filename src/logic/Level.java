@@ -20,7 +20,12 @@ public class Level {
 	private Player player;
 	private boolean gotPatrick = false;
 	
-	public Level(Player player){
+	/**
+	 * Create the new level, passing in a new player 
+	 * @param player
+	 * @throws Exception 
+	 */
+	public Level(Player player) throws Exception{
 		this.player = player;
 		this.rooms = new ArrayList<Room>();
 		initialise();
@@ -28,8 +33,9 @@ public class Level {
 	
 	/**
 	 * create rooms and add to this level
+	 * @throws Exception 
 	 */
-	private void initialise(){
+	private void initialise() throws Exception{
 		//create rooms and doors
 		Room room1 = new Room(1);
 		Room room2 = new Room(2);
@@ -62,14 +68,11 @@ public class Level {
 		
 	}
 	
-	public Entity getPlayer(){
-		return this.player;
-	}
-	
-	public boolean gameOver(){
-		return this.gotPatrick;
-	}
-	
+	/**
+	 * Return a specific room from this level
+	 * @param i		the room number
+	 * @return		the room
+	 */
 	public Room getRoom(int i){
 		for(Room r : this.rooms){
 			if(r.getRoomNum() == i){
@@ -79,8 +82,25 @@ public class Level {
 		return null;
 	}
 	
+	/**
+	 * @return the rooms in this level
+	 */
 	public List<Room> getRooms(){
 		return this.rooms;
+	}
+	
+	/**
+	 * @return the player in the game
+	 */
+	public Entity getPlayer(){
+		return this.player;
+	}
+	
+	/**
+	 * @return if Patrick has been reached and the game is over
+	 */
+	public boolean gameOver(){
+		return this.gotPatrick;
 	}
 	
 }

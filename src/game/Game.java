@@ -45,6 +45,7 @@ public class Game extends Application implements Serializable{
 	/**
 	 * Direction of player movement
 	 */
+	
 	private boolean goUp, goDown, goLeft, goRight;
 	
 	/**
@@ -87,6 +88,8 @@ public class Game extends Application implements Serializable{
             }
         };
 		
+    	PauseMenu pm = new PauseMenu(this);
+
         //Key listening
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
@@ -98,7 +101,6 @@ public class Game extends Application implements Serializable{
 					case D : goRight = true; break;
 					case ESCAPE : 
 	                	timer.stop(); 
-	                	PauseMenu pm = new PauseMenu();
 	                	try {
 							pm.start(stage);
 						} catch (Exception e) {

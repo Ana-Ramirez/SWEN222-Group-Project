@@ -5,8 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import game.Game;
-
 /**
  * Functional class that writes the passed game object to a file.
  * @author Tim Gastrell
