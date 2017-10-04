@@ -26,7 +26,7 @@ public class aiTests {
 	public void followFindsPlayer() {
 		Monster monster = new Monster("follow", 100, 100, 5, 5, Type.WATER, null);
 		Player player = new Player(200,200,5,5);
-		FollowingEnemy fEnemy = new FollowingEnemy(100,100,5, 5);
+		FollowingEnemy fEnemy = new FollowingEnemy(player);
 		int i = 1000;
 		while(i != 0){
 			fEnemy.tick(monster);
