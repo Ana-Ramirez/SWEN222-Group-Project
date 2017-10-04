@@ -97,14 +97,14 @@ public class Game extends Application implements Serializable{
 					case A : goLeft = true; break;
 					case D : goRight = true; break;
 					case ESCAPE : 
-                	timer.stop(); 
-                	PauseMenu pm = new PauseMenu(); //Maybe pass the renderer scene?
-                	try {
-						pm.start(stage);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+	                	timer.stop(); 
+	                	PauseMenu pm = new PauseMenu();
+	                	try {
+							pm.start(stage);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					//TODO PICK UP ITEM
 					default : break;
 				}

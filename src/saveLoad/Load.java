@@ -40,7 +40,9 @@ public class Load {
 			//Read object from file
 			ObjectInputStream obj_in = new ObjectInputStream(f_in);
 			
-			Object obj = obj_in.readObject();
+			Object obj = obj_in.readObject(); 
+			
+			obj_in.close();
 			
 			//Check object is valid
 			if(obj instanceof Game) {
@@ -52,6 +54,7 @@ public class Load {
 			else {
 				throw new GameException("Invalid File");
 			}
+			
 			
 		} catch (IOException | ClassNotFoundException | GameException e) {
 			return null;
