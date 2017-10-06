@@ -69,18 +69,6 @@ public class PauseMenu extends Application{
 	}
 
 	/**
-	 * Displays/hides the pause menu
-	 */
-	public void toggleDisplay(){
-		if (root.isVisible()){
-			root.setVisible(false);
-		}
-		else{
-			root.setVisible(true);
-		}
-	}
-
-	/**
 	 * Resumes the game
 	 */
 	private void resumeGameButton(){

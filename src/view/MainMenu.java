@@ -70,18 +70,6 @@ public class MainMenu extends Application{
 	}
 
 	/**
-	 * Displays/hides the main menu
-	 */
-	public void toggleDisplay(){
-		if (root.isVisible()){
-			root.setVisible(false);
-		}
-		else{
-			root.setVisible(true);
-		}
-	}
-
-	/**
 	 * Starts a new game
 	 */
 	private void startGameButton(){

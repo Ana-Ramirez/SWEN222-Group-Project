@@ -164,6 +164,12 @@ public class Renderer{
 	 * @param y
 	 */
 	private void drawInventory(int x, int y){
+		if (player.getInventory() == null){
+			//TODO remove debug code
+			System.out.println("Player inventory is null!");
+			return;
+		}
+		
 		//Draws the outlines
 		g.drawImage(ImgResources.INVENTORYBOX.img, x, y);
 		g.drawImage(ImgResources.INVENTORYBOX.img, x+66, y);
