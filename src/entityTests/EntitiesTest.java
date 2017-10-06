@@ -9,6 +9,7 @@ import entities.MeleeWeapon;
 import entities.Monster;
 import entities.Player;
 import entities.Projectile;
+import entities.StationaryEntity;
 import entities.Type;
 import entities.Weapon;
 import javafx.scene.image.Image;
@@ -153,7 +154,40 @@ public class EntitiesTest {
 	
 	
 	
+	/**
+	 * External testing
+	 */
+
+	@Test
+	public void createConsumable() {
+		Consumable cons = new Consumable("Health", 0, 0, 5, 5, "replensish", 5, null);
+		assertEquals("Health", cons.getName());
+	}
+
+	@Test
+	public void createStationaryEntity() {
+		StationaryEntity sEntity = new StationaryEntity("Door", 0, 0, 5, 5, null);
+		assertEquals("Door", sEntity.getName());
+	}
+
 	
+	@Test
+	public void movePlayerByXY(){
+		Player player = new Player(0, 0, 5, 5, null);
+		assertTrue(player.moveBy(5,5));
+		assertEquals(5.0f, player.getX(),0);
+		assertEquals(5.0f, player.getY(),0);
+	}
+	
+	@Test
+	public void movePlayerToXY(){
+		Player player = new Player(0, 0, 5, 5, null);
+		assertTrue(player.moveBy(20,100));
+		assertEquals(20.0f, player.getX(),0);
+		assertEquals(100.0f, player.getY(),0);
+	}
+	
+
 	
 
 }
