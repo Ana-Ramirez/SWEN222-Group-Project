@@ -28,11 +28,6 @@ public class StationaryEntity extends Entity {
 	}
 
 	@Override
-	protected boolean hit() {
-		return false;
-	}
-
-	@Override
 	protected boolean hit(int damage) {
 		return false;
 	}
