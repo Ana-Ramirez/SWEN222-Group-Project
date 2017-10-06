@@ -5,6 +5,7 @@ import entities.Pickupable;
 import entities.StationaryEntity;
 import entities.Type;
 import game.GameException;
+import resources.ImgResources;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -30,7 +31,16 @@ public class Door extends StationaryEntity{
 	 * @param position		the wall this door sits on
 	 */
 	public Door(Room rm1, Room rm2, Pickupable item, int doorNum, int position){
-		super(Integer.toString(doorNum), 10, 10, 10, 10);
+		super(Integer.toString(doorNum), 10, 10, 10, 10, ImgResources.STAIRSBOT.img);
+		
+		String image = null;
+		if(position == 0){ image = "STAIRSTOP"; }
+		else if(position == 1){ image = "STAIRSBOT"; }
+		else if(position == 2){ image = "STAIRSLEFT"; }
+		else if(position == 3){ image = "STAIRSRIGHT"; }
+		ImgResources imageEnum = ImgResources.valueOf(image);
+		//need to use this to set image of door
+		
 		this.room1 = rm1;
 		this.room2 = rm2;
 		this.unlockItem = item;

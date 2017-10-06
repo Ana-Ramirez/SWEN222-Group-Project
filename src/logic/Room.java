@@ -23,7 +23,7 @@ public class Room {
 	
 	private int roomNum;
 	private List<Entity> roomEntities;
-//	private List<Door> doors;
+	private Wall[][] walls = new Wall[500][500];
 	private Player player = null;
 	
 	/**
@@ -33,8 +33,25 @@ public class Room {
 	public Room(int num){
 		this.roomNum = num;
 		this.roomEntities = new ArrayList<Entity>();
-//		this.roomItems = new ArrayList<Entity>();
-//		this.doors = new ArrayList<Door>();
+		generateWalls();
+	}
+	
+	/**
+	 * Fills the walls array with wall objects where there should be walls
+	 */
+	private void generateWalls(){
+		String pos = null;
+		for(int i = 0; i < this.walls.length; i++){
+			for(int j = 0; j < this.walls[i].length; j++){
+				if(i == 0 || i == this.walls.length || j == 0 || j == this.walls[i].length){
+					if(i == 0){ pos = "top"; }
+					else if(i == this.walls.length){ pos = "bottom"; }
+					else if(j == 0){ pos = "left"; }
+					else if(j == this.walls[i].length){ pos = "right"; }
+					walls[i][j] = new Wall(pos);
+				}
+			}
+		}
 	}
 	
 	/**
@@ -42,13 +59,6 @@ public class Room {
 	 * @param d
 	 */
 	public void goThroughDoor(Door d){
-//		for(Door door : this.doors){
-//			if(d == door){
-//				Room toMoveInto = (this == d.getRoom1()) ? d.getRoom2() : d.getRoom1();
-//				toMoveInto.setPlayer(this.player);
-//				this.player = null;
-//			}
-//		}
 		for(Entity e : this.roomEntities){
 			if(e instanceof Door){
 				if(e == d){
@@ -61,11 +71,9 @@ public class Room {
 	}
 	
 	/**
-	 * Is player's position move valid
-	 * Will they bump into anything
-	 * If bumping into a monster, cannot move there
-	 * If bumping into a pickupable, it can still move there
-	 * @return
+	 * Checks if the player has collided with anything in the room
+	 * Different outcomes depending on what the player has 
+	 * collided with
 	 */
 	public void movePlayer(){
 		for(Entity e : this.roomEntities){
@@ -74,11 +82,17 @@ public class Room {
 					goThroughDoor( (Door)e );
 				} else if(e instanceof Monster){
 					((Monster)e).attack(this.player);
+				} else if(e instanceof Pickupable){
+					this.player.pickup( (Pickupable)e );
 				}
 			}
 		}
 	}
 	
+	/**
+	 * This searches the room for a pickupable item
+	 * which the player is colliding with
+	 */
 	public void pickupItem(){
 		for(Entity e : this.roomEntities){
 			if(e.getBoundingBox().intersects(this.player.getBoundingBox())){
@@ -118,7 +132,7 @@ public class Room {
 	 * Add an item to this room
 	 * @param item		item to add
 	 */
-	public void addItem(Entity item){
+	public void addEntity(Entity item){
 		this.roomEntities.add(item);
 	}
 	
@@ -210,6 +224,13 @@ public class Room {
 	 */
 	public Player getPlayer(){
 		return this.player;
+	}
+	
+	/**
+	 * @return list of all room entities
+	 */
+	public List<Entity> getEntities(){
+		return this.roomEntities;
 	}
 	
 }

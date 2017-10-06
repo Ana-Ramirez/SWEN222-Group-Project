@@ -3,8 +3,14 @@ package logic;
 import java.util.ArrayList;
 import java.util.List;
 
+import entities.Consumable;
 import entities.Entity;
+import entities.Gun;
+import entities.MeleeWeapon;
+import entities.Monster;
 import entities.Player;
+import entities.Type;
+import resources.ImgResources;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -65,6 +71,26 @@ public class Level {
 		this.rooms.add(room3);
 		this.rooms.add(room4);
 		this.rooms.add(room5);
+		
+		//create entities to add
+		Consumable consumable = new Consumable("food", 20, 40, 20, 20, "eat", 1, ImgResources.LIFE.img);
+		Gun gun = new Gun("gun", 300, 300, 20, 20, Type.EARTH, 10, ImgResources.GUN.img, ImgResources.CONSOLE1.img);
+		MeleeWeapon melee = new MeleeWeapon("knife", 100, 100, 20, 20, Type.WATER, 40, ImgResources.CONSOLE1.img);
+		Monster monster = new Monster("monster", 200, 200, 50, 50, Type.EARTH, gun, ImgResources.CONSOLE1.img);
+		
+		//add to rooms
+		room1.addEntity(gun);
+		
+		room2.addEntity(monster);
+		room2.addEntity(consumable);
+		
+		room3.addEntity(monster);
+		room3.addEntity(monster);
+		room3.addEntity(melee);
+		
+		room4.addEntity(consumable);
+		room4.addEntity(consumable);
+		
 		
 	}
 	
