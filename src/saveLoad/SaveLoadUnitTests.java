@@ -1,15 +1,20 @@
 package saveLoad;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.Serializable;
 
 import org.junit.Test;
 
+import game.Game;
+
 public class SaveLoadUnitTests {
 	
+	/**
+	 * Tests that a TestClass object can be saved and loaded without error
+	 */
 	@Test
-	public void testSaveLoad() {
+	public void testSaveLoadTestClass() {
 		String input = "Lewis sucks (:";
 		TestClass testIn = new TestClass(input);
 		Save save = new Save(testIn);
@@ -19,10 +24,9 @@ public class SaveLoadUnitTests {
 		String output = testOut.getStr();
 		
 		assertEquals(input, output);
-	}
-	
-	
+	}		
 }
+
 class TestClass implements Serializable{
 
 	private String str;
