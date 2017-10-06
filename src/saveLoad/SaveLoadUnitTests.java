@@ -42,7 +42,7 @@ public class SaveLoadUnitTests {
 		Save save = new Save(testIn);
 		save.saveGame();
 		
-		String newInput = "Tim sucks";
+		String newInput = "Lewis is kewl";
 		TestClass testInNew = new TestClass(oldInput);
 		Save saveNew = new Save(testInNew);
 		save.saveGame();
