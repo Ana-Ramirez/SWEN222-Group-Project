@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import logic.Level;
 import logic.Room;
@@ -113,7 +114,12 @@ public class Game extends Application implements Serializable{
 				if (goRight)  dx += 1;    
 				player.moveBy(dx, dy);
 				
+				if(!currentLevel.getCurrentRoom().equals(currentRoom)) {
+					currentRoom = currentLevel.getCurrentRoom();
+					renderer.newRoom(currentRoom);
+				}
 				
+				renderer.repaint();
 			}
 		};
 		
@@ -131,8 +137,7 @@ public class Game extends Application implements Serializable{
 					case DIGIT1 : player.selectItem(0); break;
 					case DIGIT2 : player.selectItem(1); break;
 					case DIGIT3 : player.selectItem(2); break;
-					case E : //TODO PICKUP 
-						break;
+					case E : currentRoom.pickupItem(); break;
 					case ESCAPE : 
 	                	timer.stop(); 
 	                	try {
@@ -161,6 +166,17 @@ public class Game extends Application implements Serializable{
         });
 		
 		//TODO MOUSE HANDLING
+		scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				double x = event.getX(), y = event.getY();
+				
+				//TODO need some logic for projectiles to move towards x,y
+			}
+			
+			
+		});
 		
 		stage.setScene(scene);
 		stage.show();
