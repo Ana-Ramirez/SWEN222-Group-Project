@@ -62,27 +62,90 @@ public class EntitiesTest {
 
 	@Test
 	public void hitSameTypeMonster() {
-		fail("Not yet implemented");
+		int damage = 10;
+		Player player = new Player(0, 0, 5, 5, null);
+		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, damage, null);
+		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null);
+	
+		player.pickup(weapon);
+		for (int i = 100; i > 0; i-=damage) {
+			assertEquals(i, monster.getLives());
+			assertTrue(((Weapon) player.getHand()).attack(monster));
+		}
+		assertEquals(0, monster.getLives());
+		assertFalse(((Weapon) player.getHand()).attack(monster));
+		
 	}
 
 	@Test
-	public void hitStrongMonster() {
-		fail("Not yet implemented");
+	public void hitStrongerMonster() {
+		int damage = 10;
+		Player player = new Player(0, 0, 5, 5, null);
+		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.FIRE, damage, null);
+		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null);
+	
+		player.pickup(weapon);
+		for (int i = 100; i > 0; i-=damage/2) {
+			assertEquals(i, monster.getLives());
+			assertTrue(((Weapon) player.getHand()).attack(monster));
+		}
+		assertEquals(0, monster.getLives());
+		assertFalse(((Weapon) player.getHand()).attack(monster));
 	}
 
 	@Test
-	public void hitWeakMonster() {
-		fail("Not yet implemented");
+	public void hitWeakerMonster() {
+		int damage = 5;
+		Player player = new Player(0, 0, 5, 5, null);
+		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.EARTH, damage, null);
+		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null);
+	
+		player.pickup(weapon);
+		for (int i = 100; i > 0; i-=damage*2) {
+			assertEquals(i, monster.getLives());
+			assertTrue(((Weapon) player.getHand()).attack(monster));
+		}
+		assertEquals(0, monster.getLives());
+		assertFalse(((Weapon) player.getHand()).attack(monster));
 	}
 
 	@Test
 	public void killPlayer() {
-		fail("Not yet implemented");
+		Player player = new Player(0, 0, 5, 5, null);
+		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, 5, null);
+		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null);
+		assertEquals(3, player.getLives());
+		assertTrue(player.isAlive());
+		assertTrue(monster.attack(player));
+		assertEquals(2, player.getLives());
+		assertTrue(player.isAlive());
+		assertTrue(monster.attack(player));
+		assertEquals(1, player.getLives());
+		assertTrue(player.isAlive());
+		assertTrue(monster.attack(player));
+		assertEquals(0, player.getLives());
+		assertFalse(player.isAlive());
+		assertFalse(monster.attack(player));
+		assertEquals(0, player.getLives());
+		assertFalse(player.isAlive());
 	}
 
 	@Test
 	public void killMonster() {
-		fail("Not yet implemented");
+		int damage = 10;
+		Player player = new Player(0, 0, 5, 5, null);
+		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, damage, null);
+		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null);
+	
+		player.pickup(weapon);
+		for (int i = 100; i > 0; i-=damage) {
+			assertEquals(i, monster.getLives());
+			assertTrue(monster.isAlive());
+			assertTrue(((Weapon) player.getHand()).attack(monster));
+		}
+		assertEquals(0, monster.getLives());
+		assertFalse(((Weapon) player.getHand()).attack(monster));
+		assertFalse(monster.isAlive());
 	}
 
 }

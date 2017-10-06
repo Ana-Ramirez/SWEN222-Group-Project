@@ -49,6 +49,11 @@ public class Player extends Character {
 	public Pickupable getHand() {
 		return inventory[itemSelected];
 	}
+	
+	
+	public Pickupable[] getInventory() {
+		return inventory;
+	}
 
 
 	/**
@@ -82,10 +87,5 @@ public class Player extends Character {
 		Pickupable holder = inventory[itemSelected];
 		inventory[itemSelected] = null;
 		return holder;
-	}
-
-	@Override
-	public boolean hit(int damage) {
-		return false;
 	}
 }

@@ -119,13 +119,4 @@ public abstract class Entity {
 	 * 		true if damage given
 	 */
 	protected abstract boolean hit(int damage);
-
-
-	/**
-	 * Hits the entity
-	 * @return
-	 * 		true if damage taken
-	 */
-	protected abstract boolean hit();
-
 }

@@ -38,10 +38,15 @@ public class Gun extends Weapon {
 		super(name, x, y, width, height, type, damage);
 		setImage(img);
 		ammo = new Projectile(name + "Ammo", x, y, 5, 5, damage, ammoImg);
+		ammoCount = 5;
 	}
 
 	public Image getAmmoImage() {
 		return ammo.getImage();
+	}
+	
+	public Projectile getAmmo() {
+		return (Projectile) ammo.clone();
 	}
 
 }

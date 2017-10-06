@@ -1,6 +1,5 @@
 package entities;
 
-import javafx.scene.image.Image;
 
 /**
  * Abstract class of all different character types
@@ -15,16 +14,6 @@ public abstract class Character extends MovableEntity {
 		super(name, x, y, width, height, type);
 		this.lives = lives;
 
-	}
-
-
-	@Override
-	protected boolean hit() {
-		if (lives > 0) {
-			lives--;
-			return true;
-		}
-		return false;
 	}
 
 
