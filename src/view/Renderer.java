@@ -45,9 +45,6 @@ public class Renderer{
 		this.g = canvas.getGraphicsContext2D();
 		this.entities = new ArrayList<Entity>();
 		
-		drawRoom();
-		drawHUD();
-		
 		root.getChildren().add(canvas);
 		this.scene = new Scene(root, 800, 600);
 	}
@@ -67,6 +64,16 @@ public class Renderer{
 		this.room = room;
 		
 		drawRoom();
+	}
+	
+	/**
+	 * Actually draws the room and HUD. Should only need to be called once at the start, 
+	 * after the renderer has been initialised and it has been given its first room from 
+	 * newRoom.
+	 */
+	public void initialDraw(){
+		drawRoom();
+		drawHUD();
 	}
 	
 	/**
