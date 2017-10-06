@@ -14,6 +14,10 @@ import javax.imageio.ImageIO;
 public enum ImgResources {
 	//UI
 	MAINMENUBG("menuBackground.png"),
+	INVENTORYBOX("inventoryBox.png"),
+	GUN("gun.png"),
+	KEY("key.png"),
+	LIFE("head.png"),
 	//ENVIRONMENT
 	FLOOR("floor.png"),
 	CONSOLE1("console1.png"),
