@@ -102,18 +102,20 @@ public class Game extends Application implements Serializable{
 		
 		//Game loop
 		AnimationTimer timer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                int dx = 0, dy = 0;
-
-                if (goUp) dy -= 1;
-                if (goDown) dy += 1;
-                if (goLeft)  dx -= 1;
-                if (goRight)  dx += 1;
-                
-               currentRoom.movePlayer(dx, dy);
-            }
-        };
+			@Override
+			public void handle(long now) {
+				
+				//Processing move commands
+				int dx = 0, dy = 0;
+				if (goUp) dy -= 1;
+				if (goDown) dy += 1;
+				if (goLeft)  dx -= 1;
+				if (goRight)  dx += 1;    
+				player.moveBy(dx, dy);
+				
+				
+			}
+		};
 		
     	PauseMenu pm = new PauseMenu(this);
 
