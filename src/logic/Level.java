@@ -129,4 +129,16 @@ public class Level {
 		return this.gotPatrick;
 	}
 	
+	/**
+	 * @return the room the player is currently in
+	 */
+	public Room getCurrentRoom(){
+		for(Room r : this.rooms){
+			if(r.getPlayer() != null){
+				return r;
+			}
+		}
+		return null;
+	}
+	
 }
