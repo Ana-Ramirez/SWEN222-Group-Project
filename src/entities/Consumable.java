@@ -41,5 +41,14 @@ public class Consumable extends Pickupable {
 			return null;
 		}
 	}
+	
+	/**
+	 * Returns whether or not the consumable can still be used
+	 * @return
+	 * 		true if can use
+	 */
+	public boolean canUse() {
+		return uses > 0;
+	}
 
 }
