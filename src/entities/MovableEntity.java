@@ -1,6 +1,5 @@
 package entities;
 
-import javafx.scene.image.Image;
 
 /**
  * Abstract class for a movable entity

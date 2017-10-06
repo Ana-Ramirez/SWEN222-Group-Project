@@ -1,6 +1,5 @@
 package entities;
 
-import javafx.scene.image.Image;
 
 /**
  * Abstract class for all the different types of weapons
@@ -29,6 +28,7 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 	 */
 	public boolean attack(Entity victim) {
 		return victim.hit(getDamage(victim));
+		
 	}
 
 	/**
@@ -39,7 +39,7 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 	 * 		the int value of damage it would give
 	 */
 	private int getDamage(Entity victim) {
-		return baseDamage * (int) getModifier(victim);
+		return  (int) (baseDamage * getModifier(victim));
 	}
 
 	/**
@@ -52,32 +52,30 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 	 */
 	private float getModifier(Entity victim) {
 		float modifier = 1;
-		int i;
-
-		for (i = 0; i < Type.values().length; i++) {
-			if (getType() == Type.values()[i]) {
-				break;
-			}
+		
+		if (victim.getType() == null) {
+			return 1f/baseDamage;
+		} else if (victim.getType() == getType()) {
+			return 1;
 		}
-
-		try {
-			if (Type.values()[i-1] == victim.getType()) {
-				modifier = 0.5f;
-			} else if (Type.values()[i+1] == victim.getType()) {
-				modifier = 2;
-			}
-		} catch (IndexOutOfBoundsException e) {
-			if (i == 0) {
-				if (Type.values()[Type.values().length-1] == victim.getType()) {
-					modifier = 0.5f;
-				}
-			} else if (i == Type.values().length-1) {
-				if (Type.values()[0] == victim.getType()) {
-					modifier = 2;
-				}
-			}
+		
+		switch (victim.getType()) {
+		case EARTH:
+			modifier = (getType() == Type.WATER) ? 0.5f : 2;
+			break;
+		case FIRE:
+			modifier = (getType() == Type.EARTH) ? 0.5f : 2;
+			break;
+		case WATER:
+			modifier = (getType() == Type.FIRE) ? 0.5f : 2;
+			break;
+		default:
+			modifier = 1/baseDamage;
+			break;
 		}
+	
 		return modifier;
+		
 	}
 
 	/**
