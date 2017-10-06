@@ -8,12 +8,14 @@ import java.util.List;
 import org.junit.Test;
 
 import entities.Entity;
+import entities.Player;
 import game.Game;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import logic.Room;
+import resources.ImgResources;
 import view.Renderer;
 
 /**
@@ -28,7 +30,9 @@ public class RendererTests {
 	 */
 	@Test
 	public void constructorTest(){
-		Renderer r = new Renderer();
+		Player p = new Player(0.0f, 0.0f, 10, 10, ImgResources.PLAYERDOWN.img);
+		TestApplication.launch();
+		Renderer r = new Renderer(p);
 	}
 	
 	/**

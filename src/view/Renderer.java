@@ -34,7 +34,11 @@ public class Renderer{
 	private static final int ROOM_WIDTH = 25;
 	private static final int ROOM_HEIGHT = 10;
 
-	public Renderer(){
+	/**
+	 * The constructor for the renderer. Takes a player
+	 * @param p
+	 */
+	public Renderer(Player p){
 		StackPane root = new StackPane();
 
 		Canvas canvas = new Canvas(800,600);
@@ -46,14 +50,6 @@ public class Renderer{
 		
 		root.getChildren().add(canvas);
 		this.scene = new Scene(root, 800, 600);
-	}
-	
-	/**
-	 * Sets the player field to the given player. Must be called before the HUD is drawn.
-	 * @param p
-	 */
-	public void setPlayer(Player p){
-		this.player = p;
 	}
 	
 	/**
