@@ -3,10 +3,12 @@ package logic;
 import java.util.ArrayList;
 import java.util.List;
 
+import entities.Consumable;
 import entities.Entity;
 import entities.Monster;
 import entities.Pickupable;
 import entities.Player;
+import entities.Weapon;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -20,8 +22,8 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 public class Room {
 	
 	private int roomNum;
-	private List<Entity> roomItems;
-	private List<Door> doors;
+	private List<Entity> roomEntities;
+//	private List<Door> doors;
 	private Player player = null;
 	
 	/**
@@ -30,8 +32,9 @@ public class Room {
 	 */
 	public Room(int num){
 		this.roomNum = num;
-		this.roomItems = new ArrayList<Entity>();
-		this.doors = new ArrayList<Door>();
+		this.roomEntities = new ArrayList<Entity>();
+//		this.roomItems = new ArrayList<Entity>();
+//		this.doors = new ArrayList<Door>();
 	}
 	
 	/**
@@ -39,11 +42,20 @@ public class Room {
 	 * @param d
 	 */
 	public void goThroughDoor(Door d){
-		for(Door door : this.doors){
-			if(d == door){
-				Room toMoveInto = (this == d.getRoom1()) ? d.getRoom2() : d.getRoom1();
-				toMoveInto.setPlayer(this.player);
-				this.player = null;
+//		for(Door door : this.doors){
+//			if(d == door){
+//				Room toMoveInto = (this == d.getRoom1()) ? d.getRoom2() : d.getRoom1();
+//				toMoveInto.setPlayer(this.player);
+//				this.player = null;
+//			}
+//		}
+		for(Entity e : this.roomEntities){
+			if(e instanceof Door){
+				if(e == d){
+					Room toMoveInto = (this == d.getRoom1()) ? d.getRoom2() : d.getRoom1();
+					toMoveInto.setPlayer(this.player);
+					this.player = null;
+				}
 			}
 		}
 	}
@@ -55,29 +67,29 @@ public class Room {
 	 * If bumping into a pickupable, it can still move there
 	 * @return
 	 */
-	public boolean movePlayer(float x, float y){
-		for(Entity e : this.roomItems){
-			if(e.getBoundingBox().intersects(player.getBoundingBox())){
-				if(!(e instanceof Pickupable)){
-					return false;
+	public void movePlayer(){
+		for(Entity e : this.roomEntities){
+			if(e.getBoundingBox().intersects(this.player.getBoundingBox())){
+				if(e instanceof Door){
+					goThroughDoor( (Door)e );
+				} else if(e instanceof Monster){
+					((Monster)e).attack(this.player);
 				}
 			}
 		}
-		return true;	//they can move
 	}
 	
-	/**
-	 * Check if player's bounding box collides with a door
-	 * @return
-	 */
-	public boolean doorCollision(){
-		for(Door d : this.doors){
-			if(this.player.getBoundingBox().intersects(d.getBoundingBox())){
-				return true;
+	public void pickupItem(){
+		for(Entity e : this.roomEntities){
+			if(e.getBoundingBox().intersects(this.player.getBoundingBox())){
+				if(e instanceof Pickupable){
+					this.player.pickup( (Pickupable)e );
+					this.roomEntities.remove(e);
+				}
 			}
 		}
-		return false;	//no collision
 	}
+	
 	
 	/**
 	 * 
@@ -86,7 +98,7 @@ public class Room {
 	 */
 	public Entity getMonster(Monster monster){
 		if(monster == null){ return null; }
-		for(Entity e : this.roomItems){
+		for(Entity e : this.roomEntities){
 			if(e instanceof Monster){	//if it's the same entity
 				return e;
 			}
@@ -99,7 +111,7 @@ public class Room {
 	 * @param d		door to add
 	 */
 	public void addDoor(Door d){
-		this.doors.add(d);
+		this.roomEntities.add(d);
 	}
 	
 	/**
@@ -107,7 +119,7 @@ public class Room {
 	 * @param item		item to add
 	 */
 	public void addItem(Entity item){
-		this.roomItems.add(item);
+		this.roomEntities.add(item);
 	}
 	
 	/**
@@ -116,9 +128,9 @@ public class Room {
 	 * @return
 	 */
 	public boolean removeItem(String s){
-		for(int i = 0; i < this.roomItems.size(); i++){
-			if(this.roomItems.get(i).getName().equals(s)){
-				this.roomItems.remove(i);
+		for(int i = 0; i < this.roomEntities.size(); i++){
+			if(this.roomEntities.get(i).getName().equals(s)){
+				this.roomEntities.remove(i);
 				return true;
 			}
 		}
@@ -131,9 +143,11 @@ public class Room {
 	 * @return
 	 */
 	public Door getDoor(int i){
-		for(Door d : this.doors){
-			if(d.getDoorNum() == i){
-				return d;
+		for(Entity e : this.roomEntities){
+			if(e instanceof Door){
+				if( ((Door)e).getDoorNum() == i ){
+					return (Door)e;
+				}
 			}
 		}
 		return null;
@@ -145,7 +159,7 @@ public class Room {
 	 * @return
 	 */
 	public Entity getItem(String s){
-		for(Entity item : this.roomItems){
+		for(Entity item : this.roomEntities){
 			if(item.getName().equals(s)){
 				return item;
 			}
@@ -175,7 +189,13 @@ public class Room {
 	 * @return the list of doors for this room
 	 */
 	public List<Door> getDoors(){
-		return this.doors;
+		List<Door> doors = new ArrayList<Door>();
+		for(Entity e : this.roomEntities){
+			if(e instanceof Door){
+				doors.add( (Door)e );
+			}
+		}
+		return doors;
 	}
 	
 	/**

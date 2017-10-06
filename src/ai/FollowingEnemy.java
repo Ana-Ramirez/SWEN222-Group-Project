@@ -1,6 +1,5 @@
 package ai;
 
-
 import entities.Monster;
 import entities.Player;
 
@@ -8,21 +7,15 @@ import entities.Player;
  * Class controlling the AI for the enemy that follows the player
  * 
  * @author Ana Ramirez
- */ 
+ */
 
 public class FollowingEnemy implements Enemies {
 
-	public Player player = new Player(200,200,5,5);
-	public int health;
+	public Player player;
 	public float speed = 0.5f;
-	public int x;
-	public int y;
-	public int width;
-	public int height;
 
-
-	public FollowingEnemy(float x, float y, int width, int height) {
-
+	public FollowingEnemy(Player player) {
+		this.player = player;
 	}
 
 	/**
@@ -47,7 +40,6 @@ public class FollowingEnemy implements Enemies {
 
 	}
 
-
 	/**
 	 * Speed of movement
 	 */
@@ -55,5 +47,4 @@ public class FollowingEnemy implements Enemies {
 		return speed;
 	}
 
-	
 }
