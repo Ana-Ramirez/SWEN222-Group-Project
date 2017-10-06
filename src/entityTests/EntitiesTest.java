@@ -3,12 +3,15 @@ package entityTests;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import entities.Consumable;
 import entities.Gun;
 import entities.MeleeWeapon;
 import entities.Monster;
 import entities.Player;
+import entities.Projectile;
 import entities.Type;
 import entities.Weapon;
+import javafx.scene.image.Image;
 
 public class EntitiesTest {
 
@@ -84,5 +87,10 @@ public class EntitiesTest {
 	public void killMonster() {
 		fail("Not yet implemented");
 	}
+	
+	
+	
+	
+	
 
 }
