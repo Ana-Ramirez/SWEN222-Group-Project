@@ -111,12 +111,5 @@ public abstract class Entity {
 	}
 
 
-	/**
-	 * Removes a specific amount of lives from a caracter
-	 * @param damage
-	 * 		the amount of lives to remove
-	 * @return
-	 * 		true if damage given
-	 */
 	protected abstract boolean hit(int damage);
 }
