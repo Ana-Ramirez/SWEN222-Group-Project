@@ -43,8 +43,7 @@ public class aiTests {
 	 */ 
 	public void patrolEnemy() {
 		Monster monster = new Monster("follow", 100, 100, 5, 5, Type.WATER, null, null);
-		Player player = new Player(200,200,5,5, null);
-		PatrollingEnemy pEnemy = new PatrollingEnemy(player);
+		PatrollingEnemy pEnemy = new PatrollingEnemy();
 		int i = 401;
 		while(i != 0){
 			pEnemy.tick(monster);
@@ -73,6 +72,40 @@ public class aiTests {
 		
 		assertEquals(0f, monster.getX(), 0);
 	}
+	
+	/**
+	 * EXTERNAL TESTS
+	 * @author Patrick Lynch
+	 */
+	
+	/**
+	 * Tests what happens when a following enemy is given nulls as inputs
+	 */
+	@Test
+	public void testNullFollow(){
+		FollowingEnemy fEnemy = new FollowingEnemy(null);
+		fEnemy.tick(null);
+	}
+	
+	/**
+	 * Tests what happens when a patrolling enemy is given nulls as inputs
+	 */
+	@Test
+	public void testNullPatrol(){
+		PatrollingEnemy pEnemy = new PatrollingEnemy();
+		pEnemy.tick(null);
+	}
+	
+	/**
+	 * Tests what happens when a runaway enemy is given nulls as inputs
+	 */
+	@Test
+	public void testNullRunaway(){
+		RunawayEnemy rEnemy = new RunawayEnemy(null);
+		rEnemy.tick(null);
+	}
+	
+	
 
 }
 
