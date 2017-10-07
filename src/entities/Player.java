@@ -44,14 +44,44 @@ public class Player extends Character {
 		return true;
 		//TODO proper success checking
 	}
+	
+	public boolean use() {
+		return parseCommand(getHand().use());
+	}
+	
+	private boolean parseCommand(String command) {
+		if (command == null) {
+			return false;
+		}
+		String[] actionCommand = command.split("[, ]+");
+		switch (actionCommand[0]){
+		case "Lives":
+			lives += (int) Float.parseFloat(actionCommand[1]);
+			break;
+		default:
+			return false;
+		}
+		return true;
+	}
 
-
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public Pickupable getHand() {
+		//TODO: proper comments
+
 		return inventory[itemSelected];
 	}
 	
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Pickupable[] getInventory() {
+		//TODO: proper comments
 		return inventory;
 	}
 
@@ -61,14 +91,11 @@ public class Player extends Character {
 	 * @param item
 	 * 		the item to add
 	 * @return
-	 * 		true only if space is available in the inventory
+	 * 		the item replaced in inventory
 	 */
 	public Pickupable pickup(Pickupable item) {
 		//TODO: proper comments
-		Pickupable holder = null;
-		if (inventory[itemSelected] != null) {
-			holder = inventory[itemSelected];
-		}
+		Pickupable holder = drop();
 		inventory[itemSelected] = item;
 		return holder;
 

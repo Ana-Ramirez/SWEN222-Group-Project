@@ -6,7 +6,7 @@ package entities;
  * @author Nick Lauder
  *
  */
-public abstract class Weapon extends Pickupable implements Cloneable{
+public abstract class Weapon extends Pickupable{
 	private int baseDamage;
 
 	public Weapon(String name, float x, float y, int width, int height, Type type, int damage) {
@@ -69,9 +69,6 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 		case WATER:
 			modifier = (getType() == Type.FIRE) ? 0.5f : 2;
 			break;
-		default:
-			modifier = 1/baseDamage;
-			break;
 		}
 	
 		return modifier;
@@ -83,18 +80,7 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 	 * @return
 	 * 		the int value of the damage
 	 */
-	protected int getBaseDamage() {
+	public int getBaseDamage() {
 		return baseDamage;
-	}
-
-	@Override
-	protected Weapon clone() {
-		if (this instanceof MeleeWeapon) {
-			return new MeleeWeapon(getName(), x, y, getWidth(), getHeight(), getType(), baseDamage, getImage());
-		} else if (this instanceof Gun) {
-			return new Gun(getName(), x, y, getWidth(), getHeight(), getType(), baseDamage, getImage(),  ((Gun) this).getAmmoImage());
-		} else {
-			return null;
-		}
 	}
 }
