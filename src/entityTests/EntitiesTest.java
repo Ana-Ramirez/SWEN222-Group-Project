@@ -38,13 +38,15 @@ public class EntitiesTest {
 		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, 5, null);
 		assertEquals("Sword", weapon.getName());
 		assertEquals(Type.WATER, weapon.getType());
+		
 	}
 
 
 	@Test
 	public void createGun() {
 		Weapon weapon = new Gun("Gun", 0, 0, 5, 5, Type.WATER, 5, null, null);
-
+		assertEquals("Gun", weapon.getName());
+		assertEquals(Type.WATER, weapon.getType());
 	}
 
 	@Test
