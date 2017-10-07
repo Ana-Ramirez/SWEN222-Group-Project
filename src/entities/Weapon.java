@@ -92,7 +92,7 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 		if (this instanceof MeleeWeapon) {
 			return new MeleeWeapon(getName(), x, y, getWidth(), getHeight(), getType(), baseDamage, getImage());
 		} else if (this instanceof Gun) {
-			return new Gun(getName(), x, y, getWidth(), getHeight(), getType(), baseDamage, getImage(),  ((Gun) this).getAmmoImage());
+			return new Gun(getName(), x, y, getWidth(), getHeight(), getType(), baseDamage, getImage(),  ((Gun) this).getAmmo().getImage());
 		} else {
 			return null;
 		}
