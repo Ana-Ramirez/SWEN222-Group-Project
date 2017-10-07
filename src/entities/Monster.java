@@ -40,10 +40,10 @@ public class Monster extends Character {
 	/**
 	 * Gets the monsters weapon
 	 * @return
-	 * 		a copy of the weapon object
+	 * 		the weapon object
 	 */
 	public Weapon getWeapon() {
-		return weapon.clone();
+		return weapon;
 	}
 
 	/**

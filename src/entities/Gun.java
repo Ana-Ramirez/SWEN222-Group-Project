@@ -46,7 +46,7 @@ public class Gun extends Weapon {
 	 * 		a Projectile object
 	 */
 	public Projectile getAmmo() {
-		return (Projectile) ammo.clone();
+		return ammo.clone();
 	}
 
 }
