@@ -11,7 +11,12 @@ public class QuitToMenuHandler<T extends Event> implements EventHandler<ActionEv
 	public void handle(ActionEvent event) {
 		// TODO Auto-generated method stub
 		MainMenu menu = new MainMenu();
-		menu.toggleDisplay();
+		try {
+			menu.stop();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

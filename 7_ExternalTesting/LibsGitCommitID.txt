@@ -1,7 +1,7 @@
 Git commit ID's:
 
-Entities:
-AI:
-Logic:
-Save/Load:
-View:
+Entities: 3f386a9c378a98164042ea94276e16ac72c157c5
+AI: 912243cff12cb14f2c2462fd7d93470b1cc81522
+Logic: 7dbb57effeb77f0e926d82de84bf566f3ded9be0
+Save/Load: 476dd7bf56c7d5b84623260f3363b81a54ad5393
+View: 3151ed48b5280ed3d86e1c396524d8a2e4639b70 (I tested AI)
