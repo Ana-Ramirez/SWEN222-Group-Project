@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 import entities.Monster;
 import entities.Player;
+import interfaces.Enemies;
 
 /**
  * Class controlling the AI for the enemy patrols the screen and has a set path

@@ -12,9 +12,18 @@ import entities.Projectile;
 import entities.StationaryEntity;
 import entities.Type;
 import entities.Weapon;
+import interfaces.Enemies;
+import javafx.geometry.BoundingBox;
 import javafx.scene.image.Image;
 
 public class EntitiesTest {
+	
+	class MockMonsterPattern implements Enemies {
+	
+		public void tick(Monster monster) {
+			monster.moveBy(1, 1);
+		}
+	}
 
 	@Test
 	public void createPlayer() {
@@ -373,9 +382,84 @@ public class EntitiesTest {
 	@Test
 	public void selectInvlaidInventorySlot() {
 		Player player = new Player(0, 0, 5, 5, null);
-
 		assertFalse(player.selectItem(3));
 		assertFalse(player.selectItem(-1));
+	}
+	
+	@Test
+	public void validBoundingBox() {
+		Player player = new Player(0, 0, 5, 5, null);
+		BoundingBox box1 = player.getBoundingBox();
+		assertEquals(0, box1.getMinX(), 0);
+		assertEquals(0, box1.getMinY(), 0);
+		assertEquals(5, box1.getWidth(), 0);
+		assertEquals(5, box1.getHeight(), 0);
+		
+		player.moveBy(10, 10);
+		BoundingBox box2 = player.getBoundingBox();
+		
+		assertEquals(10, box2.getMinX(), 0);
+		assertEquals(10, box2.getMinY(), 0);
+		assertEquals(5, box2.getWidth(), 0);
+		assertEquals(5, box2.getHeight(), 0);
+	}
+	
+	@Test
+	public void attackStationary() {
+		StationaryEntity stat = new StationaryEntity("Wall", 0, 0, 5, 5, null);
+		Weapon sword = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, 5, null);
+		assertFalse(sword.attack(stat));
+	}
+	
+	@Test
+	public void attackConsumable() {
+		Consumable stat = new Consumable("Heart", 0, 0, 5, 5, "Lives 2", null);
+		Weapon sword = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, 5, null);
+		assertFalse(sword.attack(stat));
+	}
+	
+	
+	@Test
+	public void invlaidConsumable() {
+		Consumable cons = new Consumable("Heart", 0, 0, 5, 5, "Speed 2", null);
+		Player player = new Player(0, 0, 5, 5, null);
+		assertNull(player.pickup(cons));
+		try {
+			assertTrue(player.use());
+			fail("Should not be able to use this consumable");
+		} catch (UnsupportedOperationException e) {
+			
+		}
+	}
+	
+	@Test
+	public void attemptToUseWeapon() {
+		Weapon sword = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, 5, null);
+		Player player = new Player(0, 0, 5, 5, null);
+		assertNull(player.pickup(sword));
+		assertFalse(player.use());
+	}
+	
+	@Test
+	public void testStatergyPattern() {
+		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, null, null);
+		monster.setStratergy(new MockMonsterPattern());
+		assertEquals(0, monster.getX(), 0);
+		assertEquals(0, monster.getX(), 0);
+		monster.tick();
+		assertEquals(1, monster.getX(), 0);
+		assertEquals(1, monster.getX(), 0);
+		monster.tick();
+		assertEquals(2, monster.getX(), 0);
+		assertEquals(2, monster.getX(), 0);
+	}
+	
+	@Test 
+	public void testEnums() {
+		assertArrayEquals(Type.values(),new Type[] {Type.FIRE, Type.WATER, Type.EARTH});
+		assertSame(Type.valueOf("FIRE"), Type.FIRE);
+		assertSame(Type.valueOf("WATER"), Type.WATER);
+		assertSame(Type.valueOf("EARTH"), Type.EARTH);
 	}
 	
 	
@@ -407,7 +491,7 @@ public class EntitiesTest {
 	@Test
 	public void movePlayerToXY(){
 		Player player = new Player(0, 0, 5, 5, null);
-		assertTrue(player.moveBy(20,100));
+		assertTrue(player.moveTo(20,100));
 		assertEquals(20.0f, player.getX(),0);
 		assertEquals(100.0f, player.getY(),0);
 	}

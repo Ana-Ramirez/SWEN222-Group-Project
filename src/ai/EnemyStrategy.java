@@ -1,6 +1,7 @@
 package ai;
 
 import entities.Monster;
+import interfaces.Enemies;
 
 public class EnemyStrategy implements Enemies{
 	private Monster monster;

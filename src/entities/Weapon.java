@@ -14,11 +14,6 @@ public abstract class Weapon extends Pickupable{
 		this.baseDamage = damage;
 	}
 
-	protected String use() {
-		return "";
-		//TODO: implement properly
-	}
-
 	/**
 	 * Deals damage to a given entity
 	 * @param victim
