@@ -2,12 +2,10 @@ package saveLoad;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import java.io.Serializable;
 
-import org.junit.Before;
 import org.junit.Test;
-
-import game.Game;
 
 public class SaveLoadUnitTests {
 	
@@ -19,7 +17,7 @@ public class SaveLoadUnitTests {
 		String input = "Lewis sucks (:";
 		TestClass testIn = new TestClass(input);
 		Save save = new Save(testIn);
-		save.saveGame();
+		save.saveGame(new File("game_save"));
 		Load load = new Load("game_save");
 		TestClass testOut = (TestClass)load.loadGame();
 		String output = testOut.getStr();
@@ -46,14 +44,14 @@ public class SaveLoadUnitTests {
 		String oldInput = "Tim sucks";
 		TestClass testIn = new TestClass(oldInput);
 		Save save = new Save(testIn);
-		save.saveGame();
+		save.saveGame(new File("file"));
 		
 		String newInput = "Lewis is kewl";
-		TestClass testInNew = new TestClass(oldInput);
+		TestClass testInNew = new TestClass(newInput);
 		Save saveNew = new Save(testInNew);
-		save.saveGame();
+		save.saveGame(new File("file"));
 		
-		Load load = new Load("game_save");
+		Load load = new Load("file");
 		TestClass testOut = (TestClass)load.loadGame();
 		String output = testOut.getStr();
 		
