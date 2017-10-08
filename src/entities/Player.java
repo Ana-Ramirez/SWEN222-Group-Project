@@ -45,8 +45,16 @@ public class Player extends Character {
 		//TODO proper success checking
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean use() {
-		return parseCommand(getHand().use());
+		if (getHand() instanceof Consumable) {
+			return parseCommand(((Consumable)getHand()).use());
+		} else {
+			return false;
+		}
 	}
 	
 	private boolean parseCommand(String command) {
@@ -54,12 +62,10 @@ public class Player extends Character {
 			return false;
 		}
 		String[] actionCommand = command.split("[, ]+");
-		switch (actionCommand[0]){
-		case "Lives":
+		if (actionCommand[0].equals("Lives")) {
 			lives += (int) Float.parseFloat(actionCommand[1]);
-			break;
-		default:
-			return false;
+		} else {
+			throw new UnsupportedOperationException("The player does not support this command");
 		}
 		return true;
 	}
