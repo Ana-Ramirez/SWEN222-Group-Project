@@ -51,7 +51,6 @@ public class EntitiesTest {
 		
 	}
 
-
 	@Test
 	public void createGun() {
 		Weapon weapon = new Gun("Gun", 0, 0, 5, 5, Type.WATER, 5, null, null);
@@ -81,14 +80,15 @@ public class EntitiesTest {
 		Player player = new Player(0, 0, 5, 5, null);
 		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, damage, null);
 		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null);
-	
+
 		player.pickup(weapon);
-		for (int i = 100; i > 0; i-=damage) {
+		for (int i = 100; i > 0; i -= damage) {
 			assertEquals(i, monster.getLives());
 			assertTrue(((Weapon) player.getHand()).attack(monster));
 		}
 		assertEquals(0, monster.getLives());
 		assertFalse(((Weapon) player.getHand()).attack(monster));
+
 	}
 
 	@Test
@@ -97,9 +97,9 @@ public class EntitiesTest {
 		Player player = new Player(0, 0, 5, 5, null);
 		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.FIRE, damage, null);
 		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null);
-	
+
 		player.pickup(weapon);
-		for (int i = 100; i > 0; i-=damage/2) {
+		for (int i = 100; i > 0; i -= damage / 2) {
 			assertEquals(i, monster.getLives());
 			assertTrue(((Weapon) player.getHand()).attack(monster));
 		}
@@ -113,9 +113,9 @@ public class EntitiesTest {
 		Player player = new Player(0, 0, 5, 5, null);
 		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.EARTH, damage, null);
 		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null);
-	
+
 		player.pickup(weapon);
-		for (int i = 100; i > 0; i-=damage*2) {
+		for (int i = 100; i > 0; i -= damage * 2) {
 			assertEquals(i, monster.getLives());
 			assertTrue(((Weapon) player.getHand()).attack(monster));
 		}
@@ -150,9 +150,9 @@ public class EntitiesTest {
 		Player player = new Player(0, 0, 5, 5, null);
 		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, damage, null);
 		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null);
-	
+
 		player.pickup(weapon);
-		for (int i = 100; i > 0; i-=damage) {
+		for (int i = 100; i > 0; i -= damage) {
 			assertEquals(i, monster.getLives());
 			assertTrue(monster.isAlive());
 			assertTrue(((Weapon) player.getHand()).attack(monster));
@@ -161,7 +161,9 @@ public class EntitiesTest {
 		assertFalse(((Weapon) player.getHand()).attack(monster));
 		assertFalse(monster.isAlive());
 	}
+
 	
+
 	@Test
 	public void useHealthConsumable() {
 		Player player = new Player(0, 0, 5, 5, null);
@@ -495,8 +497,5 @@ public class EntitiesTest {
 		assertEquals(20.0f, player.getX(),0);
 		assertEquals(100.0f, player.getY(),0);
 	}
-	
-
-	
 
 }

@@ -3,7 +3,6 @@ package ai;
 import java.awt.Rectangle;
 
 import entities.Monster;
-import entities.Player;
 import interfaces.Enemies;
 
 /**
@@ -15,14 +14,12 @@ import interfaces.Enemies;
 
 public class PatrollingEnemy implements Enemies {
 
-	public Player player;
 	public float speed = 0.5f;
 	public Goal goal1 = new Goal(100, 100);
 	public Goal goal2 = new Goal(100, 200);
 	public Goal currentGoal = goal1;
 
-	public PatrollingEnemy(Player player) {
-		this.player = player;
+	public PatrollingEnemy() {
 	}
 
 	/**
