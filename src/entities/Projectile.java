@@ -14,5 +14,11 @@ public class Projectile extends Weapon {
 		setImage(img);
 		// TODO Auto-generated constructor stub
 	}
+	
+
+	@Override
+	protected Projectile clone() {
+		return new Projectile(getName(), x, y, getWidth(), getHeight(), getBaseDamage(), getImage());
+	}
 
 }

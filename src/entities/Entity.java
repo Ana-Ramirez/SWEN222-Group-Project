@@ -1,5 +1,6 @@
 package entities;
 
+import interfaces.Entities;
 import javafx.geometry.BoundingBox;
 import javafx.scene.image.Image;
 
@@ -9,7 +10,7 @@ import javafx.scene.image.Image;
  * @author Nick Lauder
  *
  */
-public abstract class Entity {
+public abstract class Entity implements Entities {
 	protected float x;
 	protected float y;
 	private int width;
@@ -111,12 +112,5 @@ public abstract class Entity {
 	}
 
 
-	/**
-	 * Removes a specific amount of lives from a caracter
-	 * @param damage
-	 * 		the amount of lives to remove
-	 * @return
-	 * 		true if damage given
-	 */
 	protected abstract boolean hit(int damage);
 }

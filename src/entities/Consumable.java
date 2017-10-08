@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
  *
  */
 public class Consumable extends Pickupable {
+	private final String[] commands = {"Lives", "Speed"};
 	private String action;
 	private int uses;
 
@@ -26,11 +27,35 @@ public class Consumable extends Pickupable {
 	 * @param type
 	 * 		the type to use
 	 */
-	public Consumable(String name, float x, float y, int width, int height, String action, int uses, Image img) {
+	public Consumable(String name, float x, float y, int width, int height, String action, Image img) {
 		super(name, x, y, width, height, null);
 		setImage(img);
+		checkAction(action);
+		uses = 1;
+	}
+	
+	private boolean checkAction(String action) {
+		String[] actionCommand = action.split("[, ]+");
+		if (actionCommand.length != 2) {
+			throw new IllegalArgumentException("Action command incorrect argument number");
+		}
+		try {
+			Float.parseFloat(actionCommand[1]);
+		} catch (NumberFormatException e){
+			throw new IllegalArgumentException("Action command value in not valid");
+		}
+		boolean valid = false;
+		for (int i = 0; i < commands.length; i++) {
+			if (commands[i].equals(actionCommand[0])) {
+				valid = true;
+				break;
+			}
+		}
+		if (!valid) {
+			throw new IllegalArgumentException("Action command is not a valid command");
+		}
 		this.action = action;
-		this.uses = uses;
+		return true;
 	}
 
 
@@ -40,6 +65,15 @@ public class Consumable extends Pickupable {
 		} else {
 			return null;
 		}
+	}
+	
+	/**
+	 * Returns whether or not the consumable can still be used
+	 * @return
+	 * 		true if can use
+	 */
+	public boolean canUse() {
+		return uses > 0;
 	}
 
 }

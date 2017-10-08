@@ -1,6 +1,6 @@
 package entities;
 
-import ai.Enemies;
+import interfaces.Enemies;
 import javafx.scene.image.Image;
 
 /**
@@ -10,7 +10,7 @@ import javafx.scene.image.Image;
  */
 public class Monster extends Character {
 	private Weapon weapon;
-	private Enemies pattern;
+	private interfaces.Enemies pattern;
 
 
 	/**
@@ -40,10 +40,10 @@ public class Monster extends Character {
 	/**
 	 * Gets the monsters weapon
 	 * @return
-	 * 		a copy of the weapon object
+	 * 		the weapon object
 	 */
 	public Weapon getWeapon() {
-		return weapon.clone();
+		return weapon;
 	}
 
 	/**
@@ -62,7 +62,15 @@ public class Monster extends Character {
 		pattern.tick(this);
 	}
 
-	public boolean attack(Player victim) {
+	
+	/**
+	 * Initiates an attack onto another entitiy
+	 * @param victim
+	 * 		the entity to attack
+	 * @return
+	 * 		true if successful
+	 */
+	public boolean attack(Entity victim) {
 		return weapon.attack(victim);
 	}
 }

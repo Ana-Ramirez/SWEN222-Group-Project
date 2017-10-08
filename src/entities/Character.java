@@ -7,15 +7,14 @@ package entities;
  *
  */
 public abstract class Character extends MovableEntity {
-	private int lives;
+	protected int lives;
 
 
-	public Character(String name, float x, float y, int width, int height, Type type, int lives) {
+	protected Character(String name, float x, float y, int width, int height, Type type, int lives) {
 		super(name, x, y, width, height, type);
 		this.lives = lives;
 
 	}
-
 
 	@Override
 	protected boolean hit(int damage) {
@@ -34,19 +33,6 @@ public abstract class Character extends MovableEntity {
 	 */
 	public boolean isAlive() {
 		return lives > 0;
-	}
-
-
-	/**
-	 * Sets the new coordinates of the player
-	 * @param x
-	 * 		the float of the new x coordinate
-	 * @param y
-	 * 		the float of the new y coordinate
-	 */
-	public void setCoor(float x, float y) {
-		this.x = x;
-		this.y = y;
 	}
 
 

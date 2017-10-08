@@ -37,7 +37,7 @@ public class PauseMenu extends Application{
 
 		root = new StackPane();
 
-		Canvas canvas = new Canvas(816, 480);
+		Canvas canvas = new Canvas(800, 600);
 		GraphicsContext g = canvas.getGraphicsContext2D();
 
 		drawBG(g);
@@ -54,7 +54,7 @@ public class PauseMenu extends Application{
 	    title.setFill(Color.WHITE);
 	    vb.getChildren().add(title);
 
-		scene = new Scene(root, 816, 480);
+		scene = new Scene(root, 800, 600);
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -66,18 +66,6 @@ public class PauseMenu extends Application{
 
 	public PauseMenu(Game game){
 		this.game = game;
-	}
-
-	/**
-	 * Displays/hides the pause menu
-	 */
-	public void toggleDisplay(){
-		if (root.isVisible()){
-			root.setVisible(false);
-		}
-		else{
-			root.setVisible(true);
-		}
 	}
 
 	/**
@@ -117,6 +105,6 @@ public class PauseMenu extends Application{
 	 */
 	private void drawBG(GraphicsContext g) {
 		g.setFill(Color.BLACK);
-		g.fillRect(0.0, 0.0, 816, 480);
+		g.fillRect(0.0, 0.0, 800, 600);
 	}
 }

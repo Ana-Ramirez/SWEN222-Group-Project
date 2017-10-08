@@ -17,5 +17,4 @@ public abstract class Pickupable extends MovableEntity {
 		return false;
 	}
 
-	protected abstract String use();
 }
