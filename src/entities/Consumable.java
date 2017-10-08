@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
  *
  */
 public class Consumable extends Pickupable {
-	private final String[] commands = {"Lives"};
+	private final String[] commands = {"Lives", "Speed"};
 	private String action;
 	private int uses;
 

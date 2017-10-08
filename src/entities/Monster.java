@@ -1,6 +1,6 @@
 package entities;
 
-import ai.Enemies;
+import interfaces.Enemies;
 import javafx.scene.image.Image;
 
 /**
@@ -10,7 +10,7 @@ import javafx.scene.image.Image;
  */
 public class Monster extends Character {
 	private Weapon weapon;
-	private Enemies pattern;
+	private interfaces.Enemies pattern;
 
 
 	/**
