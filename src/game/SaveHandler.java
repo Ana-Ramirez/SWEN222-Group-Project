@@ -38,6 +38,10 @@ public class SaveHandler<T extends Event> implements EventHandler<ActionEvent>{
 		Save<Game> save = new Save<Game>(game);
 		FileChooser fc = new FileChooser();
 		File file = fc.showSaveDialog(new Stage());
+		
+		if(file == null) {
+			return;
+		}
 		save.saveGame(file);
 	}
 }
