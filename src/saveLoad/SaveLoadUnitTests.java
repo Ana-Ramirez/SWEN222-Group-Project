@@ -7,6 +7,9 @@ import java.io.Serializable;
 
 import org.junit.Test;
 
+import entities.Player;
+import game.Game;
+
 public class SaveLoadUnitTests {
 	
 	/**
@@ -24,7 +27,28 @@ public class SaveLoadUnitTests {
 		
 		assertEquals(input, output);
 
-	}		
+	}
+	
+	/**
+	 * 
+	 */
+	@Test
+	public void testGameSavingPlayerPosition() {
+		Game game = new Game();
+		Player player = game.getPlayer();
+		player.moveTo(20, 20);
+		
+		Save save = new Save(game);
+		save.saveGame(new File("Player_move"));
+		
+		Load load = new Load("Player_move");
+		Game loadedGame = (Game) load.loadGame();
+		Player newPlayer = loadedGame.getPlayer();
+		
+		
+		assertEquals((Double)player.getX(), (Double)newPlayer.getX());
+		assertEquals((Double)player.getY(), (Double)newPlayer.getY());
+	}
 	
 	//======================  external tests  ======================
 	/**
