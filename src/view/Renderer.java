@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entities.*;
+import interfaces.Entity;
 
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -34,6 +35,10 @@ public class Renderer{
 	private static final int ROOM_WIDTH = 25;
 	private static final int ROOM_HEIGHT = 10;
 
+	/**
+	 * The constructor for the renderer. Takes a player
+	 * @param p
+	 */
 	public Renderer(){
 		StackPane root = new StackPane();
 
@@ -41,15 +46,12 @@ public class Renderer{
 		this.g = canvas.getGraphicsContext2D();
 		this.entities = new ArrayList<Entity>();
 		
-		drawRoom();
-		drawHUD();
-		
 		root.getChildren().add(canvas);
 		this.scene = new Scene(root, 800, 600);
 	}
 	
 	/**
-	 * Sets the player field to the given player. Must be called before the HUD is drawn.
+	 * Sets the player. Should be called before drawing anything.
 	 * @param p
 	 */
 	public void setPlayer(Player p){
@@ -71,6 +73,16 @@ public class Renderer{
 		this.room = room;
 		
 		drawRoom();
+	}
+	
+	/**
+	 * Actually draws the room and HUD. Should only need to be called once at the start, 
+	 * after the renderer has been initialised and it has been given its first room from 
+	 * newRoom.
+	 */
+	public void initialDraw(){
+		drawRoom();
+		drawHUD();
 	}
 	
 	/**
