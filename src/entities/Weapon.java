@@ -1,5 +1,6 @@
 package entities;
 
+import interfaces.Entity;
 
 /**
  * Abstract class for all the different types of weapons
@@ -21,7 +22,7 @@ public abstract class Weapon extends Pickupable{
 	 * @return
 	 * 		true if damage dealt, else false
 	 */
-	public boolean attack(Entity victim) {
+	public boolean attack(Entities victim) {
 		return victim.hit(getDamage(victim));
 		
 	}

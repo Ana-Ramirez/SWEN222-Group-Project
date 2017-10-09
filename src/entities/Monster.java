@@ -70,7 +70,7 @@ public class Monster extends Character {
 	 * @return
 	 * 		true if successful
 	 */
-	public boolean attack(Entity victim) {
+	public boolean attack(Entities victim) {
 		return weapon.attack(victim);
 	}
 }
