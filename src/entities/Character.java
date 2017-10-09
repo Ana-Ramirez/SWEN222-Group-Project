@@ -10,7 +10,7 @@ public abstract class Character extends MovableEntity {
 	protected int lives;
 
 
-	protected Character(String name, float x, float y, int width, int height, Type type, int lives) {
+	protected Character(String name, double x, double y, int width, int height, Type type, int lives) {
 		super(name, x, y, width, height, type);
 		this.lives = lives;
 

@@ -15,6 +15,9 @@ import javafx.scene.image.Image;
  */
 public class Gun extends Weapon {
 	private Projectile ammo;
+	private int damage;
+	private Image ammoImg;
+	
 
 	/**
 	 * Creates a new projectile
@@ -33,20 +36,27 @@ public class Gun extends Weapon {
 	 * @param damage
 	 * 		the base damage to use
 	 */
-	public Gun(String name, float x, float y, int width, int height, Type type, int damage, Image img, Image ammoImg) {
+	public Gun(String name, double x, double y, int width, int height, Type type, int damage, Image img, Image ammoImg) {
 		super(name, x, y, width, height, type, damage);
 		setImage(img);
-		ammo = new Projectile(name + "Ammo", x, y, 5, 5, damage, ammoImg);
 	}
 
 	
 	/**
-	 * Returns a cloned ammo abject
+	 * 
+	 * @param x
+	 * @param y
 	 * @return
-	 * 		a Projectile object
 	 */
-	public Projectile getAmmo() {
-		return ammo.clone();
+	public Projectile createProjectile(double x, double y) {
+		return new Projectile(getName() + "Ammo", getX(), getY(), 5, 5, damage, ammoImg, x, y);
+	}
+
+
+	@Override
+	public void tick() {
+		// Does nothing on tick
+		
 	}
 
 }

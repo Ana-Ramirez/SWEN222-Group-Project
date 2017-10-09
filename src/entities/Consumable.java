@@ -27,7 +27,7 @@ public class Consumable extends Pickupable {
 	 * @param type
 	 * 		the type to use
 	 */
-	public Consumable(String name, float x, float y, int width, int height, String action, Image img) {
+	public Consumable(String name, double x, double y, int width, int height, String action, Image img) {
 		super(name, x, y, width, height, null);
 		setImage(img);
 		checkAction(action);
@@ -74,6 +74,12 @@ public class Consumable extends Pickupable {
 	 */
 	public boolean canUse() {
 		return uses > 0;
+	}
+
+	@Override
+	public void tick() {
+		// Does nothing on tick
+		
 	}
 
 }

@@ -8,17 +8,21 @@ import javafx.scene.image.Image;
  *
  */
 public class Projectile extends Weapon {
+	private double angle;
+	private final double SPEED=1;
 
-	protected Projectile(String name, float x, float y, int width, int height, int damage, Image img) {
+	protected Projectile(String name, double x, double y, int width, int height, int damage, Image img, double targetX, double targetY) {
 		super(name, x, y, width, height, null, damage);
-		setImage(img);
-		// TODO Auto-generated constructor stub
+		setImage(img);	
+		angle = Math.toDegrees(Math.atan2(targetY-getY(), targetX-getX()));
+
 	}
 	
-
 	@Override
-	protected Projectile clone() {
-		return new Projectile(getName(), x, y, getWidth(), getHeight(), getBaseDamage(), getImage());
+	public void tick() {
+		double theta = Math.toRadians(angle);
+		double newX = getX() + SPEED*Math.cos(theta);
+		double newY = -(getY() + SPEED*Math.sin(theta));
+		moveBy(newX, newY);
 	}
-
 }

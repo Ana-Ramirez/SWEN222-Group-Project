@@ -9,11 +9,10 @@ package entities;
 public abstract class MovableEntity extends Entities {
 
 
-	protected MovableEntity(String name, float x, float y, int width, int height, Type type) {
+	protected MovableEntity(String name, double x, double y, int width, int height, Type type) {
 		super(name, x, y, width, height, type);
 	}
-
-
+	
 	/**
 	 * Moves the entity a given amount on each axis
 	 * @param x
@@ -23,7 +22,7 @@ public abstract class MovableEntity extends Entities {
 	 * @return
 	 * 		true if successful, else false
 	 */
-	public boolean moveBy(float x, float y) {
+	public boolean moveBy(double x, double y) {
 		this.x += x;
 		this.y += y;
 		return true;
@@ -40,11 +39,13 @@ public abstract class MovableEntity extends Entities {
 	 * @return
 	 * 		true if successful, else false
 	 */
-	public boolean moveTo(float x, float y) {
+	public boolean moveTo(double x, double y) {
 		this.x = x;
 		this.y = y;
 		return true;
 		//TODO proper success handling
 	}
+	
+	public abstract void tick(); 
 
 }

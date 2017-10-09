@@ -22,10 +22,15 @@ public class MeleeWeapon extends Weapon {
 	 * @param damage
 	 * 		the int amount of damage to use
 	 */
-	public MeleeWeapon(String name, float x, float y, int width, int height, Type type, int damage, Image img) {
+	public MeleeWeapon(String name, double x, double y, int width, int height, Type type, int damage, Image img) {
 		super(name, x, y, width, height, type, damage);
 		setImage(img);
 	}
 
+	@Override
+	public void tick() {
+		//Does nothing on tick
+		
+	}
 
 }
