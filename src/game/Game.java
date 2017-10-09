@@ -95,7 +95,12 @@ public class Game extends Application implements Serializable{
 			currentLevel = level1;
 		}
 		
-		currentRoom = currentLevel.getCurrentRoom();
+		currentRoom = currentLevel.getRoom(1);
+		
+		if(currentRoom == null) {
+			System.out.println("Room Null");
+			System.exit(0);
+		}
 	}
 	
 	/**
