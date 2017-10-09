@@ -185,8 +185,10 @@ public class Renderer{
 		
 		//Draws the items
 		Entity[] inventory = player.getInventory();
+		if (inventory[0] != null)
 		g.drawImage(inventory[0].getImage(), x, y);
-		g.drawImage(inventory[0].getImage(), x+66, y);
+		if (inventory[1] != null)
+		g.drawImage(inventory[1].getImage(), x+66, y);
 	}
 	
 	/**
