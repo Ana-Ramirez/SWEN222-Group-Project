@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import entities.Gun;
+import entities.MeleeWeapon;
 import entities.Player;
+import entities.Projectile;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -74,7 +77,6 @@ public class Game extends Application implements Serializable{
 	 * Initialised list of levels
 	 */
 	private void generateLevels() {
-		//TODO Initialise levels
 		levels = new ArrayList<Level>();
 		Level level1 = null;
 		try {
@@ -114,10 +116,13 @@ public class Game extends Application implements Serializable{
 				if (goRight)  dx += 1;    
 				player.moveBy(dx, dy);
 				
+				//Checks for the current room and updates if necessary
 				if(!currentLevel.getCurrentRoom().equals(currentRoom)) {
 					currentRoom = currentLevel.getCurrentRoom();
 					renderer.newRoom(currentRoom);
 				}
+				
+				//TODO Tick to update entities either in Room or Level class
 				
 				renderer.repaint();
 			}
@@ -138,6 +143,7 @@ public class Game extends Application implements Serializable{
 					case DIGIT2 : player.selectItem(1); break;
 					case DIGIT3 : player.selectItem(2); break;
 					case E : currentRoom.pickupItem(); break;
+					case X : player.drop();
 					case ESCAPE : 
 	                	timer.stop(); 
 	                	try {
@@ -171,8 +177,14 @@ public class Game extends Application implements Serializable{
 			@Override
 			public void handle(MouseEvent event) {
 				double x = event.getX(), y = event.getY();
-				
-				//TODO need some logic for projectiles to move towards x,y
+				if(player.getHand() instanceof Gun) {
+					Gun gun = (Gun) player.getHand();
+					//TODO send gun and destination of fire to logic 
+				}
+				if(player.getHand() instanceof MeleeWeapon) {
+					MeleeWeapon wep = (MeleeWeapon) player.getHand();
+					//TODO send wep and direction of attack to Logic
+				}
 			}
 			
 			
