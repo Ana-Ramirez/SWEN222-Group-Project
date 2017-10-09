@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entities.Consumable;
+import entities.Gun;
 import entities.MeleeWeapon;
 import interfaces.Entity;
 import entities.Monster;
+import entities.MovableEntity;
 import entities.Pickupable;
 import entities.Player;
+import entities.Projectile;
 import entities.Weapon;
 
 /**
@@ -34,6 +37,19 @@ public class Room {
 		this.roomNum = num;
 		this.roomEntities = new ArrayList<Entity>();
 		generateWalls();
+	}
+	
+	/**
+	 * Handles a tick in the game
+	 */
+	public void tick(float x, float y) {
+		player.moveBy(x, y);
+		
+		for(Entity e : this.roomEntities){
+			if(e instanceof MovableEntity) {
+				((MovableEntity) e).tick();
+			} 
+		}
 	}
 	
 	/**
@@ -105,12 +121,14 @@ public class Room {
 	}
 	
 	
+	
+	//What is the point in this method?????? YOu give it a monster object, it returns the same object as an entity, maybe pass in a name instead?
 	/**
 	 * 
 	 * @param monster
 	 * @return
 	 */
-	public Entity getMonster(Monster monster){
+	public Entity getMonster(Monster monster){		
 		if(monster == null){ return null; }
 		for(Entity e : this.roomEntities){
 			if(e instanceof Monster){	//if it's the same entity
@@ -237,7 +255,7 @@ public class Room {
 	 * @return
 	 * 		true if an attack was successfully carried out
 	 */
-	public boolean attack() {
+	public boolean attack(float x, float y) {
 		boolean validAttack = false;
 		Pickupable hand = player.getHand();
 		if (hand instanceof MeleeWeapon) {
@@ -248,6 +266,8 @@ public class Room {
 					} 
 				}
 			}
+		} else if (hand instanceof Gun) {
+			roomEntities.add(((Gun) hand).createProjectile(x, y));
 		}
 		return validAttack;
 	}

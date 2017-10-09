@@ -30,7 +30,7 @@ public class Monster extends Character {
 	 * @param weapon
 	 * 		the weapon to use
 	 */
-	public Monster(String name, float x, float y, int width, int height, Type type, Weapon weapon, Image img) {
+	public Monster(String name, double x, double y, int width, int height, Type type, Weapon weapon, Image img) {
 		super(name, x, y, width, height, type, 100);
 		setImage(img);
 		this.weapon = weapon;
@@ -58,6 +58,7 @@ public class Monster extends Character {
 	/**
 	 * Executes a tick for the monster, updating it's location
 	 */
+	@Override
 	public void tick() {
 		pattern.tick(this);
 	}

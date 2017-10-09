@@ -24,7 +24,7 @@ public class Player extends Character {
 	 * @param height
 	 * 		the int height to use
 	 */
-	public Player(float x, float y, int width, int height, Image img) {
+	public Player(double x, double y, int width, int height, Image img) {
 		super("Tim", x, y, width, height, null, 3);
 		setImage(img);
 		inventory = new Pickupable[3];
@@ -132,5 +132,13 @@ public class Player extends Character {
 	 */
 	public BoundingBox getExtendedBoundingBox() {
 		return new BoundingBox(getX()-5, getY()-5, getWidth()+10, getHeight()+10);
+	}
+	
+	
+	@Override
+	public void tick() {
+		for (int i = 0; i < inventory.length; i++) {
+			inventory[i].moveTo(getX(), getY());
+		}
 	}
 }
