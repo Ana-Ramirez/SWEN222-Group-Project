@@ -30,6 +30,10 @@ public enum ImgResources {
 	WALL("wall.png"),
 	WALLBOT("wallBot.png"),
 	WALLTOP("wallTop.png"),
+	//ENEMIES
+	MONSTER("monster.png"),
+	//CONSUMABLES
+	POTION("potion.png"),
 	//PLAYER
 	PLAYERDOWN("playerDown.png");
 
