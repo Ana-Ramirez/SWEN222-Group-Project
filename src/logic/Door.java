@@ -32,6 +32,7 @@ public class Door extends StationaryEntity{
 	 * @param position		the wall this door sits on
 	 */
 	public Door(Room rm1, Room rm2, Pickupable item, int doorNum, int position){
+		//here the x, y, width, height are just placed in as fillers in the super. They are actually set below
 		super(Integer.toString(doorNum), Renderer.ROOM_WIDTH, Renderer.ROOM_HEIGHT, Renderer.TILE_SIZE, Renderer.TILE_SIZE, ImgResources.STAIRSBOT.img);
 		
 		String image = null;
@@ -57,7 +58,7 @@ public class Door extends StationaryEntity{
 			y = Renderer.ROOM_HEIGHT/2 - Renderer.TILE_SIZE/2;
 		}
 		ImgResources imageEnum = ImgResources.valueOf(image);
-		setImage(imageEnum);
+		this.setImage(imageEnum.img);
 		setX(x);
 		setY(y);
 		//need to use this to set image of door
