@@ -27,10 +27,12 @@ public class Renderer{
 	private Scene scene;
 	private Player player;
 	
-	private static final int TILE_SIZE = 32;
-	private static final int HUD_HEIGHT = 80;
-	private static final int ROOM_WIDTH = 25;
-	private static final int ROOM_HEIGHT = 10;
+	public static final int TILE_SIZE = 32;
+	private static final int HUD_HEIGHT = 120;
+	private static final int FLOOR_WIDTH = 25;
+	private static final int FLOOR_HEIGHT = 15;
+	public static final int ROOM_WIDTH = 800;
+	public static final int ROOM_HEIGHT = 480;
 
 	/**
 	 * The constructor for the renderer. Takes a player
@@ -95,9 +97,9 @@ public class Renderer{
 	 * Draws the floor of the room that all entities are drawn on top of
 	 */
 	private void drawFloor(){
-		for (int r = 0; r <= ROOM_WIDTH; r++){
-			for (int c = 0; c <= ROOM_HEIGHT; c++){
-				g.drawImage(ImgResources.FLOOR.img, HUD_HEIGHT + r*TILE_SIZE, c*TILE_SIZE);
+		for (int r = 0; r < FLOOR_WIDTH; r++){
+			for (int c = 0; c < FLOOR_HEIGHT; c++){
+				g.drawImage(ImgResources.FLOOR.img, r*TILE_SIZE, HUD_HEIGHT + c*TILE_SIZE);
 			}
 		}
 	}
@@ -120,14 +122,13 @@ public class Renderer{
 				g.drawImage(ImgResources.STAIRSBOT.img, ROOM_WIDTH/2 - TILE_SIZE/2, HUD_HEIGHT + ROOM_HEIGHT - TILE_SIZE);
 			}
 			else if(d.getDoorPosition() == 2){ //	EAST
-				g.drawImage(ImgResources.STAIRSTOP.img, ROOM_WIDTH - TILE_SIZE, HUD_HEIGHT + ROOM_HEIGHT/2 - TILE_SIZE/2);
+				g.drawImage(ImgResources.STAIRSRIGHT.img, ROOM_WIDTH - TILE_SIZE, HUD_HEIGHT + ROOM_HEIGHT/2 - TILE_SIZE/2);
 			}
 			else { //								WEST
-				g.drawImage(ImgResources.STAIRSTOP.img, 0, HUD_HEIGHT + ROOM_HEIGHT/2 - TILE_SIZE/2);
+				g.drawImage(ImgResources.STAIRSLEFT.img, 0, HUD_HEIGHT + ROOM_HEIGHT/2 - TILE_SIZE/2);
 			}
 		}
 	}
-	
 
 	/**
 	 * Draws the entities in the room
@@ -140,7 +141,7 @@ public class Renderer{
 		}
 
 		for (Entity e : entities){
-			g.drawImage(e.getImage(), (double)e.getX(), (double)e.getY());
+			g.drawImage(e.getImage(), (double)e.getX(), HUD_HEIGHT + (double)e.getY());
 		}
 	}
 	
@@ -156,15 +157,15 @@ public class Renderer{
 		
 		//Background for the HUD
 		g.setFill(Color.BLACK);
-		g.fillRect(0,0,ROOM_WIDTH,HUD_HEIGHT);
+		g.fillRect(0, 0, ROOM_WIDTH, HUD_HEIGHT);
 
 		g.setFill(Color.WHITE);
-		g.fillText("INVENTORY", 20, 2);
-		drawInventory(10, 16);
+		g.fillText("INVENTORY", 20, 20);
+		drawInventory(20, 30);
 		
 		g.setFill(Color.WHITE);
-		g.fillText("LIVES", 400, 2);
-		drawLives(400, 16);
+		g.fillText("LIVES", 420, 20);
+		drawLives(400, 30);
 	}
 	
 	/**
@@ -181,14 +182,16 @@ public class Renderer{
 		
 		//Draws the outlines
 		g.drawImage(ImgResources.INVENTORYBOX.img, x, y);
-		g.drawImage(ImgResources.INVENTORYBOX.img, x+66, y);
+		g.drawImage(ImgResources.INVENTORYBOX.img, x+80, y);
 		
 		//Draws the items
 		Entity[] inventory = player.getInventory();
-		if (inventory[0] != null)
-		g.drawImage(inventory[0].getImage(), x, y);
-		if (inventory[1] != null)
-		g.drawImage(inventory[1].getImage(), x+66, y);
+		if (inventory[0] != null){
+			g.drawImage(inventory[0].getImage(), x, y);
+		}
+		if (inventory[1] != null){
+			g.drawImage(inventory[1].getImage(), x+80, y);
+		}
 	}
 	
 	/**
@@ -199,7 +202,7 @@ public class Renderer{
 	private void drawLives(int x, int y){
 		int lives = player.getLives();
 		
-		for (int i = 0; i <= lives; i++){
+		for (int i = 0; i < lives; i++){
 			g.drawImage(ImgResources.LIFE.img, x + i*66, y);
 		}
 	}

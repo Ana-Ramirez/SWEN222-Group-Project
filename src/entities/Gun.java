@@ -14,7 +14,6 @@ import javafx.scene.image.Image;
  *
  */
 public class Gun extends Weapon {
-	private Projectile ammo;
 	private int damage;
 	private Image ammoImg;
 	
