@@ -1,6 +1,7 @@
 package logic;
 
 import interfaces.Entity;
+import javafx.scene.image.Image;
 import entities.Pickupable;
 import entities.StationaryEntity;
 import entities.Type;
@@ -31,9 +32,9 @@ public class Door extends StationaryEntity{
 	 * @param doorNum		which number door in the room this is
 	 * @param position		the wall this door sits on
 	 */
-	public Door(Room rm1, Room rm2, Pickupable item, int doorNum, int position){
+	public Door(Room rm1, Room rm2, Pickupable item, int doorNum, int position, Image img){
 		//here the x, y, width, height are just placed in as fillers in the super. They are actually set below
-		super(Integer.toString(doorNum), Renderer.ROOM_WIDTH, Renderer.ROOM_HEIGHT, Renderer.TILE_SIZE, Renderer.TILE_SIZE, ImgResources.STAIRSBOT.img);
+		super(Integer.toString(doorNum), Renderer.ROOM_WIDTH, Renderer.ROOM_HEIGHT, Renderer.TILE_SIZE, Renderer.TILE_SIZE, null);
 		
 		String image = null;
 		double x = 0;

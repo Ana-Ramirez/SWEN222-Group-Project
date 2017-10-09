@@ -9,6 +9,7 @@ import entities.MeleeWeapon;
 import entities.Monster;
 import entities.Pickupable;
 import entities.Player;
+import entities.StationaryEntity;
 import entities.Type;
 import entities.Weapon;
 import logic.Door;
