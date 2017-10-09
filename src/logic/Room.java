@@ -41,6 +41,8 @@ public class Room {
 	
 	/**
 	 * Handles a tick in the game
+	 * @param x 	mouse x pos
+	 * @param y 	mouse y pos
 	 */
 	public void tick(float x, float y) {
 		player.moveBy(x, y);
@@ -243,6 +245,7 @@ public class Room {
 	public List<Entity> getEntities(){
 		return this.roomEntities;
 	}
+	
 	/**
 	 * Scans the extended surrounding player box for a monster and attacks it
 	 * @return

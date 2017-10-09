@@ -54,7 +54,7 @@ public class DoorTests {
 	 */
 	@Test
 	public void create4() {
-		Consumable consumable = new Consumable("consumable", 20, 100, 1, 1, null, 0, null);
+		Consumable consumable = new Consumable("consumable", 20, 100, 1, 1, null, null);
 		Door door = new Door(new Room(1), new Room(2), consumable, 1, 1);
 		assertEquals(consumable, door.getUnlockItem());
 	}
