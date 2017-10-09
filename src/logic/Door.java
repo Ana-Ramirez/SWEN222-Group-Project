@@ -1,6 +1,6 @@
 package logic;
 
-import entities.Entity;
+import interfaces.Entity;
 import entities.Pickupable;
 import entities.StationaryEntity;
 import entities.Type;
