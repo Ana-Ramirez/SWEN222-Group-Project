@@ -46,8 +46,9 @@ public class Player extends Character {
 	}
 	
 	/**
-	 * 
+	 * Uses the consumable item in the players hand, returns false if failed, it not consumable
 	 * @return
+	 * 		True if the consumable was successfully used
 	 */
 	public boolean use() {
 		if (getHand() instanceof Consumable) {
@@ -72,8 +73,9 @@ public class Player extends Character {
 
 	
 	/**
-	 * 
+	 * Returns the object currently in the players hand
 	 * @return
+	 * 		the pickupable object in the hand
 	 */
 	public Pickupable getHand() {
 		//TODO: proper comments
@@ -83,8 +85,9 @@ public class Player extends Character {
 	
 	
 	/**
-	 * 
+	 * Returns an array of the players inventory
 	 * @return
+	 * 		an array of pickupable items
 	 */
 	public Pickupable[] getInventory() {
 		//TODO: proper comments

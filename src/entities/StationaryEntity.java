@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
  * @author Nick Lauder
  *
  */
-public class StationaryEntity extends Entity {
+public class StationaryEntity extends Entities {
 
 	/**
 	 * Creates a new StationaryEntity

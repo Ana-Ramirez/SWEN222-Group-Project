@@ -4,7 +4,7 @@ import entities.Type;
 import javafx.geometry.BoundingBox;
 import javafx.scene.image.Image;
 
-public interface Entities {
+public interface Entity {
 
 	/**
 	 * Gets the type assigned to the object
