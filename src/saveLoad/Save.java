@@ -27,10 +27,10 @@ public class Save<T extends Object> {
 	/**
 	 * Writes game to file
 	 */
-	public void saveGame() {
+	public void saveGame(File file) {
 		try {
 			//Write file to disk
-			FileOutputStream f_out = new FileOutputStream(new File("game_save"));
+			FileOutputStream f_out = new FileOutputStream(file, false);
 			
 			//Write object to file
 			ObjectOutputStream obj_out = new ObjectOutputStream(f_out);

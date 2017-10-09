@@ -15,7 +15,6 @@ import javafx.scene.image.Image;
  */
 public class Gun extends Weapon {
 	private Projectile ammo;
-	private int ammoCount;
 
 	/**
 	 * Creates a new projectile
@@ -38,15 +37,16 @@ public class Gun extends Weapon {
 		super(name, x, y, width, height, type, damage);
 		setImage(img);
 		ammo = new Projectile(name + "Ammo", x, y, 5, 5, damage, ammoImg);
-		ammoCount = 5;
 	}
 
-	public Image getAmmoImage() {
-		return ammo.getImage();
-	}
 	
+	/**
+	 * Returns a cloned ammo abject
+	 * @return
+	 * 		a Projectile object
+	 */
 	public Projectile getAmmo() {
-		return (Projectile) ammo.clone();
+		return ammo.clone();
 	}
 
 }

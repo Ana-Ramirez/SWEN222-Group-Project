@@ -1,28 +1,67 @@
 package saveLoad;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import java.io.Serializable;
 
 import org.junit.Test;
 
 public class SaveLoadUnitTests {
 	
+	/**
+	 * Tests that a TestClass object can be saved and loaded without error
+	 */
 	@Test
-	public void testSaveLoad() {
+	public void testSaveLoadTestClass() {
 		String input = "Lewis sucks (:";
 		TestClass testIn = new TestClass(input);
 		Save save = new Save(testIn);
-		save.saveGame();
+		save.saveGame(new File("game_save"));
 		Load load = new Load("game_save");
 		TestClass testOut = (TestClass)load.loadGame();
 		String output = testOut.getStr();
 		
 		assertEquals(input, output);
+
+	}		
+	
+	//======================  external tests  ======================
+	/**
+	 * Canceling load
+	 */
+	@Test (expected = NullPointerException.class)
+	public void externalTest1(){
+		Load load = new Load(null);
+		TestClass testout = (TestClass)load.loadGame();
+	}
+	
+	/**
+	 * Test old game overwritten when saved over
+	 */
+	@Test
+	public void externalTest2(){
+		String oldInput = "Tim sucks";
+		TestClass testIn = new TestClass(oldInput);
+		Save save = new Save(testIn);
+		save.saveGame(new File("file"));
+		
+		String newInput = "Lewis is kewl";
+		TestClass testInNew = new TestClass(newInput);
+		Save saveNew = new Save(testInNew);
+		save.saveGame(new File("file"));
+		
+		Load load = new Load("file");
+		TestClass testOut = (TestClass)load.loadGame();
+		String output = testOut.getStr();
+		
+		assertEquals(newInput, output);
 	}
 	
 	
+
 }
+
 class TestClass implements Serializable{
 
 	private String str;

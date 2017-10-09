@@ -44,14 +44,53 @@ public class Player extends Character {
 		return true;
 		//TODO proper success checking
 	}
+	
+	/**
+	 * Uses the consumable item in the players hand, returns false if failed, it not consumable
+	 * @return
+	 * 		True if the consumable was successfully used
+	 */
+	public boolean use() {
+		if (getHand() instanceof Consumable) {
+			return parseCommand(((Consumable)getHand()).use());
+		} else {
+			return false;
+		}
+	}
+	
+	private boolean parseCommand(String command) {
+		if (command == null) {
+			return false;
+		}
+		String[] actionCommand = command.split("[, ]+");
+		if (actionCommand[0].equals("Lives")) {
+			lives += (int) Float.parseFloat(actionCommand[1]);
+		} else {
+			throw new UnsupportedOperationException("The player does not support this command");
+		}
+		return true;
+	}
 
-
+	
+	/**
+	 * Returns the object currently in the players hand
+	 * @return
+	 * 		the pickupable object in the hand
+	 */
 	public Pickupable getHand() {
+		//TODO: proper comments
+
 		return inventory[itemSelected];
 	}
 	
 	
+	/**
+	 * Returns an array of the players inventory
+	 * @return
+	 * 		an array of pickupable items
+	 */
 	public Pickupable[] getInventory() {
+		//TODO: proper comments
 		return inventory;
 	}
 
@@ -61,14 +100,11 @@ public class Player extends Character {
 	 * @param item
 	 * 		the item to add
 	 * @return
-	 * 		true only if space is available in the inventory
+	 * 		the item replaced in inventory
 	 */
 	public Pickupable pickup(Pickupable item) {
 		//TODO: proper comments
-		Pickupable holder = null;
-		if (inventory[itemSelected] != null) {
-			holder = inventory[itemSelected];
-		}
+		Pickupable holder = drop();
 		inventory[itemSelected] = item;
 		return holder;
 

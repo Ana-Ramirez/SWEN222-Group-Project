@@ -1,22 +1,18 @@
 package entities;
 
+import interfaces.Entity;
 
 /**
  * Abstract class for all the different types of weapons
  * @author Nick Lauder
  *
  */
-public abstract class Weapon extends Pickupable implements Cloneable{
+public abstract class Weapon extends Pickupable{
 	private int baseDamage;
 
 	public Weapon(String name, float x, float y, int width, int height, Type type, int damage) {
 		super(name, x, y, width, height, type);
 		this.baseDamage = damage;
-	}
-
-	protected String use() {
-		return "";
-		//TODO: implement properly
 	}
 
 	/**
@@ -26,7 +22,7 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 	 * @return
 	 * 		true if damage dealt, else false
 	 */
-	public boolean attack(Entity victim) {
+	public boolean attack(Entities victim) {
 		return victim.hit(getDamage(victim));
 		
 	}
@@ -69,9 +65,6 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 		case WATER:
 			modifier = (getType() == Type.FIRE) ? 0.5f : 2;
 			break;
-		default:
-			modifier = 1/baseDamage;
-			break;
 		}
 	
 		return modifier;
@@ -83,18 +76,7 @@ public abstract class Weapon extends Pickupable implements Cloneable{
 	 * @return
 	 * 		the int value of the damage
 	 */
-	protected int getBaseDamage() {
+	public int getBaseDamage() {
 		return baseDamage;
-	}
-
-	@Override
-	protected Weapon clone() {
-		if (this instanceof MeleeWeapon) {
-			return new MeleeWeapon(getName(), x, y, getWidth(), getHeight(), getType(), baseDamage, getImage());
-		} else if (this instanceof Gun) {
-			return new Gun(getName(), x, y, getWidth(), getHeight(), getType(), baseDamage, getImage(),  ((Gun) this).getAmmoImage());
-		} else {
-			return null;
-		}
 	}
 }
