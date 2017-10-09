@@ -13,6 +13,7 @@ import entities.Type;
 import entities.Weapon;
 import logic.Door;
 import logic.Room;
+import resources.ImgResources;
 
 /**
  * This class tests the Room class
@@ -119,7 +120,7 @@ public class RoomTests {
 		Weapon weapon = new MeleeWeapon("melee", 0, 0, 1, 1, Type.FIRE, 10, null);
 		Monster monster = new Monster("mon", 40, 40, 1, 1, Type.FIRE, weapon, null);
 		room.addEntity(monster);
-		assertEquals(monster, room.getMonster(monster));
+		assertEquals(monster.getName(), room.getMonster(monster.getName()));
 	}
 	
 	/**
@@ -142,7 +143,7 @@ public class RoomTests {
 	@Test
 	public void get3() {
 		Room room = new Room(4);
-		Consumable item = new Consumable("food", 10, 10, 1, 1, "", null);
+		Consumable item = new Consumable("food", 10, 10, 1, 1, "", resources.ImgResources.CONSOLE1.img);
 		room.addEntity(item);
 		assertEquals(item, room.getItem("food"));
 	}
@@ -165,7 +166,7 @@ public class RoomTests {
 	public void doorLocked() {
 		Room room1 = new Room(1);
 		Room room2 = new Room(2); 
-		Consumable item = new Consumable("food", 10, 10, 1, 1, "", null);
+		Consumable item = new Consumable("food", 10, 10, 1, 1, "Lives 1", null);
 		Door door = new Door(room1, room2, item, 1, 1);
 		room1.addEntity(door);
 		assertTrue(room1.doorLocked(door));

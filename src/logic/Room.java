@@ -26,7 +26,7 @@ public class Room {
 	
 	private int roomNum;
 	private List<Entity> roomEntities;
-	private Wall[][] walls = new Wall[500][500];
+	private Wall[][] walls = new Wall[25][10];
 	private Player player = null;
 	
 	/**
@@ -61,12 +61,15 @@ public class Room {
 		String pos = null;
 		for(int i = 0; i < this.walls.length; i++){
 			for(int j = 0; j < this.walls[i].length; j++){
-				if(i == 0 || i == this.walls.length || j == 0 || j == this.walls[i].length){
+				if(i == 0 || i == this.walls.length-1 || j == 0 || j == this.walls[i].length-1){
 					if(i == 0){ pos = "top"; }
-					else if(i == this.walls.length){ pos = "bottom"; }
+					else if(i == this.walls.length-1){ pos = "bottom"; }
 					else if(j == 0){ pos = "left"; }
-					else if(j == this.walls[i].length){ pos = "right"; }
-					walls[i][j] = new Wall(pos);
+					else if(j == this.walls[i].length-1){ pos = "right"; }
+					
+					if(walls[i][j] != null){
+						walls[i][j] = new Wall(pos);
+					}
 				}
 			}
 		}
