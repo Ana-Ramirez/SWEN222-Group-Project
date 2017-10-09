@@ -117,7 +117,7 @@ public class Game extends Application implements Serializable{
 				if (goDown) dy += 1;
 				if (goLeft)  dx -= 1;
 				if (goRight)  dx += 1;    
-				player.moveBy(dx, dy);
+				
 				
 				//Checks for the current room and updates if necessary
 				if(!currentLevel.getCurrentRoom().equals(currentRoom)) {
@@ -125,7 +125,7 @@ public class Game extends Application implements Serializable{
 					renderer.newRoom(currentRoom);
 				}
 				
-				//TODO Tick to update entities either in Room or Level class
+				currentRoom.tick(dx, dy);
 				
 				renderer.repaint();
 			}
@@ -179,15 +179,7 @@ public class Game extends Application implements Serializable{
 
 			@Override
 			public void handle(MouseEvent event) {
-				double x = event.getX(), y = event.getY();
-				if(player.getHand() instanceof Gun) {
-					Gun gun = (Gun) player.getHand();
-					//TODO send gun and destination of fire to logic 
-				}
-				if(player.getHand() instanceof MeleeWeapon) {
-					MeleeWeapon wep = (MeleeWeapon) player.getHand();
-					//TODO send wep and direction of attack to Logic
-				}
+				currentRoom.attack((float) event.getX(), (float) event.getY());
 			}
 			
 			

@@ -11,15 +11,15 @@ import javafx.scene.image.Image;
  *
  */
 public abstract class Entities implements Entity {
-	protected float x;
-	protected float y;
+	protected double x;
+	protected double y;
 	private int width;
 	private int height;
 	private String name;
 	private Type type;
 	private Image image;
 
-	protected Entities (String name, float x, float y, int width, int height, Type type) {
+	protected Entities (String name, double x, double y, int width, int height, Type type) {
 		this.name = name;
 		this.x = x;
 		this.y = y;
@@ -41,7 +41,7 @@ public abstract class Entities implements Entity {
 	 * @return
 	 * 		a float value of the x coordinate
 	 */
-	public float getX() {
+	public double getX() {
 		return x;
 	}
 
@@ -50,7 +50,7 @@ public abstract class Entities implements Entity {
 	 * @return
 	 * 		a float value of the y coordinate
 	 */
-	public float getY() {
+	public double getY() {
 		return y;
 	}
 

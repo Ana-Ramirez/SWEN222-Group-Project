@@ -10,7 +10,7 @@ import interfaces.Entity;
 public abstract class Weapon extends Pickupable{
 	private int baseDamage;
 
-	public Weapon(String name, float x, float y, int width, int height, Type type, int damage) {
+	public Weapon(String name, double x, double y, int width, int height, Type type, int damage) {
 		super(name, x, y, width, height, type);
 		this.baseDamage = damage;
 	}
@@ -22,8 +22,8 @@ public abstract class Weapon extends Pickupable{
 	 * @return
 	 * 		true if damage dealt, else false
 	 */
-	public boolean attack(Entities victim) {
-		return victim.hit(getDamage(victim));
+	public boolean attack(Entity victim) {
+		return ((Entities)victim).hit(getDamage(victim));
 		
 	}
 

@@ -17,14 +17,14 @@ public interface Entity {
 	 * @return
 	 * 		a float value of the x coordinate
 	 */
-	public float getX();
+	public double getX();
 
 	/**
 	 * Returns the y coordinate of the entity
 	 * @return
 	 * 		a float value of the y coordinate
 	 */
-	public float getY();
+	public double getY();
 
 	/**
 	 * Returns the width of the entity
