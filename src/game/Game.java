@@ -70,7 +70,11 @@ public class Game extends Application implements Serializable{
 	public Game() {
 		this.renderer = new Renderer();
 		this.player = new Player(0,0, playerWidth, playerHeight, ImgResources.PLAYERDOWN.img);
+		renderer.setPlayer(player);
 		generateLevels();
+		currentRoom.setPlayer(player);
+		renderer.newRoom(currentRoom);
+		renderer.initialDraw();
 	}
 	
 	/**
@@ -90,6 +94,8 @@ public class Game extends Application implements Serializable{
 		if(level1 != null) {
 			currentLevel = level1;
 		}
+		
+		currentRoom = currentLevel.getCurrentRoom();
 	}
 	
 	/**
@@ -99,9 +105,6 @@ public class Game extends Application implements Serializable{
 	public void start(Stage stage) throws Exception {
 		
 		Scene scene = renderer.getScene();
-		
-		//TEMPORARY
-		currentRoom = currentLevel.getRoom(0);
 		
 		//Game loop
 		AnimationTimer timer = new AnimationTimer() {
