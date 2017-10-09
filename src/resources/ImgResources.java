@@ -1,9 +1,6 @@
 package resources;
 
 import javafx.scene.image.Image;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 /**
  * Contains the image resources for the game.
