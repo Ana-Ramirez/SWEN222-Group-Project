@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entities.*;
+import interfaces.Entity;
 
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -38,7 +39,7 @@ public class Renderer{
 	 * The constructor for the renderer. Takes a player
 	 * @param p
 	 */
-	public Renderer(Player p){
+	public Renderer(){
 		StackPane root = new StackPane();
 
 		Canvas canvas = new Canvas(800,600);
@@ -47,6 +48,14 @@ public class Renderer{
 		
 		root.getChildren().add(canvas);
 		this.scene = new Scene(root, 800, 600);
+	}
+	
+	/**
+	 * Sets the player. Should be called before drawing anything.
+	 * @param p
+	 */
+	public void setPlayer(Player p){
+		this.player = p;
 	}
 	
 	/**
