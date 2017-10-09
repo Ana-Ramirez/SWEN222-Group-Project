@@ -22,8 +22,8 @@ public abstract class Weapon extends Pickupable{
 	 * @return
 	 * 		true if damage dealt, else false
 	 */
-	public boolean attack(Entities victim) {
-		return victim.hit(getDamage(victim));
+	public boolean attack(Entity victim) {
+		return ((Entities)victim).hit(getDamage(victim));
 		
 	}
 

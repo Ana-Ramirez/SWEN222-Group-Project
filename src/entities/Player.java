@@ -1,5 +1,6 @@
 package entities;
 
+import javafx.geometry.BoundingBox;
 import javafx.scene.image.Image;
 
 /**
@@ -123,5 +124,13 @@ public class Player extends Character {
 		Pickupable holder = inventory[itemSelected];
 		inventory[itemSelected] = null;
 		return holder;
+	}
+	
+	/**
+	 * Returns a large bounding box used for the attack radius
+	 * @return
+	 */
+	public BoundingBox getExtendedBoundingBox() {
+		return new BoundingBox(getX()-5, getY()-5, getWidth()+10, getHeight()+10);
 	}
 }

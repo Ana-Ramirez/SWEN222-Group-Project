@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entities.Consumable;
-import entities.Entity;
+import entities.MeleeWeapon;
+import interfaces.Entity;
 import entities.Monster;
 import entities.Pickupable;
 import entities.Player;
 import entities.Weapon;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * The Room class will be the basis for every room in the game
@@ -231,6 +231,25 @@ public class Room {
 	 */
 	public List<Entity> getEntities(){
 		return this.roomEntities;
+	}
+	/**
+	 * Scans the extended surrounding player box for a monster and attacks it
+	 * @return
+	 * 		true if an attack was successfully carried out
+	 */
+	public boolean attack() {
+		boolean validAttack = false;
+		Pickupable hand = player.getHand();
+		if (hand instanceof MeleeWeapon) {
+			for(Entity e : this.roomEntities){
+				if(e.getBoundingBox().intersects(this.player.getExtendedBoundingBox())){
+					if(e instanceof Monster){
+						validAttack |= ((MeleeWeapon) hand).attack(e);
+					} 
+				}
+			}
+		}
+		return validAttack;
 	}
 	
 }
