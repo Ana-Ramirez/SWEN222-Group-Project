@@ -5,7 +5,7 @@ import java.util.List;
 
 import entities.*;
 import interfaces.Entity;
-
+import javafx.geometry.BoundingBox;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -22,15 +22,15 @@ import logic.*;
  */
 public class Renderer{
 	private GraphicsContext g;
-	private List<Entity> entities;
+	//private List<Entity> entities;
 	private Room room;
 	private Scene scene;
 	private Player player;
 	
 	public static final int TILE_SIZE = 32;
-	private static final int HUD_HEIGHT = 120;
-	private static final int FLOOR_WIDTH = 25;
-	private static final int FLOOR_HEIGHT = 15;
+	public static final int HUD_HEIGHT = 120;
+	public static final int FLOOR_WIDTH = 25;
+	public static final int FLOOR_HEIGHT = 15;
 	public static final int ROOM_WIDTH = 800;
 	public static final int ROOM_HEIGHT = 480;
 
@@ -43,7 +43,7 @@ public class Renderer{
 
 		Canvas canvas = new Canvas(800,600);
 		this.g = canvas.getGraphicsContext2D();
-		this.entities = new ArrayList<Entity>();
+		//this.entities = new ArrayList<Entity>();
 		
 		root.getChildren().add(canvas);
 		this.scene = new Scene(root, 800, 600);
@@ -68,7 +68,7 @@ public class Renderer{
 			return;
 		}
 
-		this.entities = room.getEntities();
+		//this.entities = room.getEntities();
 		this.room = room;
 		
 		drawRoom();
@@ -134,14 +134,14 @@ public class Renderer{
 	 * Draws the entities in the room
 	 */
 	private void drawEntities(){
+		/**
 		if (this.entities == null) {
 			//TODO remove debug code
 			System.out.println("List of entities is null!");
 			return;
-		}
-
-		for (Entity e : entities){
-			g.drawImage(e.getImage(), (double)e.getX(), HUD_HEIGHT + (double)e.getY());
+		}**/
+		for (Entity e : room.getEntities()){
+			g.drawImage(e.getImage(), e.getX(), HUD_HEIGHT + e.getY(), e.getWidth(), e.getHeight());
 		}
 	}
 	
@@ -211,7 +211,7 @@ public class Renderer{
 	 * Repaints the information that could change in a frame
 	 */
 	public void repaint(){
-		drawEntities();
+		drawRoom();
 		drawHUD();
 	}
 

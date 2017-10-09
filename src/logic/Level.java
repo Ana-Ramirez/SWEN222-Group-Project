@@ -73,12 +73,13 @@ public class Level {
 		this.rooms.add(room5);
 		
 		//create entities to add
-		Consumable consumable = new Consumable("food", 20, 40, 20, 20, "Lives 1", ImgResources.LIFE.img);
-		Gun gun = new Gun("gun", 300, 300, 20, 20, Type.EARTH, 10, ImgResources.GUN.img, ImgResources.CONSOLE1.img);
-		MeleeWeapon melee = new MeleeWeapon("knife", 100, 100, 20, 20, Type.WATER, 40, ImgResources.CONSOLE1.img);
-		Monster monster = new Monster("monster", 200, 200, 50, 50, Type.EARTH, gun, ImgResources.MONSTER.img);
+		Consumable consumable = new Consumable("food", 20, 40, 1, 1, "Lives 1", ImgResources.LIFE.img);
+		Gun gun = new Gun("gun", 300, 300, 1, 1, Type.EARTH, 10, ImgResources.GUN.img, ImgResources.CONSOLE1.img);
+		MeleeWeapon melee = new MeleeWeapon("knife", 100, 100, 1, 1, Type.WATER, 40, ImgResources.CONSOLE1.img);
+		Monster monster = new Monster("monster", 200, 200, 1, 1, Type.EARTH, gun, ImgResources.MONSTER.img);
 		
 		//add to rooms
+		room1.addEntity(player);
 		room1.addEntity(gun);
 		
 		room2.addEntity(monster);

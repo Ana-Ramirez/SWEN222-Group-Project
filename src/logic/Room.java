@@ -7,6 +7,8 @@ import entities.Consumable;
 import entities.Gun;
 import entities.MeleeWeapon;
 import interfaces.Entity;
+import javafx.geometry.BoundingBox;
+import view.Renderer;
 import entities.Monster;
 import entities.MovableEntity;
 import entities.Pickupable;
@@ -25,9 +27,8 @@ import entities.Weapon;
 public class Room {
 	
 	private int roomNum;
-	private List<Entity> roomEntities;
-	private Wall[][] walls = new Wall[25][10];
-	private Player player = null;
+	private List<Entity> roomEntities;	
+	private Player player;
 	
 	/**
 	 * Constructs a new room
@@ -45,7 +46,9 @@ public class Room {
 	 * @param y 	mouse y pos
 	 */
 	public void tick(float x, float y) {
-		player.moveBy(x, y);
+		if (movePlayer(x, y)) {
+			player.moveBy(x, y);
+		}
 		
 		for(Entity e : this.roomEntities){
 			if(e instanceof MovableEntity) {
@@ -59,17 +62,21 @@ public class Room {
 	 */
 	private void generateWalls(){
 		String pos = null;
-		for(int i = 0; i < this.walls.length; i++){
-			for(int j = 0; j < this.walls[i].length; j++){
-				if(i == 0 || i == this.walls.length-1 || j == 0 || j == this.walls[i].length-1){
-					if(i == 0){ pos = "top"; }
-					else if(i == this.walls.length-1){ pos = "bottom"; }
-					else if(j == 0){ pos = "left"; }
-					else if(j == this.walls[i].length-1){ pos = "right"; }
-					
-					if(walls[i][j] != null){
-						walls[i][j] = new Wall(pos);
+		for(int i = 0; i < Renderer.FLOOR_WIDTH; i++){
+			for(int j = 0; j < Renderer.FLOOR_HEIGHT; j++){
+				if(i == 0 || i == Renderer.FLOOR_WIDTH-1 || j == 0 || j == Renderer.FLOOR_HEIGHT-1){
+					if(i == 0) { 
+						pos = "top"; 
+					} if (i == Renderer.FLOOR_WIDTH-1) {
+						pos = "right"; 
+					} if (j == 0) { 
+						pos = "left"; 
+					} if (j == Renderer.FLOOR_HEIGHT-1) {
+						pos = "bottom"; 
 					}
+					
+					roomEntities.add(new Wall(pos, i*Renderer.TILE_SIZE, j*Renderer.TILE_SIZE, 1, 1));
+					
 				}
 			}
 		}
@@ -96,18 +103,21 @@ public class Room {
 	 * Different outcomes depending on what the player has 
 	 * collided with
 	 */
-	public void movePlayer(){
+	public boolean movePlayer(float x, float y){
+		BoundingBox box = player.getBoundingBox();
+		box = new BoundingBox(box.getMinX()+x*2, box.getMinY()+y*2, box.getWidth(), box.getHeight());
 		for(Entity e : this.roomEntities){
-			if(e.getBoundingBox().intersects(this.player.getBoundingBox())){
+			if(!(e instanceof Player) && e.getBoundingBox().intersects(box)){
 				if(e instanceof Door){
 					goThroughDoor( (Door)e );
 				} else if(e instanceof Monster){
 					((Monster)e).attack(this.player);
-				} else if(e instanceof Pickupable){
-					this.player.pickup( (Pickupable)e );
-				} 
+				} else if (e instanceof Wall) {
+					return false;
+				}
 			}
 		}
+		return true;
 	}
 	
 	/**
@@ -115,14 +125,16 @@ public class Room {
 	 * which the player is colliding with
 	 */
 	public void pickupItem(){
+		Entity toRemove = null;
 		for(Entity e : this.roomEntities){
 			if(e.getBoundingBox().intersects(this.player.getBoundingBox())){
 				if(e instanceof Pickupable){
 					this.player.pickup( (Pickupable)e );
-					this.roomEntities.remove(e);
+					toRemove = e;
 				}
 			}
 		}
+		roomEntities.remove(toRemove);
 	}
 	
 	/**
@@ -149,21 +161,7 @@ public class Room {
 	public void addEntity(Entity item){
 		this.roomEntities.add(item);
 	}
-	
-	/**
-	 * Removes an item from the 
-	 * @param s
-	 * @return
-	 */
-	public boolean removeItem(String s){
-		for(int i = 0; i < this.roomEntities.size(); i++){
-			if(this.roomEntities.get(i).getName().equals(s)){
-				this.roomEntities.remove(i);
-				return true;
-			}
-		}
-		return false;
-	}
+
 	
 	/**
 	 * Get a door from this room
@@ -261,8 +259,8 @@ public class Room {
 					if(e instanceof Monster){
 						validAttack |= ((MeleeWeapon) hand).attack(e);
 					} 
-				}
-			}
+				} 
+			} //End of entities iteration
 		} else if (hand instanceof Gun) {
 			roomEntities.add(((Gun) hand).createProjectile(x, y));
 		}

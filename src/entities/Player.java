@@ -138,7 +138,9 @@ public class Player extends Character {
 	@Override
 	public void tick() {
 		for (int i = 0; i < inventory.length; i++) {
-			inventory[i].moveTo(getX(), getY());
+			if (inventory[i] != null) {
+				inventory[i].moveTo(getX(), getY());
+			}
 		}
 	}
 }

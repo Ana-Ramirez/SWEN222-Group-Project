@@ -7,7 +7,7 @@ package entities;
  *
  */
 public abstract class MovableEntity extends Entities {
-
+	private double speed = 4;
 
 	protected MovableEntity(String name, double x, double y, int width, int height, Type type) {
 		super(name, x, y, width, height, type);
@@ -23,8 +23,8 @@ public abstract class MovableEntity extends Entities {
 	 * 		true if successful, else false
 	 */
 	public boolean moveBy(double x, double y) {
-		this.x += x;
-		this.y += y;
+		this.x += x*2;
+		this.y += y*2;
 		return true;
 		//TODO proper success handling
 	}
@@ -44,6 +44,10 @@ public abstract class MovableEntity extends Entities {
 		this.y = y;
 		return true;
 		//TODO proper success handling
+	}
+	
+	public double getSpeed() {
+		return speed;
 	}
 	
 	public abstract void tick(); 

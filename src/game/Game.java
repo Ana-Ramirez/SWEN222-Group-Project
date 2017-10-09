@@ -29,7 +29,7 @@ public class Game extends Application implements Serializable{
 	/**
 	 * Player dimensions
 	 */
-	private final int playerWidth = 10, playerHeight = 10;
+	private final int playerWidth = 1, playerHeight = 1;
 	
 	/**
 	 * View objects
@@ -66,7 +66,7 @@ public class Game extends Application implements Serializable{
 	 */
 	public Game() {
 		this.renderer = new Renderer();
-		this.player = new Player(0,0, playerWidth, playerHeight, ImgResources.PLAYERDOWN.img);
+		this.player = new Player(50,50, 1, 1, ImgResources.PLAYERDOWN.img);
 		renderer.setPlayer(player);
 		generateLevels();
 		currentRoom.setPlayer(player);
@@ -79,7 +79,7 @@ public class Game extends Application implements Serializable{
 	 * @param Differentiates from normal constructor 
 	 */
 	public Game(boolean x) {
-		this.player = new Player(0,0, playerWidth, playerHeight, ImgResources.PLAYERDOWN.img);
+		this.player = new Player(50,50, 1, 1, ImgResources.PLAYERDOWN.img);
 		generateLevels();
 		currentRoom.setPlayer(player);
 	}
