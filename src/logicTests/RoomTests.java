@@ -38,7 +38,7 @@ public class RoomTests {
 	public void move1() {
 		Room room1 = new Room(4);
 		Room room2 = new Room(3);
-		Door door = new Door(room1, room2, new Consumable("food", 100, 100, 1, 1, "", null), 1, 1);
+		Door door = new Door(room1, room2, new Consumable("food", 100, 100, 1, 1, "Lives 2", null), 1, 1);
 		room1.addEntity(door);
 		room2.addEntity(door);
 		Player player = new Player(20, 20, 1, 1, null);
@@ -55,7 +55,7 @@ public class RoomTests {
 	public void move2() {
 		Room room1 = new Room(4);
 		Room room2 = new Room(3);
-		Door door = new Door(room1, room2, new Consumable("food", 100, 100, 1, 1, "", null), 1, 1);
+		Door door = new Door(room1, room2, new Consumable("food", 100, 100, 1, 1, "Lives 2", null), 1, 1);
 		room1.addEntity(door);
 		room2.addEntity(door);
 		Player player = new Player(20, 20, 1, 1, null);
@@ -73,7 +73,7 @@ public class RoomTests {
 		Room room = new Room(4);
 		Player player = new Player(20, 20, 1, 1, null);
 		room.setPlayer(player);
-		Consumable food = new Consumable("food", 40, 40, 1, 1, "", null);
+		Consumable food = new Consumable("food", 40, 40, 1, 1, "Lives 2", null);
 		room.addEntity(food);
 		player.moveTo(40, 40);
 		room.movePlayer();
@@ -87,7 +87,7 @@ public class RoomTests {
 	@Test
 	public void move4() {
 		Room room = new Room(4);
-		Player player = new Player(30, 45, 10, 10, null);
+		Player player = new Player(0, 0, 10, 10, null);
 		room.setPlayer(player);
 		Monster monster = new Monster("mon", 40, 40, 10, 10, Type.FIRE, null, null);
 		room.addEntity(monster);
@@ -120,7 +120,7 @@ public class RoomTests {
 		Weapon weapon = new MeleeWeapon("melee", 0, 0, 1, 1, Type.FIRE, 10, null);
 		Monster monster = new Monster("mon", 40, 40, 1, 1, Type.FIRE, weapon, null);
 		room.addEntity(monster);
-		assertEquals(monster.getName(), room.getMonster(monster.getName()));
+		assertEquals(monster.getName(), room.getMonster(monster.getName()).getName());
 	}
 	
 	/**
@@ -130,7 +130,7 @@ public class RoomTests {
 	public void get2() {
 		Room room1 = new Room(1);
 		Room room2 = new Room(2);
-		Consumable item = new Consumable("food", 10, 10, 1, 1, "", null);
+		Consumable item = new Consumable("food", 10, 10, 1, 1, "Lives 2", null);
 		Door door = new Door(room1, room2, item, 1, 1);
 		room1.addEntity(door);
 		room2.addEntity(door);
@@ -143,7 +143,7 @@ public class RoomTests {
 	@Test
 	public void get3() {
 		Room room = new Room(4);
-		Consumable item = new Consumable("food", 10, 10, 1, 1, "", resources.ImgResources.CONSOLE1.img);
+		Consumable item = new Consumable("food", 10, 10, 1, 1, "Lives 2", resources.ImgResources.CONSOLE1.img);
 		room.addEntity(item);
 		assertEquals(item, room.getItem("food"));
 	}
@@ -154,7 +154,7 @@ public class RoomTests {
 	@Test
 	public void remove1() {
 		Room room = new Room(4);
-		Consumable item = new Consumable("food", 10, 10, 1, 1, "", null);
+		Consumable item = new Consumable("food", 10, 10, 1, 1, "Lives 2", null);
 		room.addEntity(item);
 		assertTrue(room.removeItem("food"));
 	}
@@ -166,7 +166,7 @@ public class RoomTests {
 	public void doorLocked() {
 		Room room1 = new Room(1);
 		Room room2 = new Room(2); 
-		Consumable item = new Consumable("food", 10, 10, 1, 1, "Lives 1", null);
+		Consumable item = new Consumable("food", 10, 10, 1, 1, "Lives 2", null);
 		Door door = new Door(room1, room2, item, 1, 1);
 		room1.addEntity(door);
 		assertTrue(room1.doorLocked(door));

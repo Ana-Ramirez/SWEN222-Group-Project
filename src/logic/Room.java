@@ -102,7 +102,6 @@ public class Room {
 				if(e instanceof Door){
 					goThroughDoor( (Door)e );
 				} else if(e instanceof Monster){
-					
 					((Monster)e).attack(this.player);
 				} else if(e instanceof Pickupable){
 					this.player.pickup( (Pickupable)e );

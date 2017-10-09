@@ -58,10 +58,8 @@ public class Door extends StationaryEntity{
 			y = Renderer.ROOM_HEIGHT/2 - Renderer.TILE_SIZE/2;
 		}
 		ImgResources imageEnum = ImgResources.valueOf(image);
-		this.setImage(imageEnum.img);
-		setX(x);
-		setY(y);
-		//need to use this to set image of door
+		setImage(imageEnum.img);
+		setXY(x, y);
 		
 		this.room1 = rm1;
 		this.room2 = rm2;
