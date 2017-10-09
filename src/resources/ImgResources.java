@@ -1,9 +1,6 @@
 package resources;
 
 import javafx.scene.image.Image;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 /**
  * Contains the image resources for the game.
@@ -30,6 +27,10 @@ public enum ImgResources {
 	WALL("wall.png"),
 	WALLBOT("wallBot.png"),
 	WALLTOP("wallTop.png"),
+	//ENEMIES
+	MONSTER("monster.png"),
+	//CONSUMABLES
+	POTION("potion.png"),
 	//PLAYER
 	PLAYERDOWN("playerDown.png");
 

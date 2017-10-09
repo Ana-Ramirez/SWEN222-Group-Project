@@ -11,9 +11,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import resources.ImgResources;
 import logic.*;
 
@@ -188,8 +185,10 @@ public class Renderer{
 		
 		//Draws the items
 		Entity[] inventory = player.getInventory();
+		if (inventory[0] != null)
 		g.drawImage(inventory[0].getImage(), x, y);
-		g.drawImage(inventory[0].getImage(), x+66, y);
+		if (inventory[1] != null)
+		g.drawImage(inventory[1].getImage(), x+66, y);
 	}
 	
 	/**

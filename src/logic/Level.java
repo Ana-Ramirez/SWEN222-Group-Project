@@ -55,15 +55,15 @@ public class Level {
 		Door door4 = new Door(room4, room5, null, 4, 3);
 		
 		//add doors to rooms
-		room1.addDoor(door1);
-		room2.addDoor(door2);
-		room3.addDoor(door3);
-		room4.addDoor(door4);
+		room1.addEntity(door1);
+		room2.addEntity(door2);
+		room3.addEntity(door3);
+		room4.addEntity(door4);
 		
-		room5.addDoor(door1);
-		room5.addDoor(door2);
-		room5.addDoor(door3);
-		room5.addDoor(door4);
+		room5.addEntity(door1);
+		room5.addEntity(door2);
+		room5.addEntity(door3);
+		room5.addEntity(door4);
 		
 		//add rooms to the level
 		this.rooms.add(room1);
