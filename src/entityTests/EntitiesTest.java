@@ -31,6 +31,9 @@ public class EntitiesTest {
 		assertEquals("Tim", player.getName());
 		assertEquals(3, player.getLives());
 		assertNull(player.getType());
+		assertEquals(5, player.getWidth());
+		assertEquals(5, player.getHeight());
+		assertNull(player.getImage());
 	}
 
 	@Test
@@ -338,8 +341,8 @@ public class EntitiesTest {
 	@Test
 	public void gunAmmoDifferentObjects() {
 		Gun weapon = new Gun("Gun", 0, 0, 5, 5, Type.WATER, 5, null, null);
-		Projectile ammo1 = weapon.getAmmo();
-		Projectile ammo2 = weapon.getAmmo();
+		Projectile ammo1 = weapon.createProjectile(0, 0);
+		Projectile ammo2 = weapon.createProjectile(0, 0);
 		assertEquals(ammo1.getName(), ammo2.getName());
 		assertEquals(ammo1.getBaseDamage(), ammo2.getBaseDamage());
 		assertNotSame(ammo1, ammo2);
@@ -382,6 +385,38 @@ public class EntitiesTest {
 	}
 	
 	@Test
+	public void confirmFullInventoryMoves() {
+		Player player = new Player(0, 0, 5, 5, null);
+		Consumable cons1 = new Consumable("Health", 0, 0, 5, 5, "Lives, 2", null);
+		Consumable cons2 = new Consumable("Health", 0, 0, 5, 5, "Lives, 2", null);
+		Consumable cons3 = new Consumable("Health", 0, 0, 5, 5, "Lives, 2", null);
+
+		
+		assertNull(player.pickup(cons1));
+		assertTrue(player.selectItem(1));
+		assertNull(player.pickup(cons2));
+		assertTrue(player.selectItem(2));
+		assertNull(player.pickup(cons3));
+		
+		assertEquals(0, cons1.getX(), 0);
+		assertEquals(0, cons1.getY(), 0);
+		assertEquals(0, cons2.getX(), 0);
+		assertEquals(0, cons2.getY(), 0);
+		assertEquals(0, cons3.getX(), 0);
+		assertEquals(0, cons3.getY(), 0);
+		
+		player.moveBy(5, 5);
+		player.tick();
+		
+		assertEquals(5, cons1.getX(), 0);
+		assertEquals(5, cons1.getY(), 0);
+		assertEquals(5, cons2.getX(), 0);
+		assertEquals(5, cons2.getY(), 0);
+		assertEquals(5, cons3.getX(), 0);
+		assertEquals(5, cons3.getY(), 0);
+	}
+	
+	@Test
 	public void selectInvlaidInventorySlot() {
 		Player player = new Player(0, 0, 5, 5, null);
 		assertFalse(player.selectItem(3));
@@ -404,6 +439,24 @@ public class EntitiesTest {
 		assertEquals(10, box2.getMinY(), 0);
 		assertEquals(5, box2.getWidth(), 0);
 		assertEquals(5, box2.getHeight(), 0);
+	}
+	
+	@Test
+	public void validExtendedBoundingBox() {
+		Player player = new Player(5, 5, 5, 5, null);
+		BoundingBox box1 = player.getExtendedBoundingBox();
+		assertEquals(0, box1.getMinX(), 0);
+		assertEquals(0, box1.getMinY(), 0);
+		assertEquals(15, box1.getWidth(), 0);
+		assertEquals(15, box1.getHeight(), 0);
+		
+		player.moveBy(10, 10);
+		BoundingBox box2 = player.getExtendedBoundingBox();
+		
+		assertEquals(10, box2.getMinX(), 0);
+		assertEquals(10, box2.getMinY(), 0);
+		assertEquals(15, box2.getWidth(), 0);
+		assertEquals(15, box2.getHeight(), 0);
 	}
 	
 	@Test
@@ -464,6 +517,83 @@ public class EntitiesTest {
 		assertSame(Type.valueOf("EARTH"), Type.EARTH);
 	}
 	
+	@Test
+	public void tickConsumable() {
+		Consumable cons = new Consumable("Health", 0, 0, 5, 5, "Lives, 2", null);
+		assertEquals("Health", cons.getName());
+		assertEquals(0, cons.getY(), 0);
+		assertEquals(0, cons.getX(), 0);
+		assertEquals(5, cons.getHeight());
+		assertEquals(5, cons.getWidth());		
+		assertNull(cons.getImage());
+		cons.tick();
+		assertEquals("Health", cons.getName());
+		assertEquals(0, cons.getY(), 0);
+		assertEquals(0, cons.getX(), 0);
+		assertEquals(5, cons.getHeight());
+		assertEquals(5, cons.getWidth());		
+		assertNull(cons.getImage());
+	}
+	
+	
+	@Test
+	public void tickMeleeWeapon() {
+		MeleeWeapon cons = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, 5, null);
+		assertEquals("Sword", cons.getName());
+		assertEquals(0, cons.getY(), 0);
+		assertEquals(0, cons.getX(), 0);
+		assertEquals(5, cons.getHeight());
+		assertEquals(5, cons.getWidth());	
+		assertEquals(5, cons.getBaseDamage());
+		assertEquals(Type.WATER, cons.getType());
+		assertNull(cons.getImage());
+		cons.tick();
+		assertEquals("Sword", cons.getName());
+		assertEquals(0, cons.getY(), 0);
+		assertEquals(0, cons.getX(), 0);
+		assertEquals(5, cons.getHeight());
+		assertEquals(5, cons.getWidth());		
+		assertNull(cons.getImage());
+		assertEquals(5, cons.getBaseDamage());
+		assertEquals(Type.WATER, cons.getType());
+	}
+	
+	
+	@Test
+	public void tickGun() {
+		Gun cons = new Gun("Gun", 0, 0, 5, 5, Type.WATER, 5, null, null);
+		assertEquals("Gun", cons.getName());
+		assertEquals(0, cons.getY(), 0);
+		assertEquals(0, cons.getX(), 0);
+		assertEquals(5, cons.getHeight());
+		assertEquals(5, cons.getWidth());	
+		assertEquals(5, cons.getBaseDamage());
+		assertEquals(Type.WATER, cons.getType());
+		assertNull(cons.getImage());
+		cons.tick();
+		assertEquals("Gun", cons.getName());
+		assertEquals(0, cons.getY(), 0);
+		assertEquals(0, cons.getX(), 0);
+		assertEquals(5, cons.getHeight());
+		assertEquals(5, cons.getWidth());		
+		assertNull(cons.getImage());
+		assertEquals(5, cons.getBaseDamage());
+		assertEquals(Type.WATER, cons.getType());
+	}
+	
+	@Test
+	public void tickProjectileMovementTest() {
+		Gun cons = new Gun("Gun", 0, 0, 5, 5, Type.WATER, 5, null, null);
+		Projectile bullet = cons.createProjectile(1, 1);
+		
+		assertEquals(0, bullet.getY(), 0);
+		assertEquals(0, bullet.getX(), 0);
+		
+		bullet.tick();
+		assertEquals(-0.7071067811865475, bullet.getY(), 0);
+		assertEquals(0.7071067811865476, bullet.getX(), 0);
+		
+	}
 	
 	/**
 	 * External testing

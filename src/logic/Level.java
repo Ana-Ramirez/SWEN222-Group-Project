@@ -55,15 +55,15 @@ public class Level {
 		Door door4 = new Door(room4, room5, null, 4, 3);
 		
 		//add doors to rooms
-		room1.addDoor(door1);
-		room2.addDoor(door2);
-		room3.addDoor(door3);
-		room4.addDoor(door4);
+		room1.addEntity(door1);
+		room2.addEntity(door2);
+		room3.addEntity(door3);
+		room4.addEntity(door4);
 		
-		room5.addDoor(door1);
-		room5.addDoor(door2);
-		room5.addDoor(door3);
-		room5.addDoor(door4);
+		room5.addEntity(door1);
+		room5.addEntity(door2);
+		room5.addEntity(door3);
+		room5.addEntity(door4);
 		
 		//add rooms to the level
 		this.rooms.add(room1);
@@ -73,7 +73,7 @@ public class Level {
 		this.rooms.add(room5);
 		
 		//create entities to add
-		Consumable consumable = new Consumable("food", 20, 40, 20, 20, "eat", ImgResources.LIFE.img);
+		Consumable consumable = new Consumable("food", 20, 40, 20, 20, "Lives 1", ImgResources.LIFE.img);
 		Gun gun = new Gun("gun", 300, 300, 20, 20, Type.EARTH, 10, ImgResources.GUN.img, ImgResources.CONSOLE1.img);
 		MeleeWeapon melee = new MeleeWeapon("knife", 100, 100, 20, 20, Type.WATER, 40, ImgResources.CONSOLE1.img);
 		Monster monster = new Monster("monster", 200, 200, 50, 50, Type.EARTH, gun, ImgResources.CONSOLE1.img);

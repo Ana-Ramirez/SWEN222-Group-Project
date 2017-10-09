@@ -22,7 +22,7 @@ public class StationaryEntity extends Entities {
 	 * @param height
 	 * 		the int height to use
 	 */
-	public StationaryEntity(String name, int x, int y, int width, int height, Image img) {
+	public StationaryEntity(String name, double x, double y, int width, int height, Image img) {
 		super(name, x, y, width, height, null);
 		setImage(img);
 	}
