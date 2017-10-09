@@ -7,6 +7,7 @@ import entities.Type;
 import game.GameException;
 import resources.ImgResources;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import view.Renderer;
 
 /**
  * Door will have position on a wall at N, S, E or W,
@@ -31,14 +32,34 @@ public class Door extends StationaryEntity{
 	 * @param position		the wall this door sits on
 	 */
 	public Door(Room rm1, Room rm2, Pickupable item, int doorNum, int position){
-		super(Integer.toString(doorNum), 10, 10, 10, 10, ImgResources.STAIRSBOT.img);
+		super(Integer.toString(doorNum), Renderer.ROOM_WIDTH, Renderer.ROOM_HEIGHT, Renderer.TILE_SIZE, Renderer.TILE_SIZE, ImgResources.STAIRSBOT.img);
 		
 		String image = null;
-		if(position == 0){ image = "STAIRSTOP"; }
-		else if(position == 1){ image = "STAIRSBOT"; }
-		else if(position == 2){ image = "STAIRSLEFT"; }
-		else if(position == 3){ image = "STAIRSRIGHT"; }
+		double x = 0;
+		double y = 0;
+		
+		if(position == 0){ 			//NORTH
+			image = "STAIRSTOP";
+			x = Renderer.ROOM_WIDTH/2 - Renderer.TILE_SIZE/2;
+			y = 0;
+		}else if(position == 1){ 	//SOUTH
+			image = "STAIRSBOT";
+			x = Renderer.ROOM_WIDTH/2 - Renderer.TILE_SIZE/2;
+			y = Renderer.ROOM_HEIGHT - Renderer.TILE_SIZE;
+		}else if(position == 2){ 	//EAST
+			image = "STAIRSRIGHT";
+			x = Renderer.ROOM_WIDTH - Renderer.TILE_SIZE;
+			y = Renderer.ROOM_HEIGHT/2 - Renderer.TILE_SIZE/2;
+		}
+		else if(position == 3){ 	//WEST
+			image = "STAIRSLEFT";
+			x = 0;
+			y = Renderer.ROOM_HEIGHT/2 - Renderer.TILE_SIZE/2;
+		}
 		ImgResources imageEnum = ImgResources.valueOf(image);
+		setImage(imageEnum);
+		setX(x);
+		setY(y);
 		//need to use this to set image of door
 		
 		this.room1 = rm1;
