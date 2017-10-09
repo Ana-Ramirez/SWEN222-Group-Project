@@ -26,6 +26,10 @@ public class PatrollingEnemy implements Enemies {
 	 * Do relevant movement
 	 */
 	public void tick(Monster monster) {
+		
+		if(monster == null){
+			return;
+		}
 
 		if (monster.getX() > currentGoal.getX()) {
 			monster.moveBy(-speed, 0);

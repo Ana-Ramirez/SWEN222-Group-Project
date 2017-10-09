@@ -18,11 +18,16 @@ public class FollowingEnemy implements Enemies {
 	public FollowingEnemy(Player player) {
 		this.player = player;
 	}
-
+	
 	/**
 	 * Do relevant movement
 	 */
 	public void tick(Monster monster) {
+		
+		if(monster == null){
+			return;
+		}
+		
 		if (monster.getX() > player.getX()) {
 			monster.moveBy(-speed, 0);
 		}
