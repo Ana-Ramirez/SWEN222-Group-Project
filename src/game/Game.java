@@ -4,10 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import entities.Gun;
-import entities.MeleeWeapon;
 import entities.Player;
-import entities.Projectile;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -75,6 +72,16 @@ public class Game extends Application implements Serializable{
 		currentRoom.setPlayer(player);
 		renderer.newRoom(currentRoom);
 		renderer.initialDraw();
+	}
+	
+	/**
+	 * Constructor that does not initialise the renderer, for testing purposes
+	 * @param Differentiates from normal constructor 
+	 */
+	public Game(boolean x) {
+		this.player = new Player(0,0, playerWidth, playerHeight, ImgResources.PLAYERDOWN.img);
+		generateLevels();
+		currentRoom.setPlayer(player);
 	}
 	
 	/**
@@ -195,5 +202,47 @@ public class Game extends Application implements Serializable{
 		
 		
         timer.start();
+	}
+
+	public Renderer getRenderer() {
+		return renderer;
+	}
+
+	public void setRenderer(Renderer renderer) {
+		this.renderer = renderer;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	public List<Level> getLevels() {
+		return levels;
+	}
+
+	public void setLevels(List<Level> levels) {
+		this.levels = levels;
+	}
+
+	public Level getCurrentLevel() {
+		return currentLevel;
+	}
+
+	public void setCurrentLevel(Level currentLevel) {
+		this.currentLevel = currentLevel;
+	}
+
+	public Room getCurrentRoom() {
+		return currentRoom;
+	}
+
+	public void setCurrentRoom(Room currentRoom) {
+		this.currentRoom = currentRoom;
 	}	
+	
+	
 }
