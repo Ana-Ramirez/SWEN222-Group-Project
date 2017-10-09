@@ -114,7 +114,7 @@ public class PauseMenu extends Application{
 	private void quitToMenuButton(){
 		Button btn = new Button();
 		btn.setText("Quit to Main Menu");
-		btn.setOnAction(new QuitToMenuHandler<ActionEvent>());
+		btn.setOnAction(new QuitToMenuHandler<ActionEvent>(primaryStage, game));
 		vb.getChildren().add(btn);
 	}
 
