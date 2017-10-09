@@ -6,3 +6,7 @@ DESIRED IMPROVEMENTS
   inventory and on the floor
 - Have simple animations working
 - Have a score screen, improve look of menu, pause menu etc
+
+//AI
+- Haven’t seen enemies move properly in the game yet, so only have done theoretical testing
+- Speed of tick may be wrong, so may change this when we have operational enemies in the UI

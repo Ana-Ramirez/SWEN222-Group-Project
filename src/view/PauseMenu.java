@@ -94,7 +94,7 @@ public class PauseMenu extends Application{
 		Button btn = new Button();
 		btn.setText("Resume Game");
 		btn.setOnAction(new ResumeHandler<ActionEvent>(game, primaryStage));
-		root.getChildren().add(btn);
+		vb.getChildren().add(btn);
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class PauseMenu extends Application{
 		Button btn = new Button();
 		btn.setText("Save Game");
 		btn.setOnAction(new SaveHandler<ActionEvent>(game));
-		root.getChildren().add(btn);
+		vb.getChildren().add(btn);
 	}
 
 	/**
@@ -113,9 +113,9 @@ public class PauseMenu extends Application{
 	 */
 	private void quitToMenuButton(){
 		Button btn = new Button();
-		btn.setText("Start New Game");
+		btn.setText("Quit to Main Menu");
 		btn.setOnAction(new QuitToMenuHandler<ActionEvent>());
-		root.getChildren().add(btn);
+		vb.getChildren().add(btn);
 	}
 
 	/**
