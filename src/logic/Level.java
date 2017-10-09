@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entities.Consumable;
-import entities.Entity;
+import interfaces.Entity;
 import entities.Gun;
 import entities.MeleeWeapon;
 import entities.Monster;
@@ -73,7 +73,7 @@ public class Level {
 		this.rooms.add(room5);
 		
 		//create entities to add
-		Consumable consumable = new Consumable("food", 20, 40, 20, 20, "eat", 1, ImgResources.LIFE.img);
+		Consumable consumable = new Consumable("food", 20, 40, 20, 20, "eat", ImgResources.LIFE.img);
 		Gun gun = new Gun("gun", 300, 300, 20, 20, Type.EARTH, 10, ImgResources.GUN.img, ImgResources.CONSOLE1.img);
 		MeleeWeapon melee = new MeleeWeapon("knife", 100, 100, 20, 20, Type.WATER, 40, ImgResources.CONSOLE1.img);
 		Monster monster = new Monster("monster", 200, 200, 50, 50, Type.EARTH, gun, ImgResources.CONSOLE1.img);
