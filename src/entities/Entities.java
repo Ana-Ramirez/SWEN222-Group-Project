@@ -1,5 +1,6 @@
 package entities;
 
+import interfaces.Entity;
 import javafx.geometry.BoundingBox;
 import javafx.scene.image.Image;
 
@@ -9,7 +10,7 @@ import javafx.scene.image.Image;
  * @author Nick Lauder
  *
  */
-public abstract class Entity {
+public abstract class Entities implements Entity {
 	protected float x;
 	protected float y;
 	private int width;
@@ -18,7 +19,7 @@ public abstract class Entity {
 	private Type type;
 	private Image image;
 
-	protected Entity (String name, float x, float y, int width, int height, Type type) {
+	protected Entities (String name, float x, float y, int width, int height, Type type) {
 		this.name = name;
 		this.x = x;
 		this.y = y;

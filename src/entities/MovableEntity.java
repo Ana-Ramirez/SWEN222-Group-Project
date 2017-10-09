@@ -6,7 +6,7 @@ package entities;
  * @author Nick Lauder
  *
  */
-public abstract class MovableEntity extends Entity {
+public abstract class MovableEntity extends Entities {
 
 
 	protected MovableEntity(String name, float x, float y, int width, int height, Type type) {

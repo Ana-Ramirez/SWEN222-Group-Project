@@ -24,13 +24,8 @@ public class DoorTests {
 	 */
 	@Test
 	public void create1() {
-		MeleeWeapon weapon = new MeleeWeapon("weapon", 1, 1, 1, 1, entities.Type.FIRE, 10);
-		Door door = null;
-		try {
-			door = new Door(new Room(1), new Room(2), weapon, 1, 1);
-		} catch (Exception e) {
-			fail("Door not created correctly");
-		}
+		MeleeWeapon weapon = new MeleeWeapon("weapon", 1, 1, 1, 1, entities.Type.FIRE, 10, null);
+		Door door = new Door(new Room(1), new Room(2), weapon, 1, 1);
 		assertEquals(1, door.getDoorNum());
 	}
 	
@@ -39,13 +34,8 @@ public class DoorTests {
 	 */
 	@Test
 	public void create2() {
-		MeleeWeapon weapon = new MeleeWeapon("weapon", 1, 1, 1, 1, entities.Type.FIRE, 10);
-		Door door = null;
-		try {
-			door = new Door(new Room(1), new Room(2), weapon, 1, 1);
-		} catch (Exception e) {
-			fail("Door not created correctly");
-		}
+		MeleeWeapon weapon = new MeleeWeapon("weapon", 1, 1, 1, 1, entities.Type.FIRE, 10, null);
+		Door door = new Door(new Room(1), new Room(2), weapon, 1, 1);
 		assertEquals(1, door.getDoorPosition());
 	}
 	
@@ -54,13 +44,8 @@ public class DoorTests {
 	 */
 	@Test
 	public void create3() {
-		MeleeWeapon weapon = new MeleeWeapon("weapon", 1, 1, 1, 1, entities.Type.FIRE, 10);
-		Door door = null;
-		try {
-			door = new Door(new Room(1), new Room(2), weapon, 1, 1);
-		} catch (Exception e) {
-			fail("Door not created correctly");
-		}
+		MeleeWeapon weapon = new MeleeWeapon("weapon", 1, 1, 1, 1, entities.Type.FIRE, 10, null);
+		Door door = new Door(new Room(1), new Room(2), weapon, 1, 1);
 		assertEquals(weapon, door.getUnlockItem());
 	}
 	
@@ -69,13 +54,8 @@ public class DoorTests {
 	 */
 	@Test
 	public void create4() {
-		Consumable consumable = new Consumable("consumable", 20, 100, 1, 1);
-		Door door = null;
-		try {
-			door = new Door(new Room(1), new Room(2), consumable, 1, 1);
-		} catch (Exception e) {
-			fail("Door not created correctly");
-		}
+		Consumable consumable = new Consumable("consumable", 20, 100, 1, 1, null, 0, null);
+		Door door = new Door(new Room(1), new Room(2), consumable, 1, 1);
 		assertEquals(consumable, door.getUnlockItem());
 	}
 	
@@ -84,14 +64,9 @@ public class DoorTests {
 	 */
 	@Test
 	public void create5() {
-		MeleeWeapon weapon = new MeleeWeapon("weapon", 1, 1, 1, 1, entities.Type.FIRE, 10);
+		MeleeWeapon weapon = new MeleeWeapon("weapon", 1, 1, 1, 1, entities.Type.FIRE, 10, null);
 		Room room = new Room(5);
-		Door door = null;
-		try {
-			door = new Door(new Room(1), room, weapon, 1, 1);
-		} catch (Exception e) {
-			fail("Door not created correctly");
-		}
+		Door door = new Door(new Room(1), room, weapon, 1, 1);
 		assertEquals(room, door.getRoom2());
 	}
 

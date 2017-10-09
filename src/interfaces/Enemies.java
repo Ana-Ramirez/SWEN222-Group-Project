@@ -1,4 +1,4 @@
-package ai;
+package interfaces;
 
 import entities.Monster;
 

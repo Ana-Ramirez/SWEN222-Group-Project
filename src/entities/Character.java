@@ -7,7 +7,7 @@ package entities;
  *
  */
 public abstract class Character extends MovableEntity {
-	private int lives;
+	protected int lives;
 
 
 	protected Character(String name, float x, float y, int width, int height, Type type, int lives) {

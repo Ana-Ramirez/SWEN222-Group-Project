@@ -2,6 +2,7 @@ package ai;
 
 import entities.Monster;
 import entities.Player;
+import interfaces.Enemies;
 
 /**
  * Class controlling the AI for the enemy that runs away from the player
