@@ -123,19 +123,18 @@ public class Room {
 		}
 	}
 	
-	
-	
-	//What is the point in this method?????? YOu give it a monster object, it returns the same object as an entity, maybe pass in a name instead?
 	/**
 	 * 
 	 * @param monster
 	 * @return
 	 */
-	public Entity getMonster(Monster monster){		
+	public Entity getMonster(String monster){		
 		if(monster == null){ return null; }
 		for(Entity e : this.roomEntities){
 			if(e instanceof Monster){	//if it's the same entity
-				return e;
+				if(e.getName().equals(monster)){
+					return e;
+				}
 			}
 		}
 		return null;
