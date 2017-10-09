@@ -123,14 +123,6 @@ public class Room {
 	}
 	
 	/**
-	 * Add a door to this room
-	 * @param d		door to add
-	 */
-	public void addDoor(Door d){
-		this.roomEntities.add(d);
-	}
-	
-	/**
 	 * Add an item to this room
 	 * @param item		item to add
 	 */
