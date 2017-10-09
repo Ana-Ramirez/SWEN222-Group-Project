@@ -6,11 +6,13 @@ import game.ResumeHandler;
 import game.SaveHandler;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -58,6 +60,23 @@ public class PauseMenu extends Application{
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		
+		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent event) {
+				switch(event.getCode()) {
+				case ESCAPE : try {
+					game.start(primaryStage);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+				break;
+				default:
+					break;
+				}			
+			}			
+		});
 
 		resumeGameButton();
 		saveGameButton();
