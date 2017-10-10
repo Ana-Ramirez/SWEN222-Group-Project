@@ -61,15 +61,15 @@ public class Door extends StationaryEntity{
 			image = "STAIRSTOP";
 			x = Renderer.ROOM_WIDTH/2 - Renderer.TILE_SIZE/2;
 			y = 0;
-		}else if(newPos == 1){ 	//SOUTH
+		}else if(newPos == 1){ 		//SOUTH
 			image = "STAIRSBOT";
 			x = Renderer.ROOM_WIDTH/2 - Renderer.TILE_SIZE/2;
 			y = Renderer.ROOM_HEIGHT - Renderer.TILE_SIZE;
-		}else if(newPos == 2){ 	//EAST
+		}else if(newPos == 2){ 		//EAST
 			image = "STAIRSRIGHT";
 			x = Renderer.ROOM_WIDTH - Renderer.TILE_SIZE;
 			y = Renderer.ROOM_HEIGHT/2 - Renderer.TILE_SIZE/2;
-		}else if(newPos == 3){ 	//WEST
+		}else if(newPos == 3){ 		//WEST
 			image = "STAIRSLEFT";
 			x = 0;
 			y = Renderer.ROOM_HEIGHT/2 - Renderer.TILE_SIZE/2;

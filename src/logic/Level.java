@@ -81,24 +81,30 @@ public class Level {
 		
 		//create entities to add
 		Consumable consumable = new Consumable("food", 20, 40, 20, 20, "Lives 1", ImgResources.LIFE.img);
-		Gun gun = new Gun("gun", 300, 300, 20, 20, Type.EARTH, 10, ImgResources.GUN.img, ImgResources.CONSOLE1.img);
+		
+		Gun gunEarth = new Gun("gunEarth", 300, 300, 20, 20, Type.EARTH, 10, ImgResources.GUN.img, ImgResources.CONSOLE1.img);
+		Gun gunFire = new Gun("gunFire", 200, 300, 20, 20, Type.FIRE, 20, ImgResources.GUN.img, ImgResources.CONSOLE1.img);
 		MeleeWeapon melee = new MeleeWeapon("knife", 100, 100, 20, 20, Type.WATER, 40, ImgResources.CONSOLE1.img);
-		Monster monster = new Monster("monster", 200, 200, 50, 50, Type.EARTH, gun, ImgResources.MONSTER.img);
+		
+		Monster monsterEasy = new Monster("monsterEasy", 200, 200, 50, 50, Type.EARTH, gunEarth, ImgResources.MONSTER.img);
+		Monster monsterMedium = new Monster("monsterMedium", 200, 200, 50, 50, Type.FIRE, gunFire, ImgResources.MONSTER.img);
+		Monster monsterHard = new Monster("monsterHard", 200, 200, 50, 50, Type.WATER, melee, ImgResources.MONSTER.img);
+
 		
 		//add to rooms
-		room1.addEntity(gun);
+		room1.addEntity(gunEarth);
 		
-		room2.addEntity(monster);
+		room2.addEntity(monsterEasy);
 		room2.addEntity(consumable);
 		
-		room3.addEntity(monster);
-		room3.addEntity(monster);
+		room3.addEntity(monsterEasy);
+		room3.addEntity(monsterMedium);
 		room3.addEntity(melee);
+		room3.addEntity(gunFire);
 		
 		room4.addEntity(consumable);
 		room4.addEntity(consumable);
-		
-		
+		room4.addEntity(monsterHard);
 	}
 	
 	/**
