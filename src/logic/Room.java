@@ -90,7 +90,6 @@ public class Room {
 					}
 					
 					roomEntities.add(new Wall(pos, i*Renderer.TILE_SIZE, j*Renderer.TILE_SIZE, 1, 1));
-					
 				}
 			}
 		}
@@ -101,8 +100,9 @@ public class Room {
 	 * @param d
 	 */
 	public void goThroughDoor(Door d){
+		Room gotoRoom = (this == d.getRoom1()) ? d.getRoom2() : d.getRoom1();
 		roomEntities.remove(getPlayer());
-		level.gotoRoom(d.getRoom2());
+		level.gotoRoom(gotoRoom);
 	}
 	
 	

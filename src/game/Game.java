@@ -56,6 +56,9 @@ public class Game extends Application implements Serializable{
 	 */
 	private Level currentLevel;
 	
+	
+	private AnimationTimer timer;
+	
 	/**
 	 * Constructs a new Game object
 	 */
@@ -105,7 +108,7 @@ public class Game extends Application implements Serializable{
 		Scene scene = renderer.getScene();
 		
 		//Game loop
-		AnimationTimer timer = new AnimationTimer() {
+		timer = new AnimationTimer() {
 			@Override
 			public void handle(long now) {
 				
@@ -116,11 +119,17 @@ public class Game extends Application implements Serializable{
 				if (goLeft)  dx -= 1;
 				if (goRight)  dx += 1;    
 				
-
+				Room oldRoom = currentLevel.getCurrentRoom();
 				currentLevel.getCurrentRoom().tick(dx, dy);
+				Room newRoom = currentLevel.getCurrentRoom();
 
 				
 				renderer.repaint();
+				
+				if (oldRoom != newRoom) {
+					currentLevel.getCurrentRoom().tick(-dx, -dy);
+					goUp = goDown = goLeft = goRight = false;
+				}
 			}
 		};
 		
