@@ -24,6 +24,7 @@ public class DoorTests {
 	 */
 	@Test
 	public void create1() {
+		
 		MeleeWeapon weapon = new MeleeWeapon("weapon", 1, 1, 1, 1, entities.Type.FIRE, 10, null);
 		Door door = new Door(new Room(1), new Room(2), weapon, 1, 1);
 		assertEquals(1, door.getDoorNum());
