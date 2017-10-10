@@ -37,23 +37,39 @@ public class Door extends StationaryEntity{
 		//here the x, y, width, height are just placed in as fillers in the super. They are actually set below
 		super(Integer.toString(doorNum), Renderer.ROOM_WIDTH, Renderer.ROOM_HEIGHT, 1, 1, null);
 		
+		setDoorPosition(position);
+		
+		this.room1 = rm1;
+		this.room2 = rm2;
+		this.unlockItem = item;
+		this.doorNum = doorNum;
+		this.position = position;
+	}
+	
+	/**
+	 * This is used to set initial position for all rooms.
+	 * When being used in initialise() in Level.class, used to flip position
+	 * of door from what was added to corresponding room.
+	 * This way the doors line up on the map.
+	 * @param newPos	The new wall to put this door on
+	 */
+	public void setDoorPosition(int newPos){
 		String image = null;
 		double x = 0;
 		double y = 0;
-		
-		if (position == 0) { 			//NORTH
+		if(newPos == 0){ 			//NORTH
 			image = "STAIRSTOP";
 			x = Renderer.ROOM_WIDTH/2 - Renderer.TILE_SIZE/2;
 			y = 0;
-		} else if (position == 1) { 	//SOUTH
+		}else if(newPos == 1){ 		//SOUTH
 			image = "STAIRSBOT";
 			x = Renderer.ROOM_WIDTH/2 - Renderer.TILE_SIZE/2;
 			y = Renderer.ROOM_HEIGHT - Renderer.TILE_SIZE;
-		} else if (position == 2) { 	//EAST
+		}else if(newPos == 2){ 		//EAST
 			image = "STAIRSRIGHT";
 			x = Renderer.ROOM_WIDTH - Renderer.TILE_SIZE;
 			y = Renderer.ROOM_HEIGHT/2 - Renderer.TILE_SIZE/2;
-		} else if (position == 3) { 	//WEST
+		}else if(newPos == 3){ 		//WEST
 			image = "STAIRSLEFT";
 			x = 0;
 			y = Renderer.ROOM_HEIGHT/2 - Renderer.TILE_SIZE/2;
@@ -61,12 +77,6 @@ public class Door extends StationaryEntity{
 		ImgResources imageEnum = ImgResources.valueOf(image);
 		setImage(imageEnum.img);
 		setXY(x, y);
-		
-		this.room1 = rm1;
-		this.room2 = rm2;
-		this.unlockItem = item;
-		this.doorNum = doorNum;
-		this.position = position;
 	}
 	
 	/**
@@ -137,4 +147,5 @@ public class Door extends StationaryEntity{
 	public int getDoorPosition(){
 		return this.position;
 	}
+	
 }

@@ -11,8 +11,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import logic.Door;
+import logic.Level;
 import resources.ImgResources;
-import logic.*;
 
 
 /**
@@ -22,10 +23,8 @@ import logic.*;
  */
 public class Renderer{
 	private GraphicsContext g;
-	//private List<Entity> entities;
 	private Level level;
 	private Scene scene;
-	//private Player player;
 	
 	public static final int TILE_SIZE = 32;
 	public static final int HUD_HEIGHT = 120;
@@ -49,7 +48,7 @@ public class Renderer{
 		root.getChildren().add(canvas);
 		this.scene = new Scene(root, 800, 600);
 	}
-	
+
 	
 	/**
 	 * Actually draws the room and HUD. Should only need to be called once at the start, 
@@ -66,7 +65,6 @@ public class Renderer{
 	 */
 	private void drawRoom(){
 		drawFloor();
-		drawDoors();
 		drawEntities();
 	}
 	

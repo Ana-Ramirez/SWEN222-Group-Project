@@ -62,7 +62,9 @@ public class Game extends Application implements Serializable{
 	public Game() {
 		this.player = new Player(50,50, 1, 1, ImgResources.PLAYERDOWN.img);
 		generateLevels();
+
 		this.renderer = new Renderer(currentLevel);
+
 		renderer.initialDraw();
 	}
 	
@@ -114,7 +116,9 @@ public class Game extends Application implements Serializable{
 				if (goLeft)  dx -= 1;
 				if (goRight)  dx += 1;    
 				
+
 				currentLevel.getCurrentRoom().tick(dx, dy);
+
 				
 				renderer.repaint();
 			}

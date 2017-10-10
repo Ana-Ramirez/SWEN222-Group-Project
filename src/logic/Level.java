@@ -52,10 +52,11 @@ public class Level {
 		Room room4 = new Room(4, this);
 		Room room5 = new Room(5, this);
 		
-		Door door1 = new Door(room1, room5, null, 1, 0);
-		Door door2 = new Door(room2, room5, null, 2, 1);
-		Door door3 = new Door(room3, room5, null, 3, 2);
-		Door door4 = new Door(room4, room5, null, 4, 3);
+		//create doors for rooms
+		Door door1 = new Door(room1, room5, null, 1, 0);	//north door
+		Door door2 = new Door(room2, room5, null, 2, 1);	//south door
+		Door door3 = new Door(room3, room5, null, 3, 2);	//east door
+		Door door4 = new Door(room4, room5, null, 4, 3);	//west door
 		
 		//add doors to rooms
 		room1.addEntity(door1);
@@ -63,10 +64,16 @@ public class Level {
 		room3.addEntity(door3);
 		room4.addEntity(door4);
 		
+		//adding doors to center room; also flipping door
+		//position so they line up on the map
 		room5.addEntity(door1);
 		room5.addEntity(door2);
 		room5.addEntity(door3);
 		room5.addEntity(door4);
+		room5.getDoor(1).setDoorPosition(1);	//now south position
+		room5.getDoor(2).setDoorPosition(0);	//now north position
+		room5.getDoor(3).setDoorPosition(3);	//now east position
+		room5.getDoor(4).setDoorPosition(2);	//now east position
 		
 		//add rooms to the level
 		this.rooms.add(room1);
@@ -76,24 +83,21 @@ public class Level {
 		this.rooms.add(room5);
 		
 		//create entities to add
-		Consumable consumable = new Consumable("food", 20, 40, 1, 1, "Lives 1", ImgResources.LIFE.img);
-		Gun gun = new Gun("gun", 300, 300, 1, 1, Type.EARTH, 10, ImgResources.GUN.img, ImgResources.CONSOLE1.img);
-		MeleeWeapon melee = new MeleeWeapon("knife", 100, 100, 1, 1, Type.WATER, 40, ImgResources.CONSOLE1.img);
-		Monster monster = new Monster("monster", 200, 200, 1, 1, Type.EARTH, gun, ImgResources.MONSTER.img);
+		Consumable consumable = new Consumable("food", 20, 40, 20, 20, "Lives 1", ImgResources.LIFE.img);
+		
+		Gun gunEarth = new Gun("gunEarth", 300, 300, 20, 20, Type.EARTH, 10, ImgResources.GUN.img, ImgResources.CONSOLE1.img);
+		Gun gunFire = new Gun("gunFire", 200, 300, 20, 20, Type.FIRE, 20, ImgResources.GUN.img, ImgResources.CONSOLE1.img);
+		MeleeWeapon melee = new MeleeWeapon("knife", 100, 100, 20, 20, Type.WATER, 40, ImgResources.CONSOLE1.img);
+		
+		Monster monsterEasy = new Monster("monsterEasy", 200, 200, 50, 50, Type.EARTH, gunEarth, ImgResources.MONSTER.img);
+		Monster monsterMedium = new Monster("monsterMedium", 200, 200, 50, 50, Type.FIRE, gunFire, ImgResources.MONSTER.img);
+		Monster monsterHard = new Monster("monsterHard", 200, 200, 50, 50, Type.WATER, melee, ImgResources.MONSTER.img);
+
 		
 		//add to rooms
 		room1.addEntity(player);
-		room1.addEntity(gun);
-		
-		room2.addEntity(monster);
-		room2.addEntity(consumable);
-		
-		room3.addEntity(monster);
-		room3.addEntity(monster);
-		room3.addEntity(melee);
-		
-		room4.addEntity(consumable);
-		room4.addEntity(consumable);
+		room1.addEntity(gunEarth);
+
 	}
 	
 	/**

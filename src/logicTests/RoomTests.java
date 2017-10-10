@@ -165,6 +165,7 @@ public class RoomTests {
 	 */
 	@Test
 	public void doorLocked() {
+		ImgResources.values();
 		Room room1 = new Room(1);
 		Room room2 = new Room(2); 
 		Consumable item = new Consumable("food", 10, 10, 1, 1, "Lives 2", null);
