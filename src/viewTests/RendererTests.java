@@ -32,7 +32,7 @@ public class RendererTests {
 	public void constructorTest(){
 		Player p = new Player(0.0f, 0.0f, 10, 10, ImgResources.PLAYERDOWN.img);
 		TestApplication.launch();
-		Renderer r = new Renderer(p);
+		Renderer r = new Renderer();
 	}
 	
 	/**
