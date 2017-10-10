@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import entities.Player;
 import game.Game;
+import resources.ImgResources;
 
 public class SaveLoadUnitTests {
 	
@@ -34,7 +35,8 @@ public class SaveLoadUnitTests {
 	 */
 	@Test
 	public void testGameSavingPlayerPosition() {
-		Game game = new Game();
+		ImgResources.values();
+		Game game = new Game(true);
 		Player player = game.getPlayer();
 		player.moveTo(20, 20);
 		
