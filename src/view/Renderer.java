@@ -12,7 +12,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import resources.ImgResources;
-import logic.*;
 
 
 /**
@@ -23,7 +22,6 @@ import logic.*;
 public class Renderer{
 	private GraphicsContext g;
 	private List<Entity> entities;
-	private Room room;
 	private Scene scene;
 	private Player player;
 	
@@ -58,23 +56,6 @@ public class Renderer{
 	}
 	
 	/**
-	 * Set up the renderer for a new room
-	 * @param room
-	 */
-	public void newRoom(Room room) {
-		if (room == null) {
-			//TODO remove debug code
-			System.out.println("Null room!");
-			return;
-		}
-
-		this.entities = room.getEntities();
-		this.room = room;
-		
-		drawRoom();
-	}
-	
-	/**
 	 * Actually draws the room and HUD. Should only need to be called once at the start, 
 	 * after the renderer has been initialised and it has been given its first room from 
 	 * newRoom.
@@ -89,7 +70,6 @@ public class Renderer{
 	 */
 	private void drawRoom(){
 		drawFloor();
-		drawDoors();
 		drawEntities();
 	}
 	
@@ -100,32 +80,6 @@ public class Renderer{
 		for (int r = 0; r < FLOOR_WIDTH; r++){
 			for (int c = 0; c < FLOOR_HEIGHT; c++){
 				g.drawImage(ImgResources.FLOOR.img, r*TILE_SIZE, HUD_HEIGHT + c*TILE_SIZE);
-			}
-		}
-	}
-
-
-	/**
-	 * Draws each door in the scene
-	 */
-	private void drawDoors(){
-		if (room.getDoors() == null){
-			//TODO remove debug code
-			System.out.println("room.getDoors() returned null!");
-			return;
-		}
-		for (Door d : room.getDoors()){
-			if (d.getDoorPosition() == 0){ //		NORTH
-				g.drawImage(ImgResources.STAIRSTOP.img, ROOM_WIDTH/2 - TILE_SIZE/2, HUD_HEIGHT);
-			}
-			else if (d.getDoorPosition() == 1){ //	SOUTH
-				g.drawImage(ImgResources.STAIRSBOT.img, ROOM_WIDTH/2 - TILE_SIZE/2, HUD_HEIGHT + ROOM_HEIGHT - TILE_SIZE);
-			}
-			else if(d.getDoorPosition() == 2){ //	EAST
-				g.drawImage(ImgResources.STAIRSRIGHT.img, ROOM_WIDTH - TILE_SIZE, HUD_HEIGHT + ROOM_HEIGHT/2 - TILE_SIZE/2);
-			}
-			else { //								WEST
-				g.drawImage(ImgResources.STAIRSLEFT.img, 0, HUD_HEIGHT + ROOM_HEIGHT/2 - TILE_SIZE/2);
 			}
 		}
 	}
