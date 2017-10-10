@@ -48,6 +48,22 @@ public class Renderer{
 	}
 	
 	/**
+	 * Sets the entities to be the given list. Should be called on each new room
+	 * @param e
+	 */
+	public void setEntities(List<Entity> e){
+		this.entities = e;
+	}
+	
+	/**
+	 * Adds a given entity to the list.
+	 * @param e
+	 */
+	public void addEntity(Entity e){
+		this.entities.add(e);
+	}
+	
+	/**
 	 * Sets the player. Should be called before drawing anything.
 	 * @param p
 	 */
