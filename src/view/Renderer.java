@@ -23,9 +23,9 @@ import logic.*;
 public class Renderer{
 	private GraphicsContext g;
 	//private List<Entity> entities;
-	private Room room;
+	private Level level;
 	private Scene scene;
-	private Player player;
+	//private Player player;
 	
 	public static final int TILE_SIZE = 32;
 	public static final int HUD_HEIGHT = 120;
@@ -38,7 +38,8 @@ public class Renderer{
 	 * The constructor for the renderer. Takes a player
 	 * @param p
 	 */
-	public Renderer(){
+	public Renderer(Level level){
+		this.level = level;
 		StackPane root = new StackPane();
 
 		Canvas canvas = new Canvas(800,600);
@@ -49,30 +50,6 @@ public class Renderer{
 		this.scene = new Scene(root, 800, 600);
 	}
 	
-	/**
-	 * Sets the player. Should be called before drawing anything.
-	 * @param p
-	 */
-	public void setPlayer(Player p){
-		this.player = p;
-	}
-	
-	/**
-	 * Set up the renderer for a new room
-	 * @param room
-	 */
-	public void newRoom(Room room) {
-		if (room == null) {
-			//TODO remove debug code
-			System.out.println("Null room!");
-			return;
-		}
-
-		//this.entities = room.getEntities();
-		this.room = room;
-		
-		drawRoom();
-	}
 	
 	/**
 	 * Actually draws the room and HUD. Should only need to be called once at the start, 
@@ -109,12 +86,12 @@ public class Renderer{
 	 * Draws each door in the scene
 	 */
 	private void drawDoors(){
-		if (room.getDoors() == null){
+		if (level.getCurrentRoom().getDoors() == null){
 			//TODO remove debug code
 			System.out.println("room.getDoors() returned null!");
 			return;
 		}
-		for (Door d : room.getDoors()){
+		for (Door d : level.getCurrentRoom().getDoors()){
 			if (d.getDoorPosition() == 0){ //		NORTH
 				g.drawImage(ImgResources.STAIRSTOP.img, ROOM_WIDTH/2 - TILE_SIZE/2, HUD_HEIGHT);
 			}
@@ -140,7 +117,7 @@ public class Renderer{
 			System.out.println("List of entities is null!");
 			return;
 		}**/
-		for (Entity e : room.getEntities()){
+		for (Entity e : level.getCurrentRoom().getEntities()){
 			g.drawImage(e.getImage(), e.getX(), HUD_HEIGHT + e.getY(), e.getWidth(), e.getHeight());
 		}
 	}
@@ -149,12 +126,6 @@ public class Renderer{
 	 * Draws the HUD.
 	 */
 	private void drawHUD(){
-		if (player == null){
-			//TODO remove debug code
-			System.out.println("Player is null!");
-			return;
-		}
-		
 		//Background for the HUD
 		g.setFill(Color.BLACK);
 		g.fillRect(0, 0, ROOM_WIDTH, HUD_HEIGHT);
@@ -173,19 +144,13 @@ public class Renderer{
 	 * @param x
 	 * @param y
 	 */
-	private void drawInventory(int x, int y){
-		if (player.getInventory() == null){
-			//TODO remove debug code
-			System.out.println("Player inventory is null!");
-			return;
-		}
-		
+	private void drawInventory(int x, int y){	
 		//Draws the outlines
 		g.drawImage(ImgResources.INVENTORYBOX.img, x, y);
 		g.drawImage(ImgResources.INVENTORYBOX.img, x+80, y);
 		
 		//Draws the items
-		Entity[] inventory = player.getInventory();
+		Entity[] inventory = level.getCurrentRoom().getPlayer().getInventory();
 		if (inventory[0] != null){
 			g.drawImage(inventory[0].getImage(), x, y);
 		}
@@ -200,7 +165,7 @@ public class Renderer{
 	 * @param y
 	 */
 	private void drawLives(int x, int y){
-		int lives = player.getLives();
+		int lives = level.getCurrentRoom().getPlayer().getLives();
 		
 		for (int i = 0; i < lives; i++){
 			g.drawImage(ImgResources.LIFE.img, x + i*66, y);

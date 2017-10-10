@@ -28,16 +28,17 @@ public class Room {
 	
 	private int roomNum;
 	private List<Entity> roomEntities;	
-	private Player player;
+	private Level level;
 	
 	/**
 	 * Constructs a new room
 	 * @param num	room number
 	 */
-	public Room(int num){
+	public Room(int num, Level level){
 		this.roomNum = num;
 		this.roomEntities = new ArrayList<Entity>();
 		generateWalls();
+		this.level = level;
 	}
 	
 	/**
@@ -46,8 +47,20 @@ public class Room {
 	 * @param y 	mouse y pos
 	 */
 	public void tick(float x, float y) {
-		if (movePlayer(x, y)) {
-			player.moveBy(x, y);
+		if (x != 0 || y != 0) {
+			switch (movePlayer(x, y)) {
+			case 0:
+				getPlayer().moveBy(x, y);
+				break;
+			case 1:
+				getPlayer().moveBy(0, y);
+				break;
+			case 2:
+				getPlayer().moveBy(x, 0);
+				break;
+			case 3:
+				break;
+			}
 		}
 		
 		for(Entity e : this.roomEntities){
@@ -56,6 +69,7 @@ public class Room {
 			} 
 		}
 	}
+	
 	
 	/**
 	 * Fills the walls array with wall objects where there should be walls
@@ -87,37 +101,56 @@ public class Room {
 	 * @param d
 	 */
 	public void goThroughDoor(Door d){
-		for(Entity e : this.roomEntities){
-			if(e instanceof Door){
-				if(e == d){
-					Room toMoveInto = (this == d.getRoom1()) ? d.getRoom2() : d.getRoom1();
-					toMoveInto.setPlayer(this.player);
-					this.player = null;
-				}
-			}
-		}
+		roomEntities.remove(getPlayer());
+		level.gotoRoom(d.getRoom2());
 	}
+	
 	
 	/**
 	 * Checks if the player has collided with anything in the room
 	 * Different outcomes depending on what the player has 
 	 * collided with
 	 */
-	public boolean movePlayer(float x, float y){
-		BoundingBox box = player.getBoundingBox();
-		box = new BoundingBox(box.getMinX()+x*2, box.getMinY()+y*2, box.getWidth(), box.getHeight());
+	private int movePlayer(float x, float y){
+		BoundingBox box = getPlayer().getBoundingBox();
+		BoundingBox boxX = new BoundingBox(box.getMinX()+x*2, box.getMinY(), box.getWidth(), box.getHeight());
+		BoundingBox boxY = new BoundingBox(box.getMinX(), box.getMinY()+y*2, box.getWidth(), box.getHeight());
+		
+		boolean xCollision = false;
+		boolean yCollision = false;
+		
 		for(Entity e : this.roomEntities){
-			if(!(e instanceof Player) && e.getBoundingBox().intersects(box)){
+			if (e instanceof Player) {
+				continue;
+			}
+			if(e.getBoundingBox().intersects(boxX) || e.getBoundingBox().intersects(boxY)){
 				if(e instanceof Door){
 					goThroughDoor( (Door)e );
+					break;
 				} else if(e instanceof Monster){
-					((Monster)e).attack(this.player);
-				} else if (e instanceof Wall) {
-					return false;
+					((Monster)e).attack(this.getPlayer());
 				}
 			}
+			
+			if (e instanceof Wall) {
+				if(e.getBoundingBox().intersects(boxX)){
+					xCollision = true;
+				} if (e.getBoundingBox().intersects(boxY)){
+					yCollision = true;
+				}
+			}
+			
 		}
-		return true;
+		
+		if (xCollision && yCollision) {
+			return 3;
+		} else if (xCollision) {
+			return 1;
+		} else if (yCollision) {
+			return 2;
+		} else {
+			return 0;
+		}
 	}
 	
 	/**
@@ -127,9 +160,9 @@ public class Room {
 	public void pickupItem(){
 		Entity toRemove = null;
 		for(Entity e : this.roomEntities){
-			if(e.getBoundingBox().intersects(this.player.getBoundingBox())){
+			if(e.getBoundingBox().intersects(this.getPlayer().getBoundingBox())){
 				if(e instanceof Pickupable){
-					this.player.pickup( (Pickupable)e );
+					this.getPlayer().pickup( (Pickupable)e );
 					toRemove = e;
 				}
 			}
@@ -200,16 +233,7 @@ public class Room {
 	public boolean doorLocked(Door d){
 		return d.isLocked();
 	}
-	
-	/**
-	 * Used to make a player enter into a room through  door.
-	 * Can also be used to make the player enter the game initially
-	 * and be put into one of the rooms/starting room.
-	 * @param player
-	 */
-	public void setPlayer(Player player){
-		this.player = player;
-	}
+
 	
 	/**
 	 * @return the list of doors for this room
@@ -235,7 +259,7 @@ public class Room {
 	 * Get player in room
 	 */
 	public Player getPlayer(){
-		return this.player;
+		return level.getPlayer();
 	}
 	
 	/**
@@ -252,10 +276,10 @@ public class Room {
 	 */
 	public boolean attack(float x, float y) {
 		boolean validAttack = false;
-		Pickupable hand = player.getHand();
+		Pickupable hand = getPlayer().getHand();
 		if (hand instanceof MeleeWeapon) {
 			for(Entity e : this.roomEntities){
-				if(e.getBoundingBox().intersects(this.player.getExtendedBoundingBox())){
+				if(e.getBoundingBox().intersects(this.getPlayer().getExtendedBoundingBox())){
 					if(e instanceof Monster){
 						validAttack |= ((MeleeWeapon) hand).attack(e);
 					} 

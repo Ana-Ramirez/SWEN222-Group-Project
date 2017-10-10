@@ -24,6 +24,7 @@ public class Level {
 	
 	private List<Room> rooms;
 	private Player player;
+	private Room currentRoom;
 	private boolean gotPatrick = false;
 	
 	/**
@@ -35,6 +36,8 @@ public class Level {
 		this.player = player;
 		this.rooms = new ArrayList<Room>();
 		initialise();
+		currentRoom = rooms.get(0);
+		
 	}
 	
 	/**
@@ -43,11 +46,11 @@ public class Level {
 	 */
 	private void initialise(){
 		//create rooms and doors
-		Room room1 = new Room(1);
-		Room room2 = new Room(2);
-		Room room3 = new Room(3);
-		Room room4 = new Room(4);
-		Room room5 = new Room(5);
+		Room room1 = new Room(1, this);
+		Room room2 = new Room(2, this);
+		Room room3 = new Room(3, this);
+		Room room4 = new Room(4, this);
+		Room room5 = new Room(5, this);
 		
 		Door door1 = new Door(room1, room5, null, 1, 0);
 		Door door2 = new Door(room2, room5, null, 2, 1);
@@ -91,8 +94,6 @@ public class Level {
 		
 		room4.addEntity(consumable);
 		room4.addEntity(consumable);
-		
-		
 	}
 	
 	/**
@@ -109,6 +110,12 @@ public class Level {
 		return null;
 	}
 	
+	protected void gotoRoom(Room r) {
+		//TODO: Error checking
+		currentRoom = r;
+		currentRoom.addEntity(player);
+	}
+	
 	/**
 	 * @return the rooms in this level
 	 */
@@ -119,7 +126,7 @@ public class Level {
 	/**
 	 * @return the player in the game
 	 */
-	public Entity getPlayer(){
+	public Player getPlayer(){
 		return this.player;
 	}
 	
@@ -134,12 +141,7 @@ public class Level {
 	 * @return the room the player is currently in
 	 */
 	public Room getCurrentRoom(){
-		for(Room r : this.rooms){
-			if(r.getPlayer() != null){
-				return r;
-			}
-		}
-		return null;
+		return currentRoom;
 	}
 	
 }

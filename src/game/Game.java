@@ -57,20 +57,12 @@ public class Game extends Application implements Serializable{
 	private Level currentLevel;
 	
 	/**
-	 * Current Room
-	 */
-	private Room currentRoom;
-	
-	/**
 	 * Constructs a new Game object
 	 */
 	public Game() {
-		this.renderer = new Renderer();
 		this.player = new Player(50,50, 1, 1, ImgResources.PLAYERDOWN.img);
-		renderer.setPlayer(player);
 		generateLevels();
-		currentRoom.setPlayer(player);
-		renderer.newRoom(currentRoom);
+		this.renderer = new Renderer(currentLevel);
 		renderer.initialDraw();
 	}
 	
@@ -81,7 +73,6 @@ public class Game extends Application implements Serializable{
 	public Game(boolean x) {
 		this.player = new Player(50,50, 1, 1, ImgResources.PLAYERDOWN.img);
 		generateLevels();
-		currentRoom.setPlayer(player);
 	}
 	
 	/**
@@ -100,13 +91,6 @@ public class Game extends Application implements Serializable{
 		
 		if(level1 != null) {
 			currentLevel = level1;
-		}
-		
-		currentRoom = currentLevel.getRoom(1);
-		
-		if(currentRoom == null) {
-			System.out.println("Room Null");
-			System.exit(0);
 		}
 	}
 	
@@ -130,14 +114,7 @@ public class Game extends Application implements Serializable{
 				if (goLeft)  dx -= 1;
 				if (goRight)  dx += 1;    
 				
-				
-				//Checks for the current room and updates if necessary
-				if(!currentLevel.getCurrentRoom().equals(currentRoom)) {
-					currentRoom = currentLevel.getCurrentRoom();
-					renderer.newRoom(currentRoom);
-				}
-				
-				currentRoom.tick(dx, dy);
+				currentLevel.getCurrentRoom().tick(dx, dy);
 				
 				renderer.repaint();
 			}
@@ -157,7 +134,7 @@ public class Game extends Application implements Serializable{
 					case DIGIT1 : player.selectItem(0); break;
 					case DIGIT2 : player.selectItem(1); break;
 					case DIGIT3 : player.selectItem(2); break;
-					case E : currentRoom.pickupItem(); break;
+					case E : currentLevel.getCurrentRoom().pickupItem(); break;
 					case X : player.drop();
 					case ESCAPE : 
 	                	timer.stop(); 
@@ -191,7 +168,7 @@ public class Game extends Application implements Serializable{
 
 			@Override
 			public void handle(MouseEvent event) {
-				currentRoom.attack((float) event.getX(), (float) event.getY());
+				currentLevel.getCurrentRoom().attack((float) event.getX(), (float) event.getY());
 			}
 			
 			
@@ -236,13 +213,5 @@ public class Game extends Application implements Serializable{
 		this.currentLevel = currentLevel;
 	}
 
-	public Room getCurrentRoom() {
-		return currentRoom;
-	}
-
-	public void setCurrentRoom(Room currentRoom) {
-		this.currentRoom = currentRoom;
-	}	
-	
 	
 }
