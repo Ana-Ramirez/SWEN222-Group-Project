@@ -49,10 +49,11 @@ public class Level {
 		Room room4 = new Room(4);
 		Room room5 = new Room(5);
 		
-		Door door1 = new Door(room1, room5, null, 1, 0);
-		Door door2 = new Door(room2, room5, null, 2, 1);
-		Door door3 = new Door(room3, room5, null, 3, 2);
-		Door door4 = new Door(room4, room5, null, 4, 3);
+		//create doors for rooms
+		Door door1 = new Door(room1, room5, null, 1, 0);	//north door
+		Door door2 = new Door(room2, room5, null, 2, 1);	//south door
+		Door door3 = new Door(room3, room5, null, 3, 2);	//east door
+		Door door4 = new Door(room4, room5, null, 4, 3);	//west door
 		
 		//add doors to rooms
 		room1.addEntity(door1);
@@ -60,10 +61,16 @@ public class Level {
 		room3.addEntity(door3);
 		room4.addEntity(door4);
 		
+		//adding doors to center room; also flipping door
+		//position so they line up on the map
 		room5.addEntity(door1);
 		room5.addEntity(door2);
 		room5.addEntity(door3);
 		room5.addEntity(door4);
+		room5.getDoor(1).setDoorPosition(1);	//now south position
+		room5.getDoor(2).setDoorPosition(0);	//now north position
+		room5.getDoor(3).setDoorPosition(3);	//now east position
+		room5.getDoor(4).setDoorPosition(2);	//now east position
 		
 		//add rooms to the level
 		this.rooms.add(room1);
