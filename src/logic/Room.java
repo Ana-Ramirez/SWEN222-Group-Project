@@ -11,6 +11,7 @@ import entities.Monster;
 import entities.MovableEntity;
 import entities.Pickupable;
 import entities.Player;
+import entities.Projectile;
 import interfaces.Entity;
 import javafx.geometry.BoundingBox;
 import view.Renderer;
@@ -284,7 +285,10 @@ public class Room implements Serializable{
 				}
 			} //End of entities iteration
 		} else if (hand instanceof Gun) {
-			roomEntities.add(((Gun) hand).createProjectile(x, y-Renderer.HUD_HEIGHT));
+			Projectile bullet = ((Gun) hand).createProjectile(x, y-Renderer.HUD_HEIGHT);
+			if (bullet != null) {
+				roomEntities.add(bullet); 
+			}
 		} else if (hand instanceof Consumable) {
 			level.getPlayer().use();
 

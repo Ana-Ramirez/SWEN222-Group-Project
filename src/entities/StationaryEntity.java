@@ -1,6 +1,5 @@
 package entities;
 
-import javafx.scene.image.Image;
 import resources.ImgResources;
 
 /**

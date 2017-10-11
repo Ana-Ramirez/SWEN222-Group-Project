@@ -15,6 +15,7 @@ import entities.Weapon;
 import interfaces.Enemies;
 import javafx.geometry.BoundingBox;
 import javafx.scene.image.Image;
+import resources.ImgResources;
 
 public class EntitiesTest {
 
@@ -65,7 +66,7 @@ public class EntitiesTest {
 	public void hitPlayer() {
 		Player player = new Player(0, 0, 5, 5, null);
 		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, 5, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon);
+		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null, null);
 		assertEquals(3, player.getLives());
 		assertTrue(monster.attack(player));
 		assertEquals(2, player.getLives());
@@ -82,7 +83,7 @@ public class EntitiesTest {
 		int damage = 10;
 		Player player = new Player(0, 0, 5, 5, null);
 		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, damage, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null);
+		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i -= damage) {
@@ -99,7 +100,7 @@ public class EntitiesTest {
 		int damage = 10;
 		Player player = new Player(0, 0, 5, 5, null);
 		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.FIRE, damage, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null);
+		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i -= damage / 2) {
@@ -115,7 +116,7 @@ public class EntitiesTest {
 		int damage = 5;
 		Player player = new Player(0, 0, 5, 5, null);
 		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.EARTH, damage, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null);
+		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i -= damage * 2) {
@@ -130,7 +131,7 @@ public class EntitiesTest {
 	public void killPlayer() {
 		Player player = new Player(0, 0, 5, 5, null);
 		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, 5, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null);
+		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null, null);
 		assertEquals(3, player.getLives());
 		assertTrue(player.isAlive());
 		assertTrue(monster.attack(player));
@@ -152,7 +153,7 @@ public class EntitiesTest {
 		int damage = 10;
 		Player player = new Player(0, 0, 5, 5, null);
 		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, damage, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null);
+		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i -= damage) {
@@ -176,6 +177,24 @@ public class EntitiesTest {
 		assertTrue(((Consumable) player.getHand()).canUse());
 		assertTrue(player.use());
 		assertEquals(5, player.getLives());
+	}
+	
+	@Test
+	public void useAmmoConsumable() {
+		Player player = new Player(0, 0, 5, 5, null);
+		Gun gun = new Gun("gun", 0, 0, 5, 5, Type.WATER, 5, null, null);
+		Consumable cons = new Consumable("Health", 0, 0, 5, 5, "Ammo, 2", null);
+		
+		player.pickup(gun);
+		player.selectItem(2);
+		
+		assertEquals(20, gun.getAmmoCount());
+		assertNull(player.pickup(cons));
+		assertTrue(((Consumable) player.getHand()).canUse());
+		assertTrue(player.use());
+		assertEquals(22, gun.getAmmoCount());
+		assertNull(player.getHand());
+		assertFalse(player.use());
 	}
 
 	@Test
@@ -238,7 +257,7 @@ public class EntitiesTest {
 		assertTrue(((Consumable) player.getHand()).canUse());
 		assertTrue(player.use());
 		assertEquals(5, player.getLives());
-		assertFalse(((Consumable) player.getHand()).canUse());
+		assertNull(player.getHand());
 		assertFalse(player.use());
 	}
 
@@ -247,7 +266,7 @@ public class EntitiesTest {
 		int damage = 10;
 		Player player = new Player(0, 0, 5, 5, null);
 		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.FIRE, damage, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.FIRE, weapon, null);
+		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.FIRE, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i-=damage) {
@@ -263,7 +282,7 @@ public class EntitiesTest {
 		int damage = 10;
 		Player player = new Player(0, 0, 5, 5, null);
 		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.EARTH, damage, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.FIRE, weapon, null);
+		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.FIRE, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i-=damage/2) {
@@ -279,7 +298,7 @@ public class EntitiesTest {
 		int damage = 5;
 		Player player = new Player(0, 0, 5, 5, null);
 		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, damage, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.FIRE, weapon, null);
+		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.FIRE, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i-=damage*2) {
@@ -295,7 +314,7 @@ public class EntitiesTest {
 		int damage = 10;
 		Player player = new Player(0, 0, 5, 5, null);
 		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.EARTH, damage, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.EARTH, weapon, null);
+		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.EARTH, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i-=damage) {
@@ -311,7 +330,7 @@ public class EntitiesTest {
 		int damage = 10;
 		Player player = new Player(0, 0, 5, 5, null);
 		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, damage, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.EARTH, weapon, null);
+		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.EARTH, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i-=damage/2) {
@@ -327,7 +346,7 @@ public class EntitiesTest {
 		int damage = 5;
 		Player player = new Player(0, 0, 5, 5, null);
 		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.FIRE, damage, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.EARTH, weapon, null);
+		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.EARTH, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i-=damage*2) {
@@ -398,22 +417,22 @@ public class EntitiesTest {
 		assertTrue(player.selectItem(2));
 		assertNull(player.pickup(cons3));
 
-		assertEquals(0, cons1.getX(), 0);
-		assertEquals(0, cons1.getY(), 0);
-		assertEquals(0, cons2.getX(), 0);
-		assertEquals(0, cons2.getY(), 0);
-		assertEquals(0, cons3.getX(), 0);
-		assertEquals(0, cons3.getY(), 0);
+		assertEquals(player.getX(), cons1.getX(), 0);
+		assertEquals(player.getY(), cons1.getY(), 0);
+		assertEquals(player.getX(), cons2.getX(), 0);
+		assertEquals(player.getY(), cons2.getY(), 0);
+		assertEquals(player.getX(), cons3.getX(), 0);
+		assertEquals(player.getY(), cons3.getY(), 0);
 
 		player.moveBy(5, 5);
 		player.tick();
 
-		assertEquals(5, cons1.getX(), 0);
-		assertEquals(5, cons1.getY(), 0);
-		assertEquals(5, cons2.getX(), 0);
-		assertEquals(5, cons2.getY(), 0);
-		assertEquals(5, cons3.getX(), 0);
-		assertEquals(5, cons3.getY(), 0);
+		assertEquals(player.getX(), cons1.getX(), 0);
+		assertEquals(player.getY(), cons1.getY(), 0);
+		assertEquals(player.getX(), cons2.getX(), 0);
+		assertEquals(player.getY(), cons2.getY(), 0);
+		assertEquals(player.getX(), cons3.getX(), 0);
+		assertEquals(player.getY(), cons3.getY(), 0);
 	}
 
 	@Test
@@ -427,34 +446,34 @@ public class EntitiesTest {
 	public void validBoundingBox() {
 		Player player = new Player(0, 0, 5, 5, null);
 		BoundingBox box1 = player.getBoundingBox();
-		assertEquals(0, box1.getMinX(), 0);
-		assertEquals(0, box1.getMinY(), 0);
-		assertEquals(5, box1.getWidth(), 0);
-		assertEquals(5, box1.getHeight(), 0);
+		assertEquals(player.getX(), box1.getMinX(), 0);
+		assertEquals(player.getY(), box1.getMinY(), 0);
+		assertEquals(player.getWidth(), box1.getWidth(), 0);
+		assertEquals(player.getHeight(), box1.getHeight(), 0);
 
 		player.moveBy(10, 10);
 		BoundingBox box2 = player.getBoundingBox();
 
-		assertEquals(10, box2.getMinX(), 0);
-		assertEquals(10, box2.getMinY(), 0);
-		assertEquals(5, box2.getWidth(), 0);
-		assertEquals(5, box2.getHeight(), 0);
+		assertEquals(player.getX(), box2.getMinX(), 0);
+		assertEquals(player.getY(), box2.getMinY(), 0);
+		assertEquals(player.getWidth(), box2.getWidth(), 0);
+		assertEquals(player.getHeight(), box2.getHeight(), 0);
 	}
 
 	@Test
 	public void validExtendedBoundingBox() {
 		Player player = new Player(5, 5, 5, 5, null);
 		BoundingBox box1 = player.getExtendedBoundingBox();
-		assertEquals(0, box1.getMinX(), 0);
-		assertEquals(0, box1.getMinY(), 0);
-		assertEquals(15, box1.getWidth(), 0);
-		assertEquals(15, box1.getHeight(), 0);
+		assertEquals(player.getX()-5, box1.getMinX(), 0);
+		assertEquals(player.getY()-5, box1.getMinY(), 0);
+		assertEquals(player.getWidth()+10, box1.getWidth(), 0);
+		assertEquals(player.getHeight()+10, box1.getHeight(), 0);
 
 		player.moveBy(10, 10);
 		BoundingBox box2 = player.getExtendedBoundingBox();
 
-		assertEquals(10, box2.getMinX(), 0);
-		assertEquals(10, box2.getMinY(), 0);
+		assertEquals(20, box2.getMinX(), 0);
+		assertEquals(20, box2.getMinY(), 0);
 		assertEquals(15, box2.getWidth(), 0);
 		assertEquals(15, box2.getHeight(), 0);
 	}
@@ -497,8 +516,7 @@ public class EntitiesTest {
 
 	@Test
 	public void testStatergyPattern() {
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, null, null);
-		monster.setStratergy(new MockMonsterPattern());
+		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, null, null, new MockMonsterPattern());
 		assertEquals(0, monster.getX(), 0);
 		assertEquals(0, monster.getX(), 0);
 		monster.tick();
@@ -586,12 +604,12 @@ public class EntitiesTest {
 		Gun cons = new Gun("Gun", 0, 0, 5, 5, Type.WATER, 5, null, null);
 		Projectile bullet = cons.createProjectile(1, 1);
 
-		assertEquals(0, bullet.getY(), 0);
-		assertEquals(0, bullet.getX(), 0);
+		assertEquals(8, bullet.getY(), 0);
+		assertEquals(16, bullet.getX(), 0);
 
 		bullet.tick();
-		assertEquals(-0.7071067811865475, bullet.getY(), 0);
-		assertEquals(0.7071067811865476, bullet.getX(), 0);
+		assertEquals(5.995854917833179, bullet.getY(), 0);
+		assertEquals(12.538294858075496, bullet.getX(), 0);
 	}
 
 	@Test
@@ -602,7 +620,6 @@ public class EntitiesTest {
 		wall.setXY(5, 5);
 		assertEquals(5, wall.getX(), 0);
 		assertEquals(5, wall.getY(), 0);
-
 	}
 
 	/**
@@ -626,8 +643,8 @@ public class EntitiesTest {
 	public void movePlayerByXY(){
 		Player player = new Player(0, 0, 5, 5, null);
 		assertTrue(player.moveBy(5,5));
-		assertEquals(5.0f, player.getX(),0);
-		assertEquals(5.0f, player.getY(),0);
+		assertEquals(10, player.getX(),0);
+		assertEquals(10, player.getY(),0);
 	}
 
 	@Test

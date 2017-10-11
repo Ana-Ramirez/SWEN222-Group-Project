@@ -1,6 +1,5 @@
 package resources;
 
-import java.io.Serializable;
 
 import javafx.scene.image.Image;
 
@@ -10,7 +9,7 @@ import javafx.scene.image.Image;
  * @author Patrick
  *
  */
-public enum ImgResources implements Serializable{
+public enum ImgResources {
 
 	//UI
 	MAINMENUBG("menuBackground.png"),
@@ -42,9 +41,14 @@ public enum ImgResources implements Serializable{
 	//PLAYER
 	PLAYERDOWN("playerDown.png");
 
-	public final Image img;
+	public final String imgPath;
+	public Image img;
 
 	ImgResources(String resourceName) {
-		img = new Image(ImgResources.class.getResource(resourceName).toString());
+		imgPath = ImgResources.class.getResource(resourceName).toString();
+	}
+	
+	public void setImage() {
+		img = new Image(imgPath);
 	}
 }

@@ -6,6 +6,7 @@ import interfaces.Entity;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import logic.Door;
@@ -34,6 +35,7 @@ public class Renderer implements Serializable{
 	 * @param p
 	 */
 	public Renderer(Level level){
+		
 		this.level = level;
 		StackPane root = new StackPane();
 
@@ -84,7 +86,6 @@ public class Renderer implements Serializable{
 		}**/
 		for (Entity e : level.getCurrentRoom().getEntities()){
 			g.drawImage(e.getImage().img, e.getX(), HUD_HEIGHT + e.getY(), e.getWidth(), e.getHeight());
-			g.strokeRect(e.getX(), e.getY()+HUD_HEIGHT, e.getWidth(), e.getHeight());
 		}
 	}
 

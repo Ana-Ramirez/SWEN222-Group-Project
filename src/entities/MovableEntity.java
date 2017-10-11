@@ -23,8 +23,8 @@ public abstract class MovableEntity extends Entities {
 	 * 		true if successful, else false
 	 */
 	public boolean moveBy(double x, double y) {
-		this.x += x*2;
-		this.y += y*2;
+		this.x += x*speed;
+		this.y += y*speed;
 		return true;
 		//TODO proper success handling
 	}
@@ -45,11 +45,7 @@ public abstract class MovableEntity extends Entities {
 		return true;
 		//TODO proper success handling
 	}
-	
-	public double getSpeed() {
-		return speed;
-	}
-	
+
 	public abstract void tick(); 
 
 }

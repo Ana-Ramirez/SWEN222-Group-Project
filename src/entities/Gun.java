@@ -1,6 +1,5 @@
 package entities;
 
-import javafx.scene.image.Image;
 import resources.ImgResources;
 
 //***** Design Discussion *********
@@ -17,6 +16,7 @@ import resources.ImgResources;
 public class Gun extends Weapon {
 	private int damage;
 	private ImgResources ammoImg;
+	private int ammoCount;
 
 
 	/**
@@ -40,6 +40,7 @@ public class Gun extends Weapon {
 		super(name, x, y, width, height, type, damage);
 		setImage(img);
 		this.ammoImg = ammoImg;
+		ammoCount = 20;
 	}
 
 
@@ -50,14 +51,26 @@ public class Gun extends Weapon {
 	 * @return
 	 */
 	public Projectile createProjectile(double x, double y) {
-		return new Projectile(getName() + "Ammo", getX(), getY(), 32, 32, damage, ammoImg, x, y);
+		if (ammoCount > 0) {
+			ammoCount--;
+			return new Projectile(getName() + "Ammo", getX(), getY(), 8, 8, damage, ammoImg, x, y);
+		} else {
+			return null;
+		}
 	}
-
-
+	
+	
+	public int getAmmoCount() {
+		return ammoCount;
+	}
+	
+	public void resupply(int amount) {
+		ammoCount += amount;
+	}
+	
 	@Override
 	public void tick() {
 		// Does nothing on tick
-
 	}
 
 }
