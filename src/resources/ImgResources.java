@@ -14,6 +14,7 @@ public enum ImgResources implements Serializable{
 
 	//UI
 	MAINMENUBG("menuBackground.png"),
+	BULLET("bullet.png"),
 	INVENTORYBOX("inventoryBox.png"),
 	GUN("gun.png"),
 	KEY("key.png"),
@@ -32,6 +33,11 @@ public enum ImgResources implements Serializable{
 	WALLTOP("wallTop.png"),
 	//ENEMIES
 	MONSTER("monster.png"),
+	MAO("mao.png"),
+	//PROJECTILES
+	BULLET("bullet.png"),
+	HLASER("lazerHoriz.png"),
+	VLASER("lazerVert.png"),
 	//CONSUMABLES
 	POTION("potion.png"),
 	//PLAYER
