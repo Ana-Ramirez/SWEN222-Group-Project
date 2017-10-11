@@ -5,6 +5,7 @@ import org.junit.Test;
 import entities.Monster;
 import entities.Player;
 import entities.Type;
+import resources.ImgResources;
 
 import static org.junit.Assert.*;
 
@@ -23,7 +24,7 @@ public class aiTests {
 	 * Test to make sure the following AI finds the player
 	 */ 
 	public void followFindsPlayer() {
-		Monster monster = new Monster("follow", 100, 100, 5, 5, Type.WATER, null, null);
+		Monster monster = new Monster("follow", 100, 100, 5, 5, Type.WATER, null ,ImgResources.FLOOR, null);
 		Player player = new Player(200,200,5,5, null);
 		FollowingEnemy fEnemy = new FollowingEnemy(player);
 		int i = 1000;
@@ -42,7 +43,7 @@ public class aiTests {
 	 * Test to make sure the patrolling AI goes between the two goals
 	 */ 
 	public void patrolEnemy() {
-		Monster monster = new Monster("follow", 100, 100, 5, 5, Type.WATER, null, null);
+		Monster monster = new Monster("follow", 100, 100, 5, 5, Type.WATER, null,ImgResources.FLOOR, null);
 		PatrollingEnemy pEnemy = new PatrollingEnemy();
 		int i = 401;
 		while(i != 0){
@@ -60,7 +61,7 @@ public class aiTests {
 	 * Test to make sure run away AI runs away from the player
 	 */ 
 	public void runAwayEnemy() {
-		Monster monster = new Monster("follow", 100, 100, 5, 5, Type.WATER, null, null);
+		Monster monster = new Monster("follow", 100, 100, 5, 5, Type.WATER, null, ImgResources.FLOOR, null);
 		Player player = new Player(200,200,5,5, null);
 		RunawayEnemy rEnemy = new RunawayEnemy(player);
 		int i = 200;

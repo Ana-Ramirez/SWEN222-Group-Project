@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
  *
  */
 public enum ImgResources implements Serializable{
+
 	//UI
 	MAINMENUBG("menuBackground.png"),
 	INVENTORYBOX("inventoryBox.png"),
@@ -31,17 +32,12 @@ public enum ImgResources implements Serializable{
 	WALLTOP("wallTop.png"),
 	//ENEMIES
 	MONSTER("monster.png"),
-	MAO("mao.png"),
-	//PROJECTILES
-	BULLET("bullet.png"),
-	HLASER("lazerHoriz.png"),
-	VLASER("lazerVert.png"),
 	//CONSUMABLES
 	POTION("potion.png"),
 	//PLAYER
 	PLAYERDOWN("playerDown.png");
 
-	public final transient Image img;
+	public final Image img;
 
 	ImgResources(String resourceName) {
 		img = new Image(ImgResources.class.getResource(resourceName).toString());
