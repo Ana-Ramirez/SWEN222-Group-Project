@@ -56,6 +56,7 @@ public class Game extends Application implements Serializable{
 	 */
 	private Level currentLevel;
 
+	private int tickNumber = 0;
 
 	private AnimationTimer timer;
 
@@ -107,6 +108,7 @@ public class Game extends Application implements Serializable{
 
 		Scene scene = renderer.getScene();
 
+
 		//Game loop
 		timer = new AnimationTimer() {
 			@Override
@@ -120,15 +122,17 @@ public class Game extends Application implements Serializable{
 				if (goRight)  dx += 1;
 
 				Room oldRoom = currentLevel.getCurrentRoom();
-				currentLevel.getCurrentRoom().tick(dx, dy);
+				currentLevel.getCurrentRoom().tick(dx, dy, tickNumber);
 				Room newRoom = currentLevel.getCurrentRoom();
 
 				renderer.repaint();
 
 				if (oldRoom != newRoom) {
-					currentLevel.getCurrentRoom().tick(-dx, -dy);
+					currentLevel.getCurrentRoom().tick(-dx, -dy, tickNumber);
 					waitForRelease = true;
 				}
+
+				tickNumber++;
 			}
 		};
 

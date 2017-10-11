@@ -1,5 +1,6 @@
 package logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ import resources.ImgResources;
  * @author Lewis
  *
  */
-public class Level {
+public class Level implements Serializable{
 
 	private List<Room> rooms;
 	private Player player;

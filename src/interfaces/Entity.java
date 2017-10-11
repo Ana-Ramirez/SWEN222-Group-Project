@@ -7,7 +7,7 @@ import javafx.geometry.BoundingBox;
 import javafx.scene.image.Image;
 import resources.ImgResources;
 
-public interface Entity extends Serializable{
+public interface Entity extends Serializable {
 
 	/**
 	 * Gets the type assigned to the object

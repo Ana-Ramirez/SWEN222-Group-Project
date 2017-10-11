@@ -1,11 +1,8 @@
 package view;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
-import entities.*;
 import interfaces.Entity;
-import javafx.geometry.BoundingBox;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -21,7 +18,7 @@ import resources.ImgResources;
  * @author Patrick
  *
  */
-public class Renderer{
+public class Renderer implements Serializable{
 	private GraphicsContext g;
 	private Level level;
 	private Scene scene;
