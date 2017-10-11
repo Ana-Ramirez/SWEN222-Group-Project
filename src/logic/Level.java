@@ -105,6 +105,7 @@ public class Level {
 		room4.addEntity(consumable);
 		room4.addEntity(consumable);
 		room4.addEntity(monsterHard);
+		
 	}
 	
 	/**
