@@ -83,7 +83,7 @@ public class Renderer implements Serializable{
 			return;
 		}**/
 		for (Entity e : level.getCurrentRoom().getEntities()){
-			g.drawImage(e.getImage(), e.getX(), HUD_HEIGHT + e.getY(), e.getWidth(), e.getHeight());
+			g.drawImage(e.getImage().img, e.getX(), HUD_HEIGHT + e.getY(), e.getWidth(), e.getHeight());
 		}
 	}
 
