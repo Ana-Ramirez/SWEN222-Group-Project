@@ -3,6 +3,7 @@ package entities;
 import interfaces.Entity;
 import javafx.geometry.BoundingBox;
 import javafx.scene.image.Image;
+import resources.ImgResources;
 
 /**
  * An abstract class that is the super for all entities.
@@ -17,7 +18,7 @@ public abstract class Entities implements Entity {
 	private int height;
 	private String name;
 	private Type type;
-	private Image image;
+	private ImgResources image;
 
 	protected Entities (String name, double x, double y, int width, int height, Type type) {
 		this.name = name;
@@ -87,7 +88,7 @@ public abstract class Entities implements Entity {
 	 * @param image
 	 * 		the image to use
 	 */
-	public void setImage(Image image) {
+	public void setImage(ImgResources image) {
 		this.image = image;
 	}
 
@@ -97,7 +98,7 @@ public abstract class Entities implements Entity {
 	 * @return
 	 * 		the image object
 	 */
-	public Image getImage() {
+	public ImgResources getImage() {
 		return image;
 	}
 

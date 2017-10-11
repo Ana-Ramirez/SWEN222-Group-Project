@@ -5,9 +5,9 @@ import javafx.scene.image.Image;
 import resources.ImgResources;
 
 public class Wall extends StationaryEntity{
-	
+
 	String position = null;
-	
+
 	public Wall(String pos, double x, double y, int width, int height){
 		super("Wall", x, y, width, height, null);
 
@@ -21,13 +21,13 @@ public class Wall extends StationaryEntity{
 			//break;
 		case "left":
 		case "right":
-			setImage(ImgResources.WALL.img);
+			setImage(ImgResources.WALL);
 			break;
 		}
 	}
-	
+
 	public String getPosition(){
 		return this.position;
 	}
-	
+
 }

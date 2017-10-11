@@ -1,6 +1,7 @@
 package entities;
 
 import javafx.scene.image.Image;
+import resources.ImgResources;
 
 /**
  * The object of a melee weapon. Which can be used to attack other entities
@@ -22,7 +23,7 @@ public class MeleeWeapon extends Weapon {
 	 * @param damage
 	 * 		the int amount of damage to use
 	 */
-	public MeleeWeapon(String name, double x, double y, int width, int height, Type type, int damage, Image img) {
+	public MeleeWeapon(String name, double x, double y, int width, int height, Type type, int damage, ImgResources img) {
 		super(name, x, y, width, height, type, damage);
 		setImage(img);
 	}
@@ -30,7 +31,7 @@ public class MeleeWeapon extends Weapon {
 	@Override
 	public void tick() {
 		//Does nothing on tick
-		
+
 	}
 
 }

@@ -30,7 +30,7 @@ public class Save<T extends Object> {
 	public void saveGame(File file) {
 		try {
 			//Write file to disk
-			FileOutputStream f_out = new FileOutputStream(file, false);
+			FileOutputStream f_out = new FileOutputStream(file + ".txt", false);
 			
 			//Write object to file
 			ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
@@ -42,7 +42,7 @@ public class Save<T extends Object> {
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			return;
+			e.printStackTrace();
 		}
 	}
 }

@@ -1,5 +1,7 @@
 package resources;
 
+import java.io.Serializable;
+
 import javafx.scene.image.Image;
 
 /**
@@ -8,7 +10,8 @@ import javafx.scene.image.Image;
  * @author Patrick
  *
  */
-public enum ImgResources {
+public enum ImgResources implements Serializable{
+
 	//UI
 	MAINMENUBG("menuBackground.png"),
 	INVENTORYBOX("inventoryBox.png"),

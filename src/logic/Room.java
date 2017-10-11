@@ -1,20 +1,19 @@
 package logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import entities.Consumable;
 import entities.Gun;
 import entities.MeleeWeapon;
-import interfaces.Entity;
-import javafx.geometry.BoundingBox;
-import view.Renderer;
 import entities.Monster;
 import entities.MovableEntity;
 import entities.Pickupable;
 import entities.Player;
-import entities.Projectile;
-import entities.Weapon;
+import interfaces.Entity;
+import javafx.geometry.BoundingBox;
+import view.Renderer;
 
 /**
  * The Room class will be the basis for every room in the game
@@ -24,7 +23,7 @@ import entities.Weapon;
  * @param <T>
  *
  */
-public class Room {
+public class Room implements Serializable{
 
 	private int roomNum;
 	private List<Entity> roomEntities;
@@ -46,7 +45,7 @@ public class Room {
 	 * @param x 	mouse x pos
 	 * @param y 	mouse y pos
 	 */
-	public void tick(float x, float y) {
+	public void tick(float x, float y, int tickNo) {
 		if (x != 0 || y != 0) {
 			switch (movePlayer(x, y)) {
 			case 0:
@@ -274,21 +273,22 @@ public class Room {
 	 * @return
 	 * 		true if an attack was successfully carried out
 	 */
-	public boolean attack(float x, float y) {
-		boolean validAttack = false;
+	public void use(float x, float y) {
 		Pickupable hand = getPlayer().getHand();
 		if (hand instanceof MeleeWeapon) {
 			for(Entity e : this.roomEntities){
 				if(e.getBoundingBox().intersects(this.getPlayer().getExtendedBoundingBox())){
 					if(e instanceof Monster){
-						validAttack |= ((MeleeWeapon) hand).attack(e);
+						((MeleeWeapon) hand).attack(e);
 					}
 				}
 			} //End of entities iteration
 		} else if (hand instanceof Gun) {
 			roomEntities.add(((Gun) hand).createProjectile(x, y));
+		} else if (hand instanceof Consumable) {
+			level.getPlayer().use();
+
 		}
-		return validAttack;
 	}
 
 }

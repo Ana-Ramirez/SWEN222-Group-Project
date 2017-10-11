@@ -1,6 +1,7 @@
 package entities;
 
 import javafx.scene.image.Image;
+import resources.ImgResources;
 
 /**
  * Entity type that can be consumed by a player, gives perk after being consumed
@@ -27,13 +28,13 @@ public class Consumable extends Pickupable {
 	 * @param type
 	 * 		the type to use
 	 */
-	public Consumable(String name, double x, double y, int width, int height, String action, Image img) {
+	public Consumable(String name, double x, double y, int width, int height, String action, ImgResources img) {
 		super(name, x, y, width, height, null);
 		setImage(img);
 		checkAction(action);
 		uses = 1;
 	}
-	
+
 	private boolean checkAction(String action) {
 		String[] actionCommand = action.split("[, ]+");
 		if (actionCommand.length != 2) {
@@ -66,7 +67,7 @@ public class Consumable extends Pickupable {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Returns whether or not the consumable can still be used
 	 * @return
@@ -79,7 +80,7 @@ public class Consumable extends Pickupable {
 	@Override
 	public void tick() {
 		// Does nothing on tick
-		
+
 	}
 
 }

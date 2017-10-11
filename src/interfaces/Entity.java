@@ -1,10 +1,13 @@
 package interfaces;
 
+import java.io.Serializable;
+
 import entities.Type;
 import javafx.geometry.BoundingBox;
 import javafx.scene.image.Image;
+import resources.ImgResources;
 
-public interface Entity {
+public interface Entity extends Serializable {
 
 	/**
 	 * Gets the type assigned to the object
@@ -53,7 +56,7 @@ public interface Entity {
 	 * @param image
 	 * 		the image to use
 	 */
-	public void setImage(Image image);
+	public void setImage(ImgResources image);
 
 
 	/**
@@ -61,7 +64,7 @@ public interface Entity {
 	 * @return
 	 * 		the image object
 	 */
-	public Image getImage();
+	public ImgResources getImage();
 
 
 	/**

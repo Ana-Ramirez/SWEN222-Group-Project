@@ -1,5 +1,6 @@
 package logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ import view.Renderer;
  * @author Lewis
  *
  */
-public class Level {
+public class Level implements Serializable{
 
 	private List<Room> rooms;
 	private Player player;
@@ -74,17 +75,17 @@ public class Level {
 		this.rooms.add(room5);
 
 		//create entities to add
-		Consumable consumable = new Consumable("food", 20, 40, 32, 32, "Lives 1", ImgResources.LIFE.img);
+		Consumable consumable = new Consumable("food", 20, 40, 32, 32, "Lives 1", ImgResources.LIFE);
 
-		Gun gunEarth = new Gun("gunEarth", 300, 300, 32, 32, Type.EARTH, 10, ImgResources.GUN.img, ImgResources.CONSOLE1.img);
-		Gun gunFire = new Gun("gunFire", 200, 300, 32, 32, Type.FIRE, 20, ImgResources.GUN.img, ImgResources.CONSOLE1.img);
-		MeleeWeapon melee = new MeleeWeapon("knife", 100, 100, 32, 32, Type.WATER, 40, ImgResources.CONSOLE1.img);
+		Gun gunEarth = new Gun("gunEarth", 300, 300, 32, 32, Type.EARTH, 10, ImgResources.GUN, ImgResources.CONSOLE1);
+		Gun gunFire = new Gun("gunFire", 200, 300, 32, 32, Type.FIRE, 20, ImgResources.GUN, ImgResources.CONSOLE1);
+		MeleeWeapon melee = new MeleeWeapon("knife", 100, 100, 32, 32, Type.WATER, 40, ImgResources.CONSOLE1);
 
 		Enemies pattern = new FollowingEnemy(player);
 
-		Monster monsterEasy = new Monster("monsterEasy", 200, 200, 32, 32, Type.EARTH, gunEarth, ImgResources.MONSTER.img, pattern);
-		Monster monsterMedium = new Monster("monsterMedium", 200, 200, 50, 50, Type.FIRE, gunFire, ImgResources.MONSTER.img, pattern);
-		Monster monsterHard = new Monster("monsterHard", 200, 200, 50, 50, Type.WATER, melee, ImgResources.MONSTER.img, pattern);
+		Monster monsterEasy = new Monster("monsterEasy", 200, 200, 32, 32, Type.EARTH, gunEarth, ImgResources.MONSTER, pattern);
+		Monster monsterMedium = new Monster("monsterMedium", 200, 200, 50, 50, Type.FIRE, gunFire, ImgResources.MONSTER, pattern);
+		Monster monsterHard = new Monster("monsterHard", 200, 200, 50, 50, Type.WATER, melee, ImgResources.MONSTER, pattern);
 
 		//add to rooms
 		room1.addEntity(player);
