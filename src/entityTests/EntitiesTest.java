@@ -195,6 +195,36 @@ public class EntitiesTest {
 		assertEquals(22, gun.getAmmoCount());
 		assertNull(player.getHand());
 		assertFalse(player.use());
+		assertNull(player.pickup(cons));
+		assertFalse(((Consumable) player.getHand()).canUse());
+		assertFalse(player.use());
+	}
+	
+	
+	@Test
+	public void useAmmoConsumableNoGun() {
+		Player player = new Player(0, 0, 5, 5, null);
+		Consumable cons = new Consumable("Health", 0, 0, 5, 5, "Ammo, 2", null);
+		
+		assertNull(player.pickup(cons));
+		assertTrue(((Consumable) player.getHand()).canUse());
+		assertFalse(player.use());
+
+	}
+	
+	@Test
+	public void useEmptyAmmoConsumable() {
+		Player player = new Player(0, 0, 5, 5, null);
+		Gun gun = new Gun("gun", 0, 0, 5, 5, Type.WATER, 5, null, null);
+		Consumable cons = new Consumable("Health", 0, 0, 5, 5, "Ammo, 2", null);
+		
+		assertNull(player.pickup(gun));
+		
+		assertEquals(20, gun.getAmmoCount());
+		for (int i = 0; i < 20; i++) {
+			assertNotNull(gun.createProjectile(0, 0));
+		}
+		assertNull(gun.createProjectile(0, 0));
 	}
 
 	@Test
