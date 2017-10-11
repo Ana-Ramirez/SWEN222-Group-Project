@@ -7,6 +7,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import saveLoad.GameData;
 import saveLoad.Load;
 
 public class LoadHandler<T extends Event> implements EventHandler<ActionEvent>{
@@ -17,18 +18,28 @@ public class LoadHandler<T extends Event> implements EventHandler<ActionEvent>{
 		this.stage = stage;
 	}
 	
-	@SuppressWarnings("unused")
 	@Override
 	public void handle(ActionEvent event) {
 		FileChooser fc = new FileChooser();
 		
-		File file = fc.showOpenDialog(new Stage());//I hope this works?
+		File file = fc.showOpenDialog(new Stage());
 		
 		if(file == null) {
 			return;
 		}
-		Load load = new Load(file.getAbsolutePath(), stage);
-		load.loadGame();
+		Load load = new Load(file.getAbsolutePath());
+		GameData gameData = (GameData) load.loadGame();
+		
+		Game game = new Game();
+		game.setLevels(gameData.getLevels());
+		game.setPlayer(gameData.getPlayer());
+		game.setCurrentLevel(gameData.getCurrentLevel());
+		
+		try {
+			game.start(stage);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
