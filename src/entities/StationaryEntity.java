@@ -1,6 +1,7 @@
 package entities;
 
 import javafx.scene.image.Image;
+import resources.ImgResources;
 
 /**
  * Abstract class for an entity that cannot move/be moved
@@ -22,7 +23,7 @@ public class StationaryEntity extends Entities {
 	 * @param height
 	 * 		the int height to use
 	 */
-	public StationaryEntity(String name, double x, double y, int width, int height, Image img) {
+	public StationaryEntity(String name, double x, double y, int width, int height, ImgResources img) {
 		super(name, x, y, width, height, null);
 		setImage(img);
 	}
@@ -31,16 +32,16 @@ public class StationaryEntity extends Entities {
 	protected boolean hit(int damage) {
 		return false;
 	}
-	
+
 	/**
 	 * Sets the x and y coordinates
 	 * @param x
-	 * 		the double of the x 
+	 * 		the double of the x
 	 * @param y
 	 * 		the double of the y
 	 */
 	public void setXY(double x, double y) {
-		this.x = x; 
+		this.x = x;
 		this.y = y;
 	}
 }

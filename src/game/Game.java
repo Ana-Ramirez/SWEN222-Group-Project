@@ -63,7 +63,7 @@ public class Game extends Application implements Serializable{
 	 * Constructs a new Game object
 	 */
 	public Game() {
-		this.player = new Player(50,50, 32, 32, ImgResources.PLAYERDOWN.img);
+		this.player = new Player(50,50, 32, 32, ImgResources.PLAYERDOWN);
 		generateLevels();
 		this.renderer = new Renderer(currentLevel);
 		renderer.initialDraw();
@@ -74,7 +74,7 @@ public class Game extends Application implements Serializable{
 	 * @param Differentiates from normal constructor
 	 */
 	public Game(boolean x) {
-		this.player = new Player(50,50, 32, 32, ImgResources.PLAYERDOWN.img);
+		this.player = new Player(50,50, 32, 32, ImgResources.PLAYERDOWN);
 		generateLevels();
 	}
 
@@ -147,7 +147,7 @@ public class Game extends Application implements Serializable{
 					case DIGIT2 : player.selectItem(1); break;
 					case DIGIT3 : player.selectItem(2); break;
 					case E : currentLevel.getCurrentRoom().pickupItem(); break;
-					case X : player.drop();
+					case X : player.drop(); break;
 					case ESCAPE :
 	                	timer.stop();
 	                	try {
@@ -156,6 +156,7 @@ public class Game extends Application implements Serializable{
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+	                	break;
 					default : break;
 				}
 			}
@@ -181,7 +182,7 @@ public class Game extends Application implements Serializable{
 
 			@Override
 			public void handle(MouseEvent event) {
-				currentLevel.getCurrentRoom().attack((float) event.getX(), (float) event.getY());
+				currentLevel.getCurrentRoom().use((float) event.getX(), (float) event.getY());
 			}
 
 

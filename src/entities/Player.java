@@ -2,6 +2,7 @@ package entities;
 
 import javafx.geometry.BoundingBox;
 import javafx.scene.image.Image;
+import resources.ImgResources;
 
 /**
  * Player object, the entity that is controlled by the user
@@ -24,7 +25,7 @@ public class Player extends Character {
 	 * @param height
 	 * 		the int height to use
 	 */
-	public Player(double x, double y, int width, int height, Image img) {
+	public Player(double x, double y, int width, int height, ImgResources img) {
 		super("Tim", x, y, width, height, null, 3);
 		setImage(img);
 		inventory = new Pickupable[3];
@@ -46,7 +47,7 @@ public class Player extends Character {
 		return true;
 		//TODO proper success checking
 	}
-	
+
 	/**
 	 * Uses the consumable item in the players hand, returns false if failed, it not consumable
 	 * @return
@@ -54,12 +55,14 @@ public class Player extends Character {
 	 */
 	public boolean use() {
 		if (getHand() instanceof Consumable) {
-			return parseCommand(((Consumable)getHand()).use());
+			boolean success = parseCommand(((Consumable)getHand()).use());
+			if (success) {inventory[itemSelected] = null;}
+			return success;
 		} else {
 			return false;
 		}
 	}
-	
+
 	private boolean parseCommand(String command) {
 		if (command == null) {
 			return false;
@@ -73,7 +76,7 @@ public class Player extends Character {
 		return true;
 	}
 
-	
+
 	/**
 	 * Returns the object currently in the players hand
 	 * @return
@@ -84,8 +87,8 @@ public class Player extends Character {
 
 		return inventory[itemSelected];
 	}
-	
-	
+
+
 	/**
 	 * Returns an array of the players inventory
 	 * @return
@@ -126,7 +129,7 @@ public class Player extends Character {
 		inventory[itemSelected] = null;
 		return holder;
 	}
-	
+
 	/**
 	 * Returns a large bounding box used for the attack radius
 	 * @return
@@ -134,8 +137,8 @@ public class Player extends Character {
 	public BoundingBox getExtendedBoundingBox() {
 		return new BoundingBox(getX()-5, getY()-5, getWidth()+10, getHeight()+10);
 	}
-	
-	
+
+
 	@Override
 	public void tick() {
 		for (int i = 0; i < inventory.length; i++) {

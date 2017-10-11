@@ -274,21 +274,22 @@ public class Room {
 	 * @return
 	 * 		true if an attack was successfully carried out
 	 */
-	public boolean attack(float x, float y) {
-		boolean validAttack = false;
+	public void use(float x, float y) {
 		Pickupable hand = getPlayer().getHand();
 		if (hand instanceof MeleeWeapon) {
 			for(Entity e : this.roomEntities){
 				if(e.getBoundingBox().intersects(this.getPlayer().getExtendedBoundingBox())){
 					if(e instanceof Monster){
-						validAttack |= ((MeleeWeapon) hand).attack(e);
+						((MeleeWeapon) hand).attack(e);
 					}
 				}
 			} //End of entities iteration
 		} else if (hand instanceof Gun) {
 			roomEntities.add(((Gun) hand).createProjectile(x, y));
+		} else if (hand instanceof Consumable) {
+			level.getPlayer().use();
+			
 		}
-		return validAttack;
 	}
 
 }
