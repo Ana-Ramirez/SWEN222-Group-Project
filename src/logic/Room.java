@@ -86,6 +86,7 @@ public class Room {
 					Room toMoveInto = (this == d.getRoom1()) ? d.getRoom2() : d.getRoom1();
 					toMoveInto.setPlayer(this.player);
 					this.player = null;
+					removeItem(this.player.getName());
 				}
 			}
 		}
@@ -211,6 +212,7 @@ public class Room {
 	 */
 	public void setPlayer(Player player){
 		this.player = player;
+		this.roomEntities.add(this.player);
 	}
 	
 	/**
