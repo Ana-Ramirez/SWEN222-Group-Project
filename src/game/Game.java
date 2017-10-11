@@ -70,6 +70,7 @@ public class Game extends Application implements Serializable{
 		renderer.setPlayer(player);
 		generateLevels();
 		currentRoom.setPlayer(player);
+		renderer.setEntities(currentRoom.getEntities());
 		renderer.initialDraw();
 	}
 	
@@ -101,7 +102,7 @@ public class Game extends Application implements Serializable{
 			currentLevel = level1;
 		}
 		
-		currentRoom = currentLevel.getRoom(1);
+		currentRoom = currentLevel.getRoom(5);
 		
 		if(currentRoom == null) {
 			System.out.println("Room Null");
@@ -133,6 +134,7 @@ public class Game extends Application implements Serializable{
 				//Checks for the current room and updates if necessary
 				if(!currentLevel.getCurrentRoom().equals(currentRoom)) {
 					currentRoom = currentLevel.getCurrentRoom();
+					renderer.setEntities(currentRoom.getEntities());
 				}
 				
 				currentRoom.tick(dx, dy);
