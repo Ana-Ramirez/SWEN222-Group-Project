@@ -1,11 +1,13 @@
 package interfaces;
 
 
+import java.io.Serializable;
+
 import entities.Type;
 import javafx.geometry.BoundingBox;
 import resources.ImgResources;
 
-public interface Entity {
+public interface Entity extends Serializable {
 
 	/**
 	 * Gets the type assigned to the object
