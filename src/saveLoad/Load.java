@@ -57,6 +57,7 @@ public class Load {
 			
 			
 		} catch (IOException | ClassNotFoundException | GameException e) {
+			System.out.println(e);
 			return null;
 		}
 	}

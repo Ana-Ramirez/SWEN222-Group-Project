@@ -1,20 +1,18 @@
 package logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import entities.Consumable;
 import entities.Gun;
 import entities.MeleeWeapon;
-import interfaces.Entity;
-import javafx.geometry.BoundingBox;
-import view.Renderer;
 import entities.Monster;
 import entities.MovableEntity;
 import entities.Pickupable;
 import entities.Player;
-import entities.Projectile;
-import entities.Weapon;
+import interfaces.Entity;
+import javafx.geometry.BoundingBox;
+import view.Renderer;
 
 /**
  * The Room class will be the basis for every room in the game
@@ -24,7 +22,7 @@ import entities.Weapon;
  * @param <T>
  *
  */
-public class Room {
+public class Room implements Serializable{
 
 	private int roomNum;
 	private List<Entity> roomEntities;

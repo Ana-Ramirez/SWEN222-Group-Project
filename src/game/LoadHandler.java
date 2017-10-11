@@ -27,11 +27,10 @@ public class LoadHandler<T extends Event> implements EventHandler<ActionEvent>{
 		if(file == null) {
 			return;
 		}
-		Load load = new Load(file.getName());
+		Load load = new Load(file.getAbsolutePath());
 		Game game = (Game) load.loadGame();
 		
 		try {
-			if(game == null) System.out.println("game to load is null");
 			game.start(stage);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

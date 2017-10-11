@@ -56,6 +56,7 @@ public class Game extends Application implements Serializable{
 	 */
 	private Level currentLevel;
 
+	private int tickNumber = 0;
 
 	private AnimationTimer timer;
 
@@ -63,7 +64,7 @@ public class Game extends Application implements Serializable{
 	 * Constructs a new Game object
 	 */
 	public Game() {
-		this.player = new Player(50,50, 32, 32, ImgResources.PLAYERDOWN.img);
+		this.player = new Player(50,50, 32, 32, ImgResources.PLAYERDOWN);
 		generateLevels();
 		this.renderer = new Renderer(currentLevel);
 		renderer.initialDraw();
@@ -74,7 +75,7 @@ public class Game extends Application implements Serializable{
 	 * @param Differentiates from normal constructor
 	 */
 	public Game(boolean x) {
-		this.player = new Player(50,50, 32, 32, ImgResources.PLAYERDOWN.img);
+		this.player = new Player(50,50, 32, 32, ImgResources.PLAYERDOWN);
 		generateLevels();
 	}
 
@@ -106,7 +107,8 @@ public class Game extends Application implements Serializable{
 	public void start(Stage stage) throws Exception {
 
 		Scene scene = renderer.getScene();
-
+		
+		
 		//Game loop
 		timer = new AnimationTimer() {
 			@Override
@@ -120,15 +122,17 @@ public class Game extends Application implements Serializable{
 				if (goRight)  dx += 1;
 
 				Room oldRoom = currentLevel.getCurrentRoom();
-				currentLevel.getCurrentRoom().tick(dx, dy);
+				currentLevel.getCurrentRoom().tick(dx, dy, tickNumber);
 				Room newRoom = currentLevel.getCurrentRoom();
 
 				renderer.repaint();
 
 				if (oldRoom != newRoom) {
-					currentLevel.getCurrentRoom().tick(-dx, -dy);
+					currentLevel.getCurrentRoom().tick(-dx, -dy, tickNumber);
 					waitForRelease = true;
 				}
+				
+				tickNumber++;
 			}
 		};
 
