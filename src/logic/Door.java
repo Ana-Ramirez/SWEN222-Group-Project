@@ -17,14 +17,14 @@ import view.Renderer;
  *
  */
 public class Door extends StationaryEntity{
-	
+
 	private Room room1, room2;
 	//TODO: set to unlocked by default for development
 	private boolean doorLocked = false;
 	private Pickupable unlockItem;
 	private int doorNum;
 	private int position;
-	
+
 	/**
 	 * This creates a new door, linking the two rooms for which this door is a passage for.
 	 * @param rm1			first room linked to
@@ -36,16 +36,16 @@ public class Door extends StationaryEntity{
 	public Door(Room rm1, Room rm2, Pickupable item, int doorNum, int position){//, Image img){
 		//here the x, y, width, height are just placed in as fillers in the super. They are actually set below
 		super(Integer.toString(doorNum), Renderer.ROOM_WIDTH, Renderer.ROOM_HEIGHT, 32, 32, null);
-		
+
 		setDoorPosition(position);
-		
+
 		this.room1 = rm1;
 		this.room2 = rm2;
 		this.unlockItem = item;
 		this.doorNum = doorNum;
 		this.position = position;
 	}
-	
+
 	/**
 	 * This is used to set initial position for all rooms.
 	 * When being used in initialise() in Level.class, used to flip position
@@ -75,10 +75,10 @@ public class Door extends StationaryEntity{
 			y = Renderer.ROOM_HEIGHT/2 - Renderer.TILE_SIZE/2;
 		}
 		ImgResources imageEnum = ImgResources.valueOf(image);
-		setImage(imageEnum.img);
+		setImage(imageEnum);
 		setXY(x, y);
 	}
-	
+
 	/**
 	 * Unlock door if player has correct item
 	 * @param item
@@ -88,21 +88,21 @@ public class Door extends StationaryEntity{
 			this.doorLocked = false;
 		}
 	}
-	
+
 	/**
 	 * @return the first room this door connects to
 	 */
 	public Room getRoom1(){
 		return this.room1;
 	}
-	
+
 	/**
 	 * @return the second room this door connects to
 	 */
 	public Room getRoom2(){
 		return this.room2;
 	}
-	
+
 	/**
 	 * Set the first room this door connects to
 	 * @param the room to set room1 to
@@ -110,7 +110,7 @@ public class Door extends StationaryEntity{
 	public void setRoom1(Room room){
 		this.room1 = room;
 	}
-	
+
 	/**
 	 * Set the second room this door connects to
 	 * @param the room to set room2 to
@@ -118,14 +118,14 @@ public class Door extends StationaryEntity{
 	public void setRoom2(Room room){
 		this.room2 = room;
 	}
-	
+
 	/**
 	 * @return the number door this is
 	 */
 	public int getDoorNum(){
 		return this.doorNum;
 	}
-	
+
 	/**
 	 * Return the unlock item for this door
 	 * @return
@@ -133,19 +133,19 @@ public class Door extends StationaryEntity{
 	public Entity getUnlockItem(){
 		return this.unlockItem;
 	}
-	
+
 	/**
 	 * @return status of door lock
 	 */
 	public boolean isLocked(){
 		return this.doorLocked;
 	}
-	
+
 	/**
 	 * @return the door position
 	 */
 	public int getDoorPosition(){
 		return this.position;
 	}
-	
+
 }

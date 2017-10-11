@@ -1,6 +1,7 @@
 package entities;
 
 import javafx.scene.image.Image;
+import resources.ImgResources;
 
 //***** Design Discussion *********
 //How to manage a weapon firing something
@@ -15,8 +16,8 @@ import javafx.scene.image.Image;
  */
 public class Gun extends Weapon {
 	private int damage;
-	private Image ammoImg;
-	
+	private ImgResources ammoImg;
+
 
 	/**
 	 * Creates a new projectile
@@ -35,27 +36,28 @@ public class Gun extends Weapon {
 	 * @param damage
 	 * 		the base damage to use
 	 */
-	public Gun(String name, double x, double y, int width, int height, Type type, int damage, Image img, Image ammoImg) {
+	public Gun(String name, double x, double y, int width, int height, Type type, int damage, ImgResources img, ImgResources ammoImg) {
 		super(name, x, y, width, height, type, damage);
 		setImage(img);
+		this.ammoImg = ammoImg;
 	}
 
-	
+
 	/**
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 * @return
 	 */
 	public Projectile createProjectile(double x, double y) {
-		return new Projectile(getName() + "Ammo", getX(), getY(), 5, 5, damage, ammoImg, x, y);
+		return new Projectile(getName() + "Ammo", getX(), getY(), 32, 32, damage, ammoImg, x, y);
 	}
 
 
 	@Override
 	public void tick() {
 		// Does nothing on tick
-		
+
 	}
 
 }

@@ -151,7 +151,7 @@ public class Game extends Application implements Serializable{
 					case DIGIT2 : player.selectItem(1); break;
 					case DIGIT3 : player.selectItem(2); break;
 					case E : currentLevel.getCurrentRoom().pickupItem(); break;
-					case X : player.drop();
+					case X : player.drop(); break;
 					case ESCAPE :
 	                	timer.stop();
 	                	try {
@@ -160,6 +160,7 @@ public class Game extends Application implements Serializable{
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+	                	break;
 					default : break;
 				}
 			}
@@ -185,7 +186,7 @@ public class Game extends Application implements Serializable{
 
 			@Override
 			public void handle(MouseEvent event) {
-				currentLevel.getCurrentRoom().attack((float) event.getX(), (float) event.getY());
+				currentLevel.getCurrentRoom().use((float) event.getX(), (float) event.getY());
 			}
 
 
