@@ -1,6 +1,5 @@
 package resources;
 
-
 import javafx.scene.image.Image;
 
 /**
