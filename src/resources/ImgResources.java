@@ -1,9 +1,5 @@
 package resources;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> b40df9f267416171678458f9a224062a7aa3bd16
 import javafx.scene.image.Image;
 
 /**
