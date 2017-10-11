@@ -36,7 +36,7 @@ public class SaveLoadUnitTests {
 	@Test
 	public void testGameSavingPlayerPosition() {
 		ImgResources.values();
-		Game game = new Game(true);
+		Game game = new Game();
 		Player player = game.getPlayer();
 		player.moveTo(20, 20);
 		

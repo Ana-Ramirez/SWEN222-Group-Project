@@ -32,11 +32,6 @@ public class Game extends Application implements Serializable{
 	private final int playerWidth = 1, playerHeight = 1;
 
 	/**
-	 * View objects
-	 */
-	private Renderer renderer;
-
-	/**
 	 * Player object
 	 */
 	private Player player;
@@ -55,7 +50,10 @@ public class Game extends Application implements Serializable{
 	 * Current level
 	 */
 	private Level currentLevel;
-
+	
+	/**
+	 * total number of ticks
+	 */
 	private int tickNumber = 0;
 
 	private AnimationTimer timer;
@@ -66,18 +64,8 @@ public class Game extends Application implements Serializable{
 	public Game() {
 		this.player = new Player(50,50, 32, 32, ImgResources.PLAYERDOWN);
 		generateLevels();
-		this.renderer = new Renderer(currentLevel);
-		renderer.initialDraw();
 	}
 
-	/**
-	 * Constructor that does not initialise the renderer, for testing purposes
-	 * @param Differentiates from normal constructor
-	 */
-	public Game(boolean x) {
-		this.player = new Player(50,50, 32, 32, ImgResources.PLAYERDOWN);
-		generateLevels();
-	}
 
 	/**
 	 * Initialised list of levels
@@ -105,6 +93,9 @@ public class Game extends Application implements Serializable{
 	 */
 	@Override
 	public void start(Stage stage) throws Exception {
+		//Initialise Renderer
+		Renderer renderer = new Renderer(currentLevel);
+		renderer.initialDraw();
 
 		Scene scene = renderer.getScene();
 
@@ -113,20 +104,22 @@ public class Game extends Application implements Serializable{
 		timer = new AnimationTimer() {
 			@Override
 			public void handle(long now) {
-
+				//Start tick count at 0
+				tickNumber = 0;
+				
 				//Processing move commands
 				int dx = 0, dy = 0;
 				if (goUp) dy -= 1;
 				if (goDown) dy += 1;
 				if (goLeft)  dx -= 1;
 				if (goRight)  dx += 1;
-
+				
 				Room oldRoom = currentLevel.getCurrentRoom();
 				currentLevel.getCurrentRoom().tick(dx, dy, tickNumber);
 				Room newRoom = currentLevel.getCurrentRoom();
 
 				renderer.repaint();
-
+				
 				if (oldRoom != newRoom) {
 					currentLevel.getCurrentRoom().tick(-dx, -dy, tickNumber);
 					waitForRelease = true;
@@ -181,9 +174,8 @@ public class Game extends Application implements Serializable{
             }
         });
 
-		//TODO MOUSE HANDLING
+		//Mouse Listening
 		scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
 			@Override
 			public void handle(MouseEvent event) {
 				currentLevel.getCurrentRoom().use((float) event.getX(), (float) event.getY());
@@ -199,13 +191,6 @@ public class Game extends Application implements Serializable{
         timer.start();
 	}
 
-	public Renderer getRenderer() {
-		return renderer;
-	}
-
-	public void setRenderer(Renderer renderer) {
-		this.renderer = renderer;
-	}
 
 	public Player getPlayer() {
 		return player;
