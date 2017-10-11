@@ -88,7 +88,7 @@ public abstract class Entities implements Entity {
 	 * @param image
 	 * 		the image to use
 	 */
-	public void setImage(Image image) {
+	public void setImage(ImgResources image) {
 		this.image = image;
 	}
 
@@ -98,7 +98,7 @@ public abstract class Entities implements Entity {
 	 * @return
 	 * 		the image object
 	 */
-	public Image getImage() {
+	public ImgResources getImage() {
 		return image;
 	}
 

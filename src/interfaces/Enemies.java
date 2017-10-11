@@ -1,5 +1,7 @@
 package interfaces;
 
+import java.io.Serializable;
+
 import entities.Monster;
 
 /**
@@ -7,7 +9,7 @@ import entities.Monster;
 * @author Ana Ramirez
 */
 
-public interface Enemies {
+public interface Enemies extends Serializable{
 	
 	
 	public void tick(Monster monster);
