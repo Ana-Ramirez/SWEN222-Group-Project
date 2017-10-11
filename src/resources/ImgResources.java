@@ -31,6 +31,11 @@ public enum ImgResources implements Serializable{
 	WALLTOP("wallTop.png"),
 	//ENEMIES
 	MONSTER("monster.png"),
+	MAO("mao.png"),
+	//PROJECTILES
+	BULLET("bullet.png"),
+	HLASER("lazerHoriz.png"),
+	VLASER("lazerVert.png"),
 	//CONSUMABLES
 	POTION("potion.png"),
 	//PLAYER

@@ -22,7 +22,6 @@ public class Renderer implements Serializable{
 	private GraphicsContext g;
 	private Level level;
 	private Scene scene;
-	
 	public static final int TILE_SIZE = 32;
 	public static final int HUD_HEIGHT = 120;
 	public static final int FLOOR_WIDTH = 25;
@@ -40,23 +39,20 @@ public class Renderer implements Serializable{
 
 		Canvas canvas = new Canvas(800,600);
 		this.g = canvas.getGraphicsContext2D();
-		//this.entities = new ArrayList<Entity>();
-		
 		root.getChildren().add(canvas);
 		this.scene = new Scene(root, 800, 600);
 	}
 
-	
 	/**
-	 * Actually draws the room and HUD. Should only need to be called once at the start, 
-	 * after the renderer has been initialised and it has been given its first room from 
+	 * Actually draws the room and HUD. Should only need to be called once at the start,
+	 * after the renderer has been initialised and it has been given its first room from
 	 * newRoom.
 	 */
 	public void initialDraw(){
 		drawRoom();
 		drawHUD();
 	}
-	
+
 	/**
 	 * Draws each a room, its doors and its entities
 	 */
@@ -64,7 +60,7 @@ public class Renderer implements Serializable{
 		drawFloor();
 		drawEntities();
 	}
-	
+
 	/**
 	 * Draws the floor of the room that all entities are drawn on top of
 	 */
@@ -116,7 +112,7 @@ public class Renderer implements Serializable{
 			g.drawImage(e.getImage(), e.getX(), HUD_HEIGHT + e.getY(), e.getWidth(), e.getHeight());
 		}
 	}
-	
+
 	/**
 	 * Draws the HUD.
 	 */
@@ -128,22 +124,22 @@ public class Renderer implements Serializable{
 		g.setFill(Color.WHITE);
 		g.fillText("INVENTORY", 20, 20);
 		drawInventory(20, 30);
-		
+
 		g.setFill(Color.WHITE);
 		g.fillText("LIVES", 420, 20);
 		drawLives(400, 30);
 	}
-	
+
 	/**
 	 * Draws the items in the inventory of the player at the specified x and y positions
 	 * @param x
 	 * @param y
 	 */
-	private void drawInventory(int x, int y){	
+	private void drawInventory(int x, int y){
 		//Draws the outlines
 		g.drawImage(ImgResources.INVENTORYBOX.img, x, y);
 		g.drawImage(ImgResources.INVENTORYBOX.img, x+80, y);
-		
+
 		//Draws the items
 		Entity[] inventory = level.getCurrentRoom().getPlayer().getInventory();
 		if (inventory[0] != null){
@@ -153,7 +149,7 @@ public class Renderer implements Serializable{
 			g.drawImage(inventory[1].getImage(), x+80, y);
 		}
 	}
-	
+
 	/**
 	 * Draws the player's lives remaining at the specified x and y position.
 	 * @param x
@@ -161,12 +157,11 @@ public class Renderer implements Serializable{
 	 */
 	private void drawLives(int x, int y){
 		int lives = level.getCurrentRoom().getPlayer().getLives();
-		
 		for (int i = 0; i < lives; i++){
 			g.drawImage(ImgResources.LIFE.img, x + i*66, y);
 		}
 	}
-	
+
 	/**
 	 * Repaints the information that could change in a frame
 	 */
