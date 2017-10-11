@@ -49,7 +49,7 @@ public class Game extends Application implements Serializable{
 	/**
 	 * Direction of player movement
 	 */
-	private boolean goUp, goDown, goLeft, goRight;
+	private boolean goUp, goDown, goLeft, goRight, waitForRelease = false;
 	
 	/**
 	 * Current level
@@ -63,7 +63,7 @@ public class Game extends Application implements Serializable{
 	 * Constructs a new Game object
 	 */
 	public Game() {
-		this.player = new Player(50,50, 1, 1, ImgResources.PLAYERDOWN.img);
+		this.player = new Player(50,50, 32, 32, ImgResources.PLAYERDOWN.img);
 		generateLevels();
 
 		this.renderer = new Renderer(currentLevel);
@@ -76,7 +76,7 @@ public class Game extends Application implements Serializable{
 	 * @param Differentiates from normal constructor 
 	 */
 	public Game(boolean x) {
-		this.player = new Player(50,50, 1, 1, ImgResources.PLAYERDOWN.img);
+		this.player = new Player(50,50, 32, 32, ImgResources.PLAYERDOWN.img);
 		generateLevels();
 	}
 	
@@ -128,7 +128,7 @@ public class Game extends Application implements Serializable{
 				
 				if (oldRoom != newRoom) {
 					currentLevel.getCurrentRoom().tick(-dx, -dy);
-					goUp = goDown = goLeft = goRight = false;
+					waitForRelease = true;
 				}
 			}
 		};
@@ -140,10 +140,10 @@ public class Game extends Application implements Serializable{
 			@Override
 			public void handle(KeyEvent event) {
 				switch (event.getCode()) {
-					case W : goUp = true; break;
-					case S : goDown = true; break;
-					case A : goLeft = true; break;
-					case D : goRight = true; break;
+					case W : goUp = true && !waitForRelease; break;
+					case S : goDown = true && !waitForRelease; break;
+					case A : goLeft = true && !waitForRelease; break;
+					case D : goRight = true && !waitForRelease; break;
 					case DIGIT1 : player.selectItem(0); break;
 					case DIGIT2 : player.selectItem(1); break;
 					case DIGIT3 : player.selectItem(2); break;
@@ -173,6 +173,7 @@ public class Game extends Application implements Serializable{
 
                     default : break;
                 }
+                waitForRelease = false;
             }
         });
 		

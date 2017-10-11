@@ -7,7 +7,7 @@ package entities;
  *
  */
 public abstract class MovableEntity extends Entities {
-	private double speed = 4;
+	protected double speed = 1;
 
 	protected MovableEntity(String name, double x, double y, int width, int height, Type type) {
 		super(name, x, y, width, height, type);

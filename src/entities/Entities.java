@@ -3,7 +3,6 @@ package entities;
 import interfaces.Entity;
 import javafx.geometry.BoundingBox;
 import javafx.scene.image.Image;
-import view.Renderer;
 
 /**
  * An abstract class that is the super for all entities.
@@ -24,8 +23,8 @@ public abstract class Entities implements Entity {
 		this.name = name;
 		this.x = x;
 		this.y = y;
-		this.width = width*Renderer.TILE_SIZE;
-		this.height = height*Renderer.TILE_SIZE;
+		this.width = width;
+		this.height = height;
 		this.type = type;
 	}
 

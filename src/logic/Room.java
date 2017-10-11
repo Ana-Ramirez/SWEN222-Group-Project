@@ -89,7 +89,7 @@ public class Room {
 						pos = "bottom"; 
 					}
 					
-					roomEntities.add(new Wall(pos, i*Renderer.TILE_SIZE, j*Renderer.TILE_SIZE, 1, 1));
+					roomEntities.add(new Wall(pos, i*Renderer.TILE_SIZE, j*Renderer.TILE_SIZE, 32, 32));
 				}
 			}
 		}

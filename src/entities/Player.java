@@ -28,6 +28,7 @@ public class Player extends Character {
 		super("Tim", x, y, width, height, null, 3);
 		setImage(img);
 		inventory = new Pickupable[3];
+		this.speed = 4;
 	}
 
 
