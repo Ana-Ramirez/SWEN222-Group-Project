@@ -592,6 +592,16 @@ public class EntitiesTest {
 		bullet.tick();
 		assertEquals(-0.7071067811865475, bullet.getY(), 0);
 		assertEquals(0.7071067811865476, bullet.getX(), 0);
+	}
+	
+	@Test
+	public void setCoordinatesStationaryEntity() {
+		StationaryEntity wall = new StationaryEntity("Door", 0, 0, 5, 5, null);
+		assertEquals(0, wall.getX(), 0);
+		assertEquals(0, wall.getY(), 0);
+		wall.setXY(5, 5);
+		assertEquals(5, wall.getX(), 0);
+		assertEquals(5, wall.getY(), 0);
 		
 	}
 	

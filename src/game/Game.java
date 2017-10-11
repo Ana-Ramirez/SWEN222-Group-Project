@@ -20,70 +20,64 @@ import view.Renderer;
 
 /**
  * Main controller class
- * 
+ *
  * @author Tim Gastrell
  *
  */
 public class Game extends Application implements Serializable{
-	
+
 	/**
 	 * Player dimensions
 	 */
-	private final int playerWidth = 10, playerHeight = 10;
-	
+	private final int playerWidth = 1, playerHeight = 1;
+
 	/**
 	 * View objects
 	 */
 	private Renderer renderer;
-	
+
 	/**
 	 * Player object
 	 */
 	private Player player;
-	
+
 	/**
 	 * All the levels in the game
 	 */
 	private List<Level> levels;
-	
+
 	/**
 	 * Direction of player movement
 	 */
-	private boolean goUp, goDown, goLeft, goRight;
-	
+	private boolean goUp, goDown, goLeft, goRight, waitForRelease = false;
+
 	/**
 	 * Current level
 	 */
 	private Level currentLevel;
-	
-	/**
-	 * Current Room
-	 */
-	private Room currentRoom;
-	
+
+
+	private AnimationTimer timer;
+
 	/**
 	 * Constructs a new Game object
 	 */
 	public Game() {
-		this.renderer = new Renderer();
-		this.player = new Player(0,0, playerWidth, playerHeight, ImgResources.PLAYERDOWN.img);
-		renderer.setPlayer(player);
+		this.player = new Player(50,50, 32, 32, ImgResources.PLAYERDOWN.img);
 		generateLevels();
-		currentRoom.setPlayer(player);
-		renderer.setEntities(currentRoom.getEntities());
+		this.renderer = new Renderer(currentLevel);
 		renderer.initialDraw();
 	}
-	
+
 	/**
 	 * Constructor that does not initialise the renderer, for testing purposes
-	 * @param Differentiates from normal constructor 
+	 * @param Differentiates from normal constructor
 	 */
 	public Game(boolean x) {
-		this.player = new Player(0,0, playerWidth, playerHeight, ImgResources.PLAYERDOWN.img);
+		this.player = new Player(50,50, 32, 32, ImgResources.PLAYERDOWN.img);
 		generateLevels();
-		currentRoom.setPlayer(player);
 	}
-	
+
 	/**
 	 * Initialised list of levels
 	 */
@@ -97,52 +91,47 @@ public class Game extends Application implements Serializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		if(level1 != null) {
 			currentLevel = level1;
 		}
-		
-		currentRoom = currentLevel.getRoom(5);
-		
-		if(currentRoom == null) {
-			System.out.println("Room Null");
-			System.exit(0);
-		}
+
+
 	}
-	
+
 	/**
 	 * Inspired by https://stackoverflow.com/questions/29962395/how-to-write-a-keylistener-for-javafx
 	 */
 	@Override
 	public void start(Stage stage) throws Exception {
-		
+
 		Scene scene = renderer.getScene();
-		
+
 		//Game loop
-		AnimationTimer timer = new AnimationTimer() {
+		timer = new AnimationTimer() {
 			@Override
 			public void handle(long now) {
-				
+
 				//Processing move commands
 				int dx = 0, dy = 0;
 				if (goUp) dy -= 1;
 				if (goDown) dy += 1;
 				if (goLeft)  dx -= 1;
-				if (goRight)  dx += 1;    
-				
-				
-				//Checks for the current room and updates if necessary
-				if(!currentLevel.getCurrentRoom().equals(currentRoom)) {
-					currentRoom = currentLevel.getCurrentRoom();
-					renderer.setEntities(currentRoom.getEntities());
-				}
-				
-				currentRoom.tick(dx, dy);
-				
+				if (goRight)  dx += 1;
+
+				Room oldRoom = currentLevel.getCurrentRoom();
+				currentLevel.getCurrentRoom().tick(dx, dy);
+				Room newRoom = currentLevel.getCurrentRoom();
+
 				renderer.repaint();
+
+				if (oldRoom != newRoom) {
+					currentLevel.getCurrentRoom().tick(-dx, -dy);
+					waitForRelease = true;
+				}
 			}
 		};
-		
+
     	PauseMenu pm = new PauseMenu(this);
 
         //Key listening
@@ -150,17 +139,17 @@ public class Game extends Application implements Serializable{
 			@Override
 			public void handle(KeyEvent event) {
 				switch (event.getCode()) {
-					case W : goUp = true; break;
-					case S : goDown = true; break;
-					case A : goLeft = true; break;
-					case D : goRight = true; break;
+					case W : goUp = true && !waitForRelease; break;
+					case S : goDown = true && !waitForRelease; break;
+					case A : goLeft = true && !waitForRelease; break;
+					case D : goRight = true && !waitForRelease; break;
 					case DIGIT1 : player.selectItem(0); break;
 					case DIGIT2 : player.selectItem(1); break;
 					case DIGIT3 : player.selectItem(2); break;
-					case E : currentRoom.pickupItem(); break;
+					case E : currentLevel.getCurrentRoom().pickupItem(); break;
 					case X : player.drop();
-					case ESCAPE : 
-	                	timer.stop(); 
+					case ESCAPE :
+	                	timer.stop();
 	                	try {
 							pm.start(stage);
 						} catch (Exception e) {
@@ -171,7 +160,7 @@ public class Game extends Application implements Serializable{
 				}
 			}
 		});
-		
+
 		scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -183,24 +172,25 @@ public class Game extends Application implements Serializable{
 
                     default : break;
                 }
+                waitForRelease = false;
             }
         });
-		
+
 		//TODO MOUSE HANDLING
 		scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				currentRoom.attack((float) event.getX(), (float) event.getY());
+				currentLevel.getCurrentRoom().attack((float) event.getX(), (float) event.getY());
 			}
-			
-			
+
+
 		});
-		
+
 		stage.setScene(scene);
 		stage.show();
-		
-		
+
+
         timer.start();
 	}
 
@@ -236,13 +226,5 @@ public class Game extends Application implements Serializable{
 		this.currentLevel = currentLevel;
 	}
 
-	public Room getCurrentRoom() {
-		return currentRoom;
-	}
 
-	public void setCurrentRoom(Room currentRoom) {
-		this.currentRoom = currentRoom;
-	}	
-	
-	
 }

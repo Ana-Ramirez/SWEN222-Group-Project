@@ -10,7 +10,7 @@ import javafx.scene.image.Image;
  */
 public class Monster extends Character {
 	private Weapon weapon;
-	private interfaces.Enemies pattern;
+	private Enemies pattern;
 
 
 	/**
@@ -30,10 +30,11 @@ public class Monster extends Character {
 	 * @param weapon
 	 * 		the weapon to use
 	 */
-	public Monster(String name, double x, double y, int width, int height, Type type, Weapon weapon, Image img) {
+	public Monster(String name, double x, double y, int width, int height, Type type, Weapon weapon, Image img, Enemies stratergy) {
 		super(name, x, y, width, height, type, 100);
 		setImage(img);
 		this.weapon = weapon;
+		this.pattern = stratergy;
 	}
 
 
@@ -44,15 +45,6 @@ public class Monster extends Character {
 	 */
 	public Weapon getWeapon() {
 		return weapon;
-	}
-
-	/**
-	 * Sets the starergy pattern for the monster
-	 * @param pattern
-	 * 		the pattern to use
-	 */
-	public void setStratergy(Enemies pattern) {
-		this.pattern = pattern;
 	}
 
 	/**

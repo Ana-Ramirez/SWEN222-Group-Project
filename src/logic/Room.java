@@ -7,6 +7,8 @@ import entities.Consumable;
 import entities.Gun;
 import entities.MeleeWeapon;
 import interfaces.Entity;
+import javafx.geometry.BoundingBox;
+import view.Renderer;
 import entities.Monster;
 import entities.MovableEntity;
 import entities.Pickupable;
@@ -23,115 +25,157 @@ import entities.Weapon;
  *
  */
 public class Room {
-	
+
 	private int roomNum;
 	private List<Entity> roomEntities;
-	private Wall[][] walls = new Wall[25][10];
-	private Player player = null;
-	
+	private Level level;
+
 	/**
 	 * Constructs a new room
 	 * @param num	room number
 	 */
-	public Room(int num){
+	public Room(int num, Level level){
 		this.roomNum = num;
 		this.roomEntities = new ArrayList<Entity>();
 		generateWalls();
+		this.level = level;
 	}
-	
+
 	/**
 	 * Handles a tick in the game
 	 * @param x 	mouse x pos
 	 * @param y 	mouse y pos
 	 */
 	public void tick(float x, float y) {
-		player.moveBy(x, y);
-		
+		if (x != 0 || y != 0) {
+			switch (movePlayer(x, y)) {
+			case 0:
+				getPlayer().moveBy(x, y);
+				break;
+			case 1:
+				getPlayer().moveBy(0, y);
+				break;
+			case 2:
+				getPlayer().moveBy(x, 0);
+				break;
+			case 3:
+				break;
+			}
+		}
+
 		for(Entity e : this.roomEntities){
 			if(e instanceof MovableEntity) {
 				((MovableEntity) e).tick();
-			} 
+			}
 		}
 	}
-	
+
+
 	/**
 	 * Fills the walls array with wall objects where there should be walls
 	 */
 	private void generateWalls(){
 		String pos = null;
-		for(int i = 0; i < this.walls.length; i++){
-			for(int j = 0; j < this.walls[i].length; j++){
-				if(i == 0 || i == this.walls.length-1 || j == 0 || j == this.walls[i].length-1){
-					if(i == 0){ pos = "top"; }
-					else if(i == this.walls.length-1){ pos = "bottom"; }
-					else if(j == 0){ pos = "left"; }
-					else if(j == this.walls[i].length-1){ pos = "right"; }
-					
-					if(walls[i][j] != null){
-						walls[i][j] = new Wall(pos);
+		for(int i = 0; i < Renderer.FLOOR_WIDTH; i++){
+			for(int j = 0; j < Renderer.FLOOR_HEIGHT; j++){
+				if(i == 0 || i == Renderer.FLOOR_WIDTH-1 || j == 0 || j == Renderer.FLOOR_HEIGHT-1){
+					if(i == 0) {
+						pos = "top";
+					} if (i == Renderer.FLOOR_WIDTH-1) {
+						pos = "right";
+					} if (j == 0) {
+						pos = "left";
+					} if (j == Renderer.FLOOR_HEIGHT-1) {
+						pos = "bottom";
 					}
+
+					roomEntities.add(new Wall(pos, i*Renderer.TILE_SIZE, j*Renderer.TILE_SIZE, 32, 32));
 				}
 			}
 		}
 	}
-	
+
 	/**
 	 * When player wants to move room through a door
 	 * @param d
 	 */
 	public void goThroughDoor(Door d){
-		for(Entity e : this.roomEntities){
-			if(e instanceof Door){
-				if(e == d){
-					Room toMoveInto = (this == d.getRoom1()) ? d.getRoom2() : d.getRoom1();
-					toMoveInto.setPlayer(this.player);
-					this.player = null;
-					removeItem(this.player.getName());
-				}
-			}
-		}
+		Room gotoRoom = (this == d.getRoom1()) ? d.getRoom2() : d.getRoom1();
+		roomEntities.remove(getPlayer());
+		level.gotoRoom(gotoRoom);
 	}
-	
+
+
 	/**
 	 * Checks if the player has collided with anything in the room
-	 * Different outcomes depending on what the player has 
+	 * Different outcomes depending on what the player has
 	 * collided with
 	 */
-	public void movePlayer(){
+	private int movePlayer(float x, float y){
+		BoundingBox box = getPlayer().getBoundingBox();
+		BoundingBox boxX = new BoundingBox(box.getMinX()+x*2, box.getMinY(), box.getWidth(), box.getHeight());
+		BoundingBox boxY = new BoundingBox(box.getMinX(), box.getMinY()+y*2, box.getWidth(), box.getHeight());
+
+		boolean xCollision = false;
+		boolean yCollision = false;
+
 		for(Entity e : this.roomEntities){
-			if(e.getBoundingBox().intersects(this.player.getBoundingBox())){
+			if (e instanceof Player) {
+				continue;
+			}
+			if(e.getBoundingBox().intersects(boxX) || e.getBoundingBox().intersects(boxY)){
 				if(e instanceof Door){
 					goThroughDoor( (Door)e );
+					break;
 				} else if(e instanceof Monster){
-					((Monster)e).attack(this.player);
-				} else if(e instanceof Pickupable){
-					this.player.pickup( (Pickupable)e );
-				} 
+					((Monster)e).attack(this.getPlayer());
+				}
 			}
+
+			if (e instanceof Wall) {
+				if(e.getBoundingBox().intersects(boxX)){
+					xCollision = true;
+				} if (e.getBoundingBox().intersects(boxY)){
+					yCollision = true;
+				}
+			}
+
+		}
+
+		if (xCollision && yCollision) {
+			return 3;
+		} else if (xCollision) {
+			return 1;
+		} else if (yCollision) {
+			return 2;
+		} else {
+			return 0;
 		}
 	}
-	
+
 	/**
 	 * This searches the room for a pickupable item
 	 * which the player is colliding with
 	 */
 	public void pickupItem(){
+		Entity toRemove = null;
 		for(Entity e : this.roomEntities){
-			if(e.getBoundingBox().intersects(this.player.getBoundingBox())){
+			if(e.getBoundingBox().intersects(this.getPlayer().getBoundingBox())){
 				if(e instanceof Pickupable){
-					this.player.pickup( (Pickupable)e );
-					this.roomEntities.remove(e);
+					this.getPlayer().pickup( (Pickupable)e );
+					toRemove = e;
 				}
 			}
 		}
+		roomEntities.remove(toRemove);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param monster
 	 * @return
 	 */
-	public Entity getMonster(String monster){		
+	public Entity getMonster(String monster){
 		if(monster == null){ return null; }
 		for(Entity e : this.roomEntities){
 			if(e instanceof Monster){	//if it's the same entity
@@ -142,7 +186,7 @@ public class Room {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Add an item to this room
 	 * @param item		item to add
@@ -150,25 +194,11 @@ public class Room {
 	public void addEntity(Entity item){
 		this.roomEntities.add(item);
 	}
-	
-	/**
-	 * Removes an item from the 
-	 * @param s
-	 * @return
-	 */
-	public boolean removeItem(String s){
-		for(int i = 0; i < this.roomEntities.size(); i++){
-			if(this.roomEntities.get(i).getName().equals(s)){
-				this.roomEntities.remove(i);
-				return true;
-			}
-		}
-		return false;
-	}
-	
+
+
 	/**
 	 * Get a door from this room
-	 * @param i		door number		
+	 * @param i		door number
 	 * @return
 	 */
 	public Door getDoor(int i){
@@ -181,7 +211,7 @@ public class Room {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Get an item from this room
 	 * @param s		item name
@@ -195,7 +225,7 @@ public class Room {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * check if a door is locked
 	 * @return
@@ -203,18 +233,8 @@ public class Room {
 	public boolean doorLocked(Door d){
 		return d.isLocked();
 	}
-	
-	/**
-	 * Used to make a player enter into a room through  door.
-	 * Can also be used to make the player enter the game initially
-	 * and be put into one of the rooms/starting room.
-	 * @param player
-	 */
-	public void setPlayer(Player player){
-		this.player = player;
-		this.roomEntities.add(this.player);
-	}
-	
+
+
 	/**
 	 * @return the list of doors for this room
 	 */
@@ -227,28 +247,28 @@ public class Room {
 		}
 		return doors;
 	}
-	
+
 	/**
 	 * @return room num
 	 */
 	public int getRoomNum(){
 		return this.roomNum;
 	}
-	
+
 	/**
 	 * Get player in room
 	 */
 	public Player getPlayer(){
-		return this.player;
+		return level.getPlayer();
 	}
-	
+
 	/**
 	 * @return list of all room entities
 	 */
 	public List<Entity> getEntities(){
 		return this.roomEntities;
 	}
-	
+
 	/**
 	 * Scans the extended surrounding player box for a monster and attacks it
 	 * @return
@@ -256,19 +276,19 @@ public class Room {
 	 */
 	public boolean attack(float x, float y) {
 		boolean validAttack = false;
-		Pickupable hand = player.getHand();
+		Pickupable hand = getPlayer().getHand();
 		if (hand instanceof MeleeWeapon) {
 			for(Entity e : this.roomEntities){
-				if(e.getBoundingBox().intersects(this.player.getExtendedBoundingBox())){
+				if(e.getBoundingBox().intersects(this.getPlayer().getExtendedBoundingBox())){
 					if(e instanceof Monster){
 						validAttack |= ((MeleeWeapon) hand).attack(e);
-					} 
+					}
 				}
-			}
+			} //End of entities iteration
 		} else if (hand instanceof Gun) {
 			roomEntities.add(((Gun) hand).createProjectile(x, y));
 		}
 		return validAttack;
 	}
-	
+
 }

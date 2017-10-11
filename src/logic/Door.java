@@ -19,7 +19,8 @@ import view.Renderer;
 public class Door extends StationaryEntity{
 	
 	private Room room1, room2;
-	private boolean doorLocked = true;
+	//TODO: set to unlocked by default for development
+	private boolean doorLocked = false;
 	private Pickupable unlockItem;
 	private int doorNum;
 	private int position;
@@ -34,7 +35,7 @@ public class Door extends StationaryEntity{
 	 */
 	public Door(Room rm1, Room rm2, Pickupable item, int doorNum, int position){//, Image img){
 		//here the x, y, width, height are just placed in as fillers in the super. They are actually set below
-		super(Integer.toString(doorNum), Renderer.ROOM_WIDTH, Renderer.ROOM_HEIGHT, Renderer.TILE_SIZE, Renderer.TILE_SIZE, null);
+		super(Integer.toString(doorNum), Renderer.ROOM_WIDTH, Renderer.ROOM_HEIGHT, 32, 32, null);
 		
 		setDoorPosition(position);
 		
@@ -56,7 +57,6 @@ public class Door extends StationaryEntity{
 		String image = null;
 		double x = 0;
 		double y = 0;
-		
 		if(newPos == 0){ 			//NORTH
 			image = "STAIRSTOP";
 			x = Renderer.ROOM_WIDTH/2 - Renderer.TILE_SIZE/2;

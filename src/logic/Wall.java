@@ -1,22 +1,29 @@
 package logic;
 
+import entities.StationaryEntity;
 import javafx.scene.image.Image;
 import resources.ImgResources;
 
-public class Wall {
+public class Wall extends StationaryEntity{
 	
 	String position = null;
-	Image image = null;
 	
-	public Wall(String pos){
-		this.position = pos;
-		setImage();
-	}
-	
-	private void setImage(){
-		if(this.position == "top"){ this.image = ImgResources.WALLTOP.img; }
-		else if(this.position == "bottom"){ this.image = ImgResources.WALLBOT.img; }
-		else if(this.position == "left" || this.position == "right"){ this.image = ImgResources.WALL.img; }
+	public Wall(String pos, double x, double y, int width, int height){
+		super("Wall", x, y, width, height, null);
+
+		//TODO: check walls
+		switch(pos) {
+		case "top":
+			//setImage(ImgResources.WALLTOP.img);
+			//break;
+		case "bottom":
+			//setImage(ImgResources.WALLBOT.img);
+			//break;
+		case "left":
+		case "right":
+			setImage(ImgResources.WALL.img);
+			break;
+		}
 	}
 	
 	public String getPosition(){
