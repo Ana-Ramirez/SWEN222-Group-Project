@@ -27,11 +27,6 @@ import view.Renderer;
 public class Game extends Application implements Serializable{
 
 	/**
-	 * Player dimensions
-	 */
-	private final int playerWidth = 1, playerHeight = 1;
-
-	/**
 	 * Player object
 	 */
 	private Player player;

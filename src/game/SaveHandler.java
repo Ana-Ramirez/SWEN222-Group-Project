@@ -35,7 +35,7 @@ public class SaveHandler<T extends Event> implements EventHandler<ActionEvent>{
 	 */
 	@Override
 	public void handle(ActionEvent arg0) {
-		Save<Game> save = new Save<Game>(game);
+		Save save = new Save(game);
 		FileChooser fc = new FileChooser();
 		File file = fc.showSaveDialog(new Stage());
 		

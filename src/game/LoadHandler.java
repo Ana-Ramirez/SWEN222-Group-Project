@@ -27,15 +27,8 @@ public class LoadHandler<T extends Event> implements EventHandler<ActionEvent>{
 		if(file == null) {
 			return;
 		}
-		Load load = new Load(file.getAbsolutePath());
-		Game game = (Game) load.loadGame();
-		
-		try {
-			game.start(stage);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Load load = new Load(file.getAbsolutePath(), stage);
+		load.loadGame();
 	}
 	
 }

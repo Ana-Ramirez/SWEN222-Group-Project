@@ -5,23 +5,25 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import game.Game;
+
 /**
  * Functional class that writes the passed game object to a file.
  * @author Tim Gastrell
  *
  */
-public class Save<T extends Object> {
+public class Save {
 	/**
 	 * Game object to be written to file
 	 */
-	private T game;
+	private GameData gameData;
 	
 	/**
 	 * Constructs a new Save object
 	 * @param game to be written
 	 */
-	public Save(T game) {
-		this.game = game;
+	public Save(Game game) {
+		this.gameData = new GameData(game);
 	}
 	
 	/**
@@ -36,7 +38,7 @@ public class Save<T extends Object> {
 			ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
 			
 			//Pass object to object stream
-			obj_out.writeObject(game);
+			obj_out.writeObject(gameData);
 			
 			obj_out.close();
 			

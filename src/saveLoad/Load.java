@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 
 import game.Game;
 import game.GameException;
+import javafx.stage.Stage;
 
 /**
  * Functional class that loads a saved game from a file
@@ -19,12 +20,15 @@ public class Load {
 	 */
 	private String fileName;
 	
+	private Stage stage;
+	
 	/**
 	 * Constructs a new Load object
 	 * @param name of game save file
 	 */
-	public Load(String fileName) {
+	public Load(String fileName, Stage stage) {
 		this.fileName = fileName;
+		this.stage = stage;
 	}
 	
 	/**
@@ -45,8 +49,22 @@ public class Load {
 			obj_in.close();
 			
 			//Check object is valid
-			if(obj instanceof Game) {
-				return (Game) obj;
+			if(obj instanceof GameData) {
+				
+				//Load game data into new game 
+				Game game = new Game();
+				game.setLevels(((GameData) obj).getLevels());
+				game.setPlayer(((GameData) obj).getPlayer());
+				game.setCurrentLevel(((GameData) obj).getCurrentLevel());
+				
+				//Launch game
+				try {
+					game.start(stage);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
 			else if(obj instanceof TestClass) {
 				return (TestClass) obj;
@@ -60,6 +78,7 @@ public class Load {
 			System.out.println(e);
 			return null;
 		}
+		return null;
 	}
 	
 }
