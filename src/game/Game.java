@@ -107,8 +107,8 @@ public class Game extends Application implements Serializable{
 	public void start(Stage stage) throws Exception {
 
 		Scene scene = renderer.getScene();
-		
-		
+
+
 		//Game loop
 		timer = new AnimationTimer() {
 			@Override
@@ -131,7 +131,7 @@ public class Game extends Application implements Serializable{
 					currentLevel.getCurrentRoom().tick(-dx, -dy, tickNumber);
 					waitForRelease = true;
 				}
-				
+
 				tickNumber++;
 			}
 		};

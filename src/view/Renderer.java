@@ -72,32 +72,6 @@ public class Renderer implements Serializable{
 		}
 	}
 
-
-	/**
-	 * Draws each door in the scene
-	 */
-	private void drawDoors(){
-		if (level.getCurrentRoom().getDoors() == null){
-			//TODO remove debug code
-			System.out.println("room.getDoors() returned null!");
-			return;
-		}
-		for (Door d : level.getCurrentRoom().getDoors()){
-			if (d.getDoorPosition() == 0){ //		NORTH
-				g.drawImage(ImgResources.STAIRSTOP.img, ROOM_WIDTH/2 - TILE_SIZE/2, HUD_HEIGHT);
-			}
-			else if (d.getDoorPosition() == 1){ //	SOUTH
-				g.drawImage(ImgResources.STAIRSBOT.img, ROOM_WIDTH/2 - TILE_SIZE/2, HUD_HEIGHT + ROOM_HEIGHT - TILE_SIZE);
-			}
-			else if(d.getDoorPosition() == 2){ //	EAST
-				g.drawImage(ImgResources.STAIRSRIGHT.img, ROOM_WIDTH - TILE_SIZE, HUD_HEIGHT + ROOM_HEIGHT/2 - TILE_SIZE/2);
-			}
-			else { //								WEST
-				g.drawImage(ImgResources.STAIRSLEFT.img, 0, HUD_HEIGHT + ROOM_HEIGHT/2 - TILE_SIZE/2);
-			}
-		}
-	}
-
 	/**
 	 * Draws the entities in the room
 	 */
@@ -143,10 +117,10 @@ public class Renderer implements Serializable{
 		//Draws the items
 		Entity[] inventory = level.getCurrentRoom().getPlayer().getInventory();
 		if (inventory[0] != null){
-			g.drawImage(inventory[0].getImage(), x, y);
+			g.drawImage(inventory[0].getImage().img, x, y);
 		}
 		if (inventory[1] != null){
-			g.drawImage(inventory[1].getImage(), x+80, y);
+			g.drawImage(inventory[1].getImage().img, x+80, y);
 		}
 	}
 
