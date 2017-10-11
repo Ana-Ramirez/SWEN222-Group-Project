@@ -22,8 +22,8 @@ public class Projectile extends Weapon {
 	@Override
 	public void tick() {
 		double theta = Math.toRadians(angle);
-		double newX = getX() + SPEED*Math.cos(theta);
-		double newY = -(getY() + SPEED*Math.sin(theta));
+		double newX = SPEED*Math.cos(theta);
+		double newY = -(SPEED*Math.sin(theta));
 		moveBy(newX, newY);
 	}
 }

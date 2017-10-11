@@ -14,6 +14,7 @@ public enum ImgResources implements Serializable{
 
 	//UI
 	MAINMENUBG("menuBackground.png"),
+	BULLET("bullet.png"),
 	INVENTORYBOX("inventoryBox.png"),
 	GUN("gun.png"),
 	KEY("key.png"),

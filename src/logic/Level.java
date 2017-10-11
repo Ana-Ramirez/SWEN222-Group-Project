@@ -86,9 +86,9 @@ public class Level implements Serializable{
 		//create entities to add
 		Consumable consumable = new Consumable("food", 20, 40, 32, 32, "Lives 1", ImgResources.LIFE);
 
-		Gun gunEarth = new Gun("gunEarth", 300, 300, 32, 32, Type.EARTH, 10, ImgResources.GUN, ImgResources.CONSOLE1);
-		Gun gunFire = new Gun("gunFire", 200, 300, 32, 32, Type.FIRE, 20, ImgResources.GUN, ImgResources.CONSOLE1);
-		MeleeWeapon melee = new MeleeWeapon("knife", 100, 100, 32, 32, Type.WATER, 40, ImgResources.CONSOLE1);
+		Gun gunEarth = new Gun("gunEarth", 300, 300, 32, 32, Type.EARTH, 10, ImgResources.GUN, ImgResources.BULLET);
+		Gun gunFire = new Gun("gunFire", 200, 300, 32, 32, Type.FIRE, 20, ImgResources.GUN, ImgResources.BULLET);
+		MeleeWeapon melee = new MeleeWeapon("knife", 100, 100, 32, 32, Type.WATER, 40, ImgResources.BULLET);
 
 		Enemies pattern = new FollowingEnemy(player);
 
@@ -119,7 +119,8 @@ public class Level implements Serializable{
 	/**
 	 * Return a specific room from this level
 	 * @param i		the room number
-	 * @return		the room
+	 * @return		the room			BoundingBox box = e.getBoundingBox();
+
 	 */
 	public Room getRoom(int i){
 		for(Room r : this.rooms){
