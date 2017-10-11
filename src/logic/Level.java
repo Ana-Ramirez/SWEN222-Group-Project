@@ -150,7 +150,6 @@ public class Level implements Serializable{
 					break;
 			
 		}
-//		currentRoom.addEntity(player);
 	}
 
 	/**
