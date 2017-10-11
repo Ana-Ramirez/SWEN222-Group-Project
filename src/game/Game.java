@@ -1,6 +1,5 @@
 package game;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +23,7 @@ import view.Renderer;
  * @author Tim Gastrell
  *
  */
-public class Game extends Application implements Serializable{
+public class Game extends Application {
 
 	/**
 	 * Player object
@@ -50,7 +49,10 @@ public class Game extends Application implements Serializable{
 	 * total number of ticks
 	 */
 	private int tickNumber = 0;
-
+	
+	/**
+	 * Timer for the main Game loop
+	 */
 	private AnimationTimer timer;
 
 	/**
@@ -63,7 +65,7 @@ public class Game extends Application implements Serializable{
 
 
 	/**
-	 * Initialised list of levels
+	 * Initialises list of levels
 	 */
 	private void generateLevels() {
 		levels = new ArrayList<Level>();
@@ -79,12 +81,11 @@ public class Game extends Application implements Serializable{
 		if(level1 != null) {
 			currentLevel = level1;
 		}
-
-
 	}
 
 	/**
 	 * Inspired by https://stackoverflow.com/questions/29962395/how-to-write-a-keylistener-for-javafx
+	 * Main game function.
 	 */
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -184,7 +185,8 @@ public class Game extends Application implements Serializable{
         timer.start();
 	}
 
-
+//==================GETTERS AND SETTERS====================//
+	
 	public Player getPlayer() {
 		return player;
 	}
@@ -208,6 +210,5 @@ public class Game extends Application implements Serializable{
 	public void setCurrentLevel(Level currentLevel) {
 		this.currentLevel = currentLevel;
 	}
-
 
 }

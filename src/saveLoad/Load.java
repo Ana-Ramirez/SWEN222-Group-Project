@@ -4,9 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-import game.Game;
 import game.GameException;
-import javafx.stage.Stage;
 
 /**
  * Functional class that loads a saved game from a file
@@ -33,7 +31,7 @@ public class Load {
 	 * Loads a save game from a file
 	 * @return save game
 	 */
-	public Object loadGame() {
+	public GameData loadGame() {
 		try {
 
 			//Read file from disk
@@ -49,26 +47,19 @@ public class Load {
 			//Check object is valid
 			if(obj instanceof GameData) {
 
-				//Load game data into new game 
-				Game game = new Game();
-				game.setLevels(((GameData) obj).getLevels());
-				game.setPlayer(((GameData) obj).getPlayer());
-				game.setCurrentLevel(((GameData) obj).getCurrentLevel());
+				return (GameData) obj;
 
-				return game;
-
-			}
-			else if(obj instanceof TestClass) {
-				return (TestClass) obj;
 			}
 			else {
+				
 				throw new GameException("Invalid File");
+				
 			}
-
-
+			
 		} catch (IOException | ClassNotFoundException | GameException e) {
 			System.out.println(e);
 		}
+		
 		return null;
 	}
 

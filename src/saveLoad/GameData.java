@@ -30,13 +30,27 @@ public class GameData implements Serializable{
 	private Player player;
 	
 	/**
+	 * Main constructor, always use this unless testing
 	 * 
 	 * @param Current game state
 	 */
 	public GameData(Game game) {
-		levels = game.getLevels();
-		player = game.getPlayer();
-		currentLevel = game.getCurrentLevel();
+		this.levels = game.getLevels();
+		this.player = game.getPlayer();
+		this.currentLevel = game.getCurrentLevel();
+	}
+	
+	/**
+	 * Constructor for TESTING ONLY 
+	 * 
+	 * @param player object
+	 * @param levels list
+	 * @param currentLevel level
+	 */
+	public GameData(Player player, List<Level> levels, Level currentLevel) {
+		this.levels = levels;
+		this.player = player;
+		this.currentLevel = currentLevel;
 	}
 	
 	/**

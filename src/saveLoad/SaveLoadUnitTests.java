@@ -3,12 +3,14 @@ package saveLoad;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 
 import entities.Player;
 import game.Game;
+import logic.Level;
 import resources.ImgResources;
 
 public class SaveLoadUnitTests {
@@ -19,20 +21,36 @@ public class SaveLoadUnitTests {
 	 */
 	@Test
 	public void testGameSavingPlayerPosition() {
-		//ImgResources.values();
-		Game game = new Game();
 		Player player = new Player(50, 50, 23, 23, null);
+		List<Level> levels = generateLevels(player);
+		Level currentLevel = levels.get(0);
+		
+		GameData gd = new GameData(player, levels, currentLevel);
+		
 		player.moveTo(20, 20);
 		
-		Save save = new Save(game);
+		Save save = new Save(gd);
 		save.saveGame(new File("Player_move"));
 		
 		Load load = new Load("Player_move");
-		Game loadedGame = (Game) load.loadGame();
+		GameData loadedGame = load.loadGame();
 		Player newPlayer = loadedGame.getPlayer();
 			
 		assertEquals((Double)player.getX(), (Double)newPlayer.getX());
 		assertEquals((Double)player.getY(), (Double)newPlayer.getY());
+	}
+	
+	/**
+	 * Initialises list of levels
+	 */
+	private List<Level> generateLevels(Player player) {
+		List<Level> levels = new ArrayList<Level>();
+		Level level1 = null;
+		level1 = new Level(player);
+		levels.add(level1);
+		
+		return levels;
+
 	}
 	
 //	//======================  external tests  ======================
