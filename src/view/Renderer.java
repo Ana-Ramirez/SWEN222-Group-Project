@@ -109,7 +109,7 @@ public class Renderer implements Serializable{
 			return;
 		}**/
 		for (Entity e : level.getCurrentRoom().getEntities()){
-			g.drawImage(e.getImage(), e.getX(), HUD_HEIGHT + e.getY(), e.getWidth(), e.getHeight());
+			g.drawImage(e.getImage().img, e.getX(), HUD_HEIGHT + e.getY(), e.getWidth(), e.getHeight());
 		}
 	}
 
@@ -143,10 +143,10 @@ public class Renderer implements Serializable{
 		//Draws the items
 		Entity[] inventory = level.getCurrentRoom().getPlayer().getInventory();
 		if (inventory[0] != null){
-			g.drawImage(inventory[0].getImage(), x, y);
+			g.drawImage(inventory[0].getImage().img, x, y);
 		}
 		if (inventory[1] != null){
-			g.drawImage(inventory[1].getImage(), x+80, y);
+			g.drawImage(inventory[1].getImage().img, x+80, y);
 		}
 	}
 
