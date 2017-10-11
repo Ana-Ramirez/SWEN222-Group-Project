@@ -12,6 +12,7 @@ import entities.Player;
 import entities.Type;
 import interfaces.Enemies;
 import resources.ImgResources;
+import view.Renderer;
 
 /**
  * This class is the Model of our MVC patterned game
@@ -116,11 +117,39 @@ public class Level {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * Called from goThroughDoor() in Room
+	 * Changes current room and adds player to that room
+	 * @param r		the room to move into
+	 */
 	protected void gotoRoom(Room r) {
 		//TODO: Error checking
+		int leavingRoom = currentRoom.getRoomNum();
 		currentRoom = r;
 		currentRoom.addEntity(player);
+		switch (r.getRoomNum()){
+			case 1: player.moveTo(player.getX(), player.getY() - 375);
+					break;
+			case 2:	player.moveTo(player.getX(), player.getY() + 375);
+					break;
+			case 3:	player.moveTo(player.getX() + 690, player.getY());
+					break;
+			case 4: player.moveTo(player.getX() - 690, player.getY());
+					break;
+			case 5:	if(leavingRoom == 1){ 
+						player.moveTo(player.getX(), player.getY() + 375); 
+					} else if(leavingRoom == 2){ 
+						player.moveTo(player.getX(), player.getY() - 375); 
+					} else if(leavingRoom == 3){ 
+						player.moveTo(player.getX() - 690, player.getY()); 
+					} else if(leavingRoom == 4){ 
+						player.moveTo(player.getX() + 690, player.getY()); 
+					}
+					break;
+			
+		}
+//		currentRoom.addEntity(player);
 	}
 
 	/**
