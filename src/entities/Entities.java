@@ -2,7 +2,6 @@ package entities;
 
 import interfaces.Entity;
 import javafx.geometry.BoundingBox;
-import javafx.scene.image.Image;
 import resources.ImgResources;
 
 /**

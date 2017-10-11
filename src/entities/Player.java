@@ -1,7 +1,6 @@
 package entities;
 
 import javafx.geometry.BoundingBox;
-import javafx.scene.image.Image;
 import resources.ImgResources;
 
 /**
@@ -29,7 +28,7 @@ public class Player extends Character {
 		super("Tim", x, y, width, height, null, 3);
 		setImage(img);
 		inventory = new Pickupable[3];
-		this.speed = 4;
+		this.speed = 2;
 	}
 
 
@@ -70,6 +69,14 @@ public class Player extends Character {
 		String[] actionCommand = command.split("[, ]+");
 		if (actionCommand[0].equals("Lives")) {
 			lives += (int) Float.parseFloat(actionCommand[1]);
+		} else if (actionCommand[0].equals("Ammo")) {
+			for (int i = 0; i < inventory.length; i++) {
+				if (inventory[i] instanceof Gun) {
+					((Gun) inventory[i]).resupply((int) Float.parseFloat(actionCommand[1]));
+					return true;
+				}
+			}
+			return false;
 		} else {
 			throw new UnsupportedOperationException("The player does not support this command");
 		}

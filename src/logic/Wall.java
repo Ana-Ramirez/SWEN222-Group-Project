@@ -1,7 +1,6 @@
 package logic;
 
 import entities.StationaryEntity;
-import javafx.scene.image.Image;
 import resources.ImgResources;
 
 public class Wall extends StationaryEntity{

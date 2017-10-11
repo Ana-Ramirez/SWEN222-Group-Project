@@ -76,10 +76,11 @@ public class Level implements Serializable{
 
 		//create entities to add
 		Consumable consumable = new Consumable("food", 20, 40, 32, 32, "Lives 1", ImgResources.LIFE);
+		Consumable ammo = new Consumable("ammo", 20, 40, 32, 32, "Ammo 20", ImgResources.BULLET);
 
 		Gun gunEarth = new Gun("gunEarth", 300, 300, 32, 32, Type.EARTH, 10, ImgResources.GUN, ImgResources.BULLET);
 		Gun gunFire = new Gun("gunFire", 200, 300, 32, 32, Type.FIRE, 20, ImgResources.GUN, ImgResources.BULLET);
-		MeleeWeapon melee = new MeleeWeapon("knife", 100, 100, 32, 32, Type.WATER, 40, ImgResources.BULLET);
+		MeleeWeapon melee = new MeleeWeapon("knife", 100, 100, 32, 32, Type.WATER, 40, ImgResources.CONSOLE1);
 
 		Enemies pattern = new FollowingEnemy(player);
 

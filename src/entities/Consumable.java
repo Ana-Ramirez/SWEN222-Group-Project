@@ -1,6 +1,5 @@
 package entities;
 
-import javafx.scene.image.Image;
 import resources.ImgResources;
 
 /**
@@ -9,7 +8,7 @@ import resources.ImgResources;
  *
  */
 public class Consumable extends Pickupable {
-	private final String[] commands = {"Lives", "Speed"};
+	private final String[] commands = {"Lives", "Speed", "Ammo"};
 	private String action;
 	private int uses;
 

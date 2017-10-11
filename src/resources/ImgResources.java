@@ -1,5 +1,9 @@
 package resources;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> b40df9f267416171678458f9a224062a7aa3bd16
 import javafx.scene.image.Image;
 
 /**
@@ -40,9 +44,14 @@ public enum ImgResources {
 	//PLAYER
 	PLAYERDOWN("playerDown.png");
 
-	public final Image img;
+	public final String imgPath;
+	public Image img;
 
 	ImgResources(String resourceName) {
-		img = new Image(ImgResources.class.getResource(resourceName).toString());
+		imgPath = ImgResources.class.getResource(resourceName).toString();
+	}
+	
+	public void setImage() {
+		img = new Image(imgPath);
 	}
 }

@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -38,7 +39,9 @@ public class MainMenu extends Application{
 		this.primaryStage = primaryStage;
 		primaryStage.setTitle("Trouble in ChinaTown");
 
-		ImgResources.values();
+		for (int i = 0; i < ImgResources.values().length; i++) {
+			ImgResources.values()[i].setImage();
+		}
 
 		root = new StackPane();
 

@@ -118,7 +118,6 @@ public class Game extends Application {
 				
 				if (oldRoom != newRoom) {
 					currentLevel.getCurrentRoom().tick(-dx, -dy, tickNumber);
-					waitForRelease = true;
 				}
 
 				tickNumber++;
@@ -132,10 +131,10 @@ public class Game extends Application {
 			@Override
 			public void handle(KeyEvent event) {
 				switch (event.getCode()) {
-					case W : goUp = true && !waitForRelease; break;
-					case S : goDown = true && !waitForRelease; break;
-					case A : goLeft = true && !waitForRelease; break;
-					case D : goRight = true && !waitForRelease; break;
+					case W : goUp = true; break;
+					case S : goDown = true; break;
+					case A : goLeft = true; break;
+					case D : goRight = true; break;
 					case DIGIT1 : player.selectItem(0); break;
 					case DIGIT2 : player.selectItem(1); break;
 					case DIGIT3 : player.selectItem(2); break;
@@ -166,7 +165,6 @@ public class Game extends Application {
 
                     default : break;
                 }
-                waitForRelease = false;
             }
         });
 

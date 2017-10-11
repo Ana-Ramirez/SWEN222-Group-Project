@@ -1,7 +1,6 @@
 package entities;
 
 import interfaces.Enemies;
-import javafx.scene.image.Image;
 import resources.ImgResources;
 
 /**
