@@ -27,6 +27,7 @@ public class LoadHandler<T extends Event> implements EventHandler<ActionEvent>{
 		if(file == null) {
 			return;
 		}
+		
 		Load load = new Load(file.getAbsolutePath());
 		GameData gameData = (GameData) load.loadGame();
 		
