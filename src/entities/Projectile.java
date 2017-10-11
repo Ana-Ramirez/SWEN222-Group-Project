@@ -15,7 +15,7 @@ public class Projectile extends Weapon {
 	protected Projectile(String name, double x, double y, int width, int height, int damage, ImgResources img, double targetX, double targetY) {
 		super(name, x, y, width, height, null, damage);
 		setImage(img);
-		angle = Math.toDegrees(Math.atan2(targetY-getY(), targetX-getX()));
+		angle = Math.toDegrees(Math.atan2(targetY-(getY()+height/2), targetX-(getX()+width/2)));
 
 	}
 
@@ -23,7 +23,7 @@ public class Projectile extends Weapon {
 	public void tick() {
 		double theta = Math.toRadians(angle);
 		double newX = SPEED*Math.cos(theta);
-		double newY = -(SPEED*Math.sin(theta));
+		double newY = SPEED*Math.sin(theta);
 		moveBy(newX, newY);
 	}
 }

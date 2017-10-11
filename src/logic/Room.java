@@ -284,7 +284,7 @@ public class Room implements Serializable{
 				}
 			} //End of entities iteration
 		} else if (hand instanceof Gun) {
-			roomEntities.add(((Gun) hand).createProjectile(x, y));
+			roomEntities.add(((Gun) hand).createProjectile(x, y-Renderer.HUD_HEIGHT));
 		} else if (hand instanceof Consumable) {
 			level.getPlayer().use();
 
