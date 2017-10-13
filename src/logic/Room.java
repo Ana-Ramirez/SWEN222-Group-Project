@@ -175,15 +175,9 @@ public class Room implements Serializable{
 	 */
 	public void dropItem() {
 		Pickupable toAdd = this.getPlayer().drop();
-		
-		if(toAdd == null) {
-			return;
+		if(toAdd != null) {
+			roomEntities.add(toAdd);
 		}
-		
-		toAdd.setX(this.getPlayer().getX());
-		toAdd.setY(this.getPlayer().getY());
-		
-		roomEntities.add(toAdd);
 	}
 
 	/**

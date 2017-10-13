@@ -31,16 +31,4 @@ public class StationaryEntity extends Entities {
 	protected boolean hit(int damage) {
 		return false;
 	}
-
-	/**
-	 * Sets the x and y coordinates
-	 * @param x
-	 * 		the double of the x
-	 * @param y
-	 * 		the double of the y
-	 */
-	public void setXY(double x, double y) {
-		this.x = x;
-		this.y = y;
-	}
 }
