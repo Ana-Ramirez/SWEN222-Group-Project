@@ -408,11 +408,11 @@ public class EntitiesTest {
 
 
 		assertNull(player.pickup(cons1));
-		assertTrue(player.selectItem(1));
+		player.selectItem(1);
 		assertNull(player.pickup(cons2));
-		assertTrue(player.selectItem(2));
+		player.selectItem(2);
 		assertNull(player.pickup(cons3));
-		assertTrue(player.selectItem(0));
+		player.selectItem(0);
 		assertSame(cons1, player.pickup(cons4));
 	}
 
@@ -425,9 +425,9 @@ public class EntitiesTest {
 
 
 		assertNull(player.pickup(cons1));
-		assertTrue(player.selectItem(1));
+		player.selectItem(1);
 		assertNull(player.pickup(cons2));
-		assertTrue(player.selectItem(2));
+		player.selectItem(2);
 		assertNull(player.pickup(cons3));
 
 		Consumable[] testArray = {cons1, cons2, cons3};
@@ -443,9 +443,9 @@ public class EntitiesTest {
 
 
 		assertNull(player.pickup(cons1));
-		assertTrue(player.selectItem(1));
+		player.selectItem(1);
 		assertNull(player.pickup(cons2));
-		assertTrue(player.selectItem(2));
+		player.selectItem(2);
 		assertNull(player.pickup(cons3));
 
 		assertEquals(player.getX(), cons1.getX(), 0);
@@ -464,13 +464,6 @@ public class EntitiesTest {
 		assertEquals(player.getY(), cons2.getY(), 0);
 		assertEquals(player.getX(), cons3.getX(), 0);
 		assertEquals(player.getY(), cons3.getY(), 0);
-	}
-
-	@Test
-	public void selectInvlaidInventorySlot() {
-		Player player = new Player(0, 0, 5, 5, null);
-		assertFalse(player.selectItem(3));
-		assertFalse(player.selectItem(-1));
 	}
 
 	@Test
@@ -656,7 +649,7 @@ public class EntitiesTest {
 	@Test
 	public void movePlayerByXY(){
 		Player player = new Player(0, 0, 5, 5, null);
-		assertTrue(player.moveBy(5,5));
+		player.moveBy(5, 5);
 		assertEquals(10, player.getX(),0);
 		assertEquals(10, player.getY(),0);
 	}
@@ -664,7 +657,7 @@ public class EntitiesTest {
 	@Test
 	public void movePlayerToXY(){
 		Player player = new Player(0, 0, 5, 5, null);
-		assertTrue(player.moveTo(20,100));
+		player.moveTo(20, 100);
 		assertEquals(20.0f, player.getX(),0);
 		assertEquals(100.0f, player.getY(),0);
 	}

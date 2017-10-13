@@ -9,6 +9,7 @@ import resources.ImgResources;
  *
  */
 public class Monster extends Character {
+	private static final long serialVersionUID = -4064250638229615542L;
 	private Weapon weapon;
 	private Enemies pattern;
 
@@ -47,9 +48,7 @@ public class Monster extends Character {
 		return weapon;
 	}
 
-	/**
-	 * Executes a tick for the monster, updating it's location
-	 */
+	
 	@Override
 	public void tick() {
 		pattern.tick(this);

@@ -1,5 +1,6 @@
 package entities;
 
+import javafx.geometry.BoundingBox;
 import resources.ImgResources;
 
 //***** Design Discussion *********
@@ -14,6 +15,7 @@ import resources.ImgResources;
  *
  */
 public class Gun extends Weapon {
+	private static final long serialVersionUID = 1557911205592499799L;
 	private int damage;
 	private ImgResources ammoImg;
 	private int ammoCount;
@@ -55,7 +57,7 @@ public class Gun extends Weapon {
 	public Projectile createProjectile(double x, double y) {
 		if (ammoCount > 0) {
 			ammoCount--;
-			return new Projectile(getX(), getY(), 8, 8, damage, ammoImg, x, y);
+			return new Projectile(new BoundingBox(getX(), getY(), 8, 8), damage, ammoImg, x, y);
 		} else {
 			return null;
 		}

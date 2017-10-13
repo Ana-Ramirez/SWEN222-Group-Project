@@ -1,5 +1,6 @@
 package entities;
 
+import javafx.geometry.BoundingBox;
 import resources.ImgResources;
 
 /**
@@ -8,12 +9,13 @@ import resources.ImgResources;
  *
  */
 public class Projectile extends Weapon {
+	private static final long serialVersionUID = 1620202643777534005L;
 	private double angle;
 
-	protected Projectile(double x, double y, int width, int height, int damage, ImgResources img, double targetX, double targetY) {
-		super(x+16, y+8, width, height, null, damage);
+	protected Projectile(BoundingBox box, int damage, ImgResources img, double targetX, double targetY) {
+		super(box.getMinX()+16, box.getMinY()+8, (int)box.getWidth(), (int)box.getHeight(), null, damage);
 		setImage(img);
-		angle = Math.toDegrees(Math.atan2(targetY-(getY()+height/2), targetX-(getX()+width/2)));
+		angle = Math.toDegrees(Math.atan2(targetY-(getY()+box.getHeight()/2d), targetX-(getX()+box.getWidth()/2d)));
 		this.speed = 2;
 	}
 

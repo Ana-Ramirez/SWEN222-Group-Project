@@ -36,7 +36,7 @@ public class Room implements Serializable{
 	 */
 	public Room(int num, Level level){
 		this.roomNum = num;
-		this.roomEntities = new ArrayList<Entity>();
+		this.roomEntities = new ArrayList<>();
 		generateWalls();
 		this.level = level;
 	}
@@ -47,45 +47,53 @@ public class Room implements Serializable{
 	 * @param y 	mouse y pos
 	 */
 	public void tick(float x, float y, int tickNo) {
-		if (x != 0 || y != 0) {
-			switch (movePlayer(x, y)) {
-			case 0:
-				getPlayer().moveBy(x, y);
-				break;
-			case 1:
-				getPlayer().moveBy(0, y);
-				break;
-			case 2:
-				getPlayer().moveBy(x, 0);
-				break;
-			case 3:
-				break;
-			}
-		}
-		ArrayList<Entity> toRemove = new ArrayList<Entity>();
+		playerTick(x, y);
+		ArrayList<Entity> toRemove = new ArrayList<>();
 		for(Entity e : roomEntities){
 			if (e instanceof Projectile) {
-				((Projectile) e).tick();
-				for (Entity b : roomEntities) {
-					if (e.getBoundingBox().intersects(b.getBoundingBox())) {
-						if(b instanceof Wall) {
-							toRemove.add(e);
-							break;
-						} else if (b instanceof Monster) {
-							((Projectile) e).attack(b);
-							toRemove.add(e);
-							if (!((Monster) b).isAlive()) {
-								toRemove.add(b);
-							}
-							break;
-						}
-					}
-				}
+				toRemove.addAll(projectileTick((Projectile)e));
 			} else if(e instanceof MovableEntity) {
 				((MovableEntity) e).tick();
+			} if(e instanceof Monster && e.getBoundingBox().intersects(getPlayer().getBoundingBox())){
+				((Monster)e).attack(getPlayer());
 			}
 		}
 		roomEntities.removeAll(toRemove);
+		
+	}
+	
+	private void playerTick(float x, float y) {
+		if (x != 0 || y != 0) {
+			
+			int answer = movePlayer(x, y);
+			
+			if (answer % 3 == 0 && answer % 7 != 0) {
+				getPlayer().moveBy(0, y);
+			} else if (answer % 7 == 0 && answer % 3 != 0) {
+				getPlayer().moveBy(x, 0);
+			} else {
+				getPlayer().moveBy(x, y);
+			}
+		}
+	}
+	
+	private ArrayList<Entity> projectileTick(Projectile e) {
+		ArrayList<Entity> toRemove = new ArrayList<>();
+		e.tick();
+		for (Entity b : roomEntities) {
+			if (e.getBoundingBox().intersects(b.getBoundingBox())) {
+				if(b instanceof Wall) {
+					toRemove.add(e);
+				} else if (b instanceof Monster) {
+					e.attack(b);
+					toRemove.add(e);
+					if (!((Monster) b).isAlive()) {
+						toRemove.add(b);
+					}
+				}
+			}
+		}
+		return toRemove;
 	}
 
 
@@ -97,6 +105,7 @@ public class Room implements Serializable{
 		for(int i = 0; i < Renderer.FLOOR_WIDTH; i++){
 			for(int j = 0; j < Renderer.FLOOR_HEIGHT; j++){
 				if(i == 0 || i == Renderer.FLOOR_WIDTH-1 || j == 0 || j == Renderer.FLOOR_HEIGHT-1){
+					/**
 					if(i == 0) {
 						pos = "top";
 					} if (i == Renderer.FLOOR_WIDTH-1) {
@@ -105,8 +114,8 @@ public class Room implements Serializable{
 						pos = "left";
 					} if (j == Renderer.FLOOR_HEIGHT-1) {
 						pos = "bottom";
-					}
-
+					}**/
+					pos = "top";
 					roomEntities.add(new Wall(pos, i*Renderer.TILE_SIZE, j*Renderer.TILE_SIZE, 32, 32));
 				}
 			}
@@ -130,45 +139,29 @@ public class Room implements Serializable{
 	 * collided with
 	 */
 	private int movePlayer(float x, float y){
-		BoundingBox box = getPlayer().getBoundingBox();
-		BoundingBox boxX = new BoundingBox(box.getMinX()+x*2, box.getMinY(), box.getWidth(), box.getHeight());
-		BoundingBox boxY = new BoundingBox(box.getMinX(), box.getMinY()+y*2, box.getWidth(), box.getHeight());
+		BoundingBox boxX = new BoundingBox(getPlayer().getX()+x*2, getPlayer().getY(), getPlayer().getWidth(), getPlayer().getHeight());
+		BoundingBox boxY = new BoundingBox(getPlayer().getX(), getPlayer().getY()+y*2, getPlayer().getWidth(), getPlayer().getHeight());
 
-		boolean xCollision = false;
-		boolean yCollision = false;
+		int collision = 1;
 
-		for(Entity e : this.roomEntities){
-			if (e instanceof Player) {
-				continue;
+		for(Entity e : roomEntities){
+			if((e.getBoundingBox().intersects(boxX) || e.getBoundingBox().intersects(boxY)) && e instanceof Door){
+				goThroughDoor((Door)e);
+				break;
 			}
-			if(e.getBoundingBox().intersects(boxX) || e.getBoundingBox().intersects(boxY)){
-				if(e instanceof Door){
-					goThroughDoor( (Door)e );
-					break;
-				} else if(e instanceof Monster){
-					((Monster)e).attack(this.getPlayer());
-				}
-			}
-
+					
 			if (e instanceof Wall) {
 				if(e.getBoundingBox().intersects(boxX)){
-					xCollision = true;
+					collision *= 3;
 				} if (e.getBoundingBox().intersects(boxY)){
-					yCollision = true;
+					collision *= 7;
 				}
 			}
-
 		}
-
-		if (xCollision && yCollision) {
-			return 3;
-		} else if (xCollision) {
-			return 1;
-		} else if (yCollision) {
-			return 2;
-		} else {
-			return 0;
-		}
+		
+		return collision;
+		
+		
 	}
 
 	/**
@@ -179,11 +172,10 @@ public class Room implements Serializable{
 		Pickupable toRemove = null;
 		Pickupable toAdd = null;
 		for(Entity e : this.roomEntities){
-			if(e.getBoundingBox().intersects(this.getPlayer().getBoundingBox())){
-				if(e instanceof Pickupable){
-					toAdd = getPlayer().pickup( (Pickupable)e );
-					toRemove = (Pickupable)e;
-				}
+			if(e.getBoundingBox().intersects(getPlayer().getBoundingBox()) 
+					&& e instanceof Pickupable){
+				toAdd = getPlayer().pickup( (Pickupable)e );
+				toRemove = (Pickupable)e;
 			}
 		}
 		if (toRemove != null) {
@@ -220,10 +212,8 @@ public class Room implements Serializable{
 	 */
 	public Door getDoor(int i){
 		for(Entity e : this.roomEntities){
-			if(e instanceof Door){
-				if( ((Door)e).getDoorNum() == i ){
-					return (Door)e;
-				}
+			if(e instanceof Door && ((Door)e).getDoorNum() == i){
+				return (Door)e;
 			}
 		}
 		return null;
@@ -243,7 +233,7 @@ public class Room implements Serializable{
 	 * @return the list of doors for this room
 	 */
 	public List<Door> getDoors(){
-		List<Door> doors = new ArrayList<Door>();
+		List<Door> doors = new ArrayList<>();
 		for(Entity e : this.roomEntities){
 			if(e instanceof Door){
 				doors.add( (Door)e );
@@ -282,10 +272,8 @@ public class Room implements Serializable{
 		Pickupable hand = getPlayer().getHand();
 		if (hand instanceof MeleeWeapon) {
 			for(Entity e : this.roomEntities){
-				if(e.getBoundingBox().intersects(this.getPlayer().getExtendedBoundingBox())){
-					if(e instanceof Monster){
-						((MeleeWeapon) hand).attack(e);
-					}
+				if(e.getBoundingBox().intersects(this.getPlayer().getExtendedBoundingBox()) && e instanceof Monster){
+					((MeleeWeapon) hand).attack(e);
 				}
 			} //End of entities iteration
 		} else if (hand instanceof Gun) {

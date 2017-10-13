@@ -9,6 +9,7 @@ import resources.ImgResources;
  *
  */
 public class Player extends Character {
+	private static final long serialVersionUID = 1364726060443658475L;
 	private Pickupable[] inventory;
 	private int itemSelected;
 
@@ -38,13 +39,10 @@ public class Player extends Character {
 	 * @return
 	 * 		true if successful, else false
 	 */
-	public boolean selectItem(int i) {
-		if (i < 0 || i > 2) {
-			return false;
+	public void selectItem(int i) {
+		if (i >= 0 && i <= inventory.length) {
+			itemSelected = i;
 		}
-		itemSelected = i;
-		return true;
-		//TODO proper success checking
 	}
 
 	/**
@@ -90,8 +88,6 @@ public class Player extends Character {
 	 * 		the pickupable object in the hand
 	 */
 	public Pickupable getHand() {
-		//TODO: proper comments
-
 		return inventory[itemSelected];
 	}
 
@@ -102,7 +98,6 @@ public class Player extends Character {
 	 * 		an array of pickupable items
 	 */
 	public Pickupable[] getInventory() {
-		//TODO: proper comments
 		return inventory;
 	}
 
@@ -115,7 +110,6 @@ public class Player extends Character {
 	 * 		the item replaced in inventory
 	 */
 	public Pickupable pickup(Pickupable item) {
-		//TODO: proper comments
 		Pickupable holder = drop();
 		inventory[itemSelected] = item;
 		return holder;
@@ -128,10 +122,9 @@ public class Player extends Character {
 	 * @param item
 	 * 		the item to add
 	 * @return
-	 * 		true only if space is available in the inventory
+	 * 		the item removed from the inventory
 	 */
 	public Pickupable drop() {
-		//TODO:
 		Pickupable holder = inventory[itemSelected];
 		inventory[itemSelected] = null;
 		return holder;

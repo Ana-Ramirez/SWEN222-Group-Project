@@ -8,7 +8,8 @@ import resources.ImgResources;
  *
  */
 public class Consumable extends Pickupable {
-	private final String[] commands = {"Lives", "Speed", "Ammo"};
+	private static final long serialVersionUID = -4391782330871728287L;
+	private static final String[] commands = {"Lives", "Speed", "Ammo"};
 	private String action;
 	private int uses;
 
@@ -40,7 +41,7 @@ public class Consumable extends Pickupable {
 			throw new IllegalArgumentException("Action command incorrect argument number");
 		}
 		try {
-			Float.parseFloat(actionCommand[1]);
+			Double.valueOf(actionCommand[1]);
 		} catch (NumberFormatException e){
 			throw new IllegalArgumentException("Action command value in not valid");
 		}
@@ -55,7 +56,7 @@ public class Consumable extends Pickupable {
 			throw new IllegalArgumentException("Action command is not a valid command");
 		}
 		this.action = action;
-		return true;
+		return valid;
 	}
 
 

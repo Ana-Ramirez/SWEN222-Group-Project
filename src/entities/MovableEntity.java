@@ -7,6 +7,7 @@ package entities;
  *
  */
 public abstract class MovableEntity extends Entities {
+	private static final long serialVersionUID = -8759622030110383707L;
 	protected double speed = 1;
 
 	protected MovableEntity(double x, double y, int width, int height, Type type) {
@@ -19,14 +20,10 @@ public abstract class MovableEntity extends Entities {
 	 * 		the amount to change x by
 	 * @param y
 	 * 		the amount to change y by
-	 * @return
-	 * 		true if successful, else false
 	 */
-	public boolean moveBy(double x, double y) {
+	public void moveBy(double x, double y) {
 		this.x += x*speed;
 		this.y += y*speed;
-		return true;
-		//TODO proper success handling
 	}
 
 
@@ -36,14 +33,10 @@ public abstract class MovableEntity extends Entities {
 	 * 		the x value to use
 	 * @param y
 	 * 		the y value to use
-	 * @return
-	 * 		true if successful, else false
 	 */
-	public boolean moveTo(double x, double y) {
+	public void moveTo(double x, double y) {
 		this.x = x;
 		this.y = y;
-		return true;
-		//TODO proper success handling
 	}
 
 	public abstract void tick(); 

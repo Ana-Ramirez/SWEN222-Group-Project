@@ -15,7 +15,6 @@ import entities.Type;
 import interfaces.Entity;
 import logic.Level;
 import logic.Room;
-import resources.ImgResources;
 
 public class SaveLoadUnitTests {
 	/**

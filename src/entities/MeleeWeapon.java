@@ -8,6 +8,7 @@ import resources.ImgResources;
  *
  */
 public class MeleeWeapon extends Weapon {
+	private static final long serialVersionUID = -7531191138324291062L;
 
 	/**
 	 * Create a new weapon

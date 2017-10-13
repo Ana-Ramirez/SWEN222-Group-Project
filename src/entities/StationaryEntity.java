@@ -8,6 +8,7 @@ import resources.ImgResources;
  *
  */
 public class StationaryEntity extends Entities {
+	private static final long serialVersionUID = -8746477209656357198L;
 
 	/**
 	 * Creates a new StationaryEntity

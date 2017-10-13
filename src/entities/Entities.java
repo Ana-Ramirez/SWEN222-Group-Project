@@ -11,6 +11,7 @@ import resources.ImgResources;
  *
  */
 public abstract class Entities implements Entity {
+	private static final long serialVersionUID = 2833150026302394689L;
 	protected double x;
 	protected double y;
 	private int width;
