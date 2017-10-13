@@ -169,6 +169,22 @@ public class Room implements Serializable{
 		}
 		roomEntities.remove(toRemove);
 	}
+	
+	/**
+	 * 
+	 */
+	public void dropItem() {
+		Pickupable toAdd = this.getPlayer().drop();
+		
+		if(toAdd == null) {
+			return;
+		}
+		
+		toAdd.setX(this.getPlayer().getX());
+		toAdd.setY(this.getPlayer().getY());
+		
+		roomEntities.add(toAdd);
+	}
 
 	/**
 	 *

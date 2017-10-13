@@ -139,7 +139,7 @@ public class Game extends Application {
 					case DIGIT2 : player.selectItem(1); break;
 					case DIGIT3 : player.selectItem(2); break;
 					case E : currentLevel.getCurrentRoom().pickupItem(); break;
-					case X : player.drop(); break;
+					case X : currentLevel.getCurrentRoom().dropItem(); break;
 					case ESCAPE :
 	                	timer.stop();
 	                	try {
