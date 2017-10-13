@@ -38,7 +38,7 @@ public class Game extends Application {
 	/**
 	 * Direction of player movement
 	 */
-	private boolean goUp, goDown, goLeft, goRight, waitForRelease = false;
+	private boolean goUp, goDown, goLeft, goRight= false;
 
 	/**
 	 * Current level

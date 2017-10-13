@@ -17,8 +17,10 @@ import javafx.geometry.BoundingBox;
 import javafx.scene.image.Image;
 import resources.ImgResources;
 
+@SuppressWarnings("unused")
 public class EntitiesTest {
 
+	@SuppressWarnings("serial")
 	class MockMonsterPattern implements Enemies {
 
 		public void tick(Monster monster) {
