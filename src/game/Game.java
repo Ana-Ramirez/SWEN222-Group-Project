@@ -99,27 +99,17 @@ public class Game extends Application {
 		//Game loop
 		timer = new AnimationTimer() {
 			@Override
-			public void handle(long now) {
-				//Start tick count at 0
-				tickNumber = 0;
-				
+			public void handle(long now) {				
 				//Processing move commands
 				int dx = 0, dy = 0;
 				if (goUp) dy -= 1;
 				if (goDown) dy += 1;
 				if (goLeft)  dx -= 1;
 				if (goRight)  dx += 1;
-				
-				Room oldRoom = currentLevel.getCurrentRoom();
+			
 				currentLevel.getCurrentRoom().tick(dx, dy, tickNumber);
-				Room newRoom = currentLevel.getCurrentRoom();
-
 				renderer.repaint();
 				
-				if (oldRoom != newRoom) {
-					currentLevel.getCurrentRoom().tick(-dx, -dy, tickNumber);
-				}
-
 				tickNumber++;
 			}
 		};

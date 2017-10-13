@@ -48,7 +48,7 @@ public class Room implements Serializable{
 	 */
 	public void tick(float x, float y, int tickNo) {
 		if (x != 0 || y != 0) {
-			switch (movePlayer(x, y)) {
+			switch (movePlayer(x, y)){
 			case 0:
 				getPlayer().moveBy(x, y);
 				break;
@@ -176,24 +176,29 @@ public class Room implements Serializable{
 	 * which the player is colliding with
 	 */
 	public void pickupItem(){
-		Entity toRemove = null;
+		Pickupable toRemove = null;
+		Pickupable toAdd = null;
 		for(Entity e : this.roomEntities){
 			if(e.getBoundingBox().intersects(this.getPlayer().getBoundingBox())){
 				if(e instanceof Pickupable){
-					this.getPlayer().pickup( (Pickupable)e );
-					toRemove = e;
+					toAdd = getPlayer().pickup( (Pickupable)e );
+					toRemove = (Pickupable)e;
 				}
 			}
 		}
-		roomEntities.remove(toRemove);
+		if (toRemove != null) {
+			roomEntities.remove(toRemove);
+		} if (toAdd != null) {
+			roomEntities.add(toAdd);
+		}
 	}
 	
 	/**
 	 * 
 	 */
 	public void dropItem() {
-		Pickupable toAdd = this.getPlayer().drop();
-		if(toAdd != null) {
+		Pickupable toAdd = getPlayer().drop();
+		if (toAdd != null) {
 			roomEntities.add(toAdd);
 		}
 	}
