@@ -8,9 +8,14 @@ import java.util.List;
 
 import org.junit.Test;
 
+import entities.MeleeWeapon;
+import entities.Monster;
 import entities.Player;
+import entities.Type;
+import interfaces.Entity;
 import logic.Level;
 import logic.Room;
+import resources.ImgResources;
 
 public class SaveLoadUnitTests {
 	/**
@@ -38,7 +43,7 @@ public class SaveLoadUnitTests {
 	}
 	
 	/**
-	 * Tests that the player position is saved
+	 * Tests that the currentRoom is saved
 	 */
 	@Test
 	public void testGameSavingRoom() {
@@ -60,6 +65,55 @@ public class SaveLoadUnitTests {
 		assertEquals(currentLevel.getCurrentRoom().getRoomNum(), currentRoom.getRoomNum());
 	}
 	
+	/**
+	 * Tests that the player lives are saved
+	 */
+	@Test
+	public void testGameSavingLives() {
+		Player player = new Player(50, 50, 23, 23, null);
+		List<Level> levels = generateLevels(player);
+		Level currentLevel = levels.get(0);	
+		MeleeWeapon melee = new MeleeWeapon(100, 100, 32, 32, Type.WATER, 40, null);
+		Monster monster = new Monster(0, 0, 0, 0, Type.WATER, melee, null, null);
+		monster.attack(player);
+		
+		GameData gd = new GameData(player, levels, currentLevel);
+		
+		Save save = new Save(gd);
+		save.saveGame(new File("Lives"));
+		
+		Load load = new Load("Lives.txt");
+		GameData loadedGame = load.loadGame();
+		Level loadedCurrentLevel = loadedGame.getCurrentLevel();
+		Player loadedPlayer = loadedGame.getPlayer();
+			
+		assertEquals(player.getLives(),loadedPlayer.getLives());
+	}
+	
+	/**
+	 * Tests that the save remembers the number of entites in a room
+	 */
+	@Test
+	public void testGameSavingRoomEntities() {
+		Player player = new Player(50, 50, 23, 23, null);
+		List<Level> levels = generateLevels(player);
+		Level currentLevel = levels.get(0);
+		
+		List<Entity> entities = currentLevel.getCurrentRoom().getEntities();
+		entities.remove(0);
+		
+		GameData gd = new GameData(player, levels, currentLevel);
+		
+		Save save = new Save(gd);
+		save.saveGame(new File("entities_save"));
+		
+		Load load = new Load("entities_save.txt");
+		GameData loadedGame = load.loadGame();
+		List<Entity> newEntities = loadedGame.getCurrentLevel().getCurrentRoom().getEntities();
+			
+		assertEquals(entities.size(), newEntities.size());
+	}
+	
 	
 	
 	/**
@@ -75,38 +129,54 @@ public class SaveLoadUnitTests {
 
 	}
 	
-//	//======================  external tests  ======================
-//	/**
-//	 * Canceling load
-//	 */
-//	@Test (expected = NullPointerException.class)
-//	public void externalTest1(){
-//		Load load = new Load(null);
-//		TestClass testout = (TestClass)load.loadGame();
-//	}
+	//======================  external tests  ======================
+	/**
+	 * Canceling load
+	 */
+	@Test (expected = NullPointerException.class)
+	public void externalTest1(){
+		Load load = new Load(null);
+		GameData testout = load.loadGame();
+	}
 	
-//	/**
-//	 * Test old game overwritten when saved over
-//	 */
-//	@Test
-//	public void externalTest2(){
-//		String oldInput = "Tim sucks";
-//		TestClass testIn = new TestClass(oldInput);
-//		Save save = new Save(testIn);
-//		save.saveGame(new File("file"));
-//		
-//		String newInput = "Lewis is kewl";
-//		TestClass testInNew = new TestClass(newInput);
-//		Save saveNew = new Save(testInNew);
-//		save.saveGame(new File("file"));
-//		
-//		Load load = new Load("file");
-//		TestClass testOut = (TestClass)load.loadGame();
-//		String output = testOut.getStr();
-//		
-//		assertEquals(newInput, output);
-//	}
-//	
+	/**
+	 * Test old game overwritten when saved over
+	 */
+	@Test
+	public void testGameOverwrite() {
+		//1st save
+		Player player = new Player(50, 50, 23, 23, null);
+		List<Level> levels = generateLevels(player);
+		Level currentLevel = levels.get(0);
+		
+		player.moveTo(20, 20);
+		
+		GameData gd = new GameData(player, levels, currentLevel);
+		
+		Save save = new Save(gd);
+		save.saveGame(new File("Player_move"));
+		
+		//Second save over first
+		Player newPlayer = new Player(50, 50, 23, 23, null);
+		List<Level> newLevels = generateLevels(player);
+		Level newCurrentLevel = levels.get(0);
+		
+		newPlayer.moveTo(25, 25);
+		
+		GameData newGd = new GameData(newPlayer, newLevels, newCurrentLevel);
+		
+		Save newSave = new Save(newGd);
+		newSave.saveGame(new File("Player_move"));
+		
+		//load data 
+		Load load = new Load("Player_move.txt");
+		GameData loadedGame = load.loadGame();
+		Player loadedPlayer = loadedGame.getPlayer();
+			
+		assertEquals((Double)newPlayer.getX(), (Double)loadedPlayer.getX());
+		assertEquals((Double)newPlayer.getY(), (Double)loadedPlayer.getY());
+	}
+	
 	
 
 }
