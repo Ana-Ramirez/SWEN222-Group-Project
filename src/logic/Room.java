@@ -48,7 +48,7 @@ public class Room implements Serializable{
 	 */
 	public void tick(float x, float y, int tickNo) {
 		if (x != 0 || y != 0) {
-			switch (movePlayer(x, y)){
+			switch (movePlayer(x, y)) {
 			case 0:
 				getPlayer().moveBy(x, y);
 				break;

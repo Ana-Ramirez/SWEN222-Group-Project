@@ -48,6 +48,7 @@ public class EntitiesTest {
 	@Test
 	public void createMeleeWeapon() {
 		Weapon weapon = new MeleeWeapon(0, 0, 5, 5, Type.WATER, 5, null);
+		assertEquals("Melee Weapon", weapon.getInfo());
 		assertEquals(Type.WATER, weapon.getType());
 
 	}
@@ -55,6 +56,7 @@ public class EntitiesTest {
 	@Test
 	public void createGun() {
 		Weapon weapon = new Gun(0, 0, 5, 5, Type.WATER, 5, null, null);
+		assertEquals("Gun - Ammo: 20/20", weapon.getInfo());
 		assertEquals(Type.WATER, weapon.getType());
 	}
 
@@ -168,6 +170,7 @@ public class EntitiesTest {
 	public void useHealthConsumable() {
 		Player player = new Player(0, 0, 5, 5, null);
 		Consumable cons = new Consumable(0, 0, 5, 5, "Lives, 2", null);
+		assertEquals("Lives", cons.getInfo());
 		assertEquals(3, player.getLives());
 		assertNull(player.pickup(cons));
 		assertTrue(((Consumable) player.getHand()).canUse());
@@ -388,6 +391,9 @@ public class EntitiesTest {
 		Gun weapon = new Gun(0, 0, 5, 5, Type.WATER, 5, null, null);
 		Projectile ammo1 = weapon.createProjectile(0, 0);
 		Projectile ammo2 = weapon.createProjectile(0, 0);
+		assertEquals("Ammo", ammo1.getInfo());
+		assertEquals("Ammo", ammo2.getInfo());
+
 		assertEquals(ammo1.getBaseDamage(), ammo2.getBaseDamage());
 		assertNotSame(ammo1, ammo2);
 	}
