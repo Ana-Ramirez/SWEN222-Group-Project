@@ -41,6 +41,7 @@ public class Gun extends Weapon {
 		setImage(img);
 		this.ammoImg = ammoImg;
 		ammoCount = 20;
+		
 	}
 
 
@@ -71,6 +72,11 @@ public class Gun extends Weapon {
 	@Override
 	public void tick() {
 		// Does nothing on tick
+	}
+	
+	@Override
+	public String toString() {
+		return "Gun - Ammo: " + ammoCount +"/20";
 	}
 
 }

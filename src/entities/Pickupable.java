@@ -25,4 +25,9 @@ public abstract class Pickupable extends MovableEntity {
 		this.y = y;
 		
 	}
+	
+	@Override
+	public String toString() {
+		return getName();
+	}
 }

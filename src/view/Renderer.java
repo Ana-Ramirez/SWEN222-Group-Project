@@ -104,6 +104,19 @@ public class Renderer implements Serializable{
 		g.setFill(Color.WHITE);
 		g.fillText("LIVES", 420, 20);
 		drawLives(400, 30);
+		
+		g.setStroke(Color.YELLOW);
+		drawItemInfo(200, 65);
+	}
+	
+	private void drawItemInfo(int x, int y) {
+		String text = "";
+		Entity e = level.getPlayer().getHand();
+		if(e != null) {
+			text += e.toString();
+			text = text.toUpperCase();
+			g.strokeText(text, x, y);
+		}
 	}
 
 	/**
