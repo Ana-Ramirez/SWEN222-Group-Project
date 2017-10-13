@@ -10,8 +10,8 @@ import interfaces.Entity;
 public abstract class Weapon extends Pickupable{
 	private int baseDamage;
 
-	public Weapon(String name, double x, double y, int width, int height, Type type, int damage) {
-		super(name, x, y, width, height, type);
+	public Weapon(double x, double y, int width, int height, Type type, int damage) {
+		super(x, y, width, height, type);
 		this.baseDamage = damage;
 	}
 

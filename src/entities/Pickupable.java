@@ -8,8 +8,8 @@ package entities;
  */
 public abstract class Pickupable extends MovableEntity {
 
-	protected Pickupable(String name, double x, double y, int width, int height, Type type) {
-		super(name, x, y, width, height, type);
+	protected Pickupable(double x, double y, int width, int height, Type type) {
+		super(x, y, width, height, type);
 	}
 
 	@Override

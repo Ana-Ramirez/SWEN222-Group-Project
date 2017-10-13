@@ -27,8 +27,8 @@ public class Consumable extends Pickupable {
 	 * @param type
 	 * 		the type to use
 	 */
-	public Consumable(String name, double x, double y, int width, int height, String action, ImgResources img) {
-		super(name, x, y, width, height, null);
+	public Consumable(double x, double y, int width, int height, String action, ImgResources img) {
+		super(x, y, width, height, null);
 		setImage(img);
 		checkAction(action);
 		uses = 1;

@@ -36,8 +36,8 @@ public class Gun extends Weapon {
 	 * @param damage
 	 * 		the base damage to use
 	 */
-	public Gun(String name, double x, double y, int width, int height, Type type, int damage, ImgResources img, ImgResources ammoImg) {
-		super(name, x, y, width, height, type, damage);
+	public Gun(double x, double y, int width, int height, Type type, int damage, ImgResources img, ImgResources ammoImg) {
+		super(x, y, width, height, type, damage);
 		setImage(img);
 		this.ammoImg = ammoImg;
 		ammoCount = 20;
@@ -53,7 +53,7 @@ public class Gun extends Weapon {
 	public Projectile createProjectile(double x, double y) {
 		if (ammoCount > 0) {
 			ammoCount--;
-			return new Projectile(getName() + "Ammo", getX(), getY(), 8, 8, damage, ammoImg, x, y);
+			return new Projectile(getX(), getY(), 8, 8, damage, ammoImg, x, y);
 		} else {
 			return null;
 		}

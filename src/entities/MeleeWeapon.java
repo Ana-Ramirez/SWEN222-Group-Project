@@ -22,8 +22,8 @@ public class MeleeWeapon extends Weapon {
 	 * @param damage
 	 * 		the int amount of damage to use
 	 */
-	public MeleeWeapon(String name, double x, double y, int width, int height, Type type, int damage, ImgResources img) {
-		super(name, x, y, width, height, type, damage);
+	public MeleeWeapon(double x, double y, int width, int height, Type type, int damage, ImgResources img) {
+		super(x, y, width, height, type, damage);
 		setImage(img);
 	}
 

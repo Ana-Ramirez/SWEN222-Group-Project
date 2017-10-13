@@ -180,22 +180,6 @@ public class Room implements Serializable{
 		}
 	}
 
-	/**
-	 *
-	 * @param monster
-	 * @return
-	 */
-	public Entity getMonster(String monster){
-		if(monster == null){ return null; }
-		for(Entity e : this.roomEntities){
-			if(e instanceof Monster){	//if it's the same entity
-				if(e.getName().equals(monster)){
-					return e;
-				}
-			}
-		}
-		return null;
-	}
 
 	/**
 	 * Add an item to this room
@@ -222,19 +206,6 @@ public class Room implements Serializable{
 		return null;
 	}
 
-	/**
-	 * Get an item from this room
-	 * @param s		item name
-	 * @return
-	 */
-	public Entity getItem(String s){
-		for(Entity item : this.roomEntities){
-			if(item.getName().equals(s)){
-				return item;
-			}
-		}
-		return null;
-	}
 
 	/**
 	 * check if a door is locked
