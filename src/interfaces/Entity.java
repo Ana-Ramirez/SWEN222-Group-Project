@@ -47,9 +47,9 @@ public interface Entity extends Serializable {
 	 * Returns the name assigned to the entity
 	 * @return
 	 * 		a string name of the entity
-	 */
+	 
 	public String getName();
-
+*/
 
 	/**
 	 * Sets the new image for the entity

@@ -15,12 +15,10 @@ public abstract class Entities implements Entity {
 	protected double y;
 	private int width;
 	private int height;
-	private String name;
 	private Type type;
 	private ImgResources image;
 
-	protected Entities (String name, double x, double y, int width, int height, Type type) {
-		this.name = name;
+	protected Entities (double x, double y, int width, int height, Type type) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -70,15 +68,6 @@ public abstract class Entities implements Entity {
 	 */
 	public int getHeight() {
 		return height;
-	}
-
-	/**
-	 * Returns the name assigned to the entity
-	 * @return
-	 * 		a string name of the entity
-	 */
-	public String getName() {
-		return name;
 	}
 
 

@@ -25,7 +25,7 @@ public class Player extends Character {
 	 * 		the int height to use
 	 */
 	public Player(double x, double y, int width, int height, ImgResources img) {
-		super("Tim", x, y, width, height, null, 3);
+		super(x, y, width, height, null, 3);
 		setImage(img);
 		inventory = new Pickupable[3];
 		this.speed = 2;

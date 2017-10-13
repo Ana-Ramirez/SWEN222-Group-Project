@@ -30,8 +30,8 @@ public class Monster extends Character {
 	 * @param weapon
 	 * 		the weapon to use
 	 */
-	public Monster(String name, double x, double y, int width, int height, Type type, Weapon weapon, ImgResources img, Enemies stratergy) {
-		super(name, x, y, width, height, type, 100);
+	public Monster(double x, double y, int width, int height, Type type, Weapon weapon, ImgResources img, Enemies stratergy) {
+		super(x, y, width, height, type, 100);
 		setImage(img);
 		this.weapon = weapon;
 		this.pattern = stratergy;

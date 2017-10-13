@@ -8,7 +8,7 @@ public class Wall extends StationaryEntity{
 	String position = null;
 
 	public Wall(String pos, double x, double y, int width, int height){
-		super("Wall", x, y, width, height, null);
+		super(x, y, width, height, null);
 
 		//TODO: check walls
 		switch(pos) {

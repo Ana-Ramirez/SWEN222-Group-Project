@@ -9,8 +9,8 @@ package entities;
 public abstract class MovableEntity extends Entities {
 	protected double speed = 1;
 
-	protected MovableEntity(String name, double x, double y, int width, int height, Type type) {
-		super(name, x, y, width, height, type);
+	protected MovableEntity(double x, double y, int width, int height, Type type) {
+		super(x, y, width, height, type);
 	}
 	
 	/**
