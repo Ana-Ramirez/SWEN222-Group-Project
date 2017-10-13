@@ -1,5 +1,6 @@
 package entities;
 
+import javafx.geometry.BoundingBox;
 import resources.ImgResources;
 
 /**
@@ -28,8 +29,8 @@ public class Consumable extends Pickupable {
 	 * @param type
 	 * 		the type to use
 	 */
-	public Consumable(double x, double y, int width, int height, String action, ImgResources img) {
-		super(x, y, width, height, null);
+	public Consumable(BoundingBox box, String action, ImgResources img) {
+		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), null);
 		setImage(img);
 		checkAction(action);
 		uses = 1;
@@ -41,7 +42,10 @@ public class Consumable extends Pickupable {
 			throw new IllegalArgumentException("Action command incorrect argument number");
 		}
 		try {
-			Double.valueOf(actionCommand[1]);
+			double val = Double.parseDouble(actionCommand[1]);
+			if (val < 0) {
+				throw new NumberFormatException();
+			}
 		} catch (NumberFormatException e){
 			throw new IllegalArgumentException("Action command value in not valid");
 		}

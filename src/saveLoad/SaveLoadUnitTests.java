@@ -2,11 +2,14 @@ package saveLoad;
 
 import static org.junit.Assert.assertEquals;
 
+import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+
+import com.sun.javafx.geom.Rectangle;
 
 import entities.MeleeWeapon;
 import entities.Monster;
@@ -22,6 +25,7 @@ public class SaveLoadUnitTests {
 	 */
 	@Test
 	public void testGameSavingPlayerPosition() {
+		Dimension test = Dimension(1, 2, 3, 4);
 		Player player = new Player(50, 50, 23, 23, null);
 		List<Level> levels = generateLevels(player);
 		Level currentLevel = levels.get(0);

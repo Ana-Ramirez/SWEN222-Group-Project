@@ -11,7 +11,7 @@ public abstract class Weapon extends Pickupable{
 	private static final long serialVersionUID = -3336903366847446135L;
 	private int baseDamage;
 
-	public Weapon(double x, double y, int width, int height, Type type, int damage) {
+	public Weapon(double x, double y, double width, double height, Type type, int damage) {
 		super(x, y, width, height, type);
 		this.baseDamage = damage;
 	}

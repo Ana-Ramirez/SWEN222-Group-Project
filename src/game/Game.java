@@ -7,6 +7,7 @@ import entities.Player;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.geometry.BoundingBox;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -59,7 +60,7 @@ public class Game extends Application {
 	 * Constructs a new Game object
 	 */
 	public Game() {
-		this.player = new Player(50,50, 32, 48, ImgResources.PLAYERDOWN);
+		this.player = new Player(new BoundingBox(50, 50, 32, 48), ImgResources.PLAYERDOWN);
 		generateLevels();
 	}
 

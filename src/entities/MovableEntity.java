@@ -10,7 +10,7 @@ public abstract class MovableEntity extends Entities {
 	private static final long serialVersionUID = -8759622030110383707L;
 	protected double speed = 1;
 
-	protected MovableEntity(double x, double y, int width, int height, Type type) {
+	protected MovableEntity(double x, double y, double width, double height, Type type) {
 		super(x, y, width, height, type);
 	}
 	
