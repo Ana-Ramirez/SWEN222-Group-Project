@@ -80,7 +80,7 @@ public class Gun extends Weapon {
 
 	@Override
 	public String getInfo() {
-		return "Gun - Ammo: " + ammoCount +"/20";
+		return "Gun - Ammo: " + ammoCount;
 	}
 
 }

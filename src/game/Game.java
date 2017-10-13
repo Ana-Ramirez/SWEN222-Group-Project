@@ -59,7 +59,7 @@ public class Game extends Application {
 	 * Constructs a new Game object
 	 */
 	public Game() {
-		this.player = new Player(50,50, 32, 32, ImgResources.PLAYERDOWN);
+		this.player = new Player(50,50, 32, 48, ImgResources.PLAYERDOWN);
 		generateLevels();
 	}
 

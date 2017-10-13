@@ -125,16 +125,24 @@ public class Renderer implements Serializable{
 	 */
 	private void drawInventory(int x, int y){
 		//Draws the outlines
-		g.drawImage(ImgResources.INVENTORYBOX.img, x, y);
-		g.drawImage(ImgResources.INVENTORYBOX.img, x+80, y);
+		//g.drawImage(ImgResources.INVENTORYBOX.img, x, y);
+		//g.drawImage(ImgResources.INVENTORYBOX.img, x+80, y);
+		g.setFill(Color.WHITE);
+		g.fillRect(x, y, 64, 64);
+		g.fillRect(x+80, y, 64, 64);
 
 		//Draws the items
-		Entity[] inventory = level.getCurrentRoom().getPlayer().getInventory();
+		Entity[] inventory = level.getCurrentRoom().getPlayer().getBackpack();
 		if (inventory[0] != null){
-			g.drawImage(inventory[0].getImage().img, x, y);
+			g.drawImage(inventory[0].getImage().img, x+4, y+4, 56, 56);
 		}
 		if (inventory[1] != null){
-			g.drawImage(inventory[1].getImage().img, x+80, y);
+			g.drawImage(inventory[1].getImage().img, x+84, y+4, 56, 56);
+		}
+		
+		Pickupable e = level.getPlayer().getHand();
+		if (e != null) {
+			g.drawImage(e.getImage().img, level.getPlayer().getX()+level.getPlayer().getWidth()+16, level.getPlayer().getY()+level.getPlayer().getHeight()/4d+HUD_HEIGHT, -24, 24);
 		}
 	}
 

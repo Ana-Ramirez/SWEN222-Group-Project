@@ -75,7 +75,8 @@ public class Level implements Serializable{
 		this.rooms.add(room5);
 
 		//create entities to add
-		Consumable consumable = new Consumable(20, 40, 32, 32, "Lives 1", ImgResources.LIFE);
+		Consumable live1 = new Consumable(20, 40, 32, 32, "Lives 1", ImgResources.LIFE);
+		Consumable live2 = new Consumable(20, 40, 32, 32, "Lives 1", ImgResources.LIFE);
 		Consumable ammo = new Consumable(20, 40, 32, 32, "Ammo 20", ImgResources.BULLET);
 
 		Gun gunEarth = new Gun(300, 300, 32, 32, Type.EARTH, 10, ImgResources.GUN, ImgResources.BULLET);
@@ -93,15 +94,15 @@ public class Level implements Serializable{
 		room1.addEntity(gunEarth);
 
 		room2.addEntity(monsterEasy);
-		room2.addEntity(consumable);
+		room2.addEntity(live1);
 
 		room3.addEntity(monsterEasy);
 		room3.addEntity(monsterMedium);
 		room3.addEntity(melee);
 		room3.addEntity(gunFire);
 
-		room4.addEntity(consumable);
-		room4.addEntity(consumable);
+		room4.addEntity(live2);
+		room4.addEntity(ammo);
 		room4.addEntity(monsterHard);
 
 	}
