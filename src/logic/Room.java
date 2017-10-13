@@ -62,12 +62,30 @@ public class Room implements Serializable{
 				break;
 			}
 		}
-
-		for(Entity e : this.roomEntities){
-			if(e instanceof MovableEntity) {
+		ArrayList<Entity> toRemove = new ArrayList<Entity>();
+		for(Entity e : roomEntities){
+			if (e instanceof Projectile) {
+				((Projectile) e).tick();
+				for (Entity b : roomEntities) {
+					if (e.getBoundingBox().intersects(b.getBoundingBox())) {
+						if(b instanceof Wall) {
+							toRemove.add(e);
+							break;
+						} else if (b instanceof Monster) {
+							((Projectile) e).attack(b);
+							toRemove.add(e);
+							if (!((Monster) b).isAlive()) {
+								toRemove.add(b);
+							}
+							break;
+						}
+					}
+				}
+			} else if(e instanceof MovableEntity) {
 				((MovableEntity) e).tick();
 			}
 		}
+		roomEntities.removeAll(toRemove);
 	}
 
 

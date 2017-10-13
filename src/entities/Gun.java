@@ -38,6 +38,7 @@ public class Gun extends Weapon {
 	 */
 	public Gun(double x, double y, int width, int height, Type type, int damage, ImgResources img, ImgResources ammoImg) {
 		super(x, y, width, height, type, damage);
+		this.damage = damage;
 		setImage(img);
 		this.ammoImg = ammoImg;
 		ammoCount = 20;
