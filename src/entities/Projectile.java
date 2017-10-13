@@ -24,4 +24,9 @@ public class Projectile extends Weapon {
 		double newY = speed*Math.sin(theta);
 		moveBy(newX, newY);
 	}
+
+	@Override
+	public String getInfo() {
+		return "Ammo";
+	}
 }

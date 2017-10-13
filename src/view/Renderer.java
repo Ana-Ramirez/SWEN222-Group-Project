@@ -2,6 +2,7 @@ package view;
 
 import java.io.Serializable;
 
+import entities.Pickupable;
 import interfaces.Entity;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -110,12 +111,9 @@ public class Renderer implements Serializable{
 	}
 	
 	private void drawItemInfo(int x, int y) {
-		String text = "";
-		Entity e = level.getPlayer().getHand();
+		Pickupable e = level.getPlayer().getHand();
 		if(e != null) {
-			text += e.toString();
-			text = text.toUpperCase();
-			g.strokeText(text, x, y);
+			g.strokeText(e.getInfo().toUpperCase(), x, y);
 		}
 	}
 

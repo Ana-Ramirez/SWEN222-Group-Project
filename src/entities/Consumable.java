@@ -79,7 +79,11 @@ public class Consumable extends Pickupable {
 	@Override
 	public void tick() {
 		// Does nothing on tick
+	}
 
+	@Override
+	public String getInfo() {
+		return commands[0];
 	}
 
 }

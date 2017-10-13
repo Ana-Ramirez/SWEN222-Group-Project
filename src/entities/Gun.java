@@ -74,8 +74,9 @@ public class Gun extends Weapon {
 		// Does nothing on tick
 	}
 	
+
 	@Override
-	public String toString() {
+	public String getInfo() {
 		return "Gun - Ammo: " + ammoCount +"/20";
 	}
 

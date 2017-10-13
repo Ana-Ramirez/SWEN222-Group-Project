@@ -30,7 +30,11 @@ public class MeleeWeapon extends Weapon {
 	@Override
 	public void tick() {
 		//Does nothing on tick
+	}
 
+	@Override
+	public String getInfo() {
+		return "Melee Weapon";
 	}
 
 }
