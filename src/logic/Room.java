@@ -48,14 +48,15 @@ public class Room implements Serializable{
 	 */
 	public void tick(float x, float y, int tickNo) {
 		playerTick(x, y);
+		
 		ArrayList<Entity> toRemove = new ArrayList<>();
 		for(Entity e : roomEntities){
 			if (e instanceof Projectile) {
 				toRemove.addAll(projectileTick((Projectile)e));
 			} else if(e instanceof MovableEntity) {
 				((MovableEntity) e).tick();
-			} if(e instanceof Monster && e.getBoundingBox().intersects(getPlayer().getBoundingBox()) && tickNo % 25 == 0){
-				((Monster)e).attack(getPlayer());
+			} if(e instanceof Monster && e.getBoundingBox().intersects(getPlayer().getBoundingBox())){
+				((Monster)e).attack(getPlayer(), tickNo);
 			}
 		}
 		roomEntities.removeAll(toRemove);
@@ -170,17 +171,17 @@ public class Room implements Serializable{
 	 * which the player is colliding with
 	 */
 	public void pickupItem(){
-		Pickupable toRemove = null;
+		ArrayList<Pickupable> toRemove = new ArrayList<>();
 		Pickupable toAdd = null;
 		for(Entity e : this.roomEntities){
 			if(e.getBoundingBox().intersects(getPlayer().getBoundingBox()) 
 					&& e instanceof Pickupable){
 				toAdd = getPlayer().pickup( (Pickupable)e );
-				toRemove = (Pickupable)e;
+				toRemove.add((Pickupable)e);
 			}
 		}
-		if (toRemove != null) {
-			roomEntities.remove(toRemove);
+		if (!toRemove.isEmpty()) {
+			roomEntities.removeAll(toRemove);
 		} if (toAdd != null) {
 			roomEntities.add(toAdd);
 		}

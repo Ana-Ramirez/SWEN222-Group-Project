@@ -13,6 +13,7 @@ public class Monster extends Character {
 	private static final long serialVersionUID = -4064250638229615542L;
 	private Weapon weapon;
 	private Enemies pattern;
+	private int oldTick = 0;
 
 
 	/**
@@ -63,7 +64,12 @@ public class Monster extends Character {
 	 * @return
 	 * 		true if successful
 	 */
-	public boolean attack(Entities victim) {
-		return weapon.attack(victim);
+	public boolean attack(Entities victim, int tick) {
+		if ((tick-oldTick) >= 120) {
+			oldTick = tick;
+			return weapon.attack(victim);
+		} else {
+			return false;
+		}
 	}
 }

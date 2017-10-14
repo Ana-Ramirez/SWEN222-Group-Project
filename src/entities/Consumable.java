@@ -88,7 +88,7 @@ public class Consumable extends Pickupable {
 
 	@Override
 	public String getInfo() {
-		return commands[0];
+		return action;
 	}
 
 }
