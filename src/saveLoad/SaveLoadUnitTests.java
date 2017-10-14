@@ -9,24 +9,25 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.sun.javafx.geom.Rectangle;
-
 import entities.MeleeWeapon;
 import entities.Monster;
 import entities.Player;
 import entities.Type;
 import interfaces.Entity;
+import javafx.geometry.BoundingBox;
 import logic.Level;
 import logic.Room;
 
 public class SaveLoadUnitTests {
+	
+	BoundingBox boundingBox = new BoundingBox(50, 50, 23, 23);
+	
 	/**
 	 * Tests that the player position is saved
 	 */
 	@Test
 	public void testGameSavingPlayerPosition() {
-		Dimension test = Dimension(1, 2, 3, 4);
-		Player player = new Player(50, 50, 23, 23, null);
+		Player player = new Player(boundingBox, null);
 		List<Level> levels = generateLevels(player);
 		Level currentLevel = levels.get(0);
 		
@@ -50,7 +51,7 @@ public class SaveLoadUnitTests {
 	 */
 	@Test
 	public void testGameSavingRoom() {
-		Player player = new Player(50, 50, 23, 23, null);
+		Player player = new Player(boundingBox, null);
 		List<Level> levels = generateLevels(player);
 		Level currentLevel = levels.get(0);
 		currentLevel.setCurrentRoom(currentLevel.getRoom(3));
@@ -73,11 +74,11 @@ public class SaveLoadUnitTests {
 	 */
 	@Test
 	public void testGameSavingLives() {
-		Player player = new Player(50, 50, 23, 23, null);
+		Player player = new Player(boundingBox, null);
 		List<Level> levels = generateLevels(player);
 		Level currentLevel = levels.get(0);	
-		MeleeWeapon melee = new MeleeWeapon(100, 100, 32, 32, Type.WATER, 40, null);
-		Monster monster = new Monster(0, 0, 0, 0, Type.WATER, melee, null, null);
+		MeleeWeapon melee = new MeleeWeapon(boundingBox, Type.WATER, 40, null);
+		Monster monster = new Monster(boundingBox, Type.WATER, melee, null, null);
 		monster.attack(player);
 		
 		GameData gd = new GameData(player, levels, currentLevel);
@@ -97,7 +98,7 @@ public class SaveLoadUnitTests {
 	 */
 	@Test
 	public void testGameSavingRoomEntities() {
-		Player player = new Player(50, 50, 23, 23, null);
+		Player player = new Player(boundingBox, null);
 		List<Level> levels = generateLevels(player);
 		Level currentLevel = levels.get(0);
 		
@@ -147,7 +148,7 @@ public class SaveLoadUnitTests {
 	@Test
 	public void testGameOverwrite() {
 		//1st save
-		Player player = new Player(50, 50, 23, 23, null);
+		Player player = new Player(boundingBox, null);
 		List<Level> levels = generateLevels(player);
 		Level currentLevel = levels.get(0);
 		
@@ -159,7 +160,7 @@ public class SaveLoadUnitTests {
 		save.saveGame(new File("Player_move"));
 		
 		//Second save over first
-		Player newPlayer = new Player(50, 50, 23, 23, null);
+		Player newPlayer = new Player(boundingBox, null);
 		List<Level> newLevels = generateLevels(player);
 		Level newCurrentLevel = levels.get(0);
 		
@@ -180,18 +181,4 @@ public class SaveLoadUnitTests {
 	}
 	
 	
-
 }
-
-//class TestClass implements Serializable{
-//
-//	private String str;
-//	
-//	public TestClass(String str){
-//		this.str = str;
-//	}
-//	
-//	public String getStr() {
-//		return str;
-//	}
-//}

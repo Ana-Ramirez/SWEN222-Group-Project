@@ -54,7 +54,7 @@ public class Room implements Serializable{
 				toRemove.addAll(projectileTick((Projectile)e));
 			} else if(e instanceof MovableEntity) {
 				((MovableEntity) e).tick();
-			} if(e instanceof Monster && e.getBoundingBox().intersects(getPlayer().getBoundingBox())){
+			} if(e instanceof Monster && e.getBoundingBox().intersects(getPlayer().getBoundingBox()) && tickNo % 25 == 0){
 				((Monster)e).attack(getPlayer());
 			}
 		}
