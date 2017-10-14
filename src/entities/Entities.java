@@ -1,8 +1,9 @@
 package entities;
 
 
+import java.awt.geom.Rectangle2D;
+
 import interfaces.Entity;
-import javafx.geometry.BoundingBox;
 import resources.ImgResources;
 
 /**
@@ -122,8 +123,8 @@ public abstract class Entities implements Entity {
 	 * @return
 	 * 		the image object
 	 */
-	public BoundingBox getBoundingBox() {
-		return new BoundingBox(getX(), getY(), getWidth(), getHeight());
+	public Rectangle2D.Double getBoundingBox() {
+		return new Rectangle2D.Double(getX(), getY(), getWidth(), getHeight());
 	}
 
 

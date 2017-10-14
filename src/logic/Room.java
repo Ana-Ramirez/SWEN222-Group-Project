@@ -1,5 +1,6 @@
 package logic;
 
+import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,6 @@ import entities.Player;
 import entities.Projectile;
 import interfaces.Entity;
 import interfaces.MoveableEntity;
-import javafx.geometry.BoundingBox;
 import view.Renderer;
 
 /**
@@ -26,6 +26,7 @@ import view.Renderer;
  */
 public class Room implements Serializable{
 
+	private static final long serialVersionUID = -5452360281885911070L;
 	private int roomNum;
 	private List<Entity> roomEntities;
 	private Level level;
@@ -130,7 +131,6 @@ public class Room implements Serializable{
 	 */
 	public void goThroughDoor(Door d){
 		Room gotoRoom = (this == d.getRoom1()) ? d.getRoom2() : d.getRoom1();
-		roomEntities.remove(getPlayer());
 		level.gotoRoom(gotoRoom);
 	}
 
@@ -141,8 +141,8 @@ public class Room implements Serializable{
 	 * collided with
 	 */
 	private int movePlayer(float x, float y){
-		BoundingBox boxX = new BoundingBox(getPlayer().getX()+x*2, getPlayer().getY(), getPlayer().getWidth(), getPlayer().getHeight());
-		BoundingBox boxY = new BoundingBox(getPlayer().getX(), getPlayer().getY()+y*2, getPlayer().getWidth(), getPlayer().getHeight());
+		Rectangle2D.Double boxX = new Rectangle2D.Double(getPlayer().getX()+x*2, getPlayer().getY(), getPlayer().getWidth(), getPlayer().getHeight());
+		Rectangle2D.Double boxY = new Rectangle2D.Double(getPlayer().getX(), getPlayer().getY()+y*2, getPlayer().getWidth(), getPlayer().getHeight());
 
 		int collision = 1;
 
@@ -171,19 +171,22 @@ public class Room implements Serializable{
 	 * which the player is colliding with
 	 */
 	public void pickupItem(){
-		ArrayList<Pickupable> toRemove = new ArrayList<>();
+		Pickupable toRemove = null;
 		Pickupable toAdd = null;
 		for(Entity e : this.roomEntities){
 			if(e.getBoundingBox().intersects(getPlayer().getBoundingBox()) 
 					&& e instanceof Pickupable){
-				toAdd = getPlayer().pickup( (Pickupable)e );
-				toRemove.add((Pickupable)e);
+				toRemove = (Pickupable)e;
+				toAdd = (Pickupable)e;
 			}
 		}
-		if (!toRemove.isEmpty()) {
-			roomEntities.removeAll(toRemove);
+		if (toRemove != null) {
+			roomEntities.remove(toRemove);
 		} if (toAdd != null) {
-			roomEntities.add(toAdd);
+			toAdd = getPlayer().pickup(toAdd);
+			if (toAdd != null) {
+				roomEntities.add(toAdd);
+			}
 		}
 	}
 	

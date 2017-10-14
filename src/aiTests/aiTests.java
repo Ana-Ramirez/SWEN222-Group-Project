@@ -10,10 +10,11 @@ import entities.Type;
 import interfaces.Entity;
 import interfaces.MoveableEntity;
 import interfaces.StratergyPattern;
-import javafx.geometry.BoundingBox;
 import resources.ImgResources;
 
 import static org.junit.Assert.*;
+
+import java.awt.geom.Rectangle2D;
 
 @SuppressWarnings("serial")
 public class aiTests {
@@ -41,7 +42,7 @@ public class aiTests {
 		@Override
 		public ImgResources getImage() {return null;}
 		@Override
-		public BoundingBox getBoundingBox() {return null;}
+		public Rectangle2D.Double getBoundingBox() {return null;}
 	}
 	
 	
@@ -70,7 +71,7 @@ public class aiTests {
 		@Override
 		public ImgResources getImage() {return null;}
 		@Override
-		public BoundingBox getBoundingBox() {return null;}
+		public Rectangle2D.Double getBoundingBox() {return null;}
 		@Override
 		public void moveBy(double x, double y) {
 			this.x += x*speed;

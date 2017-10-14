@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class Game extends Application {
 	 * Constructs a new Game object
 	 */
 	public Game() {
-		this.player = new Player(new BoundingBox(50, 50, 32, 48), ImgResources.PLAYERDOWN);
+		this.player = new Player(new Rectangle2D.Double(50, 50, 32, 48), ImgResources.PLAYERDOWN);
 		generateLevels();
 	}
 
