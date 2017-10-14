@@ -56,7 +56,22 @@ public class Game extends Application {
 	 * Timer for the main Game loop
 	 */
 	private AnimationTimer timer;
-
+	
+	/**
+	 * Pause Menu
+	 */
+	private PauseMenu pm;
+	
+	/**
+	 * Game Over Menu
+	 */
+	private GameOverMenu gom;
+	
+	/**
+	 * Renderer
+	 */
+	private Renderer renderer;
+	
 	/**
 	 * Constructs a new Game object
 	 */
@@ -92,14 +107,33 @@ public class Game extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		//Initialise Renderer
-		Renderer renderer = new Renderer(currentLevel);
+		this.renderer = new Renderer(currentLevel);
 		renderer.initialDraw();
 
 		Scene scene = renderer.getScene();
-		GameOverMenu gom = new GameOverMenu(this);
+		this.gom = new GameOverMenu(this);
+    	this.pm = new PauseMenu(this);
 
 
 		//Game loop
+		initialiseTimer(stage);
+
+
+		keyListener(scene, stage);
+		mouseListener(scene);
+
+		stage.setScene(scene);
+		stage.show();
+
+
+        timer.start();
+	}
+	
+	/**
+	 * Initialises game time (Game Loop)
+	 * @param stage
+	 */
+	private void initialiseTimer(Stage stage) {
 		timer = new AnimationTimer() {
 			@Override
 			public void handle(long now) {				
@@ -125,11 +159,29 @@ public class Game extends Application {
 				tickNumber++;
 			}
 		};
+	}
+	
+	/**
+	 * Initialises mouse listener
+	 * @param scene
+	 */
+	private void mouseListener(Scene scene) {
+		scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				currentLevel.getCurrentRoom().use((float) event.getX(), (float) event.getY());
+			}
 
-    	PauseMenu pm = new PauseMenu(this);
 
-
-        //Key listening
+		});
+	}
+	
+	/**
+	 * Initialises key listener
+	 * @param scene
+	 * @param stage
+	 */
+	private void keyListener(Scene scene, Stage stage) {
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
@@ -156,7 +208,7 @@ public class Game extends Application {
 				}
 			}
 		});
-
+		
 		scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -170,22 +222,6 @@ public class Game extends Application {
                 }
             }
         });
-
-		//Mouse Listening
-		scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				currentLevel.getCurrentRoom().use((float) event.getX(), (float) event.getY());
-			}
-
-
-		});
-
-		stage.setScene(scene);
-		stage.show();
-
-
-        timer.start();
 	}
 
 //==================GETTERS AND SETTERS====================//
