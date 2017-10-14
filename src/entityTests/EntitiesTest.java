@@ -74,13 +74,13 @@ public class EntitiesTest {
 		Weapon weapon = new MeleeWeapon(new BoundingBox(0, 0, 5, 5), Type.WATER, 5, null);
 		Monster monster = new Monster(new BoundingBox(0, 0, 5, 5), Type.WATER, weapon, null, null);
 		assertEquals(3, player.getLives());
-		assertTrue(monster.attack(player));
+		assertTrue(monster.attack(player, 120));
 		assertEquals(2, player.getLives());
-		assertTrue(monster.attack(player));
+		assertTrue(monster.attack(player, 240));
 		assertEquals(1, player.getLives());
-		assertTrue(monster.attack(player));
+		assertTrue(monster.attack(player, 360));
 		assertEquals(0, player.getLives());
-		assertFalse(monster.attack(player));
+		assertFalse(monster.attack(player, 480));
 		assertEquals(0, player.getLives());
 	}
 
@@ -140,16 +140,16 @@ public class EntitiesTest {
 		Monster monster = new Monster(new BoundingBox(0, 0, 5, 5), Type.WATER, weapon, null, null);
 		assertEquals(3, player.getLives());
 		assertTrue(player.isAlive());
-		assertTrue(monster.attack(player));
+		assertTrue(monster.attack(player, 120));
 		assertEquals(2, player.getLives());
 		assertTrue(player.isAlive());
-		assertTrue(monster.attack(player));
+		assertTrue(monster.attack(player, 240));
 		assertEquals(1, player.getLives());
 		assertTrue(player.isAlive());
-		assertTrue(monster.attack(player));
+		assertTrue(monster.attack(player, 360));
 		assertEquals(0, player.getLives());
 		assertFalse(player.isAlive());
-		assertFalse(monster.attack(player));
+		assertFalse(monster.attack(player, 480));
 		assertEquals(0, player.getLives());
 		assertFalse(player.isAlive());
 	}
@@ -192,7 +192,7 @@ public class EntitiesTest {
 	public void useHealthConsumable() {
 		Player player = new Player(new BoundingBox(0, 0, 5, 5), null);
 		Consumable cons = new Consumable(new BoundingBox(0, 0, 5, 5), "Lives, 2", null);
-		assertEquals("Lives", cons.getInfo());
+		assertEquals("Lives, 2", cons.getInfo());
 		assertEquals(3, player.getLives());
 		assertNull(player.pickup(cons));
 		assertTrue(((Consumable) player.getHand()).canUse());
@@ -657,6 +657,22 @@ public class EntitiesTest {
 		bullet.tick();
 		assertEquals(5.995854917833179, bullet.getY(), 0);
 		assertEquals(12.538294858075496, bullet.getX(), 0);
+	}
+	
+	
+	@Test
+	public void MonsterAttackingTooQuickly() {
+		Player player = new Player(new BoundingBox(0, 0, 5, 5), null);
+		Weapon weapon = new MeleeWeapon(new BoundingBox(0, 0, 5, 5), Type.WATER, 5, null);
+		Monster monster = new Monster(new BoundingBox(0, 0, 5, 5), Type.WATER, weapon, null, null);
+		assertEquals(3, player.getLives());
+		assertTrue(player.isAlive());
+		assertTrue(monster.attack(player, 120));
+		assertEquals(2, player.getLives());
+		assertTrue(player.isAlive());
+		assertFalse(monster.attack(player, 180));
+		assertEquals(2, player.getLives());
+		assertTrue(player.isAlive());
 	}
 
 
