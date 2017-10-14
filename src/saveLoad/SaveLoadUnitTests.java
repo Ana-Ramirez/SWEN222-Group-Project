@@ -83,7 +83,6 @@ public class SaveLoadUnitTests {
 		
 		Load load = new Load("Lives.txt");
 		GameData loadedGame = load.loadGame();
-		Level loadedCurrentLevel = loadedGame.getCurrentLevel();
 		Player loadedPlayer = loadedGame.getPlayer();
 			
 		assertEquals(player.getLives(),loadedPlayer.getLives());
@@ -133,9 +132,9 @@ public class SaveLoadUnitTests {
 	 * Canceling load
 	 */
 	@Test (expected = NullPointerException.class)
-	public void externalTest1(){
+	public void checkNullSave(){
 		Load load = new Load(null);
-		GameData testout = load.loadGame();
+		load.loadGame();
 	}
 	
 	/**
