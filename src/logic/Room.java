@@ -65,8 +65,8 @@ public class Room implements Serializable{
 	}
 	
 	private void playerTick(float x, float y) {
+		getPlayer().tick();
 		if (x != 0 || y != 0) {
-			
 			int answer = movePlayer(x, y);
 			if (answer % 3 == 0 && answer % 2 == 0) {
 				return;
