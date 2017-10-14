@@ -4,15 +4,17 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import entities.Consumable;
+import entities.Entities;
 import entities.Gun;
 import entities.MeleeWeapon;
 import entities.Monster;
 import entities.Player;
 import entities.Projectile;
-import entities.StationaryEntity;
 import entities.Type;
 import entities.Weapon;
-import interfaces.Enemies;
+import interfaces.Entity;
+import interfaces.MoveableEntity;
+import interfaces.StratergyPattern;
 import javafx.geometry.BoundingBox;
 import javafx.scene.image.Image;
 import resources.ImgResources;
@@ -21,18 +23,34 @@ import resources.ImgResources;
 public class EntitiesTest {
 
 	@SuppressWarnings("serial")
-	class MockMonsterPattern implements Enemies {
-		public void tick(Monster monster) {
+	class MockMonsterPattern implements StratergyPattern {
+		public void tick(MoveableEntity monster) {
 			monster.moveBy(1, 1);
+		}
+
+		@Override
+		public double getSpeed() {
+			return 0;
+		}
+
+		@Override
+		public void setSpeed(double speed) {
 		}
 	}
 	
 	@SuppressWarnings("serial")
-	class StationaryTest extends StationaryEntity {
-		public StationaryTest(double x, double y, double width, double height, ImgResources img) {
-			super(x, y, width, height, img);
+	class TestEntity extends Entities {
+
+		public TestEntity(double x, double y, double width, double height, Type type, ImgResources img) {
+			super(x, y, width, height, type, img);
+		}
+
+		@Override
+		protected boolean hit(int damage) {
+			return false;
 		}
 	}
+
 
 	@Test
 	public void createPlayer() {
@@ -516,27 +534,20 @@ public class EntitiesTest {
 	public void validExtendedBoundingBox() {
 		Player player = new Player(new BoundingBox(5, 5, 5, 5), null);
 		BoundingBox box1 = player.getExtendedBoundingBox();
-		assertEquals(player.getX()-5, box1.getMinX(), 0);
-		assertEquals(player.getY()-5, box1.getMinY(), 0);
-		assertEquals(player.getWidth()+10, box1.getWidth(), 0);
-		assertEquals(player.getHeight()+10, box1.getHeight(), 0);
+		assertEquals(player.getX()-20, box1.getMinX(), 0);
+		assertEquals(player.getY()-20, box1.getMinY(), 0);
+		assertEquals(player.getWidth()+40, box1.getWidth(), 0);
+		assertEquals(player.getHeight()+40, box1.getHeight(), 0);
 
 		player.moveBy(10, 10);
 		BoundingBox box2 = player.getExtendedBoundingBox();
 
-		assertEquals(20, box2.getMinX(), 0);
-		assertEquals(20, box2.getMinY(), 0);
-		assertEquals(15, box2.getWidth(), 0);
-		assertEquals(15, box2.getHeight(), 0);
+		assertEquals(player.getX()-20, box2.getMinX(), 0);
+		assertEquals(player.getY()-20, box2.getMinY(), 0);
+		assertEquals(player.getWidth()+40, box2.getWidth(), 0);
+		assertEquals(player.getHeight()+40, box2.getHeight(), 0);
 	}
 
-	
-	@Test
-	public void attackStationary() {
-		StationaryEntity stat = new StationaryTest(0, 0, 5, 5, null);
-		Weapon sword = new MeleeWeapon(new BoundingBox(0, 0, 5, 5), Type.WATER, 5, null);
-		assertFalse(sword.attack(stat));
-	}
 
 	@Test
 	public void attackConsumable() {
@@ -571,13 +582,13 @@ public class EntitiesTest {
 	public void testStatergyPattern() {
 		Monster monster = new Monster(new BoundingBox(0, 0, 5, 5), Type.WATER, null, null, new MockMonsterPattern());
 		assertEquals(0, monster.getX(), 0);
-		assertEquals(0, monster.getX(), 0);
+		assertEquals(0, monster.getY(), 0);
 		monster.tick();
 		assertEquals(1, monster.getX(), 0);
-		assertEquals(1, monster.getX(), 0);
+		assertEquals(1, monster.getY(), 0);
 		monster.tick();
 		assertEquals(2, monster.getX(), 0);
-		assertEquals(2, monster.getX(), 0);
+		assertEquals(2, monster.getY(), 0);
 	}
 
 	@Test
@@ -674,6 +685,11 @@ public class EntitiesTest {
 		assertEquals(2, player.getLives());
 		assertTrue(player.isAlive());
 	}
+	
+	@Test
+	public void CreateFromAbstractEntity() {
+		Entity test = new TestEntity(100, 100, 5, 5, null, null);
+	}
 
 
 	/**
@@ -683,12 +699,6 @@ public class EntitiesTest {
 	@Test
 	public void createConsumable() {
 		Consumable cons = new Consumable(new BoundingBox(0, 0, 5, 5), "Lives, 2", null);
-	}
-
-	
-	@Test
-	public void createStationaryEntity() {
-		StationaryEntity sEntity = new StationaryTest(0, 0, 5, 5, null);
 	}
 
 

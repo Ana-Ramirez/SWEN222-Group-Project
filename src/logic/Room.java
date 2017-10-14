@@ -8,11 +8,11 @@ import entities.Consumable;
 import entities.Gun;
 import entities.MeleeWeapon;
 import entities.Monster;
-import entities.MovableEntity;
 import entities.Pickupable;
 import entities.Player;
 import entities.Projectile;
 import interfaces.Entity;
+import interfaces.MoveableEntity;
 import javafx.geometry.BoundingBox;
 import view.Renderer;
 
@@ -53,8 +53,8 @@ public class Room implements Serializable{
 		for(Entity e : roomEntities){
 			if (e instanceof Projectile) {
 				toRemove.addAll(projectileTick((Projectile)e));
-			} else if(e instanceof MovableEntity) {
-				((MovableEntity) e).tick();
+			} else if(e instanceof MoveableEntity) {
+				((MoveableEntity) e).tick();
 			} if(e instanceof Monster && e.getBoundingBox().intersects(getPlayer().getBoundingBox())){
 				((Monster)e).attack(getPlayer(), tickNo);
 			}
@@ -264,6 +264,12 @@ public class Room implements Serializable{
 	public List<Entity> getEntities(){
 		return this.roomEntities;
 	}
+	
+	private boolean attackMonster(Monster m, float x, float y) {
+		//TODO: implement directional hitting
+		((MeleeWeapon) getPlayer().getHand()).attack(m);
+		return ((m).isAlive()) ? false : true;
+	}
 
 	/**
 	 * Scans the extended surrounding player box for a monster and attacks it
@@ -273,11 +279,13 @@ public class Room implements Serializable{
 	public void use(float x, float y) {
 		Pickupable hand = getPlayer().getHand();
 		if (hand instanceof MeleeWeapon) {
+			ArrayList<Entity> toRemove = new ArrayList<>();
 			for(Entity e : this.roomEntities){
-				if(e.getBoundingBox().intersects(this.getPlayer().getExtendedBoundingBox()) && e instanceof Monster){
-					((MeleeWeapon) hand).attack(e);
+				if(e.getBoundingBox().intersects(this.getPlayer().getExtendedBoundingBox()) && e instanceof Monster && attackMonster((Monster)e, x, y)){
+					toRemove.add(e);
 				}
 			} //End of entities iteration
+			roomEntities.removeAll(toRemove);
 		} else if (hand instanceof Gun) {
 			Projectile bullet = ((Gun) hand).createProjectile(x, y-Renderer.HUD_HEIGHT);
 			if (bullet != null) {

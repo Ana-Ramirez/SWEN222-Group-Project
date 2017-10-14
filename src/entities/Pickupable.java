@@ -5,7 +5,7 @@ package entities;
  * @author Nick Lauder
  *
  */
-public abstract class Pickupable extends MovableEntity {
+public abstract class Pickupable extends MovableEntities {
 	private static final long serialVersionUID = 1654057472702704263L;
 
 	protected Pickupable(double x, double y, double width, double height, Type type) {

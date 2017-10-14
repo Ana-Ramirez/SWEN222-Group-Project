@@ -6,7 +6,7 @@ package entities;
  * @author Nick Lauder
  *
  */
-public abstract class Character extends MovableEntity {
+public abstract class Character extends MovableEntities {
 	private static final long serialVersionUID = 4776917612212761920L;
 	protected int lives;
 

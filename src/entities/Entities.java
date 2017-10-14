@@ -27,6 +27,30 @@ public abstract class Entities implements Entity {
 		this.height = height;
 		this.type = type;
 	}
+	
+	/**
+	 * Public constructor for entities
+	 * @param x
+	 * 		the x coordinate to use
+	 * @param y
+	 * 		the y coordinate to use
+	 * @param width
+	 * 		the width to use
+	 * @param height
+	 * 		the height to use
+	 * @param type
+	 * 		the type to use
+	 * @param img
+	 * 		the image reference to use
+	 */
+	public Entities (double x, double y, double width, double height, Type type, ImgResources img) {
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.type = type;
+		this.image = img;
+	}
 
 	/**
 	 * Gets the type assigned to the object

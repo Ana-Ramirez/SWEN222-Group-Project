@@ -1,6 +1,6 @@
 package entities;
 
-import interfaces.Enemies;
+import interfaces.StratergyPattern;
 import javafx.geometry.BoundingBox;
 import resources.ImgResources;
 
@@ -12,7 +12,7 @@ import resources.ImgResources;
 public class Monster extends Character {
 	private static final long serialVersionUID = -4064250638229615542L;
 	private Weapon weapon;
-	private Enemies pattern;
+	private StratergyPattern pattern;
 	private int oldTick = 0;
 
 
@@ -33,7 +33,7 @@ public class Monster extends Character {
 	 * @param weapon
 	 * 		the weapon to use
 	 */
-	public Monster(BoundingBox box, Type type, Weapon weapon, ImgResources img, Enemies stratergy) {
+	public Monster(BoundingBox box, Type type, Weapon weapon, ImgResources img, StratergyPattern stratergy) {
 		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), type, 100);
 		setImage(img);
 		this.weapon = weapon;

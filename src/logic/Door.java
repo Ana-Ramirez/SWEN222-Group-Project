@@ -2,8 +2,8 @@ package logic;
 
 import interfaces.Entity;
 import javafx.scene.image.Image;
+import entities.Entities;
 import entities.Pickupable;
-import entities.StationaryEntity;
 import entities.Type;
 import game.GameException;
 import resources.ImgResources;
@@ -16,7 +16,7 @@ import view.Renderer;
  * @author lewismcewan
  *
  */
-public class Door extends StationaryEntity{
+public class Door extends Entities{
 
 	private Room room1, room2;
 	//TODO: set to unlocked by default for development
@@ -33,9 +33,9 @@ public class Door extends StationaryEntity{
 	 * @param doorNum		which number door in the room this is
 	 * @param position		the wall this door sits on
 	 */
-	public Door(Room rm1, Room rm2, Pickupable item, int doorNum, int position){//, Image img){
+	public Door(Room rm1, Room rm2, Pickupable item, int doorNum, int position) {
 		//here the x, y, width, height are just placed in as fillers in the super. They are actually set below
-		super(Renderer.ROOM_WIDTH, Renderer.ROOM_HEIGHT, 32, 32, null);
+		super(Renderer.ROOM_WIDTH, Renderer.ROOM_HEIGHT, 32, 32, null, null);
 
 		setDoorPosition(position);
 
@@ -148,6 +148,11 @@ public class Door extends StationaryEntity{
 	 */
 	public int getDoorPosition(){
 		return this.position;
+	}
+
+	@Override
+	protected boolean hit(int damage) {
+		return false;
 	}
 
 }

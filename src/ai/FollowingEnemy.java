@@ -1,8 +1,8 @@
 package ai;
 
-import entities.Monster;
-import entities.Player;
-import interfaces.Enemies;
+import interfaces.Entity;
+import interfaces.MoveableEntity;
+import interfaces.StratergyPattern;
 
 /**
  * Class controlling the AI for the enemy that follows the player
@@ -10,19 +10,20 @@ import interfaces.Enemies;
  * @author Ana Ramirez
  */
 
-public class FollowingEnemy implements Enemies {
+public class FollowingEnemy implements StratergyPattern {
 
-	public Player player;
-	public float speed = 0.5f;
+	private static final long serialVersionUID = 7116534404337031487L;
+	private final Entity player;
+	private double speed = 0.5f;
 
-	public FollowingEnemy(Player player) {
+	public FollowingEnemy(Entity player) {
 		this.player = player;
 	}
 	
 	/**
 	 * Do relevant movement
 	 */
-	public void tick(Monster monster) {
+	public void tick(MoveableEntity monster) {
 		
 		if(monster == null){
 			return;
@@ -46,11 +47,14 @@ public class FollowingEnemy implements Enemies {
 
 	}
 
-	/**
-	 * Speed of movement
-	 */
-	public float speed() {
+	@Override
+	public double getSpeed() {
 		return speed;
+	}
+
+	@Override
+	public void setSpeed(double speed) {
+		this.speed = speed;
 	}
 
 }

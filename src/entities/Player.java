@@ -157,7 +157,7 @@ public class Player extends Character {
 	 * @return
 	 */
 	public BoundingBox getExtendedBoundingBox() {
-		return new BoundingBox(getX()-5, getY()-5, getWidth()+10, getHeight()+10);
+		return new BoundingBox(getX()-20, getY()-20, getWidth()+40, getHeight()+40);
 	}
 
 

@@ -11,7 +11,7 @@ import entities.MeleeWeapon;
 import entities.Monster;
 import entities.Player;
 import entities.Type;
-import interfaces.Enemies;
+import interfaces.StratergyPattern;
 import javafx.geometry.BoundingBox;
 import resources.ImgResources;
 import view.Renderer;
@@ -84,7 +84,7 @@ public class Level implements Serializable{
 		Gun gunFire = new Gun(new BoundingBox(200, 300, 32, 32), Type.FIRE, 20, ImgResources.GUN, ImgResources.BULLET);
 		MeleeWeapon melee = new MeleeWeapon(new BoundingBox(100, 100, 32, 32), Type.WATER, 40, ImgResources.CONSOLE1);
 
-		Enemies pattern = new FollowingEnemy(player);
+		StratergyPattern pattern = new FollowingEnemy(player);
 
 		Monster monsterEasy = new Monster(new BoundingBox(200, 200, 32, 32), Type.EARTH, gunEarth, ImgResources.MONSTER, pattern);
 		Monster monsterMedium = new Monster(new BoundingBox(200, 200, 50, 50), Type.FIRE, gunFire, ImgResources.MONSTER, pattern);

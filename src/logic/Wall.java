@@ -1,9 +1,9 @@
 package logic;
 
-import entities.StationaryEntity;
+import entities.Entities;
 import resources.ImgResources;
 
-public class Wall extends StationaryEntity{
+public class Wall extends Entities {
 
 	String position = null;
 
@@ -27,6 +27,11 @@ public class Wall extends StationaryEntity{
 
 	public String getPosition(){
 		return this.position;
+	}
+
+	@Override
+	protected boolean hit(int damage) {
+		return false;
 	}
 
 }
