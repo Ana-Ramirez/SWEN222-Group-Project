@@ -13,8 +13,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import logic.Level;
-import logic.Room;
 import resources.ImgResources;
+import view.GameOverMenu;
 import view.PauseMenu;
 import view.Renderer;
 
@@ -95,6 +95,7 @@ public class Game extends Application {
 		renderer.initialDraw();
 
 		Scene scene = renderer.getScene();
+		GameOverMenu gom = new GameOverMenu(this);
 
 
 		//Game loop
@@ -107,7 +108,16 @@ public class Game extends Application {
 				if (goDown) dy += 1;
 				if (goLeft)  dx -= 1;
 				if (goRight)  dx += 1;
-			
+				
+				if(player.getLives() == 0) {
+					try {
+						this.stop();
+						gom.start(stage);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				
 				currentLevel.getCurrentRoom().tick(dx, dy, tickNumber);
 				renderer.repaint();
 				
@@ -116,6 +126,7 @@ public class Game extends Application {
 		};
 
     	PauseMenu pm = new PauseMenu(this);
+
 
         //Key listening
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {

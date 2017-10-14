@@ -79,7 +79,7 @@ public class SaveLoadUnitTests {
 		Level currentLevel = levels.get(0);	
 		MeleeWeapon melee = new MeleeWeapon(boundingBox, Type.WATER, 40, null);
 		Monster monster = new Monster(boundingBox, Type.WATER, melee, null, null);
-		monster.attack(player);
+		monster.attack(player, 120);
 		
 		GameData gd = new GameData(player, levels, currentLevel);
 		
