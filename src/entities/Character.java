@@ -11,7 +11,7 @@ public abstract class Character extends MovableEntity {
 	protected int lives;
 
 
-	protected Character(double x, double y, int width, int height, Type type, int lives) {
+	protected Character(double x, double y, double width, double height, Type type, int lives) {
 		super(x, y, width, height, type);
 		this.lives = lives;
 

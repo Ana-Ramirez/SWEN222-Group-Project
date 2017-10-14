@@ -25,8 +25,8 @@ public class Player extends Character {
 	 * @param height
 	 * 		the int height to use
 	 */
-	public Player(double x, double y, int width, int height, ImgResources img) {
-		super(x, y, width, height, null, 3);
+	public Player(BoundingBox box, ImgResources img) {
+		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), null, 3);
 		setImage(img);
 		hand = null;
 		backpack = new Pickupable[2];

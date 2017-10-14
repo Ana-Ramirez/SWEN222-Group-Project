@@ -78,6 +78,7 @@ public class Door extends StationaryEntity{
 		setImage(imageEnum);
 		this.x = x;
 		this.y = y;
+		
 	}
 
 	/**

@@ -7,7 +7,7 @@ import resources.ImgResources;
  * @author Nick Lauder
  *
  */
-public class StationaryEntity extends Entities {
+public abstract class StationaryEntity extends Entities {
 	private static final long serialVersionUID = -8746477209656357198L;
 
 	/**
@@ -23,7 +23,7 @@ public class StationaryEntity extends Entities {
 	 * @param height
 	 * 		the int height to use
 	 */
-	public StationaryEntity(double x, double y, int width, int height, ImgResources img) {
+	public StationaryEntity(double x, double y, double width, double height, ImgResources img) {
 		super(x, y, width, height, null);
 		setImage(img);
 	}

@@ -38,8 +38,8 @@ public class Gun extends Weapon {
 	 * @param damage
 	 * 		the base damage to use
 	 */
-	public Gun(double x, double y, int width, int height, Type type, int damage, ImgResources img, ImgResources ammoImg) {
-		super(x, y, width, height, type, damage);
+	public Gun(BoundingBox box, Type type, int damage, ImgResources img, ImgResources ammoImg) {
+		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), type, damage);
 		this.damage = damage;
 		setImage(img);
 		this.ammoImg = ammoImg;

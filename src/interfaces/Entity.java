@@ -34,14 +34,14 @@ public interface Entity extends Serializable {
 	 * @return
 	 * 		an int value of the entity dimensions
 	 */
-	public int getWidth();
+	public double getWidth();
 
 	/**
 	 * Returns the width of the entity
 	 * @return
 	 * 		an int value of the entity dimensions
 	 */
-	public int getHeight();
+	public double getHeight();
 
 	/**
 	 * Returns the name assigned to the entity
@@ -73,5 +73,4 @@ public interface Entity extends Serializable {
 	 * 		the image object
 	 */
 	public BoundingBox getBoundingBox();
-
 }

@@ -12,6 +12,7 @@ import entities.Monster;
 import entities.Player;
 import entities.Type;
 import interfaces.Enemies;
+import javafx.geometry.BoundingBox;
 import resources.ImgResources;
 import view.Renderer;
 
@@ -73,21 +74,21 @@ public class Level implements Serializable{
 		this.rooms.add(room3);
 		this.rooms.add(room4);
 		this.rooms.add(room5);
-
+		
 		//create entities to add
-		Consumable live1 = new Consumable(20, 40, 32, 32, "Lives 1", ImgResources.LIFE);
-		Consumable live2 = new Consumable(20, 40, 32, 32, "Lives 1", ImgResources.LIFE);
-		Consumable ammo = new Consumable(20, 40, 32, 32, "Ammo 20", ImgResources.BULLET);
+		Consumable live1 = new Consumable(new BoundingBox(20, 40, 32, 32), "Lives 1", ImgResources.LIFE);
+		Consumable live2 = new Consumable(new BoundingBox(20, 40, 32, 32), "Lives 1", ImgResources.LIFE);
+		Consumable ammo = new Consumable(new BoundingBox(20, 40, 32, 32), "Ammo 20", ImgResources.BULLET);
 
-		Gun gunEarth = new Gun(300, 300, 32, 32, Type.EARTH, 10, ImgResources.GUN, ImgResources.BULLET);
-		Gun gunFire = new Gun(200, 300, 32, 32, Type.FIRE, 20, ImgResources.GUN, ImgResources.BULLET);
-		MeleeWeapon melee = new MeleeWeapon(100, 100, 32, 32, Type.WATER, 40, ImgResources.CONSOLE1);
+		Gun gunEarth = new Gun(new BoundingBox(300, 300, 32, 32), Type.EARTH, 10, ImgResources.GUN, ImgResources.BULLET);
+		Gun gunFire = new Gun(new BoundingBox(200, 300, 32, 32), Type.FIRE, 20, ImgResources.GUN, ImgResources.BULLET);
+		MeleeWeapon melee = new MeleeWeapon(new BoundingBox(100, 100, 32, 32), Type.WATER, 40, ImgResources.CONSOLE1);
 
 		Enemies pattern = new FollowingEnemy(player);
 
-		Monster monsterEasy = new Monster(200, 200, 32, 32, Type.EARTH, gunEarth, ImgResources.MONSTER, pattern);
-		Monster monsterMedium = new Monster(200, 200, 50, 50, Type.FIRE, gunFire, ImgResources.MONSTER, pattern);
-		Monster monsterHard = new Monster(200, 200, 50, 50, Type.WATER, melee, ImgResources.MONSTER, pattern);
+		Monster monsterEasy = new Monster(new BoundingBox(200, 200, 32, 32), Type.EARTH, gunEarth, ImgResources.MONSTER, pattern);
+		Monster monsterMedium = new Monster(new BoundingBox(200, 200, 50, 50), Type.FIRE, gunFire, ImgResources.MONSTER, pattern);
+		Monster monsterHard = new Monster(new BoundingBox(200, 200, 50, 50), Type.WATER, melee, ImgResources.MONSTER, pattern);
 
 		//add to rooms
 		room1.addEntity(player);
@@ -133,18 +134,18 @@ public class Level implements Serializable{
 		currentRoom = r;
 		currentRoom.addEntity(player);
 		switch (r.getRoomNum()){
-			case 1: player.moveTo(player.getX(), player.getY() - 375);
+			case 1: player.moveTo(player.getX(), player.getY() - (Renderer.ROOM_HEIGHT-Renderer.HUD_HEIGHT));
 					break;
-			case 2:	player.moveTo(player.getX(), player.getY() + 375);
+			case 2:	player.moveTo(player.getX(), player.getY() + (Renderer.ROOM_HEIGHT-Renderer.HUD_HEIGHT-player.getHeight()));
 					break;
 			case 3:	player.moveTo(player.getX() + 690, player.getY());
 					break;
 			case 4: player.moveTo(player.getX() - 690, player.getY());
 					break;
 			case 5:	if(leavingRoom == 1){ 
-						player.moveTo(player.getX(), player.getY() + 375); 
+						player.moveTo(player.getX(), player.getY() + 350); 
 					} else if(leavingRoom == 2){ 
-						player.moveTo(player.getX(), player.getY() - 375); 
+						player.moveTo(player.getX(), player.getY() - 350); 
 					} else if(leavingRoom == 3){ 
 						player.moveTo(player.getX() - 690, player.getY()); 
 					} else if(leavingRoom == 4){ 

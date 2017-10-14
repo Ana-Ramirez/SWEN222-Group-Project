@@ -1,5 +1,6 @@
 package entities;
 
+import javafx.geometry.BoundingBox;
 import resources.ImgResources;
 
 /**
@@ -23,8 +24,8 @@ public class MeleeWeapon extends Weapon {
 	 * @param damage
 	 * 		the int amount of damage to use
 	 */
-	public MeleeWeapon(double x, double y, int width, int height, Type type, int damage, ImgResources img) {
-		super(x, y, width, height, type, damage);
+	public MeleeWeapon(BoundingBox box, Type type, int damage, ImgResources img) {
+		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), type, damage);
 		setImage(img);
 	}
 

@@ -1,6 +1,7 @@
 package entities;
 
 import interfaces.Enemies;
+import javafx.geometry.BoundingBox;
 import resources.ImgResources;
 
 /**
@@ -31,8 +32,8 @@ public class Monster extends Character {
 	 * @param weapon
 	 * 		the weapon to use
 	 */
-	public Monster(double x, double y, int width, int height, Type type, Weapon weapon, ImgResources img, Enemies stratergy) {
-		super(x, y, width, height, type, 100);
+	public Monster(BoundingBox box, Type type, Weapon weapon, ImgResources img, Enemies stratergy) {
+		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), type, 100);
 		setImage(img);
 		this.weapon = weapon;
 		this.pattern = stratergy;

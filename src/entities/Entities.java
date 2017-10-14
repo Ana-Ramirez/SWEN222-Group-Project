@@ -1,5 +1,6 @@
 package entities;
 
+
 import interfaces.Entity;
 import javafx.geometry.BoundingBox;
 import resources.ImgResources;
@@ -12,14 +13,14 @@ import resources.ImgResources;
  */
 public abstract class Entities implements Entity {
 	private static final long serialVersionUID = 2833150026302394689L;
+	private double width;
+	private double height;
 	protected double x;
 	protected double y;
-	private int width;
-	private int height;
 	private Type type;
 	private ImgResources image;
 
-	protected Entities (double x, double y, int width, int height, Type type) {
+	protected Entities (double x, double y, double width, double height, Type type) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -58,7 +59,7 @@ public abstract class Entities implements Entity {
 	 * @return
 	 * 		an int value of the entity dimensions
 	 */
-	public int getWidth() {
+	public double getWidth() {
 		return width;
 	}
 
@@ -67,7 +68,7 @@ public abstract class Entities implements Entity {
 	 * @return
 	 * 		an int value of the entity dimensions
 	 */
-	public int getHeight() {
+	public double getHeight() {
 		return height;
 	}
 
@@ -98,7 +99,7 @@ public abstract class Entities implements Entity {
 	 * 		the image object
 	 */
 	public BoundingBox getBoundingBox() {
-		return new BoundingBox(x, y, width, height);
+		return new BoundingBox(getX(), getY(), getWidth(), getHeight());
 	}
 
 

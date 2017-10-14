@@ -66,10 +66,11 @@ public class Room implements Serializable{
 		if (x != 0 || y != 0) {
 			
 			int answer = movePlayer(x, y);
-			
-			if (answer % 3 == 0 && answer % 7 != 0) {
+			if (answer % 3 == 0 && answer % 2 == 0) {
+				return;
+			} else if (answer % 3 == 0) {
 				getPlayer().moveBy(0, y);
-			} else if (answer % 7 == 0 && answer % 3 != 0) {
+			} else if (answer % 2 == 0) {
 				getPlayer().moveBy(x, 0);
 			} else {
 				getPlayer().moveBy(x, y);
@@ -154,7 +155,7 @@ public class Room implements Serializable{
 				if(e.getBoundingBox().intersects(boxX)){
 					collision *= 3;
 				} if (e.getBoundingBox().intersects(boxY)){
-					collision *= 7;
+					collision *= 2;
 				}
 			}
 		}
