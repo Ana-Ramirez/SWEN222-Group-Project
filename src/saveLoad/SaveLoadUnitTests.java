@@ -35,8 +35,8 @@ public class SaveLoadUnitTests {
 		
 		GameData gd = new GameData(player, levels, currentLevel);
 		
-		Save save = new Save(gd);
-		save.saveGame(new File("Player_move"));
+		Save save = new Save(gd, new File("Player_move"));
+		save.saveGame();
 		
 		Load load = new Load("Player_move.txt");
 		GameData loadedGame = load.loadGame();
@@ -58,8 +58,8 @@ public class SaveLoadUnitTests {
 		
 		GameData gd = new GameData(player, levels, currentLevel);
 		
-		Save save = new Save(gd);
-		save.saveGame(new File("Room_change"));
+		Save save = new Save(gd, new File("Room_change"));
+		save.saveGame();
 		
 		Load load = new Load("Room_change.txt");
 		GameData loadedGame = load.loadGame();
@@ -83,8 +83,8 @@ public class SaveLoadUnitTests {
 		
 		GameData gd = new GameData(player, levels, currentLevel);
 		
-		Save save = new Save(gd);
-		save.saveGame(new File("Lives"));
+		Save save = new Save(gd, new File("Lives"));
+		save.saveGame();
 		
 		Load load = new Load("Lives.txt");
 		GameData loadedGame = load.loadGame();
@@ -107,8 +107,8 @@ public class SaveLoadUnitTests {
 		
 		GameData gd = new GameData(player, levels, currentLevel);
 		
-		Save save = new Save(gd);
-		save.saveGame(new File("entities_save"));
+		Save save = new Save(gd, new File("entities_save"));
+		save.saveGame();
 		
 		Load load = new Load("entities_save.txt");
 		GameData loadedGame = load.loadGame();
@@ -156,8 +156,8 @@ public class SaveLoadUnitTests {
 		
 		GameData gd = new GameData(player, levels, currentLevel);
 		
-		Save save = new Save(gd);
-		save.saveGame(new File("Player_move"));
+		Save save = new Save(gd, new File("Player_move"));
+		save.saveGame();
 		
 		//Second save over first
 		Player newPlayer = new Player(boundingBox, null);
@@ -168,8 +168,8 @@ public class SaveLoadUnitTests {
 		
 		GameData newGd = new GameData(newPlayer, newLevels, newCurrentLevel);
 		
-		Save newSave = new Save(newGd);
-		newSave.saveGame(new File("Player_move"));
+		Save newSave = new Save(gd, new File("Player_move"));
+		newSave.saveGame();
 		
 		//load data 
 		Load load = new Load("Player_move.txt");

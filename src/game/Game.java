@@ -55,6 +55,11 @@ public class Game extends Application {
 	 * Timer for the main Game loop
 	 */
 	private AnimationTimer timer;
+	
+	/**
+	 * Pause Menu
+	 */
+	private PauseMenu pm;
 
 	/**
 	 * Constructs a new Game object
@@ -125,10 +130,39 @@ public class Game extends Application {
 			}
 		};
 
-    	PauseMenu pm = new PauseMenu(this);
+    	this.pm = new PauseMenu(this);
+
+		keyListener(scene, stage);
+		mouseListener(scene);
+
+		stage.setScene(scene);
+		stage.show();
 
 
-        //Key listening
+        timer.start();
+	}
+	
+	/**
+	 * Initialises mouse listener
+	 * @param scene
+	 */
+	private void mouseListener(Scene scene) {
+		scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				currentLevel.getCurrentRoom().use((float) event.getX(), (float) event.getY());
+			}
+
+
+		});
+	}
+	
+	/**
+	 * Initialises key listener
+	 * @param scene
+	 * @param stage
+	 */
+	private void keyListener(Scene scene, Stage stage) {
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
@@ -155,7 +189,7 @@ public class Game extends Application {
 				}
 			}
 		});
-
+		
 		scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -169,22 +203,6 @@ public class Game extends Application {
                 }
             }
         });
-
-		//Mouse Listening
-		scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				currentLevel.getCurrentRoom().use((float) event.getX(), (float) event.getY());
-			}
-
-
-		});
-
-		stage.setScene(scene);
-		stage.show();
-
-
-        timer.start();
 	}
 
 //==================GETTERS AND SETTERS====================//
