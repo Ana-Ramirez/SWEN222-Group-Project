@@ -130,6 +130,13 @@ public class Room implements Serializable{
 	 * @param d
 	 */
 	public void goThroughDoor(Door d){
+		ArrayList<Projectile> toRemove = new ArrayList<>();
+		for (Entity e : roomEntities) {
+			if (e instanceof Projectile) {
+				toRemove.add((Projectile)e);
+			}
+		}
+		roomEntities.removeAll(toRemove);
 		Room gotoRoom = (this == d.getRoom1()) ? d.getRoom2() : d.getRoom1();
 		level.gotoRoom(gotoRoom);
 	}
