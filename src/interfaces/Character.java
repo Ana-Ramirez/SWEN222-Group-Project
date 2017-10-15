@@ -13,7 +13,7 @@ public interface Character extends MoveableEntity{
 	 * Checks if the player has more than 0 lives
 	 * @return
 	 * 		true if the player is alive
-	 */	
+	 */
 	public boolean isAlive();
 	
 	/**

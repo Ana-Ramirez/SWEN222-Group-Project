@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import entities.MeleeWeapon;
 import entities.Player;
-import entities.Type;
+import interfaces.Type;
 import logic.Door;
 import logic.Level;
 import logic.Room;

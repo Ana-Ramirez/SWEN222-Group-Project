@@ -1,13 +1,9 @@
 package logic;
 
 import interfaces.Entity;
-import javafx.scene.image.Image;
 import entities.Entities;
 import entities.Pickupable;
-import entities.Type;
-import game.GameException;
 import resources.ImgResources;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import view.Renderer;
 
 /**

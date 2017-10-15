@@ -1,5 +1,7 @@
 package entities;
 
+import interfaces.EntityType;
+
 /**
  * Abstract class for a pickupable object
  * @author Nick Lauder
@@ -8,7 +10,7 @@ package entities;
 public abstract class Pickupable extends MovableEntities {
 	private static final long serialVersionUID = 1654057472702704263L;
 
-	protected Pickupable(double x, double y, double width, double height, Type type) {
+	protected Pickupable(double x, double y, double width, double height, EntityType type) {
 		super(x, y, width, height, type);
 	}
 

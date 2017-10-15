@@ -1,5 +1,6 @@
 package entities;
 
+import interfaces.EntityType;
 
 /**
  * Abstract class of all different character types
@@ -12,7 +13,7 @@ public abstract class Character extends MovableEntities {
 	private Pickupable hand;
 
 
-	protected Character(double x, double y, double width, double height, Type type, int lives) {
+	protected Character(double x, double y, double width, double height, EntityType type, int lives) {
 		super(x, y, width, height, type);
 		this.lives = lives;
 		hand = null;

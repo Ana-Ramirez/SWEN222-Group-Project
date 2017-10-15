@@ -4,6 +4,7 @@ package entities;
 import java.awt.geom.Rectangle2D;
 
 import interfaces.Entity;
+import interfaces.EntityType;
 import resources.ImgResources;
 
 /**
@@ -18,10 +19,10 @@ public abstract class Entities implements Entity {
 	private double height;
 	protected double x;
 	protected double y;
-	private Type type;
+	private EntityType type;
 	private ImgResources image;
 
-	protected Entities (double x, double y, double width, double height, Type type) {
+	protected Entities (double x, double y, double width, double height, EntityType type) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -44,7 +45,7 @@ public abstract class Entities implements Entity {
 	 * @param img
 	 * 		the image reference to use
 	 */
-	public Entities (double x, double y, double width, double height, Type type, ImgResources img) {
+	public Entities (double x, double y, double width, double height, EntityType type, ImgResources img) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -57,7 +58,7 @@ public abstract class Entities implements Entity {
 	 * Gets the type assigned to the object
 	 * @return
 	 */
-	public Type getType() {
+	public EntityType getType() {
 		return type;
 	}
 

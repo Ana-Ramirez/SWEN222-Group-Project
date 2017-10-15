@@ -1,4 +1,4 @@
-package aiTests;
+package tests;
 
 import org.junit.Test;
 
@@ -6,10 +6,10 @@ import ai.FollowingEnemy;
 import ai.Goal;
 import ai.PatrollingEnemy;
 import ai.RunawayEnemy;
-import entities.Type;
 import interfaces.Entity;
 import interfaces.MoveableEntity;
 import interfaces.StrategyPattern;
+import interfaces.EntityType;
 import resources.ImgResources;
 
 import static org.junit.Assert.*;
@@ -28,7 +28,7 @@ public class aiTests {
 			this.height = height;
 		}
 		@Override
-		public Type getType() {return null;}
+		public EntityType getType() {return null;}
 		@Override
 		public double getX() {return x;}
 		@Override
@@ -57,7 +57,7 @@ public class aiTests {
 			this.pattern = pattern;
 		}
 		@Override
-		public Type getType() {return null;}
+		public EntityType getType() {return null;}
 		@Override
 		public double getX() {return x;}
 		@Override

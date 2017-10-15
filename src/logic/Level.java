@@ -1,19 +1,11 @@
 package logic;
 
-import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import ai.FollowingEnemy;
-import entities.Consumable;
-import entities.Gun;
-import entities.MeleeWeapon;
 import entities.Monster;
 import entities.Player;
-import entities.Type;
-//import interfaces.StrategyPattern;
-import resources.ImgResources;
 import view.Renderer;
 
 /**
