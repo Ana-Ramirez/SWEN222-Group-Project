@@ -14,6 +14,7 @@ import entities.Player;
 import entities.Projectile;
 import interfaces.Entity;
 import interfaces.MoveableEntity;
+import resources.ImgResources;
 import view.Renderer;
 
 /**

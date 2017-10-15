@@ -176,6 +176,7 @@ public class Game extends Application {
 			@Override
 			public void handle(MouseEvent event) {
 				currentLevel.getCurrentRoom().use((float) event.getX(), (float) event.getY());
+				renderer.animateSword(true);
 			}
 
 

@@ -1,6 +1,7 @@
 package view;
 
 import game.Game;
+import game.LoadHandler;
 import game.QuitToMenuHandler;
 import game.ResumeHandler;
 import game.SaveHandler;
@@ -61,6 +62,7 @@ public class GameOverMenu extends Application{
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
+		loadGameButton();
 		quitToMenuButton();
 	}
 
@@ -68,7 +70,15 @@ public class GameOverMenu extends Application{
 		this.game = game;
 	}
 
-
+	/**
+	 * Loads a game from file
+	 */
+	private void loadGameButton(){
+		Button btn = new Button();
+		btn.setText("Load Game");
+		btn.setOnAction(new LoadHandler<ActionEvent>(primaryStage));
+		vb.getChildren().add(btn);
+	}
 
 	/**
 	 * Quits to the main menu
