@@ -6,17 +6,15 @@ import java.awt.geom.Rectangle2D;
 
 import org.junit.Test;
 
+import ai.FollowingEnemy;
 import entities.Consumable;
 import entities.MeleeWeapon;
 import entities.Monster;
-import entities.Pickupable;
 import entities.Player;
-import entities.Weapon;
-import interfaces.Type;
+import interfaces.EntityType;
 import logic.Door;
 import logic.Level;
 import logic.Room;
-import resources.ImgResources;
 
 /**
  * This class tests the Room class
@@ -45,28 +43,33 @@ public class RoomTests {
 		Level level = new Level(player);
 		Room room1 = new Room(4, level);
 		Room room2 = new Room(3, level);
-		Door door = new Door(room1, room2, new Consumable(new Rectangle2D.Double(10,  10,  10,  10), "Lives 1", null), 1, 1);
+		Consumable food = new Consumable(new Rectangle2D.Double(10,  10,  10,  10), "Lives 1", null);
+		Door door = new Door(room1, room2, food, 1, 1);
 		room1.addEntity(door);
 		room2.addEntity(door);
+		room1.addEntity(food);
 		level.setCurrentRoom(room1);		
 		room1.goThroughDoor(room1.getDoor(1));
 		assertEquals(room2, level.getCurrentRoom());
+		assertEquals(door, room1.getDoor(1));
+		assertEquals(door, room2.getDoor(1));
+		assertTrue(room1.getEntities().contains(food));
 	}
 	
 	/**
 	 * move the player to onto a pickupable (consumable)
 	 */
 	@Test
-	public void move3() {
+	public void move2() {
 		Player player = new Player(new Rectangle2D.Double(10, 10, 10, 10), null);
 		Level level = new Level(player);
 		Room room1 = new Room(4, level);
 		Consumable food = new Consumable(new Rectangle2D.Double(10,  10,  10,  10), "Lives 1", null);		
 		level.setCurrentRoom(room1);
 		room1.addEntity(food);
-		player.pickup(food);
+		player.pickup(food);	//picking up first item means it goes into hand
 		player.moveTo(10, 10);
-		player.pickup(food);
+		player.pickup(food);	//second item goes into backpack
 		assertTrue(player.getBackpack()[0] != null);
 	}
 	
@@ -75,69 +78,22 @@ public class RoomTests {
 	 * pick up (monster)
 	 */
 	@Test
-	public void move4() {
-		Room room = new Room(4);
-		Player player = new Player(0, 0, 10, 10, null);
-		room.setPlayer(player);
-		Monster monster = new Monster("mon", 40, 40, 10, 10, Type.FIRE, null, null);
-		room.addEntity(monster);
-		player.moveTo(40, 40);
-		room.movePlayer();
-		assertTrue(player.getLives() != 3);
+	public void move3() {
+		Player player = new Player(new Rectangle2D.Double(10, 10, 10, 10), null);
+		MeleeWeapon weapon = new MeleeWeapon(new Rectangle2D.Double(10, 10, 10, 10), EntityType.EARTH, 100, null);
+		Monster monster = new Monster(new Rectangle2D.Double(10, 10, 10, 10), 100, EntityType.EARTH, weapon, null, new FollowingEnemy(player, 1));
+		Level level = new Level(player);
+		Room room1 = new Room(4, level);
+		level.setCurrentRoom(room1);
+		assertFalse(room1.getEntities().contains(monster));
+		room1.addEntity(monster);
+		assertTrue(room1.getEntities().contains(monster));
+		assertEquals(3, player.getLives());
+		player.moveTo(10, 10);
+		room1.tick(0, 0, 10000);
+		assertEquals(2, player.getLives());
 	}
-	
-//	/**
-//	 * move the player into door
-//	 * door x, y = 10; w, h = 10
-//	 */
-//	@Test
-//	public void move6() {
-//		Room room1 = new Room(1);
-//		Room room2 = new Room(2);
-//		Door door = new Door(room1, room2, null, 0, 0);
-//		Player player = new Player(15, 15, 1, 1, null);
-//		room1.setPlayer(player);
-//		room1.addEntity(door);
-//		player.moveTo(x, y)
-//	}
-	
-	/**
-	 * get Monster from room
-	 */
-	@Test
-	public void get1() {
-		Room room = new Room(4);
-		Weapon weapon = new MeleeWeapon("melee", 0, 0, 1, 1, Type.FIRE, 10, null);
-		Monster monster = new Monster("mon", 40, 40, 1, 1, Type.FIRE, weapon, null);
-		room.addEntity(monster);
-		assertEquals(monster.getName(), room.getMonster(monster.getName()).getName());
-	}
-	
-	/**
-	 * get door from room
-	 */
-	@Test
-	public void get2() {
-		Room room1 = new Room(1);
-		Room room2 = new Room(2);
-		Consumable item = new Consumable("food", 10, 10, 1, 1, "Lives 2", null);
-		Door door = new Door(room1, room2, item, 1, 1);
-		room1.addEntity(door);
-		room2.addEntity(door);
-		assertEquals(door, room1.getDoor(1));
-	}
-	
-	/**
-	 * get item from room
-	 */
-	@Test
-	public void get3() {
-		Room room = new Room(4);
-		Consumable item = new Consumable("food", 10, 10, 1, 1, "Lives 2", resources.ImgResources.CONSOLE1.img);
-		room.addEntity(item);
-		assertEquals(item, room.getItem("food"));
-	}
-	
+		
 	/**
 	 * Remove item from room
 	 */
@@ -145,10 +101,12 @@ public class RoomTests {
 	public void remove1() {
 		Player player = new Player(new Rectangle2D.Double(10, 10, 10, 10), null);
 		Level level = new Level(player);
-		Room room = new Room(4, level);
-		Consumable food = new Consumable(new Rectangle2D.Double(10,  10,  10,  10), "Lives 1", null);		
-		room.addEntity(food);
-		assertTrue(room.removeItem("food"));
+		Room room1 = new Room(4, level);
+		Consumable food = new Consumable(new Rectangle2D.Double(10,  10,  10,  10), "Lives 1", null);
+		room1.addEntity(food);
+		level.setCurrentRoom(room1);	
+		room1.pickupItem();
+		assertFalse(room1.getEntities().contains(food));
 	}
 	
 	/**
