@@ -141,8 +141,14 @@ public class Game extends Application {
 				int dx = 0, dy = 0;
 				if (goUp) dy -= 1;
 				if (goDown) dy += 1;
-				if (goLeft)  dx -= 1; currentLevel.setLeft(true);
-				if (goRight)  dx += 1; currentLevel.setLeft(false);
+				if (goLeft){
+					dx -= 1; 
+					currentLevel.setLeft(true);
+				}
+				if (goRight){  
+					dx += 1; 
+					currentLevel.setLeft(false);
+				}
 				
 				if(player.getLives() == 0) {
 					try {
