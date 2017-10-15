@@ -10,7 +10,7 @@ import entities.MeleeWeapon;
 import entities.Monster;
 import entities.Player;
 import entities.Type;
-import interfaces.StratergyPattern;
+import interfaces.StrategyPattern;
 import resources.ImgResources;
 import view.Renderer;
 
@@ -69,7 +69,7 @@ public class LevelInitialiser {
 		Gun gunFire = new Gun(new Rectangle2D.Double(200, 300, 32, 32), Type.FIRE, 20, ImgResources.GUN, ImgResources.BULLET);
 		MeleeWeapon melee = new MeleeWeapon(new Rectangle2D.Double(100, 100, 32, 32), Type.WATER, 40, ImgResources.CONSOLE1);
 
-		StratergyPattern pattern = new FollowingEnemy(player);
+		StrategyPattern pattern = new FollowingEnemy(player);
 
 //		Monster monsterEasy = new Monster(new Rectangle2D.Double(200, 200, 32, 32), Type.EARTH, gunEarth, ImgResources.MONSTER, pattern);
 //		Monster monsterMedium = new Monster(new Rectangle2D.Double(200, 200, 50, 50), Type.FIRE, gunFire, ImgResources.MONSTER, pattern);
