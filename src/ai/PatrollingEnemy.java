@@ -2,7 +2,7 @@ package ai;
 
 
 import interfaces.MoveableEntity;
-import interfaces.StratergyPattern;
+import interfaces.StrategyPattern;
 
 /**
  * Class controlling the AI for the enemy patrols the screen and has a set path
@@ -11,7 +11,7 @@ import interfaces.StratergyPattern;
  * @author Ana Ramirez
  */
 
-public class PatrollingEnemy implements StratergyPattern {
+public class PatrollingEnemy implements StrategyPattern {
 
 	private static final long serialVersionUID = 7378834863382700237L;
 	private double speed = 1.0f;

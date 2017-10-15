@@ -12,7 +12,7 @@ import entities.MeleeWeapon;
 import entities.Monster;
 import entities.Player;
 import entities.Type;
-import interfaces.StratergyPattern;
+import interfaces.StrategyPattern;
 import resources.ImgResources;
 import view.Renderer;
 
@@ -29,6 +29,7 @@ public class Level implements Serializable{
 	private Player player;
 	private Room currentRoom;
 	private boolean gotPatrick = false;
+	private Monster boss;
 
 	/**
 	 * Create the new level, passing in a new player
@@ -84,11 +85,13 @@ public class Level implements Serializable{
 		Gun gunFire = new Gun(new Rectangle2D.Double(200, 300, 32, 32), Type.FIRE, 20, ImgResources.GUN, ImgResources.BULLET);
 		MeleeWeapon melee = new MeleeWeapon(new Rectangle2D.Double(100, 100, 32, 32), Type.WATER, 40, ImgResources.CONSOLE1);
 
-		StratergyPattern pattern = new FollowingEnemy(player);
+		StrategyPattern pattern = new FollowingEnemy(player);
 
-		Monster monsterEasy = new Monster(new Rectangle2D.Double(200, 200, 32, 32), Type.EARTH, gunEarth, ImgResources.MONSTER, pattern);
-		Monster monsterMedium = new Monster(new Rectangle2D.Double(200, 200, 50, 50), Type.FIRE, gunFire, ImgResources.MONSTER, pattern);
-		Monster monsterHard = new Monster(new Rectangle2D.Double(200, 200, 50, 50), Type.WATER, melee, ImgResources.MONSTER, pattern);
+		Monster monsterEasy = new Monster(new Rectangle2D.Double(200, 200, 32, 32), 100, Type.EARTH, gunEarth, ImgResources.MONSTER, pattern);
+		Monster monsterMedium = new Monster(new Rectangle2D.Double(200, 200, 50, 50), 100, Type.FIRE, gunFire, ImgResources.MONSTER, pattern);
+		Monster monsterHard = new Monster(new Rectangle2D.Double(200, 200, 50, 50), 100, Type.WATER, melee, ImgResources.MONSTER, pattern);
+		
+		boss = new Monster(new Rectangle2D.Double(Renderer.ROOM_WIDTH/2-64, Renderer.ROOM_HEIGHT/2-64, 64, 64), 500, Type.EARTH, gunEarth, ImgResources.MAO, pattern);
 
 		//add to rooms
 		room1.addEntity(gunEarth);
@@ -105,6 +108,7 @@ public class Level implements Serializable{
 		room4.addEntity(ammo);
 		room4.addEntity(monsterHard);
 
+		room5.addEntity(boss);
 	}
 
 	/**
