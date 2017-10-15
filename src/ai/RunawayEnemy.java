@@ -2,7 +2,7 @@ package ai;
 
 import interfaces.Entity;
 import interfaces.MoveableEntity;
-import interfaces.StratergyPattern;
+import interfaces.StrategyPattern;
 
 /**
  * Class controlling the AI for the enemy that runs away from the player
@@ -10,7 +10,7 @@ import interfaces.StratergyPattern;
  * @author Ana Ramirez
  */
 
-public class RunawayEnemy implements StratergyPattern {
+public class RunawayEnemy implements StrategyPattern {
 
 	private static final long serialVersionUID = 3291405708577418724L;
 	private final Entity player;

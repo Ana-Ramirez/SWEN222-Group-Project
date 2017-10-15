@@ -17,14 +17,14 @@ import entities.Type;
 import entities.Weapon;
 import interfaces.Entity;
 import interfaces.MoveableEntity;
-import interfaces.StratergyPattern;
+import interfaces.StrategyPattern;
 import resources.ImgResources;
 
 @SuppressWarnings("unused")
 public class EntitiesTest {
 
 	@SuppressWarnings("serial")
-	class MockMonsterPattern implements StratergyPattern {
+	class MockMonsterPattern implements StrategyPattern {
 		public void tick(MoveableEntity monster) {
 			monster.moveBy(1, 1);
 		}
@@ -66,7 +66,7 @@ public class EntitiesTest {
 	@Test
 	public void createMonster() {
 		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null);
-		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, weapon, null, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), 100, Type.WATER, weapon, null, null);
 		assertEquals(100, monster.getLives());
 		assertSame(weapon, monster.getWeapon());
 		assertEquals(Type.WATER, monster.getType());
@@ -91,7 +91,7 @@ public class EntitiesTest {
 	public void hitPlayer() {
 		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
 		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null);
-		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, weapon, null, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), 100, Type.WATER, weapon, null, null);
 		assertEquals(3, player.getLives());
 		assertTrue(monster.attack(player, 120));
 		assertEquals(2, player.getLives());
@@ -108,7 +108,7 @@ public class EntitiesTest {
 		int damage = 10;
 		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
 		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, damage, null);
-		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, weapon, null, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), 100, Type.WATER, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i -= damage) {
@@ -125,7 +125,7 @@ public class EntitiesTest {
 		int damage = 10;
 		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
 		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.FIRE, damage, null);
-		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, weapon, null, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), 100, Type.WATER, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i -= damage / 2) {
@@ -141,7 +141,7 @@ public class EntitiesTest {
 		int damage = 5;
 		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
 		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.EARTH, damage, null);
-		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, weapon, null, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), 100, Type.WATER, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i -= damage * 2) {
@@ -156,7 +156,7 @@ public class EntitiesTest {
 	public void killPlayer() {
 		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
 		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null);
-		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, weapon, null, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), 100, Type.WATER, weapon, null, null);
 		assertEquals(3, player.getLives());
 		assertTrue(player.isAlive());
 		assertTrue(monster.attack(player, 120));
@@ -178,7 +178,7 @@ public class EntitiesTest {
 		int damage = 10;
 		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
 		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, damage, null);
-		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, weapon, null, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), 100, Type.WATER, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i -= damage) {
@@ -346,7 +346,7 @@ public class EntitiesTest {
 		int damage = 10;
 		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
 		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.FIRE, damage, null);
-		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.FIRE, weapon, null, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), 100, Type.FIRE, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i-=damage) {
@@ -362,7 +362,7 @@ public class EntitiesTest {
 		int damage = 10;
 		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
 		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.EARTH, damage, null);
-		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.FIRE, weapon, null, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), 100, Type.FIRE, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i-=damage/2) {
@@ -378,7 +378,7 @@ public class EntitiesTest {
 		int damage = 5;
 		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
 		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, damage, null);
-		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.FIRE, weapon, null, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), 100, Type.FIRE, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i-=damage*2) {
@@ -394,7 +394,7 @@ public class EntitiesTest {
 		int damage = 10;
 		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
 		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.EARTH, damage, null);
-		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.EARTH, weapon, null, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), 100, Type.EARTH, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i-=damage) {
@@ -410,7 +410,7 @@ public class EntitiesTest {
 		int damage = 10;
 		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
 		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, damage, null);
-		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.EARTH, weapon, null, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), 100, Type.EARTH, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i-=damage/2) {
@@ -426,7 +426,7 @@ public class EntitiesTest {
 		int damage = 5;
 		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
 		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.FIRE, damage, null);
-		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.EARTH, weapon, null, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), 100, Type.EARTH, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i-=damage*2) {
@@ -581,7 +581,7 @@ public class EntitiesTest {
 
 	@Test
 	public void testStatergyPattern() {
-		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, null, null, new MockMonsterPattern());
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), 100, Type.WATER, null, null, new MockMonsterPattern());
 		assertEquals(0, monster.getX(), 0);
 		assertEquals(0, monster.getY(), 0);
 		monster.tick();
@@ -676,7 +676,7 @@ public class EntitiesTest {
 	public void MonsterAttackingTooQuickly() {
 		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
 		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null);
-		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, weapon, null, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), 100, Type.WATER, weapon, null, null);
 		assertEquals(3, player.getLives());
 		assertTrue(player.isAlive());
 		assertTrue(monster.attack(player, 120));

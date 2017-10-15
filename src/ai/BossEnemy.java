@@ -4,7 +4,7 @@ import entities.Monster;
 import entities.Player;
 import interfaces.Entity;
 import interfaces.MoveableEntity;
-import interfaces.StratergyPattern;
+import interfaces.StrategyPattern;
 
 /**
  * Class controlling the AI for the boss enemy (Mao Zedong)
@@ -13,7 +13,7 @@ import interfaces.StratergyPattern;
  * @author Ana Ramirez
  */
 
-public class BossEnemy  implements StratergyPattern {
+public class BossEnemy  implements StrategyPattern {
 
 	/**
 	 * 
@@ -53,9 +53,9 @@ public class BossEnemy  implements StratergyPattern {
 		}
 		
 		if(tick%3 == 0){
-			monster.attack(player, tick);
+			//monster.attack(player, tick);
 			
-			//boss attacking needs implementing!!
+			//TODO: boss attacking needs implementing!!
 			
 		}
 		

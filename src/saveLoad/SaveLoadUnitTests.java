@@ -2,7 +2,6 @@ package saveLoad;
 
 import static org.junit.Assert.assertEquals;
 
-import java.awt.Dimension;
 import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.util.ArrayList;
@@ -15,7 +14,6 @@ import entities.Monster;
 import entities.Player;
 import entities.Type;
 import interfaces.Entity;
-import javafx.geometry.BoundingBox;
 import logic.Level;
 import logic.Room;
 
