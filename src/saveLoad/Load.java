@@ -29,7 +29,6 @@ public class Load {
 
 	/**
 	 * Loads a save game from a file
-	 * @return save game
 	 */
 	public GameData loadGame() {
 		try {
@@ -46,20 +45,15 @@ public class Load {
 
 			//Check object is valid
 			if(obj instanceof GameData) {
-
 				return (GameData) obj;
-
 			}
-			else {
-				
-				throw new GameException("Invalid File");
-				
+			else {	
+				throw new GameException("Invalid File");		
 			}
 			
 		} catch (IOException | ClassNotFoundException | GameException e) {
-			System.out.println(e);
-		}
-		
+			e.printStackTrace();
+		}	
 		return null;
 	}
 
