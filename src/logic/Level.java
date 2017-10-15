@@ -134,6 +134,11 @@ public class Level implements Serializable{
 		return boss;
 	}
 	
+	
+	public void setBoss(Monster boss) {
+		this.boss = boss;
+	}
+	
 	/**
 	 * Sets the isLeft field to the boolean b
 	 * @param b
