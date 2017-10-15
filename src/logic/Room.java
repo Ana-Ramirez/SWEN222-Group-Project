@@ -72,10 +72,10 @@ public class Room implements Serializable{
 	private List<Entity> bossAttack(Monster m) {
 		ArrayList<Entity> toAdd = new ArrayList<>();
 		if (m.getHand() instanceof Gun) {
-			toAdd.add(((Gun) m.getHand()).createProjectile(m.getX()+m.getWidth()/2d, m.getY()+m.getHeight()/2d+10d));
-			toAdd.add(((Gun) m.getHand()).createProjectile(m.getX()+m.getWidth()/2d, m.getY()+m.getHeight()/2d-10d));
-			toAdd.add(((Gun) m.getHand()).createProjectile(m.getX()+m.getWidth()/2d+10d, m.getY()+m.getHeight()/2d));
-			toAdd.add(((Gun) m.getHand()).createProjectile(m.getX()+m.getWidth()/2d-10d, m.getY()+m.getHeight()/2d));
+			toAdd.add(((Gun) m.getHand()).createProjectile(ImgResources.VLASER, m.getX()+m.getWidth()/2d, m.getY()+m.getHeight()/2d+10d));
+			toAdd.add(((Gun) m.getHand()).createProjectile(ImgResources.VLASER, m.getX()+m.getWidth()/2d, m.getY()+m.getHeight()/2d-10d));
+			toAdd.add(((Gun) m.getHand()).createProjectile(ImgResources.HLASER, m.getX()+m.getWidth()/2d+10d, m.getY()+m.getHeight()/2d));
+			toAdd.add(((Gun) m.getHand()).createProjectile(ImgResources.HLASER, m.getX()+m.getWidth()/2d-10d, m.getY()+m.getHeight()/2d));
 		}
 		return toAdd;
 	}

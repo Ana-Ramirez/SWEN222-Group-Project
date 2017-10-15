@@ -454,7 +454,7 @@ public class EntitiesTest {
 	@Test
 	public void pickupDropAtSameTimeItems() {
 		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
-		Consumable cons1 = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2", null);
+		Gun cons1 = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, 20, null, null);
 		Consumable cons2 = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2", null);
 		Consumable cons3 = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2", null);
 		Consumable cons4 = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2", null);
@@ -592,6 +592,27 @@ public class EntitiesTest {
 		monster.tick();
 		assertEquals(2, monster.getX(), 0);
 		assertEquals(2, monster.getY(), 0);
+	}
+	
+	@Test
+	public void testMonsterWeaponMoves() {
+		Weapon sword = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), 100, Type.WATER, sword, null, new MockMonsterPattern());
+		
+		assertEquals(0, monster.getX(), 0);
+		assertEquals(0, monster.getY(), 0);
+		assertEquals(0, sword.getX(), 0);
+		assertEquals(0, sword.getY(), 0);
+		monster.tick();
+		assertEquals(1, monster.getX(), 0);
+		assertEquals(1, monster.getY(), 0);
+		assertEquals(1, sword.getX(), 0);
+		assertEquals(1, sword.getY(), 0);
+		monster.tick();
+		assertEquals(2, monster.getX(), 0);
+		assertEquals(2, monster.getY(), 0);
+		assertEquals(2, sword.getX(), 0);
+		assertEquals(2, sword.getY(), 0);
 	}
 
 	@Test
