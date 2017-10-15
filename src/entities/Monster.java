@@ -38,14 +38,18 @@ public class Monster extends Character {
 		setImage(img);
 		setHand(weapon);
 		this.pattern = strategy;
-		weapon.setOwner(this);
+		if (weapon != null) {
+			weapon.setOwner(this);
+		}
 	}
 
 	
 	@Override
 	public void tick() {
 		pattern.tick(this);
-		getHand().moveTo(getX(), getY());
+		if (getHand() != null) {
+			getHand().moveTo(getX(), getY());
+		}
 	}
 
 
