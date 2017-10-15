@@ -149,6 +149,15 @@ public class Room implements Serializable{
 	 * @param d
 	 */
 	public void goThroughDoor(Door d){
+		if (d.isLocked() && (d.getUnlockItem() != getPlayer().getHand() || getPlayer().getHand() == null)) {
+			return;
+		}
+		
+		if (d.getUnlockItem() == getPlayer().getHand()) {
+			d.unlockDoor(getPlayer().getHand());
+			getPlayer().drop();
+		}
+		
 		ArrayList<Projectile> toRemove = new ArrayList<>();
 		for (Entity e : roomEntities) {
 			if (e instanceof Projectile) {
@@ -158,6 +167,11 @@ public class Room implements Serializable{
 		roomEntities.remove(getPlayer());
 		roomEntities.removeAll(toRemove);
 		Room gotoRoom = (this == d.getRoom1()) ? d.getRoom2() : d.getRoom1();
+		for (Entity e : level.getRoom(5).roomEntities) {
+			if (e instanceof Door) {
+				((Door) e).flipDoor();
+			}
+		}
 		level.gotoRoom(gotoRoom);
 	}
 

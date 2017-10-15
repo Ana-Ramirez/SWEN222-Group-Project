@@ -590,12 +590,7 @@ public class EntitiesTest {
 		Consumable cons = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Speed 2", null);
 		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
 		assertNull(player.pickup(cons));
-		try {
-			assertTrue(player.use());
-			fail("Should not be able to use this consumable");
-		} catch (UnsupportedOperationException e) {
-
-		}
+		assertFalse(player.use());
 	}
 
 	@Test

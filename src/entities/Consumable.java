@@ -11,7 +11,7 @@ import resources.ImgResources;
  */
 public class Consumable extends Pickupable {
 	private static final long serialVersionUID = -4391782330871728287L;
-	private static final String[] commands = {"Lives", "Speed", "Ammo"};
+	private static final String[] commands = {"Lives", "Speed", "Ammo", "Key"};
 	private String action;
 	private int uses;
 
