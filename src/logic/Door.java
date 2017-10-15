@@ -19,8 +19,7 @@ import view.Renderer;
 public class Door extends Entities {
 
 	private Room room1, room2;
-	//TODO: set to unlocked by default for development
-	private boolean doorLocked = false;
+	private boolean doorLocked = true;
 	private Pickupable unlockItem;
 	private int doorNum;
 	private int position;
@@ -87,7 +86,7 @@ public class Door extends Entities {
 	 * @param item
 	 */
 	public void unlockDoor(Entity item){
-		if(item == this.unlockItem){
+		if(item == this.unlockItem && item != null){
 			this.doorLocked = false;
 		}
 	}
@@ -154,6 +153,23 @@ public class Door extends Entities {
 	@Override
 	protected boolean hit(int damage) {
 		return false;
+	}
+	
+	public void flipDoor() {
+		switch (position) {
+			case 0:
+				setDoorPosition(1);
+				break;
+			case 1:
+				setDoorPosition(0);
+				break;
+			case 2:
+				setDoorPosition(3);
+				break;
+			case 3:
+				setDoorPosition(2);
+				break;
+		}
 	}
 
 }

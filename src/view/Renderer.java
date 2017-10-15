@@ -2,6 +2,7 @@ package view;
 
 import java.io.Serializable;
 
+import entities.MeleeWeapon;
 import entities.Pickupable;
 import entities.Player;
 import interfaces.Entity;
@@ -31,13 +32,14 @@ public class Renderer implements Serializable{
 	public static final int FLOOR_HEIGHT = 15;
 	public static final int ROOM_WIDTH = 800;
 	public static final int ROOM_HEIGHT = 480;
+	
+	private int animationFrame;
 
 	/**
-	 * The constructor for the renderer. Takes a player
-	 * @param p
+	 * The constructor for the renderer. Takes a level object
+	 * @param level
 	 */
 	public Renderer(Level level){
-		
 		this.level = level;
 		StackPane root = new StackPane();
 
@@ -45,12 +47,13 @@ public class Renderer implements Serializable{
 		this.g = canvas.getGraphicsContext2D();
 		root.getChildren().add(canvas);
 		this.scene = new Scene(root, 800, 600);
+		
+		animationFrame = 0;
 	}
 
 	/**
 	 * Actually draws the room and HUD. Should only need to be called once at the start,
-	 * after the renderer has been initialised and it has been given its first room from
-	 * newRoom.
+	 * after the renderer has been initialised
 	 */
 	public void initialDraw(){
 		drawRoom();
@@ -80,19 +83,10 @@ public class Renderer implements Serializable{
 	 * Draws the entities in the room
 	 */
 	private void drawEntities(){
-		/**
-		if (this.entities == null) {
-			//TODO remove debug code
-			System.out.println("List of entities is null!");
-			return;
-		}**/
-		
+
 		for (Entity e : level.getCurrentRoom().getEntities()){
 			g.drawImage(e.getImage().img, e.getX(), HUD_HEIGHT + e.getY(), e.getWidth(), e.getHeight());
-			/**g.strokeRect(e.getX(), e.getY()+HUD_HEIGHT, e.getWidth(), e.getHeight());**/
 		}
-		
-		g.drawImage(level.getPlayer().getImage().img, level.getPlayer().getX(), HUD_HEIGHT + level.getPlayer().getY(), level.getPlayer().getWidth(), level.getPlayer().getHeight());
 	}
 
 	/**
@@ -115,6 +109,11 @@ public class Renderer implements Serializable{
 		drawItemInfo(200, 65);
 	}
 	
+	/**
+	 * Draws the information for the item the player is currently holding
+	 * @param x
+	 * @param y
+	 */
 	private void drawItemInfo(int x, int y) {
 		Pickupable e = level.getPlayer().getHand();
 		if(e != null) {
@@ -147,11 +146,43 @@ public class Renderer implements Serializable{
 		//Draw item in the player's hand
 		Pickupable e = player.getHand();
 		if (e != null) {
+			ImgResources image = e.getImage();
 			if (!level.isLeft()){ //Player is facing right
-				g.drawImage(e.getImage().img, player.getX() + player.getWidth() + 17, player.getY() + player.getHeight() / 4d + HUD_HEIGHT, -24, 24);
+				if (e instanceof MeleeWeapon){
+					animateSword(false);
+					g.drawImage(image.img, player.getX() + player.getWidth() + 40, player.getY() + HUD_HEIGHT - 12, -48, 48);
+				} else {
+					g.drawImage(image.img, player.getX() + player.getWidth() + 17, player.getY() + player.getHeight() / 4d + HUD_HEIGHT, -24, 24);
+				}
 			}
 			else { //player is facing left
-				g.drawImage(e.getImage().img, player.getX() - 17, player.getY() + player.getHeight() / 4d + HUD_HEIGHT, 24, 24);
+				if (e instanceof MeleeWeapon){
+					animateSword(false);
+					g.drawImage(image.img, player.getX() - 40, player.getY() + HUD_HEIGHT - 12, 48, 48);
+				} else { 
+					g.drawImage(image.img, player.getX() - 17, player.getY() + player.getHeight() / 4d + HUD_HEIGHT, 24, 24);
+				}
+			}
+		}
+	}
+	
+	public void animateSword(boolean fromGame){
+		Player player = level.getPlayer();
+		Pickupable e = player.getHand();
+		if (e instanceof MeleeWeapon){
+			if (!fromGame && animationFrame == 0){
+				e.setImage(ImgResources.SWORDLEFTUP);
+			}
+			else if (fromGame && animationFrame == 0){
+				animationFrame++;
+			}
+			if (animationFrame == 1){
+				e.setImage(ImgResources.SWORDLEFTDIAG);
+				animationFrame++;
+			}
+			else if (animationFrame == 2){
+				e.setImage(ImgResources.SWORDLEFTDOWN);
+				animationFrame = 0;
 			}
 		}
 	}

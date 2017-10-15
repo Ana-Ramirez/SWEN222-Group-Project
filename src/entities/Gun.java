@@ -21,7 +21,6 @@ public class Gun extends Weapon {
 	private ImgResources ammoImg;
 	private int ammoCount;
 
-
 	/**
 	 * Creates a new projectile
 	 * @param name
@@ -39,13 +38,12 @@ public class Gun extends Weapon {
 	 * @param damage
 	 * 		the base damage to use
 	 */
-	public Gun(Rectangle2D.Double box, Type type, int damage, ImgResources img, ImgResources ammoImg) {
+	public Gun(Rectangle2D.Double box, Type type, int damage, int ammoCount, ImgResources img, ImgResources ammoImg) {
 		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), type, damage);
 		this.damage = damage;
 		setImage(img);
 		this.ammoImg = ammoImg;
-		ammoCount = 20;
-		
+		this.ammoCount = ammoCount;
 	}
 
 
@@ -55,10 +53,20 @@ public class Gun extends Weapon {
 	 * @param y
 	 * @return
 	 */
-	public Projectile createProjectile(double x, double y) {
-		if (ammoCount > 0) {
+	public Projectile createProjectile(double targetX, double targetY) {
+		if (ammoCount != 0) {
 			ammoCount--;
-			return new Projectile(new Rectangle2D.Double(getX(), getY(), 8, 8), damage, ammoImg, x, y);
+			return new Projectile(getOwner(), new Rectangle2D.Double(getX(), getY(), 8, 8), damage, ammoImg, targetX, targetY);
+		} else {
+			return null;
+		}
+	}
+	
+	
+	public Projectile createProjectile(ImgResources ammoImg, double targetX, double targetY) {
+		if (ammoCount != 0) {
+			ammoCount--;
+			return new Projectile(getOwner(), new Rectangle2D.Double(getX(), getY(), ammoImg.getWidth(), ammoImg.getHeight()), damage, ammoImg, targetX, targetY);
 		} else {
 			return null;
 		}

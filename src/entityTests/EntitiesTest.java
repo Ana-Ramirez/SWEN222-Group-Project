@@ -19,6 +19,7 @@ import interfaces.Entity;
 import interfaces.MoveableEntity;
 import interfaces.StrategyPattern;
 import resources.ImgResources;
+import sun.swing.ImageIconUIResource;
 
 @SuppressWarnings("unused")
 public class EntitiesTest {
@@ -68,7 +69,7 @@ public class EntitiesTest {
 		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null);
 		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), 100, Type.WATER, weapon, null, null);
 		assertEquals(100, monster.getLives());
-		assertSame(weapon, monster.getWeapon());
+		assertSame(weapon, monster.getHand());
 		assertEquals(Type.WATER, monster.getType());
 	}
 
@@ -82,7 +83,7 @@ public class EntitiesTest {
 
 	@Test
 	public void createGun() {
-		Weapon weapon = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null, null);
+		Weapon weapon = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, 20, null, null);
 		assertEquals("Gun - Ammo: 20", weapon.getInfo());
 		assertEquals(Type.WATER, weapon.getType());
 	}
@@ -222,7 +223,7 @@ public class EntitiesTest {
 	@Test
 	public void useAmmoConsumable() {
 		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
-		Gun gun = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null, null);
+		Gun gun = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, 20, null, null);
 		Consumable cons = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Ammo, 2", null);
 		
 		player.pickup(gun);
@@ -253,10 +254,9 @@ public class EntitiesTest {
 	}
 	
 	@Test
-	public void useEmptyAmmoConsumable() {
+	public void useEmptyAmmo() {
 		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
-		Gun gun = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null, null);
-		Consumable cons = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Ammo, 2", null);
+		Gun gun = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, 20, null, null);
 		
 		assertNull(player.pickup(gun));
 		
@@ -265,6 +265,20 @@ public class EntitiesTest {
 			assertNotNull(gun.createProjectile(0, 0));
 		}
 		assertNull(gun.createProjectile(0, 0));
+	}
+	
+	@Test
+	public void useEmptyAmmoCustomImage() {
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Gun gun = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, 20, null, null);
+		
+		assertNull(player.pickup(gun));
+		
+		assertEquals(20, gun.getAmmoCount());
+		for (int i = 0; i < 20; i++) {
+			assertNotNull(gun.createProjectile(ImgResources.BULLET, 0, 0));
+		}
+		assertNull(gun.createProjectile(ImgResources.BULLET, 0, 0));
 	}
 
 	@Test
@@ -439,7 +453,9 @@ public class EntitiesTest {
 
 	@Test
 	public void gunAmmoDifferentObjects() {
-		Gun weapon = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null, null);
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Gun weapon = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, 20, null, null);
+		player.pickup(weapon);
 		Projectile ammo1 = weapon.createProjectile(0, 0);
 		Projectile ammo2 = weapon.createProjectile(0, 0);
 		assertEquals("Ammo", ammo1.getInfo());
@@ -448,11 +464,22 @@ public class EntitiesTest {
 		assertEquals(ammo1.getBaseDamage(), ammo2.getBaseDamage());
 		assertNotSame(ammo1, ammo2);
 	}
+	
+	@Test
+	public void gunAmmoCustomImage() {
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Gun weapon = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, 20, null, null);
+		player.pickup(weapon);
+		Projectile ammo1 = weapon.createProjectile(ImgResources.BULLET, 0, 0);
+		assertEquals(ammo1.getWidth(), ImgResources.BULLET.getWidth(), 0);
+		assertEquals(ammo1.getHeight(), ImgResources.BULLET.getHeight(), 0);
+		assertEquals("Ammo", ammo1.getInfo());
+	}
 
 	@Test
 	public void pickupDropAtSameTimeItems() {
 		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
-		Consumable cons1 = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2", null);
+		Gun cons1 = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, 20, null, null);
 		Consumable cons2 = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2", null);
 		Consumable cons3 = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2", null);
 		Consumable cons4 = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2", null);
@@ -563,12 +590,7 @@ public class EntitiesTest {
 		Consumable cons = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Speed 2", null);
 		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
 		assertNull(player.pickup(cons));
-		try {
-			assertTrue(player.use());
-			fail("Should not be able to use this consumable");
-		} catch (UnsupportedOperationException e) {
-
-		}
+		assertFalse(player.use());
 	}
 
 	@Test
@@ -590,6 +612,27 @@ public class EntitiesTest {
 		monster.tick();
 		assertEquals(2, monster.getX(), 0);
 		assertEquals(2, monster.getY(), 0);
+	}
+	
+	@Test
+	public void testMonsterWeaponMoves() {
+		Weapon sword = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), 100, Type.WATER, sword, null, new MockMonsterPattern());
+		
+		assertEquals(0, monster.getX(), 0);
+		assertEquals(0, monster.getY(), 0);
+		assertEquals(0, sword.getX(), 0);
+		assertEquals(0, sword.getY(), 0);
+		monster.tick();
+		assertEquals(1, monster.getX(), 0);
+		assertEquals(1, monster.getY(), 0);
+		assertEquals(1, sword.getX(), 0);
+		assertEquals(1, sword.getY(), 0);
+		monster.tick();
+		assertEquals(2, monster.getX(), 0);
+		assertEquals(2, monster.getY(), 0);
+		assertEquals(2, sword.getX(), 0);
+		assertEquals(2, sword.getY(), 0);
 	}
 
 	@Test
@@ -640,7 +683,7 @@ public class EntitiesTest {
 
 	@Test
 	public void tickGun() {
-		Gun cons = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null, null);
+		Gun cons = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, 20, null, null);
 		assertEquals(0, cons.getY(), 0);
 		assertEquals(0, cons.getX(), 0);
 		assertEquals(5, cons.getHeight(), 0);
@@ -660,15 +703,17 @@ public class EntitiesTest {
 
 	@Test
 	public void tickProjectileMovementTest() {
-		Gun cons = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null, null);
-		Projectile bullet = cons.createProjectile(1, 1);
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Gun cons = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, 20, null, null);
+		player.pickup(cons);
+		Projectile bullet = cons.createProjectile(5, 5);
 
-		assertEquals(8, bullet.getY(), 0);
-		assertEquals(16, bullet.getX(), 0);
+		assertEquals(2.5, bullet.getY(), 0);
+		assertEquals(2.5, bullet.getX(), 0);
 
 		bullet.tick();
-		assertEquals(5.995854917833179, bullet.getY(), 0);
-		assertEquals(12.538294858075496, bullet.getX(), 0);
+		assertEquals(5.32842712474619, bullet.getY(), 0);
+		assertEquals(5.32842712474619, bullet.getX(), 0);
 	}
 	
 	

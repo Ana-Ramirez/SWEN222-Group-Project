@@ -42,6 +42,7 @@ public class Level implements Serializable{
 		this.rooms = new ArrayList<Room>();
 		LevelInitialiser.initialise(this, rooms, player);
 		currentRoom = rooms.get(0);
+
 		isLeft = false;
 	}
 
@@ -69,6 +70,7 @@ public class Level implements Serializable{
 		//TODO: Error checking
 		int leavingRoom = currentRoom.getRoomNum();
 		currentRoom = r;
+		currentRoom.addEntity(player);
 		switch (r.getRoomNum()){
 			case 1: player.moveTo(player.getX(), player.getY() - (Renderer.ROOM_HEIGHT-Renderer.HUD_HEIGHT));
 					break;
@@ -125,6 +127,16 @@ public class Level implements Serializable{
 	 */
 	public void setCurrentRoom(Room room) {
 		this.currentRoom = room;
+	}
+	
+	
+	public Monster getBoss() {
+		return boss;
+	}
+	
+	
+	public void setBoss(Monster boss) {
+		this.boss = boss;
 	}
 	
 	/**

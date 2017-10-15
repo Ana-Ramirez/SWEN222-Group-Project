@@ -14,10 +14,11 @@ public class RunawayEnemy implements StrategyPattern {
 
 	private static final long serialVersionUID = 3291405708577418724L;
 	private final Entity player;
-	private double speed = 1.0f;
+	private double speed;
 
-	public RunawayEnemy(Entity player) {
+	public RunawayEnemy(Entity player, double speed) {
 		this.player = player;
+		this.speed = speed;
 	}
 
 	/**

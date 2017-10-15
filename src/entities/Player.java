@@ -12,7 +12,6 @@ import resources.ImgResources;
 public class Player extends Character {
 	private static final long serialVersionUID = 1364726060443658475L;
 	private Pickupable[] backpack;
-	private Pickupable hand;
 
 
 	/**
@@ -29,7 +28,6 @@ public class Player extends Character {
 	public Player(Rectangle2D.Double box, ImgResources img) {
 		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), null, 3);
 		setImage(img);
-		hand = null;
 		backpack = new Pickupable[2];
 		this.speed = 2;
 	}
@@ -43,12 +41,12 @@ public class Player extends Character {
 	 */
 	public void selectItem(int i) {
 		if (i >= 0 && i < backpack.length) {
-			if (hand == null) {
-				hand = backpack[i];
+			if (getHand() == null) {
+				setHand(backpack[i]);
 				backpack[i] = null;
 			} else {
-				Pickupable holder = hand;
-				hand = backpack[i];
+				Pickupable holder = getHand();
+				setHand(backpack[i]);
 				backpack[i] = holder;
 			}
 		}
@@ -62,7 +60,7 @@ public class Player extends Character {
 	public boolean use() {
 		if (getHand() instanceof Consumable) {
 			boolean success = parseCommand(((Consumable)getHand()).use());
-			if (success) {hand = null;}
+			if (success) {setHand(null);}
 			return success;
 		} else {
 			return false;
@@ -76,6 +74,7 @@ public class Player extends Character {
 		String[] actionCommand = command.split("[, ]+");
 		if (actionCommand[0].equals("Lives")) {
 			lives += (int) Float.parseFloat(actionCommand[1]);
+			return true;
 		} else if (actionCommand[0].equals("Ammo")) {
 			for (int i = 0; i < backpack.length; i++) {
 				if (backpack[i] instanceof Gun) {
@@ -83,23 +82,12 @@ public class Player extends Character {
 					return true;
 				}
 			}
-			return false;
-		} else {
-			throw new UnsupportedOperationException("The player does not support this command");
-		}
-		return true;
+		} 
+		return false;
 	}
 
 
-	/**
-	 * Returns the object currently in the players hand
-	 * @return
-	 * 		the pickupable object in the hand
-	 */
-	public Pickupable getHand() {
-		return hand;
-	}
-
+	
 
 	/**
 	 * Returns an array of the players inventory
@@ -119,8 +107,11 @@ public class Player extends Character {
 	 * 		the item replaced in inventory
 	 */
 	public Pickupable pickup(Pickupable item) {
-		if (hand == null) {
-			hand = item;
+		if (item instanceof Weapon) {
+			((Weapon) item).setOwner(this);
+		}
+		if (getHand() == null) {
+			setHand(item);
 		} else {
 			boolean pickedUp = false;
 			for (int i = 0; i < backpack.length; i++) {
@@ -132,7 +123,7 @@ public class Player extends Character {
 			}
 			if (!pickedUp) {
 				Pickupable holder = drop();
-				hand = item;
+				setHand(item);
 				return holder;
 			}
 		}
@@ -148,8 +139,11 @@ public class Player extends Character {
 	 * 		the item removed from the inventory
 	 */
 	public Pickupable drop() {
-		Pickupable holder = hand;
-		hand = null;
+		Pickupable holder = getHand();
+		setHand(null);
+		if (holder instanceof Weapon) {
+			((Weapon) holder).setOwner(null);
+		}
 		return holder;
 	}
 
@@ -169,8 +163,8 @@ public class Player extends Character {
 				backpack[i].moveTo(getX(), getY());
 			}
 		}
-		if (hand != null) {
-			hand.moveTo(getX(), getY());
+		if (getHand() != null) {
+			getHand().moveTo(getX(), getY());
 		}
 	}
 }

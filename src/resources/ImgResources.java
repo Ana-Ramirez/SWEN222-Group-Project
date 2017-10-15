@@ -1,5 +1,11 @@
 package resources;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import javafx.scene.image.Image;
 
 /**
@@ -21,11 +27,7 @@ public enum ImgResources {
 	SWORDLEFTUP("swordUpLeft.png"),
 	SWORDLEFTDIAG("swordDiagLeft.png"),
 	SWORDLEFTDOWN("swordDownLeft.png"),
-	SWORDRIGHTUP("swordUpRight.png"),
-	SWORDRIGHTDIAG("swordDiagRight.png"),
-	SWORDRIGHTDOWN("swordDownRight.png"),
 	GUNLEFT("gunLeft.png"),
-	GUNRIGHT("gunRight.png"),
 	//ENVIRONMENT
 	FLOOR("floor.png"),
 	CONSOLE1("console1.png"),
@@ -57,10 +59,27 @@ public enum ImgResources {
 	public Image img;
 
 	ImgResources(String resourceName) {
-		imgPath = ImgResources.class.getResource(resourceName).toString();
+		imgPath = ImgResources.class.getResource(resourceName).getPath();
+	}
+	
+	
+	public int getWidth() {
+		try {
+			return ImageIO.read(new File(imgPath)).getWidth();
+		} catch (IOException e) {
+			return 0;
+		}
+	}
+	
+	public int getHeight() {
+		try {
+			return ImageIO.read(new File(imgPath)).getHeight();
+		} catch (IOException e) {
+			return 0;
+		}
 	}
 	
 	public void setImage() {
-		img = new Image(imgPath);
+		img = new Image("file:"+imgPath);
 	}
 }
