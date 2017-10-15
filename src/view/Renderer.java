@@ -3,6 +3,7 @@ package view;
 import java.io.Serializable;
 
 import entities.Pickupable;
+import entities.Player;
 import interfaces.Entity;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -131,24 +132,26 @@ public class Renderer implements Serializable{
 		g.setFill(Color.WHITE);
 		g.fillRect(x, y, 64, 64);
 		g.fillRect(x+80, y, 64, 64);
+		
+		Player player = level.getPlayer();
 
 		//Draws the items
-		Entity[] inventory = level.getCurrentRoom().getPlayer().getBackpack();
+		Entity[] inventory = player.getBackpack();
 		if (inventory[0] != null){
-			g.drawImage(inventory[0].getImage().img, x+4, y+4, 56, 56);
+			g.drawImage(inventory[0].getImage().img, x + 4, y + 4, 56, 56);
 		}
 		if (inventory[1] != null){
-			g.drawImage(inventory[1].getImage().img, x+84, y+4, 56, 56);
+			g.drawImage(inventory[1].getImage().img, x + 84, y + 4, 56, 56);
 		}
 		
 		//Draw item in the player's hand
-		Pickupable e = level.getPlayer().getHand();
+		Pickupable e = player.getHand();
 		if (e != null) {
 			if (!level.isLeft()){ //Player is facing right
-				g.drawImage(e.getImage().img, level.getPlayer().getX()+level.getPlayer().getWidth()+16, level.getPlayer().getY()+level.getPlayer().getHeight()/4d+HUD_HEIGHT, -24, 24);
+				g.drawImage(e.getImage().img, player.getX() + player.getWidth() + 17, player.getY() + player.getHeight() / 4d + HUD_HEIGHT, -24, 24);
 			}
 			else { //player is facing left
-				g.drawImage(e.getImage().img, level.getPlayer().getX()-16, level.getPlayer().getY()+level.getPlayer().getHeight()/4d+HUD_HEIGHT, -24, 24);
+				g.drawImage(e.getImage().img, player.getX() - 17, player.getY() + player.getHeight() / 4d + HUD_HEIGHT, 24, 24);
 			}
 		}
 	}

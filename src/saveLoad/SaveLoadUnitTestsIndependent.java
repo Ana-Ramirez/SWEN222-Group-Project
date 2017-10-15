@@ -14,10 +14,13 @@ import entities.Monster;
 import entities.Player;
 import entities.Type;
 import interfaces.Entity;
+import interfaces.MoveableEntity;
+import interfaces.Character;
 import logic.Level;
 import logic.Room;
+import resources.ImgResources;
 
-public class SaveLoadUnitTests {
+public class SaveLoadUnitTestsIndependent {
 	
 	
 	
@@ -28,7 +31,7 @@ public class SaveLoadUnitTests {
 	 */
 	@Test
 	public void testGameSavingPlayerPosition() {
-		Player player = new Player(boundingBox, null);
+		TestCharacter player = new TestCharacter(50, 50, 3);
 		List<Level> levels = generateLevels(player);
 		Level currentLevel = levels.get(0);
 		
@@ -52,7 +55,7 @@ public class SaveLoadUnitTests {
 	 */
 	@Test
 	public void testGameSavingRoom() {
-		Player player = new Player(boundingBox, null);
+		TestCharacter player = new TestCharacter(50, 50, 3);
 		List<Level> levels = generateLevels(player);
 		Level currentLevel = levels.get(0);
 		currentLevel.setCurrentRoom(currentLevel.getRoom(3));
@@ -75,12 +78,10 @@ public class SaveLoadUnitTests {
 	 */
 	@Test
 	public void testGameSavingLives() {
-		Player player = new Player(boundingBox, null);
+		TestCharacter player = new TestCharacter(50, 50, 3);
 		List<Level> levels = generateLevels(player);
 		Level currentLevel = levels.get(0);	
-		MeleeWeapon melee = new MeleeWeapon(boundingBox, Type.WATER, 40, null);
-		Monster monster = new Monster(boundingBox, 100, Type.WATER, melee, null, null);
-		monster.attack(player, 120);
+		player.hit(2);
 		
 		GameData gd = new GameData(player, levels, currentLevel);
 		
@@ -99,7 +100,7 @@ public class SaveLoadUnitTests {
 	 */
 	@Test
 	public void testGameSavingRoomEntities() {
-		Player player = new Player(boundingBox, null);
+		TestCharacter player = new TestCharacter(50, 50, 3);
 		List<Level> levels = generateLevels(player);
 		Level currentLevel = levels.get(0);
 		
@@ -148,7 +149,7 @@ public class SaveLoadUnitTests {
 	@Test
 	public void testGameOverwrite() {
 		//1st save
-		Player player = new Player(boundingBox, null);
+		TestCharacter player = new TestCharacter(50, 50, 3);
 		List<Level> levels = generateLevels(player);
 		Level currentLevel = levels.get(0);
 		
@@ -160,7 +161,7 @@ public class SaveLoadUnitTests {
 		save.saveGame();
 		
 		//Second save over first
-		Player newPlayer = new Player(boundingBox, null);
+		TestCharacter newPlayer = new TestCharacter(50, 50, 3);
 		List<Level> newLevels = generateLevels(player);
 		Level newCurrentLevel = levels.get(0);
 		
@@ -168,7 +169,7 @@ public class SaveLoadUnitTests {
 		
 		GameData newGd = new GameData(newPlayer, newLevels, newCurrentLevel);
 		
-		Save newSave = new Save(newGd, new File("Player_move"));
+		Save newSave = new Save(gd, new File("Player_move"));
 		newSave.saveGame();
 		
 		//load data 
@@ -179,5 +180,75 @@ public class SaveLoadUnitTests {
 		assertEquals((Double)newPlayer.getX(), (Double)loadedPlayer.getX());
 		assertEquals((Double)newPlayer.getY(), (Double)loadedPlayer.getY());
 	}	
+	
+	private class TestCharacter implements Character{
+		
+		private double x, y;
+		private int lives;
+		
+		public TestCharacter(int x, int y, int lives) {
+			this.x = x;
+			this.y = y;
+			this.lives = lives;
+		}
+
+		@Override
+		public void moveBy(double x, double y) {}
+
+		@Override
+		public void moveTo(double x, double y) {
+			this.x = x;
+			this.y = y;
+		}
+
+		@Override
+		public void tick() {}
+
+		@Override
+		public Type getType() {return null;}
+
+		@Override
+		public double getX() {
+			return x;
+		}
+
+		@Override
+		public double getY() {
+			return y;
+		}
+
+		@Override
+		public double getWidth() {return 0;}
+
+		@Override
+		public double getHeight() {return 0;}
+
+		@Override
+		public void setImage(ImgResources image) {}
+
+		@Override
+		public ImgResources getImage() {return null;}
+
+		@Override
+		public java.awt.geom.Rectangle2D.Double getBoundingBox() {return null;}
+
+		@Override
+		public boolean hit(int damage) {
+			if (lives > 0) {
+				lives-=damage;
+				return true;
+			}
+			return false;
+		}
+
+		@Override
+		public boolean isAlive() {return false;}
+
+		@Override
+		public int getLives() {
+			return lives;
+		}
+		
+	}
 	
 }

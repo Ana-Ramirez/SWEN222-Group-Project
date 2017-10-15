@@ -43,6 +43,7 @@ public class SaveHandler<T extends Event> implements EventHandler<ActionEvent>{
 		if(file == null) {
 			return;
 		}
+		
 		Save save = new Save(gameData, file);
 
 		save.saveGame();
