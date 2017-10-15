@@ -48,7 +48,6 @@ public class Save {
 			obj_out.close();
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
