@@ -9,7 +9,7 @@ import ai.RunawayEnemy;
 import entities.Type;
 import interfaces.Entity;
 import interfaces.MoveableEntity;
-import interfaces.StratergyPattern;
+import interfaces.StrategyPattern;
 import resources.ImgResources;
 
 import static org.junit.Assert.*;
@@ -48,8 +48,8 @@ public class aiTests {
 	
 	private class TestMoveableEntity implements MoveableEntity {
 		private double x, y, width, height, speed = 1;
-		private StratergyPattern pattern;
-		public TestMoveableEntity(double x, double y, double width, double height, StratergyPattern pattern) {
+		private StrategyPattern pattern;
+		public TestMoveableEntity(double x, double y, double width, double height, StrategyPattern pattern) {
 			this.x = x;
 			this.y = y;
 			this.width = width;
@@ -321,7 +321,7 @@ public class aiTests {
 	@Test
 	public void testMonsterFasterFollow() {
 		TestEntity player = new TestEntity(200, 200, 0, 0);
-		StratergyPattern pattern = new FollowingEnemy(player);
+		StrategyPattern pattern = new FollowingEnemy(player);
 		TestMoveableEntity monster = new TestMoveableEntity(100, 100, 0, 0, pattern);
 		
 		
@@ -349,7 +349,7 @@ public class aiTests {
 	@Test
 	public void testMonsterSlowerFollow() {
 		TestEntity player = new TestEntity(200, 200, 0, 0);
-		StratergyPattern pattern = new FollowingEnemy(player);
+		StrategyPattern pattern = new FollowingEnemy(player);
 		TestMoveableEntity monster = new TestMoveableEntity(100, 100, 0, 0, pattern);
 		
 		assertEquals(0.5,  pattern.getSpeed(), 0);
@@ -379,7 +379,7 @@ public class aiTests {
 	@Test
 	public void testMonsterFasterRunaway() {
 		TestEntity player = new TestEntity(200, 200, 0, 0);
-		StratergyPattern pattern = new RunawayEnemy(player);
+		StrategyPattern pattern = new RunawayEnemy(player);
 		TestMoveableEntity monster = new TestMoveableEntity(100, 100, 0, 0, pattern);
 		
 		assertEquals(0.5,  pattern.getSpeed(), 0);
@@ -409,7 +409,7 @@ public class aiTests {
 	@Test
 	public void testMonsterSlowerRunaway() {
 		TestEntity player = new TestEntity(200, 200, 0, 0);
-		StratergyPattern pattern = new RunawayEnemy(player);
+		StrategyPattern pattern = new RunawayEnemy(player);
 		TestMoveableEntity monster = new TestMoveableEntity(100, 100, 0, 0, pattern);
 		
 		for (int i = 0; i < 10; i++) {
@@ -437,7 +437,7 @@ public class aiTests {
 	public void testPatrolling1Goals() {
 		try {
 			@SuppressWarnings("unused")
-			StratergyPattern pattern = new PatrollingEnemy(new Goal[] {new Goal(100, 100)});
+			StrategyPattern pattern = new PatrollingEnemy(new Goal[] {new Goal(100, 100)});
 			fail("Requires more than 1 goal");
 		} catch(IllegalArgumentException e) {
 			
@@ -446,7 +446,7 @@ public class aiTests {
 	
 	@Test
 	public void testPatrolling2Goals() {
-		StratergyPattern pattern = new PatrollingEnemy(new Goal[] {new Goal(100, 100), new Goal(200, 200)});
+		StrategyPattern pattern = new PatrollingEnemy(new Goal[] {new Goal(100, 100), new Goal(200, 200)});
 		TestMoveableEntity monster = new TestMoveableEntity(150, 150, 0, 0, pattern);
 		
 		for (int i = 0; i < 100; i++) {
@@ -470,7 +470,7 @@ public class aiTests {
 	
 	@Test
 	public void testPatrolling3Goals() {
-		StratergyPattern pattern = new PatrollingEnemy(new Goal[] {new Goal(100, 200), new Goal(200, 200), new Goal(200, 300)});
+		StrategyPattern pattern = new PatrollingEnemy(new Goal[] {new Goal(100, 200), new Goal(200, 200), new Goal(200, 300)});
 		TestMoveableEntity monster = new TestMoveableEntity(150, 200, 0, 0, pattern);
 		
 		for (int i = 0; i < 100; i++) {
@@ -500,7 +500,7 @@ public class aiTests {
 	
 	@Test
 	public void testPatrollingSlower() {
-		StratergyPattern pattern = new PatrollingEnemy(new Goal[] {new Goal(100, 100), new Goal(200, 200)});
+		StrategyPattern pattern = new PatrollingEnemy(new Goal[] {new Goal(100, 100), new Goal(200, 200)});
 		TestMoveableEntity monster = new TestMoveableEntity(150, 150, 0, 0, pattern);
 		
 		assertEquals(0.5,  pattern.getSpeed(), 0);
@@ -529,7 +529,7 @@ public class aiTests {
 	
 	@Test
 	public void testPatrollingFaster() {
-		StratergyPattern pattern = new PatrollingEnemy(new Goal[] {new Goal(100, 100), new Goal(200, 200)});
+		StrategyPattern pattern = new PatrollingEnemy(new Goal[] {new Goal(100, 100), new Goal(200, 200)});
 		TestMoveableEntity monster = new TestMoveableEntity(150, 150, 0, 0, pattern);
 		
 		assertEquals(0.5,  pattern.getSpeed(), 0);

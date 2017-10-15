@@ -12,7 +12,7 @@ import entities.MeleeWeapon;
 import entities.Monster;
 import entities.Player;
 import entities.Type;
-import interfaces.StratergyPattern;
+//import interfaces.StrategyPattern;
 import resources.ImgResources;
 import view.Renderer;
 
@@ -29,6 +29,7 @@ public class Level implements Serializable{
 	private Player player;
 	private Room currentRoom;
 	private boolean gotPatrick = false;
+	private Monster boss;
 
 	/**
 	 * Create the new level, passing in a new player

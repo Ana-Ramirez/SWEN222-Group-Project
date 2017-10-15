@@ -6,7 +6,7 @@ import java.io.Serializable;
 * @author Ana Ramirez
 */
 
-public interface StratergyPattern extends Serializable{
+public interface StrategyPattern extends Serializable{
 	
 	/**
 	 * 

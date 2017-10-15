@@ -26,12 +26,13 @@ import view.Renderer;
  *
  */
 public class LevelInitialiser {
-	
 	/**
 	 * create rooms and add to this level
 	 * @throws Exception
 	 */
+
 	public static void initialise(Level level, List<Room> rooms, Player player){
+
 		//create rooms and doors
 		Room room1 = new Room(1, level);
 		Room room2 = new Room(2, level);
