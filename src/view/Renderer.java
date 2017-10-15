@@ -143,6 +143,7 @@ public class Renderer implements Serializable{
 			g.drawImage(inventory[1].getImage().img, x+84, y+4, 56, 56);
 		}
 		
+		//Draw item in the player's hand
 		Pickupable e = level.getPlayer().getHand();
 		if (e != null) {
 			g.drawImage(e.getImage().img, level.getPlayer().getX()+level.getPlayer().getWidth()+16, level.getPlayer().getY()+level.getPlayer().getHeight()/4d+HUD_HEIGHT, -24, 24);
