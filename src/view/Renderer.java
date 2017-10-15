@@ -91,7 +91,7 @@ public class Renderer implements Serializable{
 			/**g.strokeRect(e.getX(), e.getY()+HUD_HEIGHT, e.getWidth(), e.getHeight());**/
 		}
 		
-		g.drawImage(level.getPlayer().getImage().img, level.getPlayer().getX(), HUD_HEIGHT + level.getPlayer().getY(), level.getPlayer().getWidth(), level.getPlayer().getHeight());
+		//g.drawImage(level.getPlayer().getImage().img, level.getPlayer().getX(), HUD_HEIGHT + level.getPlayer().getY(), level.getPlayer().getWidth(), level.getPlayer().getHeight());
 	}
 
 	/**

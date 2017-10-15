@@ -9,12 +9,13 @@ package entities;
 public abstract class Character extends MovableEntities {
 	private static final long serialVersionUID = 4776917612212761920L;
 	protected int lives;
+	private Pickupable hand;
 
 
 	protected Character(double x, double y, double width, double height, Type type, int lives) {
 		super(x, y, width, height, type);
 		this.lives = lives;
-
+		hand = null;
 	}
 
 	@Override
@@ -45,4 +46,24 @@ public abstract class Character extends MovableEntities {
 	public int getLives() {
 		return lives;
 	}
+	
+	/**
+	 * Returns the object currently in the players hand
+	 * @return
+	 * 		the pickupable object in the hand
+	 */
+	public Pickupable getHand() {
+		return hand;
+	}
+	
+	/**
+	 * Returns the object currently in the players hand
+	 * @return
+	 * 		the pickupable object in the hand
+	 */
+	protected void setHand(Pickupable e) {
+		hand = e;
+		
+	}
+
 }
