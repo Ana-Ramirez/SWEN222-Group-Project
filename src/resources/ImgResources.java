@@ -40,7 +40,10 @@ public enum ImgResources {
 	WALLTOP("wallTop.png"),
 	//ENEMIES
 	MONSTER("monster.png"),
+	MONSTERINJURED("monsterInjured.png"),
 	MAO("mao.png"),
+	MAOHIT("maoRed.png"),
+	MAOINJURED("maoInjured.png"),
 	//PROJECTILES
 	BULLET("bullet.png"),
 	HLASER("lazerHoriz.png"),
