@@ -12,7 +12,7 @@ import entities.MeleeWeapon;
 import entities.Monster;
 import entities.Player;
 import entities.Type;
-import interfaces.StrategyPattern;
+//import interfaces.StrategyPattern;
 import resources.ImgResources;
 import view.Renderer;
 
@@ -39,76 +39,9 @@ public class Level implements Serializable{
 	public Level(Player player){
 		this.player = player;
 		this.rooms = new ArrayList<Room>();
-		initialise();
+		LevelInitialiser.initialise(this, rooms, player);
 		currentRoom = rooms.get(0);
 
-	}
-
-	/**
-	 * create rooms and add to this level
-	 * @throws Exception
-	 */
-	private void initialise(){
-		//create rooms and doors
-		Room room1 = new Room(1, this);
-		Room room2 = new Room(2, this);
-		Room room3 = new Room(3, this);
-		Room room4 = new Room(4, this);
-		Room room5 = new Room(5, this);
-
-		//create doors for rooms
-		room1.addEntity(new Door(room1, room5, null, 1, 0));	//north door
-		room2.addEntity(new Door(room2, room5, null, 2, 1));	//south door
-		room3.addEntity(new Door(room3, room5, null, 3, 2));	//east door
-		room4.addEntity(new Door(room4, room5, null, 4, 3));	//west door
-		
-		//adding new door objects which are the same but different
-		//position as they need to be flipped for the center room
-		room5.addEntity(new Door(room1, room5, null, 51, 1));	//south door
-		room5.addEntity(new Door(room2, room5, null, 52, 0));	//north door
-		room5.addEntity(new Door(room3, room5, null, 53, 3));	//west door
-		room5.addEntity(new Door(room4, room5, null, 54, 2));	//east door
-
-		//add rooms to the level
-		this.rooms.add(room1);
-		this.rooms.add(room2);
-		this.rooms.add(room3);
-		this.rooms.add(room4);
-		this.rooms.add(room5);
-		
-		//create entities to add
-		Consumable live1 = new Consumable(new Rectangle2D.Double(20, 40, 32, 32), "Lives 1", ImgResources.LIFE);
-		Consumable live2 = new Consumable(new Rectangle2D.Double(20, 40, 32, 32), "Lives 1", ImgResources.LIFE);
-		Consumable ammo = new Consumable(new Rectangle2D.Double(20, 40, 32, 32), "Ammo 20", ImgResources.BULLET);
-
-		Gun gunEarth = new Gun(new Rectangle2D.Double(300, 300, 32, 32), Type.EARTH, 10, ImgResources.GUN, ImgResources.BULLET);
-		Gun gunFire = new Gun(new Rectangle2D.Double(200, 300, 32, 32), Type.FIRE, 20, ImgResources.GUN, ImgResources.BULLET);
-		MeleeWeapon melee = new MeleeWeapon(new Rectangle2D.Double(100, 100, 32, 32), Type.WATER, 40, ImgResources.CONSOLE1);
-
-		StrategyPattern pattern = new FollowingEnemy(player);
-
-		Monster monsterEasy = new Monster(new Rectangle2D.Double(200, 200, 32, 32), 100, Type.EARTH, gunEarth, ImgResources.MONSTER, pattern);
-		Monster monsterMedium = new Monster(new Rectangle2D.Double(200, 200, 50, 50), 100, Type.FIRE, gunFire, ImgResources.MONSTER, pattern);
-		Monster monsterHard = new Monster(new Rectangle2D.Double(200, 200, 50, 50), 100, Type.WATER, melee, ImgResources.MONSTER, pattern);
-		
-		boss = new Monster(new Rectangle2D.Double(Renderer.ROOM_WIDTH/2-64, Renderer.ROOM_HEIGHT/2-64, 64, 64), 500, Type.EARTH, gunEarth, ImgResources.MAO, pattern);
-
-		//add to rooms
-		room1.addEntity(gunEarth);
-
-		room2.addEntity(monsterEasy);
-		room2.addEntity(live1);
-
-		room3.addEntity(monsterEasy);
-		room3.addEntity(monsterMedium);
-		room3.addEntity(melee);
-		room3.addEntity(gunFire);
-
-		room4.addEntity(live2);
-		room4.addEntity(ammo);
-		room4.addEntity(monsterHard);
-
-		room5.addEntity(boss);
 	}
 
 	/**
