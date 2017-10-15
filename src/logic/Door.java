@@ -55,6 +55,7 @@ public class Door extends Entities {
 	 */
 	public void setDoorPosition(int newPos){
 		String image = null;
+		this.position = newPos;
 		double x = 0;
 		double y = 0;
 		if(newPos == 0){ 			//NORTH

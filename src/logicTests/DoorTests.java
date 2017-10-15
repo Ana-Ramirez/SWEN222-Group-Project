@@ -2,13 +2,15 @@ package logicTests;
 
 import static org.junit.Assert.*;
 
+import java.awt.geom.Rectangle2D;
+
 import org.junit.Test;
 
-import entities.Consumable;
 import entities.MeleeWeapon;
-import entities.Pickupable;
+import entities.Player;
 import entities.Type;
 import logic.Door;
+import logic.Level;
 import logic.Room;
 
 /**
@@ -20,55 +22,53 @@ import logic.Room;
 public class DoorTests {
 	
 	/**
-	 * Verify door number is what it should be
+	 * Door creates with correct information
 	 */
 	@Test
-	public void create1() {
-		
-		MeleeWeapon weapon = new MeleeWeapon(1, 1, 1, 1, entities.Type.FIRE, 10, null);
-		Door door = new Door(new Room(1), new Room(2), weapon, 1, 1);
+	public void create() {
+		Player player = new Player(new Rectangle2D.Double(10, 10, 10, 10), null);
+		Level level = new Level(player);
+		MeleeWeapon weapon = new MeleeWeapon(new Rectangle2D.Double(10, 10, 10, 10), Type.EARTH, 10, null);
+		Room room1 = new Room(1, level);
+		Room room2 = new Room(2, level);
+		Door door = new Door(room1, room2, weapon, 1, 3);
 		assertEquals(1, door.getDoorNum());
-	}
-	
-	/**
-	 * Verify wall position is what it should be
-	 */
-	@Test
-	public void create2() {
-		MeleeWeapon weapon = new MeleeWeapon(1, 1, 1, 1, entities.Type.FIRE, 10, null);
-		Door door = new Door(new Room(1), new Room(2), weapon, 1, 1);
-		assertEquals(1, door.getDoorPosition());
-	}
-	
-	/**
-	 * Verify unlock item is what it should be
-	 */
-	@Test
-	public void create3() {
-		MeleeWeapon weapon = new MeleeWeapon(1, 1, 1, 1, entities.Type.FIRE, 10, null);
-		Door door = new Door(new Room(1), new Room(2), weapon, 1, 1);
+		assertEquals(3, door.getDoorPosition());
 		assertEquals(weapon, door.getUnlockItem());
+		assertEquals(room1, door.getRoom1());
 	}
 	
 	/**
-	 * Verify unlock is what it should be
+	 * Change door position
 	 */
 	@Test
-	public void create4() {
-		Consumable consumable = new Consumable(20, 100, 1, 1, null, null);
-		Door door = new Door(new Room(1), new Room(2), consumable, 1, 1);
-		assertEquals(consumable, door.getUnlockItem());
+	public void setPosition() {
+		Player player = new Player(new Rectangle2D.Double(10, 10, 10, 10), null);
+		Level level = new Level(player);
+		MeleeWeapon weapon = new MeleeWeapon(new Rectangle2D.Double(10, 10, 10, 10), Type.EARTH, 10, null);
+		Room room1 = new Room(1, level);
+		Room room2 = new Room(2, level);
+		Door door = new Door(room1, room2, weapon, 1, 3);
+		assertEquals(3, door.getDoorPosition());
+		door.setDoorPosition(2);
+		assertEquals(2, door.getDoorPosition());
 	}
 	
 	/**
-	 * Verify a room is what it should be
+	 * unlock door
 	 */
 	@Test
-	public void create5() {
-		MeleeWeapon weapon = new MeleeWeapon(1, 1, 1, 1, entities.Type.FIRE, 10, null);
-		Room room = new Room(5);
-		Door door = new Door(new Room(1), room, weapon, 1, 1);
-		assertEquals(room, door.getRoom2());
+	public void unlock() {
+		Player player = new Player(new Rectangle2D.Double(10, 10, 10, 10), null);
+		Level level = new Level(player);
+		MeleeWeapon weapon = new MeleeWeapon(new Rectangle2D.Double(10, 10, 10, 10), Type.EARTH, 10, null);
+		Room room1 = new Room(1, level);
+		Room room2 = new Room(2, level);
+		Door door = new Door(room1, room2, weapon, 1, 3);
+		assertTrue(door.isLocked());
+		door.unlockDoor(weapon);
+		assertFalse(door.isLocked());
 	}
+	
 
 }

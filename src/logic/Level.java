@@ -120,7 +120,7 @@ public class Level implements Serializable{
 		return currentRoom;
 	}
 	
-	/*
+	/**
 	 * Setter for current room, used in testing
 	 */
 	public void setCurrentRoom(Room room) {
