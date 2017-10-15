@@ -150,7 +150,7 @@ public class Game extends Application {
 					currentLevel.setLeft(false);
 				}
 				
-				if(player.getLives() == 0) {
+				if(!player.isAlive()) {
 					try {
 						this.stop();
 						gom.start(stage);

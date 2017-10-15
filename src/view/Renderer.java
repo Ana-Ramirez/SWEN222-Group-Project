@@ -85,11 +85,7 @@ public class Renderer implements Serializable{
 	private void drawEntities(){
 
 		for (Entity e : level.getCurrentRoom().getEntities()){
-			if (e.getWidth() != 0 && e.getHeight() != 0) {
-				g.drawImage(e.getImage().img, e.getX(), HUD_HEIGHT + e.getY(), e.getWidth(), e.getHeight());
-			} else {
-				g.drawImage(e.getImage().img, e.getX(), HUD_HEIGHT + e.getY());
-			}
+			g.drawImage(e.getImage().img, e.getX(), HUD_HEIGHT + e.getY(), e.getWidth(), e.getHeight());
 		}
 	}
 

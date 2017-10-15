@@ -19,6 +19,7 @@ import interfaces.Entity;
 import interfaces.MoveableEntity;
 import interfaces.StrategyPattern;
 import resources.ImgResources;
+import sun.swing.ImageIconUIResource;
 
 @SuppressWarnings("unused")
 public class EntitiesTest {
@@ -253,10 +254,9 @@ public class EntitiesTest {
 	}
 	
 	@Test
-	public void useEmptyAmmoConsumable() {
+	public void useEmptyAmmo() {
 		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
 		Gun gun = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, 20, null, null);
-		Consumable cons = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Ammo, 2", null);
 		
 		assertNull(player.pickup(gun));
 		
@@ -265,6 +265,20 @@ public class EntitiesTest {
 			assertNotNull(gun.createProjectile(0, 0));
 		}
 		assertNull(gun.createProjectile(0, 0));
+	}
+	
+	@Test
+	public void useEmptyAmmoCustomImage() {
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Gun gun = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, 20, null, null);
+		
+		assertNull(player.pickup(gun));
+		
+		assertEquals(20, gun.getAmmoCount());
+		for (int i = 0; i < 20; i++) {
+			assertNotNull(gun.createProjectile(ImgResources.BULLET, 0, 0));
+		}
+		assertNull(gun.createProjectile(ImgResources.BULLET, 0, 0));
 	}
 
 	@Test
@@ -449,6 +463,17 @@ public class EntitiesTest {
 
 		assertEquals(ammo1.getBaseDamage(), ammo2.getBaseDamage());
 		assertNotSame(ammo1, ammo2);
+	}
+	
+	@Test
+	public void gunAmmoCustomImage() {
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Gun weapon = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, 20, null, null);
+		player.pickup(weapon);
+		Projectile ammo1 = weapon.createProjectile(ImgResources.BULLET, 0, 0);
+		assertEquals(ammo1.getWidth(), ImgResources.BULLET.getWidth(), 0);
+		assertEquals(ammo1.getHeight(), ImgResources.BULLET.getHeight(), 0);
+		assertEquals("Ammo", ammo1.getInfo());
 	}
 
 	@Test

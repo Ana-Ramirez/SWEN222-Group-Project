@@ -66,7 +66,7 @@ public class Gun extends Weapon {
 	public Projectile createProjectile(ImgResources ammoImg, double targetX, double targetY) {
 		if (ammoCount != 0) {
 			ammoCount--;
-			return new Projectile(getOwner(), new Rectangle2D.Double(getX(), getY(), 0, 0), damage, ammoImg, targetX, targetY);
+			return new Projectile(getOwner(), new Rectangle2D.Double(getX(), getY(), ammoImg.getWidth(), ammoImg.getHeight()), damage, ammoImg, targetX, targetY);
 		} else {
 			return null;
 		}
