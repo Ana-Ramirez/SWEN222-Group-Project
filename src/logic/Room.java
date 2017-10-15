@@ -12,6 +12,7 @@ import entities.Monster;
 import entities.Pickupable;
 import entities.Player;
 import entities.Projectile;
+import entities.Character;
 import interfaces.Entity;
 import interfaces.MoveableEntity;
 import resources.ImgResources;
@@ -52,17 +53,31 @@ public class Room implements Serializable{
 		playerTick(x, y);
 		
 		ArrayList<Entity> toRemove = new ArrayList<>();
+		ArrayList<Entity> toAdd = new ArrayList<>();
 		for(Entity e : roomEntities){
 			if (e instanceof Projectile) {
 				toRemove.addAll(projectileTick((Projectile)e));
 			} else if(e instanceof MoveableEntity) {
 				((MoveableEntity) e).tick();
-			} if(e instanceof Monster && e.getBoundingBox().intersects(getPlayer().getBoundingBox())){
+			} if (e == level.getBoss() && tickNo % 120 == 0) {
+				toAdd.addAll(bossAttack((Monster)e));
+			} else if(e instanceof Monster && e.getBoundingBox().intersects(getPlayer().getBoundingBox())){
 				((Monster)e).attack(getPlayer(), tickNo);
-			}
+			} 
 		}
 		roomEntities.removeAll(toRemove);
-		
+		roomEntities.addAll(toAdd);
+	}
+	
+	private List<Entity> bossAttack(Monster m) {
+		ArrayList<Entity> toAdd = new ArrayList<>();
+		if (m.getHand() instanceof Gun) {
+			toAdd.add(((Gun) m.getHand()).createProjectile(m.getX()+m.getWidth()/2d, m.getY()+m.getHeight()/2d+10d));
+			toAdd.add(((Gun) m.getHand()).createProjectile(m.getX()+m.getWidth()/2d, m.getY()+m.getHeight()/2d-10d));
+			toAdd.add(((Gun) m.getHand()).createProjectile(m.getX()+m.getWidth()/2d+10d, m.getY()+m.getHeight()/2d));
+			toAdd.add(((Gun) m.getHand()).createProjectile(m.getX()+m.getWidth()/2d-10d, m.getY()+m.getHeight()/2d));
+		}
+		return toAdd;
 	}
 	
 	private void playerTick(float x, float y) {
@@ -88,10 +103,13 @@ public class Room implements Serializable{
 			if (e.getBoundingBox().intersects(b.getBoundingBox())) {
 				if(b instanceof Wall) {
 					toRemove.add(e);
-				} else if (b instanceof Monster) {
+				} else if (b instanceof Character) {
+					if (e.getOwner() == ((Character)b)) {
+						continue;
+					}
 					e.attack(b);
 					toRemove.add(e);
-					if (!((Monster) b).isAlive()) {
+					if (!((Character) b).isAlive()) {
 						toRemove.add(b);
 					}
 				}
@@ -137,6 +155,7 @@ public class Room implements Serializable{
 				toRemove.add((Projectile)e);
 			}
 		}
+		roomEntities.remove(getPlayer());
 		roomEntities.removeAll(toRemove);
 		Room gotoRoom = (this == d.getRoom1()) ? d.getRoom2() : d.getRoom1();
 		level.gotoRoom(gotoRoom);

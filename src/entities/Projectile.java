@@ -13,11 +13,12 @@ public class Projectile extends Weapon {
 	private static final long serialVersionUID = 1620202643777534005L;
 	private double angle;
 
-	protected Projectile(Rectangle2D.Double box, int damage, ImgResources img, double targetX, double targetY) {
-		super(box.getMinX()+16d, box.getMinY()+8d, box.getWidth(), box.getHeight(), null, damage);
+	protected Projectile(Character owner, Rectangle2D.Double box, int damage, ImgResources img, double targetX, double targetY) {
+		super(box.getMinX()+owner.getWidth()/2d, box.getMinY()+owner.getHeight()/2d, box.getWidth(), box.getHeight(), null, damage);
 		setImage(img);
-		angle = Math.toDegrees(Math.atan2(targetY-(getY()+box.getHeight()/2d), targetX-(getX()+box.getWidth()/2d)));
+		angle = Math.toDegrees(Math.atan2((targetY)-(getY()), (targetX)-(getX())));
 		this.speed = 2;
+		setOwner(owner);
 	}
 
 	@Override

@@ -10,6 +10,8 @@ import interfaces.Entity;
 public abstract class Weapon extends Pickupable{
 	private static final long serialVersionUID = -3336903366847446135L;
 	private int baseDamage;
+	private Character owner;
+
 
 	public Weapon(double x, double y, double width, double height, Type type, int damage) {
 		super(x, y, width, height, type);
@@ -79,5 +81,13 @@ public abstract class Weapon extends Pickupable{
 	 */
 	public int getBaseDamage() {
 		return baseDamage;
+	}
+	
+	protected void setOwner(Character c) {
+		owner = c;
+	}
+	
+	public Character getOwner() {
+		return owner;
 	}
 }

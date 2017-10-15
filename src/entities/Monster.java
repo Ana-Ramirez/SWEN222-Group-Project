@@ -12,7 +12,6 @@ import resources.ImgResources;
  */
 public class Monster extends Character {
 	private static final long serialVersionUID = -4064250638229615542L;
-	private Weapon weapon;
 	private StrategyPattern pattern;
 	private int oldTick = 0;
 
@@ -37,24 +36,20 @@ public class Monster extends Character {
 	public Monster(Rectangle2D.Double box, int health, Type type, Weapon weapon, ImgResources img, StrategyPattern strategy) {
 		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), type, health);
 		setImage(img);
-		this.weapon = weapon;
+		setHand(weapon);
 		this.pattern = strategy;
-	}
-
-
-	/**
-	 * Gets the monsters weapon
-	 * @return
-	 * 		the weapon object
-	 */
-	public Weapon getWeapon() {
-		return weapon;
+		if (weapon != null) {
+			weapon.setOwner(this);
+		}
 	}
 
 	
 	@Override
 	public void tick() {
 		pattern.tick(this);
+		if (getHand() != null) {
+			getHand().moveTo(getX(), getY());
+		}
 	}
 
 
@@ -68,7 +63,7 @@ public class Monster extends Character {
 	public boolean attack(Entities victim, int tick) {
 		if ((tick-oldTick) >= 120) {
 			oldTick = tick;
-			return weapon.attack(victim);
+			return ((Weapon)getHand()).attack(victim);
 		} else {
 			return false;
 		}
