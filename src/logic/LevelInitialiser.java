@@ -76,7 +76,7 @@ public class LevelInitialiser {
 		room1.addEntity(new Gun(new Rectangle2D.Double(200, 200, Renderer.TILE_SIZE, Renderer.TILE_SIZE), Type.FIRE, 20, ImgResources.GUN, ImgResources.BULLET));
 //		room1.addEntity(new Consumable(new Rectangle2D.Double(400, 200, 40, 40), "Key 5", ImgResources.KEY));
 //		room1.addEntity(new Consumable(new Rectangle2D.Double(500, 250, 32, 32), "Speed 10", ImgResources.POTION));
-		room1.addEntity(new MeleeWeapon(new Rectangle2D.Double(400, 300, 32, 32), Type.WATER, 40, ImgResources.SWORDRIGHTUP));
+		room1.addEntity(new MeleeWeapon(new Rectangle2D.Double(400, 300, 32, 32), Type.WATER, 40, ImgResources.SWORDLEFTUP));
 		
 		room2.addEntity(new Consumable(new Rectangle2D.Double(50, 50, Renderer.TILE_SIZE, Renderer.TILE_SIZE), "Lives 1", ImgResources.LIFE));
 		room2.addEntity(new Monster(new Rectangle2D.Double(500, 250, 75, 75), monsterMedHealth, Type.EARTH, gunEarth, ImgResources.MONSTER, pattern));

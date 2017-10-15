@@ -147,11 +147,20 @@ public class Renderer implements Serializable{
 		//Draw item in the player's hand
 		Pickupable e = player.getHand();
 		if (e != null) {
+			ImgResources image = e.getImage();
 			if (!level.isLeft()){ //Player is facing right
-				g.drawImage(e.getImage().img, player.getX() + player.getWidth() + 17, player.getY() + player.getHeight() / 4d + HUD_HEIGHT, -24, 24);
+				if (image == ImgResources.SWORDLEFTUP || image == ImgResources.SWORDLEFTDIAG || image == ImgResources.SWORDLEFTDOWN){
+					g.drawImage(image.img, player.getX() + player.getWidth() + 40, player.getY() + HUD_HEIGHT - 12, -48, 48);
+				} else {
+					g.drawImage(image.img, player.getX() + player.getWidth() + 17, player.getY() + player.getHeight() / 4d + HUD_HEIGHT, -24, 24);
+				}
 			}
 			else { //player is facing left
-				g.drawImage(e.getImage().img, player.getX() - 17, player.getY() + player.getHeight() / 4d + HUD_HEIGHT, 24, 24);
+				if (image == ImgResources.SWORDLEFTUP || image == ImgResources.SWORDLEFTDIAG || image == ImgResources.SWORDLEFTDOWN){
+					g.drawImage(image.img, player.getX() - 40, player.getY() + HUD_HEIGHT - 12, 48, 48);
+				} else { 
+					g.drawImage(image.img, player.getX() - 17, player.getY() + player.getHeight() / 4d + HUD_HEIGHT, 24, 24);
+				}
 			}
 		}
 	}
