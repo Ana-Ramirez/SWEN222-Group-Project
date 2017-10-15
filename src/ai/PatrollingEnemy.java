@@ -14,7 +14,7 @@ import interfaces.StratergyPattern;
 public class PatrollingEnemy implements StratergyPattern {
 
 	private static final long serialVersionUID = 7378834863382700237L;
-	private double speed = 0.5;
+	private double speed = 1.0f;
 	private Goal[] goals;
 	private int currentGoal;
 
