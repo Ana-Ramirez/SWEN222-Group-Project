@@ -44,8 +44,10 @@ public class Room implements Serializable{
 
 	/**
 	 * Handles a tick in the game
-	 * @param x 	mouse x pos
-	 * @param y 	mouse y pos
+	 * @param x 		mouse x pos
+	 * @param y 		mouse y pos
+	 * @param tickNo	number of ticks in game
+	 * 
 	 */
 	public void tick(float x, float y, int tickNo) {
 		playerTick(x, y);
@@ -64,6 +66,11 @@ public class Room implements Serializable{
 		
 	}
 	
+	/**
+	 * Decides which direction to move the player
+	 * @param x
+	 * @param y
+	 */
 	private void playerTick(float x, float y) {
 		getPlayer().tick();
 		if (x != 0 || y != 0) {
@@ -80,6 +87,12 @@ public class Room implements Serializable{
 		}
 	}
 	
+	/**
+	 * Calls actions on what should happen when a projectile hits 
+	 * different objects (i.e. bullet disappears on wall, but hurts monster)
+	 * @param e		the projectile
+	 * @return
+	 */
 	private ArrayList<Entity> projectileTick(Projectile e) {
 		ArrayList<Entity> toRemove = new ArrayList<>();
 		e.tick();
