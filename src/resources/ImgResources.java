@@ -16,6 +16,16 @@ public enum ImgResources {
 	GUN("gun.png"),
 	KEY("key.png"),
 	LIFE("head.png"),
+	AMMO("ammo.png"),
+	//WEAPONS
+	SWORDLEFTUP("swordUpLeft.png"),
+	SWORDLEFTDIAG("swordDiagLeft.png"),
+	SWORDLEFTDOWN("swordDownLeft.png"),
+	SWORDRIGHTUP("swordUpRight.png"),
+	SWORDRIGHTDIAG("swordDiagRight.png"),
+	SWORDRIGHTDOWN("swordDownRight.png"),
+	GUNLEFT("gunLeft.png"),
+	GUNRIGHT("gunRight.png"),
 	//ENVIRONMENT
 	FLOOR("floor.png"),
 	CONSOLE1("console1.png"),
