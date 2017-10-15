@@ -30,6 +30,7 @@ public class Level implements Serializable{
 	private Room currentRoom;
 	private boolean gotPatrick = false;
 	private Monster boss;
+	private boolean isLeft;
 
 	/**
 	 * Create the new level, passing in a new player
@@ -41,7 +42,7 @@ public class Level implements Serializable{
 		this.rooms = new ArrayList<Room>();
 		LevelInitialiser.initialise(this, rooms, player);
 		currentRoom = rooms.get(0);
-
+		isLeft = false;
 	}
 
 	/**
@@ -124,6 +125,21 @@ public class Level implements Serializable{
 	 */
 	public void setCurrentRoom(Room room) {
 		this.currentRoom = room;
+	}
+	
+	/**
+	 * Sets the isLeft field to the boolean b
+	 * @param b
+	 */
+	public void setLeft(boolean b){
+		isLeft = b;
+	}
+	
+	/**
+	 * @return if the player is facing left
+	 */
+	public boolean isLeft(){
+		return isLeft;
 	}
 
 }
