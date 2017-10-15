@@ -1,34 +1,42 @@
 package logic;
 
+import java.awt.geom.Rectangle2D;
+import java.util.List;
+
 import ai.FollowingEnemy;
 import entities.Consumable;
 import entities.Gun;
 import entities.MeleeWeapon;
 import entities.Monster;
+import entities.Player;
 import entities.Type;
-import interfaces.Enemies;
+import interfaces.StratergyPattern;
 import resources.ImgResources;
 
 public class LevelInitialiser {
 	
-	Level level;
+//	Level level;
+//	List<Room> rooms;
+//	Player player;
 	
-	
-	public LevelInitialiser(){
-		
-	}
+//	public LevelInitialiser(Level level, List<Room> rooms, Player player){
+//		this.level = level;
+//		this.rooms = rooms;
+//		this.player = player;
+//		initialise();
+//	}
 	
 	/**
 	 * create rooms and add to this level
 	 * @throws Exception
 	 */
-	private void initialise(){
+	public static void initialise(Level level, List<Room> rooms, Player player){
 		//create rooms and doors
-		Room room1 = new Room(1, this);
-		Room room2 = new Room(2, this);
-		Room room3 = new Room(3, this);
-		Room room4 = new Room(4, this);
-		Room room5 = new Room(5, this);
+		Room room1 = new Room(1, level);
+		Room room2 = new Room(2, level);
+		Room room3 = new Room(3, level);
+		Room room4 = new Room(4, level);
+		Room room5 = new Room(5, level);
 
 		//create doors for rooms
 		room1.addEntity(new Door(room1, room5, null, 1, 0));	//north door
@@ -44,41 +52,43 @@ public class LevelInitialiser {
 		room5.addEntity(new Door(room4, room5, null, 54, 2));	//east door
 
 		//add rooms to the level
-		this.rooms.add(room1);
-		this.rooms.add(room2);
-		this.rooms.add(room3);
-		this.rooms.add(room4);
-		this.rooms.add(room5);
-
+		rooms.add(room1);
+		rooms.add(room2);
+		rooms.add(room3);
+		rooms.add(room4);
+		rooms.add(room5);
+		
 		//create entities to add
-		Consumable consumable = new Consumable("food", 20, 40, 32, 32, "Lives 1", ImgResources.LIFE);
+		Consumable live1 = new Consumable(new Rectangle2D.Double(20, 40, 32, 32), "Lives 1", ImgResources.LIFE);
+		Consumable live2 = new Consumable(new Rectangle2D.Double(20, 40, 32, 32), "Lives 1", ImgResources.LIFE);
+		Consumable ammo = new Consumable(new Rectangle2D.Double(20, 40, 32, 32), "Ammo 20", ImgResources.BULLET);
 
-		Gun gunEarth = new Gun("gunEarth", 300, 300, 32, 32, Type.EARTH, 10, ImgResources.GUN, ImgResources.CONSOLE1);
-		Gun gunFire = new Gun("gunFire", 200, 300, 32, 32, Type.FIRE, 20, ImgResources.GUN, ImgResources.CONSOLE1);
-		MeleeWeapon melee = new MeleeWeapon("knife", 100, 100, 32, 32, Type.WATER, 40, ImgResources.CONSOLE1);
+		Gun gunEarth = new Gun(new Rectangle2D.Double(300, 300, 32, 32), Type.EARTH, 10, ImgResources.GUN, ImgResources.BULLET);
+		Gun gunFire = new Gun(new Rectangle2D.Double(200, 300, 32, 32), Type.FIRE, 20, ImgResources.GUN, ImgResources.BULLET);
+		MeleeWeapon melee = new MeleeWeapon(new Rectangle2D.Double(100, 100, 32, 32), Type.WATER, 40, ImgResources.CONSOLE1);
 
-		Enemies pattern = new FollowingEnemy(player);
+		StratergyPattern pattern = new FollowingEnemy(player);
 
-		Monster monsterEasy = new Monster("monsterEasy", 200, 200, 32, 32, Type.EARTH, gunEarth, ImgResources.MONSTER, pattern);
-		Monster monsterMedium = new Monster("monsterMedium", 200, 200, 50, 50, Type.FIRE, gunFire, ImgResources.MONSTER, pattern);
-		Monster monsterHard = new Monster("monsterHard", 200, 200, 50, 50, Type.WATER, melee, ImgResources.MONSTER, pattern);
+		Monster monsterEasy = new Monster(new Rectangle2D.Double(200, 200, 32, 32), Type.EARTH, gunEarth, ImgResources.MONSTER, pattern);
+		Monster monsterMedium = new Monster(new Rectangle2D.Double(200, 200, 50, 50), Type.FIRE, gunFire, ImgResources.MONSTER, pattern);
+		Monster monsterHard = new Monster(new Rectangle2D.Double(200, 200, 50, 50), Type.WATER, melee, ImgResources.MONSTER, pattern);
 
 		//add to rooms
-		room1.addEntity(player);
 		room1.addEntity(gunEarth);
 
 		room2.addEntity(monsterEasy);
-		room2.addEntity(consumable);
+		room2.addEntity(live1);
 
 		room3.addEntity(monsterEasy);
 		room3.addEntity(monsterMedium);
 		room3.addEntity(melee);
 		room3.addEntity(gunFire);
 
-		room4.addEntity(consumable);
-		room4.addEntity(consumable);
+		room4.addEntity(live2);
+		room4.addEntity(ammo);
 		room4.addEntity(monsterHard);
 
 	}
+
 	
 }
