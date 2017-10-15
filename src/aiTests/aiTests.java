@@ -108,7 +108,6 @@ public class aiTests {
 		while(i != 0){
 			fEnemy.tick(monster);
 			i--;
-			System.out.println(monster.getX());
 		}
 		
 		assertEquals(200f, monster.getX(), 0);
@@ -126,7 +125,6 @@ public class aiTests {
 		while(i != 0){
 			pEnemy.tick(monster);
 			i--;
-			System.out.println(monster.getY());
 		}
 		
 		assertEquals(100f, monster.getY(), 0);
@@ -145,7 +143,6 @@ public class aiTests {
 		while(i != 0){
 			rEnemy.tick(monster);
 			i--;
-			System.out.println(monster.getX());
 		}
 		
 		assertEquals(0f, monster.getX(), 0);

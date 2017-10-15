@@ -14,7 +14,7 @@ public class FollowingEnemy implements StratergyPattern {
 
 	private static final long serialVersionUID = 7116534404337031487L;
 	private final Entity player;
-	private double speed = 0.5f;
+	private double speed = 1.0f;
 
 	public FollowingEnemy(Entity player) {
 		this.player = player;
