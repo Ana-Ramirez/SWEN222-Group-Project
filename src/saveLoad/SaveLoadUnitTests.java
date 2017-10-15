@@ -3,6 +3,7 @@ package saveLoad;
 import static org.junit.Assert.assertEquals;
 
 import java.awt.Dimension;
+import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ import logic.Room;
 
 public class SaveLoadUnitTests {
 	
-	BoundingBox boundingBox = new BoundingBox(50, 50, 23, 23);
+	Rectangle2D.Double boundingBox = new Rectangle2D.Double(50, 50, 23, 23);
 	
 	/**
 	 * Tests that the player position is saved

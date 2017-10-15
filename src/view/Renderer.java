@@ -85,10 +85,13 @@ public class Renderer implements Serializable{
 			System.out.println("List of entities is null!");
 			return;
 		}**/
+		
 		for (Entity e : level.getCurrentRoom().getEntities()){
 			g.drawImage(e.getImage().img, e.getX(), HUD_HEIGHT + e.getY(), e.getWidth(), e.getHeight());
-			//g.strokeRect(e.getX(), e.getY()+HUD_HEIGHT, e.getWidth(), e.getHeight());
+			/**g.strokeRect(e.getX(), e.getY()+HUD_HEIGHT, e.getWidth(), e.getHeight());**/
 		}
+		
+		g.drawImage(level.getPlayer().getImage().img, level.getPlayer().getX(), HUD_HEIGHT + level.getPlayer().getY(), level.getPlayer().getWidth(), level.getPlayer().getHeight());
 	}
 
 	/**

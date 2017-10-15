@@ -1,6 +1,7 @@
 package entities;
 
-import javafx.geometry.BoundingBox;
+import java.awt.geom.Rectangle2D;
+
 import resources.ImgResources;
 
 /**
@@ -29,7 +30,7 @@ public class Consumable extends Pickupable {
 	 * @param type
 	 * 		the type to use
 	 */
-	public Consumable(BoundingBox box, String action, ImgResources img) {
+	public Consumable(Rectangle2D.Double box, String action, ImgResources img) {
 		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), null);
 		setImage(img);
 		checkAction(action);

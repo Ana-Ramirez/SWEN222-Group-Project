@@ -1,10 +1,10 @@
 package interfaces;
 
 
+import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
 import entities.Type;
-import javafx.geometry.BoundingBox;
 import resources.ImgResources;
 
 public interface Entity extends Serializable {
@@ -72,5 +72,5 @@ public interface Entity extends Serializable {
 	 * @return
 	 * 		the image object
 	 */
-	public BoundingBox getBoundingBox();
+	public Rectangle2D.Double getBoundingBox();
 }

@@ -1,6 +1,7 @@
 package entities;
 
-import javafx.geometry.BoundingBox;
+import java.awt.geom.Rectangle2D;
+
 import resources.ImgResources;
 
 /**
@@ -25,7 +26,7 @@ public class Player extends Character {
 	 * @param height
 	 * 		the int height to use
 	 */
-	public Player(BoundingBox box, ImgResources img) {
+	public Player(Rectangle2D.Double box, ImgResources img) {
 		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), null, 3);
 		setImage(img);
 		hand = null;
@@ -156,8 +157,8 @@ public class Player extends Character {
 	 * Returns a large bounding box used for the attack radius
 	 * @return
 	 */
-	public BoundingBox getExtendedBoundingBox() {
-		return new BoundingBox(getX()-20, getY()-20, getWidth()+40, getHeight()+40);
+	public Rectangle2D.Double getExtendedBoundingBox() {
+		return new Rectangle2D.Double(getX()-20, getY()-20, getWidth()+40, getHeight()+40);
 	}
 
 

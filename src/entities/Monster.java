@@ -1,7 +1,8 @@
 package entities;
 
+import java.awt.geom.Rectangle2D;
+
 import interfaces.StratergyPattern;
-import javafx.geometry.BoundingBox;
 import resources.ImgResources;
 
 /**
@@ -33,7 +34,7 @@ public class Monster extends Character {
 	 * @param weapon
 	 * 		the weapon to use
 	 */
-	public Monster(BoundingBox box, Type type, Weapon weapon, ImgResources img, StratergyPattern stratergy) {
+	public Monster(Rectangle2D.Double box, Type type, Weapon weapon, ImgResources img, StratergyPattern stratergy) {
 		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), type, 100);
 		setImage(img);
 		this.weapon = weapon;

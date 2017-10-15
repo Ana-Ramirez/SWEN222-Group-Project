@@ -1,6 +1,7 @@
 package entities;
 
-import javafx.geometry.BoundingBox;
+import java.awt.geom.Rectangle2D;
+
 import resources.ImgResources;
 
 //***** Design Discussion *********
@@ -38,7 +39,7 @@ public class Gun extends Weapon {
 	 * @param damage
 	 * 		the base damage to use
 	 */
-	public Gun(BoundingBox box, Type type, int damage, ImgResources img, ImgResources ammoImg) {
+	public Gun(Rectangle2D.Double box, Type type, int damage, ImgResources img, ImgResources ammoImg) {
 		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), type, damage);
 		this.damage = damage;
 		setImage(img);
@@ -57,7 +58,7 @@ public class Gun extends Weapon {
 	public Projectile createProjectile(double x, double y) {
 		if (ammoCount > 0) {
 			ammoCount--;
-			return new Projectile(new BoundingBox(getX(), getY(), 8, 8), damage, ammoImg, x, y);
+			return new Projectile(new Rectangle2D.Double(getX(), getY(), 8, 8), damage, ammoImg, x, y);
 		} else {
 			return null;
 		}
