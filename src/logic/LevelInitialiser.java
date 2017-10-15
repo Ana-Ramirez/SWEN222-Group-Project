@@ -10,19 +10,12 @@ import interfaces.Enemies;
 import resources.ImgResources;
 
 public class LevelInitialiser {
-	
-	Level level;
-	
-	
-	public LevelInitialiser(){
-		
-	}
-	
+
 	/**
 	 * create rooms and add to this level
 	 * @throws Exception
 	 */
-	private void initialise(){
+	public static void initialise(){
 		//create rooms and doors
 		Room room1 = new Room(1, this);
 		Room room2 = new Room(2, this);

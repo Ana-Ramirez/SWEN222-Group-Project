@@ -2,7 +2,7 @@ package entities;
 
 import java.awt.geom.Rectangle2D;
 
-import interfaces.StratergyPattern;
+import interfaces.StrategyPattern;
 import resources.ImgResources;
 
 /**
@@ -13,7 +13,7 @@ import resources.ImgResources;
 public class Monster extends Character {
 	private static final long serialVersionUID = -4064250638229615542L;
 	private Weapon weapon;
-	private StratergyPattern pattern;
+	private StrategyPattern pattern;
 	private int oldTick = 0;
 
 
@@ -34,11 +34,11 @@ public class Monster extends Character {
 	 * @param weapon
 	 * 		the weapon to use
 	 */
-	public Monster(Rectangle2D.Double box, Type type, Weapon weapon, ImgResources img, StratergyPattern stratergy) {
-		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), type, 100);
+	public Monster(Rectangle2D.Double box, int health, Type type, Weapon weapon, ImgResources img, StrategyPattern strategy) {
+		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), type, health);
 		setImage(img);
 		this.weapon = weapon;
-		this.pattern = stratergy;
+		this.pattern = strategy;
 	}
 
 

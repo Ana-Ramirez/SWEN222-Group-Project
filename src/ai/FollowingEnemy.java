@@ -2,7 +2,7 @@ package ai;
 
 import interfaces.Entity;
 import interfaces.MoveableEntity;
-import interfaces.StratergyPattern;
+import interfaces.StrategyPattern;
 
 /**
  * Class controlling the AI for the enemy that follows the player
@@ -10,7 +10,7 @@ import interfaces.StratergyPattern;
  * @author Ana Ramirez
  */
 
-public class FollowingEnemy implements StratergyPattern {
+public class FollowingEnemy implements StrategyPattern {
 
 	private static final long serialVersionUID = 7116534404337031487L;
 	private final Entity player;
