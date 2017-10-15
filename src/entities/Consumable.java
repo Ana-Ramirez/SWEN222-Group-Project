@@ -1,6 +1,7 @@
 package entities;
 
-import javafx.scene.image.Image;
+import java.awt.geom.Rectangle2D;
+
 import resources.ImgResources;
 
 /**
@@ -9,7 +10,8 @@ import resources.ImgResources;
  *
  */
 public class Consumable extends Pickupable {
-	private final String[] commands = {"Lives", "Speed"};
+	private static final long serialVersionUID = -4391782330871728287L;
+	private static final String[] commands = {"Lives", "Speed", "Ammo"};
 	private String action;
 	private int uses;
 
@@ -28,8 +30,8 @@ public class Consumable extends Pickupable {
 	 * @param type
 	 * 		the type to use
 	 */
-	public Consumable(String name, double x, double y, int width, int height, String action, ImgResources img) {
-		super(name, x, y, width, height, null);
+	public Consumable(Rectangle2D.Double box, String action, ImgResources img) {
+		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), null);
 		setImage(img);
 		checkAction(action);
 		uses = 1;
@@ -41,7 +43,10 @@ public class Consumable extends Pickupable {
 			throw new IllegalArgumentException("Action command incorrect argument number");
 		}
 		try {
-			Float.parseFloat(actionCommand[1]);
+			double val = Double.parseDouble(actionCommand[1]);
+			if (val < 0) {
+				throw new NumberFormatException();
+			}
 		} catch (NumberFormatException e){
 			throw new IllegalArgumentException("Action command value in not valid");
 		}
@@ -56,7 +61,7 @@ public class Consumable extends Pickupable {
 			throw new IllegalArgumentException("Action command is not a valid command");
 		}
 		this.action = action;
-		return true;
+		return valid;
 	}
 
 
@@ -80,7 +85,11 @@ public class Consumable extends Pickupable {
 	@Override
 	public void tick() {
 		// Does nothing on tick
+	}
 
+	@Override
+	public String getInfo() {
+		return action;
 	}
 
 }

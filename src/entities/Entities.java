@@ -1,8 +1,9 @@
 package entities;
 
+
+import java.awt.geom.Rectangle2D;
+
 import interfaces.Entity;
-import javafx.geometry.BoundingBox;
-import javafx.scene.image.Image;
 import resources.ImgResources;
 
 /**
@@ -12,21 +13,44 @@ import resources.ImgResources;
  *
  */
 public abstract class Entities implements Entity {
+	private static final long serialVersionUID = 2833150026302394689L;
+	private double width;
+	private double height;
 	protected double x;
 	protected double y;
-	private int width;
-	private int height;
-	private String name;
 	private Type type;
 	private ImgResources image;
 
-	protected Entities (String name, double x, double y, int width, int height, Type type) {
-		this.name = name;
+	protected Entities (double x, double y, double width, double height, Type type) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 		this.type = type;
+	}
+	
+	/**
+	 * Public constructor for entities
+	 * @param x
+	 * 		the x coordinate to use
+	 * @param y
+	 * 		the y coordinate to use
+	 * @param width
+	 * 		the width to use
+	 * @param height
+	 * 		the height to use
+	 * @param type
+	 * 		the type to use
+	 * @param img
+	 * 		the image reference to use
+	 */
+	public Entities (double x, double y, double width, double height, Type type, ImgResources img) {
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.type = type;
+		this.image = img;
 	}
 
 	/**
@@ -60,7 +84,7 @@ public abstract class Entities implements Entity {
 	 * @return
 	 * 		an int value of the entity dimensions
 	 */
-	public int getWidth() {
+	public double getWidth() {
 		return width;
 	}
 
@@ -69,17 +93,8 @@ public abstract class Entities implements Entity {
 	 * @return
 	 * 		an int value of the entity dimensions
 	 */
-	public int getHeight() {
+	public double getHeight() {
 		return height;
-	}
-
-	/**
-	 * Returns the name assigned to the entity
-	 * @return
-	 * 		a string name of the entity
-	 */
-	public String getName() {
-		return name;
 	}
 
 
@@ -108,8 +123,8 @@ public abstract class Entities implements Entity {
 	 * @return
 	 * 		the image object
 	 */
-	public BoundingBox getBoundingBox() {
-		return new BoundingBox(x, y, width, height);
+	public Rectangle2D.Double getBoundingBox() {
+		return new Rectangle2D.Double(getX(), getY(), getWidth(), getHeight());
 	}
 
 

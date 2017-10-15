@@ -1,9 +1,8 @@
 package ai;
 
-import java.awt.Rectangle;
 
-import entities.Monster;
-import interfaces.Enemies;
+import interfaces.MoveableEntity;
+import interfaces.StratergyPattern;
 
 /**
  * Class controlling the AI for the enemy patrols the screen and has a set path
@@ -12,80 +11,63 @@ import interfaces.Enemies;
  * @author Ana Ramirez
  */
 
-public class PatrollingEnemy implements Enemies {
+public class PatrollingEnemy implements StratergyPattern {
 
-	public float speed = 0.5f;
-	public Goal goal1 = new Goal(100, 100);
-	public Goal goal2 = new Goal(100, 200);
-	public Goal currentGoal = goal1;
+	private static final long serialVersionUID = 7378834863382700237L;
+	private double speed = 1.0f;
+	private Goal[] goals;
+	private int currentGoal;
 
-	public PatrollingEnemy() {
+	public PatrollingEnemy(Goal[] goals) {
+		if (goals.length < 2) {
+			throw new IllegalArgumentException("More than 1 goal must be given");
+		}
+		this.goals = goals;
+		currentGoal = 0;
 	}
 
 	/**
 	 * Do relevant movement
 	 */
-	public void tick(Monster monster) {
+	public void tick(MoveableEntity monster) {
 		
 		if(monster == null){
 			return;
 		}
 
-		if (monster.getX() > currentGoal.getX()) {
+		if (monster.getX() > goals[currentGoal].getX()) {
 			monster.moveBy(-speed, 0);
+		} else if (monster.getX() < goals[currentGoal].getX()) {
+			monster.moveBy(speed, 0);
 		}
 
-		if (monster.getX() < currentGoal.getX()) {
-			monster.moveBy(+speed, 0);
-		}
-
-		if (monster.getY() > currentGoal.getY()) {
+		if (monster.getY() > goals[currentGoal].getY()) {
 			monster.moveBy(0, -speed);
+		} else if (monster.getY() < goals[currentGoal].getY()) {
+			monster.moveBy(0, speed);
 		}
 
-		if (monster.getY() < currentGoal.getY()) {
-			monster.moveBy(0, +speed);
+		if (monster.getX() == goals[currentGoal].getX() && monster.getY() == goals[currentGoal].getY()) {
+			nextGoal();
 		}
-
-		if (monster.getX() == goal1.getX() && monster.getY() == goal1.getY()) {
-			currentGoal = goal2;
-		}
-
-		if (monster.getX() == goal2.getX() && monster.getY() == goal2.getY()) {
-			currentGoal = goal1;
+	}
+	
+	private void nextGoal() {
+		if (currentGoal+1 == goals.length) {
+			currentGoal = 0;
+		} else {
+			currentGoal++;
 		}
 	}
 
-	/**
-	 * Speed of movement
-	 */
-	public float speed() {
+	
+	@Override
+	public double getSpeed() {
 		return speed;
 	}
 
-	class Goal {
-
-		float x;
-		float y;
-		public float speed = 2;
-
-		public Goal(float x, float y) {
-			this.x = x;
-			this.y = y;
-		}
-
-		private Rectangle boundingBox = new Rectangle(((int) x * 6) - 30, ((int) y * 6) - 30, 50, 50);
-
-		public Rectangle getBoundingBox() {
-			return boundingBox;
-		}
-
-		public float getX() {
-			return x;
-		}// no setter
-
-		public float getY() {
-			return y;
-		}
+	@Override
+	public void setSpeed(double speed) {
+		this.speed = speed;
 	}
 }

@@ -2,10 +2,12 @@ package view;
 
 import java.io.Serializable;
 
+import entities.Pickupable;
 import interfaces.Entity;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import logic.Door;
@@ -34,6 +36,7 @@ public class Renderer implements Serializable{
 	 * @param p
 	 */
 	public Renderer(Level level){
+		
 		this.level = level;
 		StackPane root = new StackPane();
 
@@ -82,9 +85,13 @@ public class Renderer implements Serializable{
 			System.out.println("List of entities is null!");
 			return;
 		}**/
+		
 		for (Entity e : level.getCurrentRoom().getEntities()){
 			g.drawImage(e.getImage().img, e.getX(), HUD_HEIGHT + e.getY(), e.getWidth(), e.getHeight());
+			/**g.strokeRect(e.getX(), e.getY()+HUD_HEIGHT, e.getWidth(), e.getHeight());**/
 		}
+		
+		g.drawImage(level.getPlayer().getImage().img, level.getPlayer().getX(), HUD_HEIGHT + level.getPlayer().getY(), level.getPlayer().getWidth(), level.getPlayer().getHeight());
 	}
 
 	/**
@@ -102,6 +109,16 @@ public class Renderer implements Serializable{
 		g.setFill(Color.WHITE);
 		g.fillText("LIVES", 420, 20);
 		drawLives(400, 30);
+		
+		g.setStroke(Color.YELLOW);
+		drawItemInfo(200, 65);
+	}
+	
+	private void drawItemInfo(int x, int y) {
+		Pickupable e = level.getPlayer().getHand();
+		if(e != null) {
+			g.strokeText(e.getInfo().toUpperCase(), x, y);
+		}
 	}
 
 	/**
@@ -111,16 +128,24 @@ public class Renderer implements Serializable{
 	 */
 	private void drawInventory(int x, int y){
 		//Draws the outlines
-		g.drawImage(ImgResources.INVENTORYBOX.img, x, y);
-		g.drawImage(ImgResources.INVENTORYBOX.img, x+80, y);
+		//g.drawImage(ImgResources.INVENTORYBOX.img, x, y);
+		//g.drawImage(ImgResources.INVENTORYBOX.img, x+80, y);
+		g.setFill(Color.WHITE);
+		g.fillRect(x, y, 64, 64);
+		g.fillRect(x+80, y, 64, 64);
 
 		//Draws the items
-		Entity[] inventory = level.getCurrentRoom().getPlayer().getInventory();
+		Entity[] inventory = level.getCurrentRoom().getPlayer().getBackpack();
 		if (inventory[0] != null){
-			g.drawImage(inventory[0].getImage().img, x, y);
+			g.drawImage(inventory[0].getImage().img, x+4, y+4, 56, 56);
 		}
 		if (inventory[1] != null){
-			g.drawImage(inventory[1].getImage().img, x+80, y);
+			g.drawImage(inventory[1].getImage().img, x+84, y+4, 56, 56);
+		}
+		
+		Pickupable e = level.getPlayer().getHand();
+		if (e != null) {
+			g.drawImage(e.getImage().img, level.getPlayer().getX()+level.getPlayer().getWidth()+16, level.getPlayer().getY()+level.getPlayer().getHeight()/4d+HUD_HEIGHT, -24, 24);
 		}
 	}
 

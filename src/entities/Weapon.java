@@ -8,10 +8,11 @@ import interfaces.Entity;
  *
  */
 public abstract class Weapon extends Pickupable{
+	private static final long serialVersionUID = -3336903366847446135L;
 	private int baseDamage;
 
-	public Weapon(String name, double x, double y, int width, int height, Type type, int damage) {
-		super(name, x, y, width, height, type);
+	public Weapon(double x, double y, double width, double height, Type type, int damage) {
+		super(x, y, width, height, type);
 		this.baseDamage = damage;
 	}
 

@@ -1,88 +1,114 @@
 package entityTests;
 
 import static org.junit.Assert.*;
+
+import java.awt.geom.Rectangle2D;
+
 import org.junit.Test;
 
 import entities.Consumable;
+import entities.Entities;
 import entities.Gun;
 import entities.MeleeWeapon;
 import entities.Monster;
 import entities.Player;
 import entities.Projectile;
-import entities.StationaryEntity;
 import entities.Type;
 import entities.Weapon;
-import interfaces.Enemies;
-import javafx.geometry.BoundingBox;
-import javafx.scene.image.Image;
+import interfaces.Entity;
+import interfaces.MoveableEntity;
+import interfaces.StratergyPattern;
+import resources.ImgResources;
 
+@SuppressWarnings("unused")
 public class EntitiesTest {
 
-	class MockMonsterPattern implements Enemies {
-
-		public void tick(Monster monster) {
+	@SuppressWarnings("serial")
+	class MockMonsterPattern implements StratergyPattern {
+		public void tick(MoveableEntity monster) {
 			monster.moveBy(1, 1);
+		}
+
+		@Override
+		public double getSpeed() {
+			return 0;
+		}
+
+		@Override
+		public void setSpeed(double speed) {
+		}
+	}
+	
+	@SuppressWarnings("serial")
+	class TestEntity extends Entities {
+
+		public TestEntity(double x, double y, double width, double height, Type type, ImgResources img) {
+			super(x, y, width, height, type, img);
+		}
+
+		@Override
+		protected boolean hit(int damage) {
+			return false;
 		}
 	}
 
+
 	@Test
 	public void createPlayer() {
-		Player player = new Player(0, 0, 5, 5, null);
-		assertEquals("Tim", player.getName());
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
 		assertEquals(3, player.getLives());
 		assertNull(player.getType());
-		assertEquals(5, player.getWidth());
-		assertEquals(5, player.getHeight());
+		assertEquals(5, player.getWidth(), 0);
+		assertEquals(5, player.getHeight(), 0);
 		assertNull(player.getImage());
 	}
 
 	@Test
 	public void createMonster() {
-		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, 5, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null, null);
+		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, weapon, null, null);
 		assertEquals(100, monster.getLives());
-		assertEquals("Baddie", monster.getName());
 		assertSame(weapon, monster.getWeapon());
 		assertEquals(Type.WATER, monster.getType());
 	}
 
 	@Test
 	public void createMeleeWeapon() {
-		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, 5, null);
-		assertEquals("Sword", weapon.getName());
+		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null);
+		assertEquals("Melee Weapon", weapon.getInfo());
 		assertEquals(Type.WATER, weapon.getType());
 
 	}
 
 	@Test
 	public void createGun() {
-		Weapon weapon = new Gun("Gun", 0, 0, 5, 5, Type.WATER, 5, null, null);
-		assertEquals("Gun", weapon.getName());
+		Weapon weapon = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null, null);
+		assertEquals("Gun - Ammo: 20", weapon.getInfo());
 		assertEquals(Type.WATER, weapon.getType());
 	}
 
 	@Test
 	public void hitPlayer() {
-		Player player = new Player(0, 0, 5, 5, null);
-		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, 5, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon);
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, weapon, null, null);
 		assertEquals(3, player.getLives());
-		assertTrue(monster.attack(player));
+		assertTrue(monster.attack(player, 120));
 		assertEquals(2, player.getLives());
-		assertTrue(monster.attack(player));
+		assertTrue(monster.attack(player, 240));
 		assertEquals(1, player.getLives());
-		assertTrue(monster.attack(player));
+		assertTrue(monster.attack(player, 360));
 		assertEquals(0, player.getLives());
-		assertFalse(monster.attack(player));
+		assertFalse(monster.attack(player, 480));
 		assertEquals(0, player.getLives());
 	}
 
 	@Test
 	public void hitWaterWithWaterMonster() {
 		int damage = 10;
-		Player player = new Player(0, 0, 5, 5, null);
-		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, damage, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null);
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, damage, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i -= damage) {
@@ -97,9 +123,9 @@ public class EntitiesTest {
 	@Test
 	public void hitWaterWithFireMonster() {
 		int damage = 10;
-		Player player = new Player(0, 0, 5, 5, null);
-		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.FIRE, damage, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null);
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.FIRE, damage, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i -= damage / 2) {
@@ -113,9 +139,9 @@ public class EntitiesTest {
 	@Test
 	public void hitWaterWithEarthMonster() {
 		int damage = 5;
-		Player player = new Player(0, 0, 5, 5, null);
-		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.EARTH, damage, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null);
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.EARTH, damage, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i -= damage * 2) {
@@ -128,21 +154,21 @@ public class EntitiesTest {
 
 	@Test
 	public void killPlayer() {
-		Player player = new Player(0, 0, 5, 5, null);
-		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, 5, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null);
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, weapon, null, null);
 		assertEquals(3, player.getLives());
 		assertTrue(player.isAlive());
-		assertTrue(monster.attack(player));
+		assertTrue(monster.attack(player, 120));
 		assertEquals(2, player.getLives());
 		assertTrue(player.isAlive());
-		assertTrue(monster.attack(player));
+		assertTrue(monster.attack(player, 240));
 		assertEquals(1, player.getLives());
 		assertTrue(player.isAlive());
-		assertTrue(monster.attack(player));
+		assertTrue(monster.attack(player, 360));
 		assertEquals(0, player.getLives());
 		assertFalse(player.isAlive());
-		assertFalse(monster.attack(player));
+		assertFalse(monster.attack(player, 480));
 		assertEquals(0, player.getLives());
 		assertFalse(player.isAlive());
 	}
@@ -150,9 +176,9 @@ public class EntitiesTest {
 	@Test
 	public void killMonster() {
 		int damage = 10;
-		Player player = new Player(0, 0, 5, 5, null);
-		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, damage, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, weapon, null);
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, damage, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i -= damage) {
@@ -164,24 +190,87 @@ public class EntitiesTest {
 		assertFalse(((Weapon) player.getHand()).attack(monster));
 		assertFalse(monster.isAlive());
 	}
+	
+	@Test
+	public void pickupAndSwitch() {
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Consumable cons = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2", null);
+		
+		player.pickup(cons);
+		assertSame(cons, player.getHand());
+		player.selectItem(1);
+		assertNull(player.getHand());
+		player.selectItem(1);
+		assertSame(cons, player.getHand());
+		
+	}
 
 
 
 	@Test
 	public void useHealthConsumable() {
-		Player player = new Player(0, 0, 5, 5, null);
-		Consumable cons = new Consumable("Health", 0, 0, 5, 5, "Lives, 2", null);
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Consumable cons = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2", null);
+		assertEquals("Lives, 2", cons.getInfo());
 		assertEquals(3, player.getLives());
 		assertNull(player.pickup(cons));
 		assertTrue(((Consumable) player.getHand()).canUse());
 		assertTrue(player.use());
 		assertEquals(5, player.getLives());
 	}
+	
+	@Test
+	public void useAmmoConsumable() {
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Gun gun = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null, null);
+		Consumable cons = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Ammo, 2", null);
+		
+		player.pickup(gun);
+		
+		assertEquals(20, gun.getAmmoCount());
+		player.selectItem(1);
+		assertNull(player.pickup(cons));
+		assertTrue(((Consumable) player.getHand()).canUse());
+		assertTrue(player.use());
+		assertEquals(22, gun.getAmmoCount());
+		assertNull(player.getHand());
+		assertFalse(player.use());
+		assertNull(player.pickup(cons));
+		assertFalse(((Consumable) player.getHand()).canUse());
+		assertFalse(player.use());
+	}
+	
+	
+	@Test
+	public void useAmmoConsumableNoGun() {
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Consumable cons = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Ammo, 2", null);
+		
+		assertNull(player.pickup(cons));
+		assertTrue(((Consumable) player.getHand()).canUse());
+		assertFalse(player.use());
+
+	}
+	
+	@Test
+	public void useEmptyAmmoConsumable() {
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Gun gun = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null, null);
+		Consumable cons = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Ammo, 2", null);
+		
+		assertNull(player.pickup(gun));
+		
+		assertEquals(20, gun.getAmmoCount());
+		for (int i = 0; i < 20; i++) {
+			assertNotNull(gun.createProjectile(0, 0));
+		}
+		assertNull(gun.createProjectile(0, 0));
+	}
 
 	@Test
 	public void badConsumableCommand() {
 		try {
-		Consumable cons = new Consumable("Health", 0, 0, 5, 5, "Health, 2", null);
+		Consumable cons = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Health, 2", null);
 		fail("Should not succeed");
 		} catch (IllegalArgumentException e) {
 
@@ -189,9 +278,19 @@ public class EntitiesTest {
 	}
 
 	@Test
-	public void badConsumableVariable() {
+	public void badConsumableVariableLetter() {
 		try {
-		Consumable cons = new Consumable("Health", 0, 0, 5, 5, "Lives, a", null);
+		Consumable cons = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, a", null);
+		fail("Should not succeed");
+		} catch (IllegalArgumentException e) {
+
+		}
+	}
+	
+	@Test
+	public void badConsumableVariableNegative() {
+		try {
+		Consumable cons = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, -2", null);
 		fail("Should not succeed");
 		} catch (IllegalArgumentException e) {
 
@@ -201,7 +300,7 @@ public class EntitiesTest {
 	@Test
 	public void consumableTooManyArgs() {
 		try {
-		Consumable cons = new Consumable("Health", 0, 0, 5, 5, "Lives, 2, a", null);
+		Consumable cons = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2, a", null);
 		fail("Should not succeed");
 		} catch (IllegalArgumentException e) {
 
@@ -211,7 +310,7 @@ public class EntitiesTest {
 	@Test
 	public void consumableTooFewArgs() {
 		try {
-		Consumable cons = new Consumable("Health", 0, 0, 5, 5, "Lives", null);
+		Consumable cons = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives", null);
 		fail("Should not succeed");
 		} catch (IllegalArgumentException e) {
 
@@ -222,7 +321,7 @@ public class EntitiesTest {
 	@Test
 	public void consumableNoArgs() {
 		try {
-		Consumable cons = new Consumable("Health", 0, 0, 5, 5, "", null);
+		Consumable cons = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "", null);
 		fail("Should not succeed");
 		} catch (IllegalArgumentException e) {
 
@@ -231,23 +330,23 @@ public class EntitiesTest {
 
 	@Test
 	public void multipleUseConsumable() {
-		Player player = new Player(0, 0, 5, 5, null);
-		Consumable cons = new Consumable("Health", 0, 0, 5, 5, "Lives, 2", null);
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Consumable cons = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2", null);
 		assertEquals(3, player.getLives());
 		assertNull(player.pickup(cons));
 		assertTrue(((Consumable) player.getHand()).canUse());
 		assertTrue(player.use());
 		assertEquals(5, player.getLives());
-		assertFalse(((Consumable) player.getHand()).canUse());
+		assertNull(player.getHand());
 		assertFalse(player.use());
 	}
 
 	@Test
 	public void hitFireWithFireMonster() {
 		int damage = 10;
-		Player player = new Player(0, 0, 5, 5, null);
-		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.FIRE, damage, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.FIRE, weapon, null);
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.FIRE, damage, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.FIRE, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i-=damage) {
@@ -261,9 +360,9 @@ public class EntitiesTest {
 	@Test
 	public void hitFireWithEarthMonster() {
 		int damage = 10;
-		Player player = new Player(0, 0, 5, 5, null);
-		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.EARTH, damage, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.FIRE, weapon, null);
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.EARTH, damage, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.FIRE, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i-=damage/2) {
@@ -277,9 +376,9 @@ public class EntitiesTest {
 	@Test
 	public void hitFireWithWaterMonster() {
 		int damage = 5;
-		Player player = new Player(0, 0, 5, 5, null);
-		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, damage, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.FIRE, weapon, null);
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, damage, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.FIRE, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i-=damage*2) {
@@ -293,9 +392,9 @@ public class EntitiesTest {
 	@Test
 	public void hitEarthWithEarthMonster() {
 		int damage = 10;
-		Player player = new Player(0, 0, 5, 5, null);
-		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.EARTH, damage, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.EARTH, weapon, null);
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.EARTH, damage, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.EARTH, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i-=damage) {
@@ -309,9 +408,9 @@ public class EntitiesTest {
 	@Test
 	public void hitEarthWithWaterMonster() {
 		int damage = 10;
-		Player player = new Player(0, 0, 5, 5, null);
-		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, damage, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.EARTH, weapon, null);
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, damage, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.EARTH, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i-=damage/2) {
@@ -325,9 +424,9 @@ public class EntitiesTest {
 	@Test
 	public void hitEarthWithFireMonster() {
 		int damage = 5;
-		Player player = new Player(0, 0, 5, 5, null);
-		Weapon weapon = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.FIRE, damage, null);
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.EARTH, weapon, null);
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.FIRE, damage, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.EARTH, weapon, null, null);
 
 		player.pickup(weapon);
 		for (int i = 100; i > 0; i-=damage*2) {
@@ -340,144 +439,129 @@ public class EntitiesTest {
 
 	@Test
 	public void gunAmmoDifferentObjects() {
-		Gun weapon = new Gun("Gun", 0, 0, 5, 5, Type.WATER, 5, null, null);
+		Gun weapon = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null, null);
 		Projectile ammo1 = weapon.createProjectile(0, 0);
 		Projectile ammo2 = weapon.createProjectile(0, 0);
-		assertEquals(ammo1.getName(), ammo2.getName());
+		assertEquals("Ammo", ammo1.getInfo());
+		assertEquals("Ammo", ammo2.getInfo());
+
 		assertEquals(ammo1.getBaseDamage(), ammo2.getBaseDamage());
 		assertNotSame(ammo1, ammo2);
 	}
 
 	@Test
 	public void pickupDropAtSameTimeItems() {
-		Player player = new Player(0, 0, 5, 5, null);
-		Consumable cons1 = new Consumable("Health", 0, 0, 5, 5, "Lives, 2", null);
-		Consumable cons2 = new Consumable("Health", 0, 0, 5, 5, "Lives, 2", null);
-		Consumable cons3 = new Consumable("Health", 0, 0, 5, 5, "Lives, 2", null);
-		Consumable cons4 = new Consumable("Health", 0, 0, 5, 5, "Lives, 2", null);
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Consumable cons1 = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2", null);
+		Consumable cons2 = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2", null);
+		Consumable cons3 = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2", null);
+		Consumable cons4 = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2", null);
 
 
 		assertNull(player.pickup(cons1));
-		assertTrue(player.selectItem(1));
 		assertNull(player.pickup(cons2));
-		assertTrue(player.selectItem(2));
 		assertNull(player.pickup(cons3));
-		assertTrue(player.selectItem(0));
 		assertSame(cons1, player.pickup(cons4));
 	}
 
 	@Test
 	public void confirmFullInventory() {
-		Player player = new Player(0, 0, 5, 5, null);
-		Consumable cons1 = new Consumable("Health", 0, 0, 5, 5, "Lives, 2", null);
-		Consumable cons2 = new Consumable("Health", 0, 0, 5, 5, "Lives, 2", null);
-		Consumable cons3 = new Consumable("Health", 0, 0, 5, 5, "Lives, 2", null);
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Consumable cons1 = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2", null);
+		Consumable cons2 = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2", null);
+		Consumable cons3 = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2", null);
 
 
 		assertNull(player.pickup(cons1));
-		assertTrue(player.selectItem(1));
 		assertNull(player.pickup(cons2));
-		assertTrue(player.selectItem(2));
 		assertNull(player.pickup(cons3));
 
-		Consumable[] testArray = {cons1, cons2, cons3};
-		assertArrayEquals(testArray, player.getInventory());
+		Consumable[] testArray = {cons2, cons3};
+		assertArrayEquals(testArray, player.getBackpack());
+		assertSame(cons1, player.getHand());
 	}
 
 	@Test
 	public void confirmFullInventoryMoves() {
-		Player player = new Player(0, 0, 5, 5, null);
-		Consumable cons1 = new Consumable("Health", 0, 0, 5, 5, "Lives, 2", null);
-		Consumable cons2 = new Consumable("Health", 0, 0, 5, 5, "Lives, 2", null);
-		Consumable cons3 = new Consumable("Health", 0, 0, 5, 5, "Lives, 2", null);
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Consumable cons1 = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2", null);
+		Consumable cons2 = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2", null);
+		Consumable cons3 = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2", null);
 
 
 		assertNull(player.pickup(cons1));
-		assertTrue(player.selectItem(1));
+		player.selectItem(1);
 		assertNull(player.pickup(cons2));
-		assertTrue(player.selectItem(2));
+		player.selectItem(2);
 		assertNull(player.pickup(cons3));
 
-		assertEquals(0, cons1.getX(), 0);
-		assertEquals(0, cons1.getY(), 0);
-		assertEquals(0, cons2.getX(), 0);
-		assertEquals(0, cons2.getY(), 0);
-		assertEquals(0, cons3.getX(), 0);
-		assertEquals(0, cons3.getY(), 0);
+		assertEquals(player.getX(), cons1.getX(), 0);
+		assertEquals(player.getY(), cons1.getY(), 0);
+		assertEquals(player.getX(), cons2.getX(), 0);
+		assertEquals(player.getY(), cons2.getY(), 0);
+		assertEquals(player.getX(), cons3.getX(), 0);
+		assertEquals(player.getY(), cons3.getY(), 0);
 
 		player.moveBy(5, 5);
 		player.tick();
 
-		assertEquals(5, cons1.getX(), 0);
-		assertEquals(5, cons1.getY(), 0);
-		assertEquals(5, cons2.getX(), 0);
-		assertEquals(5, cons2.getY(), 0);
-		assertEquals(5, cons3.getX(), 0);
-		assertEquals(5, cons3.getY(), 0);
-	}
-
-	@Test
-	public void selectInvlaidInventorySlot() {
-		Player player = new Player(0, 0, 5, 5, null);
-		assertFalse(player.selectItem(3));
-		assertFalse(player.selectItem(-1));
+		assertEquals(player.getX(), cons1.getX(), 0);
+		assertEquals(player.getY(), cons1.getY(), 0);
+		assertEquals(player.getX(), cons2.getX(), 0);
+		assertEquals(player.getY(), cons2.getY(), 0);
+		assertEquals(player.getX(), cons3.getX(), 0);
+		assertEquals(player.getY(), cons3.getY(), 0);
 	}
 
 	@Test
 	public void validBoundingBox() {
-		Player player = new Player(0, 0, 5, 5, null);
-		BoundingBox box1 = player.getBoundingBox();
-		assertEquals(0, box1.getMinX(), 0);
-		assertEquals(0, box1.getMinY(), 0);
-		assertEquals(5, box1.getWidth(), 0);
-		assertEquals(5, box1.getHeight(), 0);
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Rectangle2D.Double box1 = player.getBoundingBox();
+		assertEquals(player.getX(), box1.getMinX(), 0);
+		assertEquals(player.getY(), box1.getMinY(), 0);
+		assertEquals(player.getWidth(), box1.getWidth(), 0);
+		assertEquals(player.getHeight(), box1.getHeight(), 0);
 
 		player.moveBy(10, 10);
-		BoundingBox box2 = player.getBoundingBox();
+		Rectangle2D.Double box2 = player.getBoundingBox();
 
-		assertEquals(10, box2.getMinX(), 0);
-		assertEquals(10, box2.getMinY(), 0);
-		assertEquals(5, box2.getWidth(), 0);
-		assertEquals(5, box2.getHeight(), 0);
+		assertEquals(player.getX(), box2.getMinX(), 0);
+		assertEquals(player.getY(), box2.getMinY(), 0);
+		assertEquals(player.getWidth(), box2.getWidth(), 0);
+		assertEquals(player.getHeight(), box2.getHeight(), 0);
 	}
 
 	@Test
 	public void validExtendedBoundingBox() {
-		Player player = new Player(5, 5, 5, 5, null);
-		BoundingBox box1 = player.getExtendedBoundingBox();
-		assertEquals(0, box1.getMinX(), 0);
-		assertEquals(0, box1.getMinY(), 0);
-		assertEquals(15, box1.getWidth(), 0);
-		assertEquals(15, box1.getHeight(), 0);
+		Player player = new Player(new Rectangle2D.Double(5, 5, 5, 5), null);
+		Rectangle2D.Double box1 = player.getExtendedBoundingBox();
+		assertEquals(player.getX()-20, box1.getMinX(), 0);
+		assertEquals(player.getY()-20, box1.getMinY(), 0);
+		assertEquals(player.getWidth()+40, box1.getWidth(), 0);
+		assertEquals(player.getHeight()+40, box1.getHeight(), 0);
 
 		player.moveBy(10, 10);
-		BoundingBox box2 = player.getExtendedBoundingBox();
+		Rectangle2D.Double box2 = player.getExtendedBoundingBox();
 
-		assertEquals(10, box2.getMinX(), 0);
-		assertEquals(10, box2.getMinY(), 0);
-		assertEquals(15, box2.getWidth(), 0);
-		assertEquals(15, box2.getHeight(), 0);
+		assertEquals(player.getX()-20, box2.getMinX(), 0);
+		assertEquals(player.getY()-20, box2.getMinY(), 0);
+		assertEquals(player.getWidth()+40, box2.getWidth(), 0);
+		assertEquals(player.getHeight()+40, box2.getHeight(), 0);
 	}
 
-	@Test
-	public void attackStationary() {
-		StationaryEntity stat = new StationaryEntity("Wall", 0, 0, 5, 5, null);
-		Weapon sword = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, 5, null);
-		assertFalse(sword.attack(stat));
-	}
 
 	@Test
 	public void attackConsumable() {
-		Consumable stat = new Consumable("Heart", 0, 0, 5, 5, "Lives 2", null);
-		Weapon sword = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, 5, null);
+		Consumable stat = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives 2", null);
+		Weapon sword = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null);
 		assertFalse(sword.attack(stat));
 	}
 
 
 	@Test
 	public void invlaidConsumable() {
-		Consumable cons = new Consumable("Heart", 0, 0, 5, 5, "Speed 2", null);
-		Player player = new Player(0, 0, 5, 5, null);
+		Consumable cons = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Speed 2", null);
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
 		assertNull(player.pickup(cons));
 		try {
 			assertTrue(player.use());
@@ -489,24 +573,23 @@ public class EntitiesTest {
 
 	@Test
 	public void attemptToUseWeapon() {
-		Weapon sword = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, 5, null);
-		Player player = new Player(0, 0, 5, 5, null);
+		Weapon sword = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null);
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
 		assertNull(player.pickup(sword));
 		assertFalse(player.use());
 	}
 
 	@Test
 	public void testStatergyPattern() {
-		Monster monster = new Monster("Baddie", 0, 0, 5, 5, Type.WATER, null, null);
-		monster.setStratergy(new MockMonsterPattern());
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, null, null, new MockMonsterPattern());
 		assertEquals(0, monster.getX(), 0);
-		assertEquals(0, monster.getX(), 0);
+		assertEquals(0, monster.getY(), 0);
 		monster.tick();
 		assertEquals(1, monster.getX(), 0);
-		assertEquals(1, monster.getX(), 0);
+		assertEquals(1, monster.getY(), 0);
 		monster.tick();
 		assertEquals(2, monster.getX(), 0);
-		assertEquals(2, monster.getX(), 0);
+		assertEquals(2, monster.getY(), 0);
 	}
 
 	@Test
@@ -519,40 +602,36 @@ public class EntitiesTest {
 
 	@Test
 	public void tickConsumable() {
-		Consumable cons = new Consumable("Health", 0, 0, 5, 5, "Lives, 2", null);
-		assertEquals("Health", cons.getName());
+		Consumable cons = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2", null);
 		assertEquals(0, cons.getY(), 0);
 		assertEquals(0, cons.getX(), 0);
-		assertEquals(5, cons.getHeight());
-		assertEquals(5, cons.getWidth());
+		assertEquals(5, cons.getHeight(), 0);
+		assertEquals(5, cons.getWidth(), 0);
 		assertNull(cons.getImage());
 		cons.tick();
-		assertEquals("Health", cons.getName());
 		assertEquals(0, cons.getY(), 0);
 		assertEquals(0, cons.getX(), 0);
-		assertEquals(5, cons.getHeight());
-		assertEquals(5, cons.getWidth());
+		assertEquals(5, cons.getHeight(), 0);
+		assertEquals(5, cons.getWidth(), 0);
 		assertNull(cons.getImage());
 	}
 
 
 	@Test
 	public void tickMeleeWeapon() {
-		MeleeWeapon cons = new MeleeWeapon("Sword", 0, 0, 5, 5, Type.WATER, 5, null);
-		assertEquals("Sword", cons.getName());
+		MeleeWeapon cons = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null);
 		assertEquals(0, cons.getY(), 0);
 		assertEquals(0, cons.getX(), 0);
-		assertEquals(5, cons.getHeight());
-		assertEquals(5, cons.getWidth());
+		assertEquals(5, cons.getHeight(), 0);
+		assertEquals(5, cons.getWidth(), 0);
 		assertEquals(5, cons.getBaseDamage());
 		assertEquals(Type.WATER, cons.getType());
 		assertNull(cons.getImage());
 		cons.tick();
-		assertEquals("Sword", cons.getName());
 		assertEquals(0, cons.getY(), 0);
 		assertEquals(0, cons.getX(), 0);
-		assertEquals(5, cons.getHeight());
-		assertEquals(5, cons.getWidth());
+		assertEquals(5, cons.getHeight(), 0);
+		assertEquals(5, cons.getWidth(), 0);
 		assertNull(cons.getImage());
 		assertEquals(5, cons.getBaseDamage());
 		assertEquals(Type.WATER, cons.getType());
@@ -561,21 +640,19 @@ public class EntitiesTest {
 
 	@Test
 	public void tickGun() {
-		Gun cons = new Gun("Gun", 0, 0, 5, 5, Type.WATER, 5, null, null);
-		assertEquals("Gun", cons.getName());
+		Gun cons = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null, null);
 		assertEquals(0, cons.getY(), 0);
 		assertEquals(0, cons.getX(), 0);
-		assertEquals(5, cons.getHeight());
-		assertEquals(5, cons.getWidth());
+		assertEquals(5, cons.getHeight(), 0);
+		assertEquals(5, cons.getWidth(), 0);
 		assertEquals(5, cons.getBaseDamage());
 		assertEquals(Type.WATER, cons.getType());
 		assertNull(cons.getImage());
 		cons.tick();
-		assertEquals("Gun", cons.getName());
 		assertEquals(0, cons.getY(), 0);
 		assertEquals(0, cons.getX(), 0);
-		assertEquals(5, cons.getHeight());
-		assertEquals(5, cons.getWidth());
+		assertEquals(5, cons.getHeight(), 0);
+		assertEquals(5, cons.getWidth(), 0);
 		assertNull(cons.getImage());
 		assertEquals(5, cons.getBaseDamage());
 		assertEquals(Type.WATER, cons.getType());
@@ -583,27 +660,38 @@ public class EntitiesTest {
 
 	@Test
 	public void tickProjectileMovementTest() {
-		Gun cons = new Gun("Gun", 0, 0, 5, 5, Type.WATER, 5, null, null);
+		Gun cons = new Gun(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null, null);
 		Projectile bullet = cons.createProjectile(1, 1);
 
-		assertEquals(0, bullet.getY(), 0);
-		assertEquals(0, bullet.getX(), 0);
+		assertEquals(8, bullet.getY(), 0);
+		assertEquals(16, bullet.getX(), 0);
 
 		bullet.tick();
-		assertEquals(-0.7071067811865475, bullet.getY(), 0);
-		assertEquals(0.7071067811865476, bullet.getX(), 0);
+		assertEquals(5.995854917833179, bullet.getY(), 0);
+		assertEquals(12.538294858075496, bullet.getX(), 0);
 	}
-
+	
+	
 	@Test
-	public void setCoordinatesStationaryEntity() {
-		StationaryEntity wall = new StationaryEntity("Door", 0, 0, 5, 5, null);
-		assertEquals(0, wall.getX(), 0);
-		assertEquals(0, wall.getY(), 0);
-		wall.setXY(5, 5);
-		assertEquals(5, wall.getX(), 0);
-		assertEquals(5, wall.getY(), 0);
-
+	public void MonsterAttackingTooQuickly() {
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		Weapon weapon = new MeleeWeapon(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, 5, null);
+		Monster monster = new Monster(new Rectangle2D.Double(0, 0, 5, 5), Type.WATER, weapon, null, null);
+		assertEquals(3, player.getLives());
+		assertTrue(player.isAlive());
+		assertTrue(monster.attack(player, 120));
+		assertEquals(2, player.getLives());
+		assertTrue(player.isAlive());
+		assertFalse(monster.attack(player, 180));
+		assertEquals(2, player.getLives());
+		assertTrue(player.isAlive());
 	}
+	
+	@Test
+	public void CreateFromAbstractEntity() {
+		Entity test = new TestEntity(100, 100, 5, 5, null, null);
+	}
+
 
 	/**
 	 * External testing
@@ -611,29 +699,22 @@ public class EntitiesTest {
 
 	@Test
 	public void createConsumable() {
-		Consumable cons = new Consumable("Health", 0, 0, 5, 5, "Lives, 2", null);
-		assertEquals("Health", cons.getName());
-	}
-
-	@Test
-	public void createStationaryEntity() {
-		StationaryEntity sEntity = new StationaryEntity("Door", 0, 0, 5, 5, null);
-		assertEquals("Door", sEntity.getName());
+		Consumable cons = new Consumable(new Rectangle2D.Double(0, 0, 5, 5), "Lives, 2", null);
 	}
 
 
 	@Test
 	public void movePlayerByXY(){
-		Player player = new Player(0, 0, 5, 5, null);
-		assertTrue(player.moveBy(5,5));
-		assertEquals(5.0f, player.getX(),0);
-		assertEquals(5.0f, player.getY(),0);
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		player.moveBy(5, 5);
+		assertEquals(10, player.getX(),0);
+		assertEquals(10, player.getY(),0);
 	}
 
 	@Test
 	public void movePlayerToXY(){
-		Player player = new Player(0, 0, 5, 5, null);
-		assertTrue(player.moveTo(20,100));
+		Player player = new Player(new Rectangle2D.Double(0, 0, 5, 5), null);
+		player.moveTo(20, 100);
 		assertEquals(20.0f, player.getX(),0);
 		assertEquals(100.0f, player.getY(),0);
 	}

@@ -1,15 +1,14 @@
 package logic;
 
-import entities.StationaryEntity;
-import javafx.scene.image.Image;
+import entities.Entities;
 import resources.ImgResources;
 
-public class Wall extends StationaryEntity{
+public class Wall extends Entities {
 
 	String position = null;
 
 	public Wall(String pos, double x, double y, int width, int height){
-		super("Wall", x, y, width, height, null);
+		super(x, y, width, height, null);
 
 		//TODO: check walls
 		switch(pos) {
@@ -28,6 +27,11 @@ public class Wall extends StationaryEntity{
 
 	public String getPosition(){
 		return this.position;
+	}
+
+	@Override
+	protected boolean hit(int damage) {
+		return false;
 	}
 
 }

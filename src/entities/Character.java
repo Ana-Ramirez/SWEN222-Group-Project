@@ -6,12 +6,13 @@ package entities;
  * @author Nick Lauder
  *
  */
-public abstract class Character extends MovableEntity {
+public abstract class Character extends MovableEntities {
+	private static final long serialVersionUID = 4776917612212761920L;
 	protected int lives;
 
 
-	protected Character(String name, double x, double y, int width, int height, Type type, int lives) {
-		super(name, x, y, width, height, type);
+	protected Character(double x, double y, double width, double height, Type type, int lives) {
+		super(x, y, width, height, type);
 		this.lives = lives;
 
 	}

@@ -1,6 +1,7 @@
 package entities;
 
-import javafx.scene.image.Image;
+import java.awt.geom.Rectangle2D;
+
 import resources.ImgResources;
 
 /**
@@ -9,6 +10,7 @@ import resources.ImgResources;
  *
  */
 public class MeleeWeapon extends Weapon {
+	private static final long serialVersionUID = -7531191138324291062L;
 
 	/**
 	 * Create a new weapon
@@ -23,15 +25,19 @@ public class MeleeWeapon extends Weapon {
 	 * @param damage
 	 * 		the int amount of damage to use
 	 */
-	public MeleeWeapon(String name, double x, double y, int width, int height, Type type, int damage, ImgResources img) {
-		super(name, x, y, width, height, type, damage);
+	public MeleeWeapon(Rectangle2D.Double box, Type type, int damage, ImgResources img) {
+		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), type, damage);
 		setImage(img);
 	}
 
 	@Override
 	public void tick() {
 		//Does nothing on tick
+	}
 
+	@Override
+	public String getInfo() {
+		return "Melee Weapon";
 	}
 
 }

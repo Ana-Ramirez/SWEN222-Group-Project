@@ -1,7 +1,7 @@
 package entities;
 
-import javafx.geometry.BoundingBox;
-import javafx.scene.image.Image;
+import java.awt.geom.Rectangle2D;
+
 import resources.ImgResources;
 
 /**
@@ -10,8 +10,9 @@ import resources.ImgResources;
  *
  */
 public class Player extends Character {
-	private Pickupable[] inventory;
-	private int itemSelected;
+	private static final long serialVersionUID = 1364726060443658475L;
+	private Pickupable[] backpack;
+	private Pickupable hand;
 
 
 	/**
@@ -25,11 +26,12 @@ public class Player extends Character {
 	 * @param height
 	 * 		the int height to use
 	 */
-	public Player(double x, double y, int width, int height, ImgResources img) {
-		super("Tim", x, y, width, height, null, 3);
+	public Player(Rectangle2D.Double box, ImgResources img) {
+		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), null, 3);
 		setImage(img);
-		inventory = new Pickupable[3];
-		this.speed = 4;
+		hand = null;
+		backpack = new Pickupable[2];
+		this.speed = 2;
 	}
 
 
@@ -39,13 +41,17 @@ public class Player extends Character {
 	 * @return
 	 * 		true if successful, else false
 	 */
-	public boolean selectItem(int i) {
-		if (i < 0 || i > 2) {
-			return false;
+	public void selectItem(int i) {
+		if (i >= 0 && i < backpack.length) {
+			if (hand == null) {
+				hand = backpack[i];
+				backpack[i] = null;
+			} else {
+				Pickupable holder = hand;
+				hand = backpack[i];
+				backpack[i] = holder;
+			}
 		}
-		itemSelected = i;
-		return true;
-		//TODO proper success checking
 	}
 
 	/**
@@ -56,7 +62,7 @@ public class Player extends Character {
 	public boolean use() {
 		if (getHand() instanceof Consumable) {
 			boolean success = parseCommand(((Consumable)getHand()).use());
-			if (success) {inventory[itemSelected] = null;}
+			if (success) {hand = null;}
 			return success;
 		} else {
 			return false;
@@ -70,6 +76,14 @@ public class Player extends Character {
 		String[] actionCommand = command.split("[, ]+");
 		if (actionCommand[0].equals("Lives")) {
 			lives += (int) Float.parseFloat(actionCommand[1]);
+		} else if (actionCommand[0].equals("Ammo")) {
+			for (int i = 0; i < backpack.length; i++) {
+				if (backpack[i] instanceof Gun) {
+					((Gun) backpack[i]).resupply((int) Float.parseFloat(actionCommand[1]));
+					return true;
+				}
+			}
+			return false;
 		} else {
 			throw new UnsupportedOperationException("The player does not support this command");
 		}
@@ -83,9 +97,7 @@ public class Player extends Character {
 	 * 		the pickupable object in the hand
 	 */
 	public Pickupable getHand() {
-		//TODO: proper comments
-
-		return inventory[itemSelected];
+		return hand;
 	}
 
 
@@ -94,9 +106,8 @@ public class Player extends Character {
 	 * @return
 	 * 		an array of pickupable items
 	 */
-	public Pickupable[] getInventory() {
-		//TODO: proper comments
-		return inventory;
+	public Pickupable[] getBackpack() {
+		return backpack;
 	}
 
 
@@ -108,11 +119,24 @@ public class Player extends Character {
 	 * 		the item replaced in inventory
 	 */
 	public Pickupable pickup(Pickupable item) {
-		//TODO: proper comments
-		Pickupable holder = drop();
-		inventory[itemSelected] = item;
-		return holder;
-
+		if (hand == null) {
+			hand = item;
+		} else {
+			boolean pickedUp = false;
+			for (int i = 0; i < backpack.length; i++) {
+				if (backpack[i] == null) {
+					backpack[i] = item;
+					pickedUp = true;
+					break;
+				}
+			}
+			if (!pickedUp) {
+				Pickupable holder = drop();
+				hand = item;
+				return holder;
+			}
+		}
+		return null;
 	}
 
 
@@ -121,12 +145,11 @@ public class Player extends Character {
 	 * @param item
 	 * 		the item to add
 	 * @return
-	 * 		true only if space is available in the inventory
+	 * 		the item removed from the inventory
 	 */
 	public Pickupable drop() {
-		//TODO:
-		Pickupable holder = inventory[itemSelected];
-		inventory[itemSelected] = null;
+		Pickupable holder = hand;
+		hand = null;
 		return holder;
 	}
 
@@ -134,17 +157,20 @@ public class Player extends Character {
 	 * Returns a large bounding box used for the attack radius
 	 * @return
 	 */
-	public BoundingBox getExtendedBoundingBox() {
-		return new BoundingBox(getX()-5, getY()-5, getWidth()+10, getHeight()+10);
+	public Rectangle2D.Double getExtendedBoundingBox() {
+		return new Rectangle2D.Double(getX()-20, getY()-20, getWidth()+40, getHeight()+40);
 	}
 
 
 	@Override
 	public void tick() {
-		for (int i = 0; i < inventory.length; i++) {
-			if (inventory[i] != null) {
-				inventory[i].moveTo(getX(), getY());
+		for (int i = 0; i < backpack.length; i++) {
+			if (backpack[i] != null) {
+				backpack[i].moveTo(getX(), getY());
 			}
+		}
+		if (hand != null) {
+			hand.moveTo(getX(), getY());
 		}
 	}
 }

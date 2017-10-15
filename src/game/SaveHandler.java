@@ -7,6 +7,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import saveLoad.GameData;
 import saveLoad.Save;
 /**
  * Handles user interaction wiht the Save button
@@ -35,13 +36,15 @@ public class SaveHandler<T extends Event> implements EventHandler<ActionEvent>{
 	 */
 	@Override
 	public void handle(ActionEvent arg0) {
-		Save<Game> save = new Save<Game>(game);
+		GameData gameData = new GameData(game);
 		FileChooser fc = new FileChooser();
 		File file = fc.showSaveDialog(new Stage());
-		
+
 		if(file == null) {
 			return;
 		}
-		save.saveGame(file);
+		Save save = new Save(gameData, file);
+
+		save.saveGame();
 	}
 }

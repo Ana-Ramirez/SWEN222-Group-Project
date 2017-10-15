@@ -1,10 +1,10 @@
 package interfaces;
 
+
+import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
 import entities.Type;
-import javafx.geometry.BoundingBox;
-import javafx.scene.image.Image;
 import resources.ImgResources;
 
 public interface Entity extends Serializable {
@@ -34,22 +34,22 @@ public interface Entity extends Serializable {
 	 * @return
 	 * 		an int value of the entity dimensions
 	 */
-	public int getWidth();
+	public double getWidth();
 
 	/**
 	 * Returns the width of the entity
 	 * @return
 	 * 		an int value of the entity dimensions
 	 */
-	public int getHeight();
+	public double getHeight();
 
 	/**
 	 * Returns the name assigned to the entity
 	 * @return
 	 * 		a string name of the entity
-	 */
+	 
 	public String getName();
-
+*/
 
 	/**
 	 * Sets the new image for the entity
@@ -72,6 +72,5 @@ public interface Entity extends Serializable {
 	 * @return
 	 * 		the image object
 	 */
-	public BoundingBox getBoundingBox();
-
+	public Rectangle2D.Double getBoundingBox();
 }

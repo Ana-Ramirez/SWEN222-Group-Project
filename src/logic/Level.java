@@ -1,5 +1,6 @@
 package logic;
 
+import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import entities.MeleeWeapon;
 import entities.Monster;
 import entities.Player;
 import entities.Type;
-import interfaces.Enemies;
+import interfaces.StratergyPattern;
 import resources.ImgResources;
 import view.Renderer;
 
@@ -73,34 +74,35 @@ public class Level implements Serializable{
 		this.rooms.add(room3);
 		this.rooms.add(room4);
 		this.rooms.add(room5);
-
+		
 		//create entities to add
-		Consumable consumable = new Consumable("food", 20, 40, 32, 32, "Lives 1", ImgResources.LIFE);
+		Consumable live1 = new Consumable(new Rectangle2D.Double(20, 40, 32, 32), "Lives 1", ImgResources.LIFE);
+		Consumable live2 = new Consumable(new Rectangle2D.Double(20, 40, 32, 32), "Lives 1", ImgResources.LIFE);
+		Consumable ammo = new Consumable(new Rectangle2D.Double(20, 40, 32, 32), "Ammo 20", ImgResources.BULLET);
 
-		Gun gunEarth = new Gun("gunEarth", 300, 300, 32, 32, Type.EARTH, 10, ImgResources.GUN, ImgResources.CONSOLE1);
-		Gun gunFire = new Gun("gunFire", 200, 300, 32, 32, Type.FIRE, 20, ImgResources.GUN, ImgResources.CONSOLE1);
-		MeleeWeapon melee = new MeleeWeapon("knife", 100, 100, 32, 32, Type.WATER, 40, ImgResources.CONSOLE1);
+		Gun gunEarth = new Gun(new Rectangle2D.Double(300, 300, 32, 32), Type.EARTH, 10, ImgResources.GUN, ImgResources.BULLET);
+		Gun gunFire = new Gun(new Rectangle2D.Double(200, 300, 32, 32), Type.FIRE, 20, ImgResources.GUN, ImgResources.BULLET);
+		MeleeWeapon melee = new MeleeWeapon(new Rectangle2D.Double(100, 100, 32, 32), Type.WATER, 40, ImgResources.CONSOLE1);
 
-		Enemies pattern = new FollowingEnemy(player);
+		StratergyPattern pattern = new FollowingEnemy(player);
 
-		Monster monsterEasy = new Monster("monsterEasy", 200, 200, 32, 32, Type.EARTH, gunEarth, ImgResources.MONSTER, pattern);
-		Monster monsterMedium = new Monster("monsterMedium", 200, 200, 50, 50, Type.FIRE, gunFire, ImgResources.MONSTER, pattern);
-		Monster monsterHard = new Monster("monsterHard", 200, 200, 50, 50, Type.WATER, melee, ImgResources.MONSTER, pattern);
+		Monster monsterEasy = new Monster(new Rectangle2D.Double(200, 200, 32, 32), Type.EARTH, gunEarth, ImgResources.MONSTER, pattern);
+		Monster monsterMedium = new Monster(new Rectangle2D.Double(200, 200, 50, 50), Type.FIRE, gunFire, ImgResources.MONSTER, pattern);
+		Monster monsterHard = new Monster(new Rectangle2D.Double(200, 200, 50, 50), Type.WATER, melee, ImgResources.MONSTER, pattern);
 
 		//add to rooms
-		room1.addEntity(player);
 		room1.addEntity(gunEarth);
 
 		room2.addEntity(monsterEasy);
-		room2.addEntity(consumable);
+		room2.addEntity(live1);
 
 		room3.addEntity(monsterEasy);
 		room3.addEntity(monsterMedium);
 		room3.addEntity(melee);
 		room3.addEntity(gunFire);
 
-		room4.addEntity(consumable);
-		room4.addEntity(consumable);
+		room4.addEntity(live2);
+		room4.addEntity(ammo);
 		room4.addEntity(monsterHard);
 
 	}
@@ -108,7 +110,8 @@ public class Level implements Serializable{
 	/**
 	 * Return a specific room from this level
 	 * @param i		the room number
-	 * @return		the room
+	 * @return		the room			BoundingBox box = e.getBoundingBox();
+
 	 */
 	public Room getRoom(int i){
 		for(Room r : this.rooms){
@@ -128,20 +131,19 @@ public class Level implements Serializable{
 		//TODO: Error checking
 		int leavingRoom = currentRoom.getRoomNum();
 		currentRoom = r;
-		currentRoom.addEntity(player);
 		switch (r.getRoomNum()){
-			case 1: player.moveTo(player.getX(), player.getY() - 375);
+			case 1: player.moveTo(player.getX(), player.getY() - (Renderer.ROOM_HEIGHT-Renderer.HUD_HEIGHT));
 					break;
-			case 2:	player.moveTo(player.getX(), player.getY() + 375);
+			case 2:	player.moveTo(player.getX(), player.getY() + (Renderer.ROOM_HEIGHT-Renderer.HUD_HEIGHT-player.getHeight()));
 					break;
 			case 3:	player.moveTo(player.getX() + 690, player.getY());
 					break;
 			case 4: player.moveTo(player.getX() - 690, player.getY());
 					break;
 			case 5:	if(leavingRoom == 1){ 
-						player.moveTo(player.getX(), player.getY() + 375); 
+						player.moveTo(player.getX(), player.getY() + 350); 
 					} else if(leavingRoom == 2){ 
-						player.moveTo(player.getX(), player.getY() - 375); 
+						player.moveTo(player.getX(), player.getY() - 350); 
 					} else if(leavingRoom == 3){ 
 						player.moveTo(player.getX() - 690, player.getY()); 
 					} else if(leavingRoom == 4){ 
@@ -178,6 +180,13 @@ public class Level implements Serializable{
 	 */
 	public Room getCurrentRoom(){
 		return currentRoom;
+	}
+	
+	/*
+	 * Setter for current room, used in testing
+	 */
+	public void setCurrentRoom(Room room) {
+		this.currentRoom = room;
 	}
 
 }

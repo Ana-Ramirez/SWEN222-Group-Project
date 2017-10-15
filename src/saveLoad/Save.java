@@ -10,24 +10,31 @@ import java.io.ObjectOutputStream;
  * @author Tim Gastrell
  *
  */
-public class Save<T extends Object> {
+public class Save {
+	
 	/**
 	 * Game object to be written to file
 	 */
-	private T game;
+	private GameData gameData;
+	
+	/**
+	 * File the Game ata will be written to
+	 */
+	private File file;
 	
 	/**
 	 * Constructs a new Save object
 	 * @param game to be written
 	 */
-	public Save(T game) {
-		this.game = game;
+	public Save(GameData gameData, File file) {
+		this.gameData = gameData;
+		this.file = file;
 	}
 	
 	/**
-	 * Writes game to file
+	 * Saves the game to disk
 	 */
-	public void saveGame(File file) {
+	public void saveGame() {
 		try {
 			//Write file to disk
 			FileOutputStream f_out = new FileOutputStream(file + ".txt", false);
@@ -36,7 +43,7 @@ public class Save<T extends Object> {
 			ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
 			
 			//Pass object to object stream
-			obj_out.writeObject(game);
+			obj_out.writeObject(gameData);
 			
 			obj_out.close();
 			

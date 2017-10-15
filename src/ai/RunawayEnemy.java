@@ -1,8 +1,8 @@
 package ai;
 
-import entities.Monster;
-import entities.Player;
-import interfaces.Enemies;
+import interfaces.Entity;
+import interfaces.MoveableEntity;
+import interfaces.StratergyPattern;
 
 /**
  * Class controlling the AI for the enemy that runs away from the player
@@ -10,19 +10,20 @@ import interfaces.Enemies;
  * @author Ana Ramirez
  */
 
-public class RunawayEnemy implements Enemies {
+public class RunawayEnemy implements StratergyPattern {
 
-	public Player player;
-	public float speed = 0.5f;
+	private static final long serialVersionUID = 3291405708577418724L;
+	private final Entity player;
+	private double speed = 1.0f;
 
-	public RunawayEnemy(Player player) {
+	public RunawayEnemy(Entity player) {
 		this.player = player;
 	}
 
 	/**
 	 * Do relevant movement
 	 */
-	public void tick(Monster monster) {
+	public void tick(MoveableEntity monster) {
 		
 		if(monster == null){
 			return;
@@ -45,10 +46,14 @@ public class RunawayEnemy implements Enemies {
 		}
 	}
 
-	/**
-	 * Speed of movement
-	 */
-	public float speed() {
+
+	@Override
+	public double getSpeed() {
 		return speed;
+	}
+
+	@Override
+	public void setSpeed(double speed) {
+		this.speed = speed;
 	}
 }

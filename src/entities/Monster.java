@@ -1,7 +1,8 @@
 package entities;
 
-import interfaces.Enemies;
-import javafx.scene.image.Image;
+import java.awt.geom.Rectangle2D;
+
+import interfaces.StratergyPattern;
 import resources.ImgResources;
 
 /**
@@ -10,8 +11,10 @@ import resources.ImgResources;
  *
  */
 public class Monster extends Character {
+	private static final long serialVersionUID = -4064250638229615542L;
 	private Weapon weapon;
-	private Enemies pattern;
+	private StratergyPattern pattern;
+	private int oldTick = 0;
 
 
 	/**
@@ -31,8 +34,8 @@ public class Monster extends Character {
 	 * @param weapon
 	 * 		the weapon to use
 	 */
-	public Monster(String name, double x, double y, int width, int height, Type type, Weapon weapon, ImgResources img, Enemies stratergy) {
-		super(name, x, y, width, height, type, 100);
+	public Monster(Rectangle2D.Double box, Type type, Weapon weapon, ImgResources img, StratergyPattern stratergy) {
+		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), type, 100);
 		setImage(img);
 		this.weapon = weapon;
 		this.pattern = stratergy;
@@ -48,9 +51,7 @@ public class Monster extends Character {
 		return weapon;
 	}
 
-	/**
-	 * Executes a tick for the monster, updating it's location
-	 */
+	
 	@Override
 	public void tick() {
 		pattern.tick(this);
@@ -64,7 +65,12 @@ public class Monster extends Character {
 	 * @return
 	 * 		true if successful
 	 */
-	public boolean attack(Entities victim) {
-		return weapon.attack(victim);
+	public boolean attack(Entities victim, int tick) {
+		if ((tick-oldTick) >= 120) {
+			oldTick = tick;
+			return weapon.attack(victim);
+		} else {
+			return false;
+		}
 	}
 }

@@ -1,6 +1,7 @@
 package entities;
 
-import javafx.scene.image.Image;
+import java.awt.geom.Rectangle2D;
+
 import resources.ImgResources;
 
 //***** Design Discussion *********
@@ -15,8 +16,10 @@ import resources.ImgResources;
  *
  */
 public class Gun extends Weapon {
+	private static final long serialVersionUID = 1557911205592499799L;
 	private int damage;
 	private ImgResources ammoImg;
+	private int ammoCount;
 
 
 	/**
@@ -36,10 +39,13 @@ public class Gun extends Weapon {
 	 * @param damage
 	 * 		the base damage to use
 	 */
-	public Gun(String name, double x, double y, int width, int height, Type type, int damage, ImgResources img, ImgResources ammoImg) {
-		super(name, x, y, width, height, type, damage);
+	public Gun(Rectangle2D.Double box, Type type, int damage, ImgResources img, ImgResources ammoImg) {
+		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), type, damage);
+		this.damage = damage;
 		setImage(img);
 		this.ammoImg = ammoImg;
+		ammoCount = 20;
+		
 	}
 
 
@@ -50,14 +56,32 @@ public class Gun extends Weapon {
 	 * @return
 	 */
 	public Projectile createProjectile(double x, double y) {
-		return new Projectile(getName() + "Ammo", getX(), getY(), 32, 32, damage, ammoImg, x, y);
+		if (ammoCount > 0) {
+			ammoCount--;
+			return new Projectile(new Rectangle2D.Double(getX(), getY(), 8, 8), damage, ammoImg, x, y);
+		} else {
+			return null;
+		}
 	}
-
-
+	
+	
+	public int getAmmoCount() {
+		return ammoCount;
+	}
+	
+	public void resupply(int amount) {
+		ammoCount += amount;
+	}
+	
 	@Override
 	public void tick() {
 		// Does nothing on tick
+	}
+	
 
+	@Override
+	public String getInfo() {
+		return "Gun - Ammo: " + ammoCount;
 	}
 
 }
