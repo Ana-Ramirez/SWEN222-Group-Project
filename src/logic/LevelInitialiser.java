@@ -26,11 +26,19 @@ import view.Renderer;
  *
  */
 public class LevelInitialiser {
+	
+	private static int monsterEasyHealth = 100;
+	private static int monsterMedHealth = 140;
+	private static int monsterHardHealth = 180;
+	private static int maoHealth = 240;
+	
+	private static int gunStrength = 20;
+	private static int meleeStrength = 5;
+	
 	/**
 	 * create rooms and add to this level
 	 * @throws Exception
 	 */
-
 	public static void initialise(Level level, List<Room> rooms, Player player){
 
 		//create rooms and doors
@@ -63,20 +71,14 @@ public class LevelInitialiser {
 		//create entities to add
 		Gun gunEarth = new Gun(new Rectangle2D.Double(300, 300, 32, 32), Type.EARTH, 10, ImgResources.GUN, ImgResources.BULLET);
 		Gun gunFire = new Gun(new Rectangle2D.Double(200, 300, 32, 32), Type.FIRE, 20, ImgResources.GUN, ImgResources.BULLET);
-		MeleeWeapon melee = new MeleeWeapon(new Rectangle2D.Double(100, 100, 32, 32), Type.WATER, 40, ImgResources.CONSOLE1);
 
 		StrategyPattern pattern = new FollowingEnemy(player);
-		
-		int monsterEasyHealth = 100;
-		int monsterMedHealth = 140;
-		int monsterHardHealth = 180;
-		int maoHealth = 240;
 
 		//add to rooms
-		room1.addEntity(new Gun(new Rectangle2D.Double(200, 200, Renderer.TILE_SIZE, Renderer.TILE_SIZE), Type.FIRE, 20, ImgResources.GUN, ImgResources.BULLET));
+		room1.addEntity(new Gun(new Rectangle2D.Double(200, 200, Renderer.TILE_SIZE, Renderer.TILE_SIZE), Type.FIRE, gunStrength, ImgResources.GUN, ImgResources.BULLET));
 //		room1.addEntity(new Consumable(new Rectangle2D.Double(400, 200, 40, 40), "Key 5", ImgResources.KEY));
 //		room1.addEntity(new Consumable(new Rectangle2D.Double(500, 250, 32, 32), "Speed 10", ImgResources.POTION));
-		room1.addEntity(new MeleeWeapon(new Rectangle2D.Double(400, 300, 32, 32), Type.WATER, 40, ImgResources.SWORDRIGHTUP));
+		room1.addEntity(new MeleeWeapon(new Rectangle2D.Double(400, 300, 50, 50), Type.WATER, meleeStrength, ImgResources.SWORDRIGHTUP));
 		
 		room2.addEntity(new Consumable(new Rectangle2D.Double(50, 50, Renderer.TILE_SIZE, Renderer.TILE_SIZE), "Lives 1", ImgResources.LIFE));
 		room2.addEntity(new Monster(new Rectangle2D.Double(500, 250, 75, 75), monsterMedHealth, Type.EARTH, gunEarth, ImgResources.MONSTER, pattern));
@@ -93,7 +95,7 @@ public class LevelInitialiser {
 		room5.addEntity(new Monster(new Rectangle2D.Double(400, 150, 75, 75), monsterEasyHealth, Type.FIRE, gunFire, ImgResources.MONSTER, pattern));
 //		room5.addEntity(new Consumable(new Rectangle2D.Double(150, 350, 32, 32), "Speed 10", ImgResources.POTION));
 		room5.addEntity(new Consumable(new Rectangle2D.Double(500, 100, 32, 32), "Lives 1", ImgResources.LIFE));
-		room5.addEntity(new Gun(new Rectangle2D.Double(650, 350, 32, 32), Type.EARTH, 10, ImgResources.GUN, ImgResources.BULLET));
+		room5.addEntity(new Gun(new Rectangle2D.Double(650, 350, 32, 32), Type.EARTH, gunStrength, ImgResources.GUN, ImgResources.BULLET));
 
 	}
 
