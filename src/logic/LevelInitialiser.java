@@ -15,17 +15,6 @@ import resources.ImgResources;
 
 public class LevelInitialiser {
 	
-//	Level level;
-//	List<Room> rooms;
-//	Player player;
-	
-//	public LevelInitialiser(Level level, List<Room> rooms, Player player){
-//		this.level = level;
-//		this.rooms = rooms;
-//		this.player = player;
-//		initialise();
-//	}
-	
 	/**
 	 * create rooms and add to this level
 	 * @throws Exception

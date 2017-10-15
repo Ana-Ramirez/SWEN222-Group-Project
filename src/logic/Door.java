@@ -16,7 +16,7 @@ import view.Renderer;
  * @author lewismcewan
  *
  */
-public class Door extends Entities{
+public class Door extends Entities {
 
 	private Room room1, room2;
 	//TODO: set to unlocked by default for development
