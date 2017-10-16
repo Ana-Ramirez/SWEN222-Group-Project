@@ -168,6 +168,7 @@ public class Game extends Application {
 				
 				if (!currentLevel.getBoss().isAlive()){
 					try {
+						this.stop();
 						ywm.start(stage);
 					} catch (Exception e) {
 						e.printStackTrace();
