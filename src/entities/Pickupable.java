@@ -4,7 +4,7 @@ import interfaces.EntityType;
 
 /**
  * Abstract class for a pickupable object
- * @author Nick Lauder
+ * @author laudernich1
  *
  */
 public abstract class Pickupable extends MovableEntities {

@@ -12,7 +12,7 @@ import entities.Monster;
 import entities.Pickupable;
 import entities.Player;
 import entities.Projectile;
-import entities.Character;
+import interfaces.Character;
 import interfaces.Entity;
 import interfaces.MoveableEntity;
 import resources.ImgResources;
@@ -23,7 +23,7 @@ import view.Renderer;
  * showing what objects are stored in a room and what doors
  * the room has.
  * @author LewisMcEwan
- * @param <T>
+ * @author laudernich1
  *
  */
 public class Room implements Serializable{

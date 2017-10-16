@@ -10,7 +10,7 @@ import resources.ImgResources;
 /**
  * An abstract class that is the super for all entities.
  * This class includes functionality shared by all other entities
- * @author Nick Lauder
+ * @author laudernich1
  *
  */
 public abstract class Entities implements Entity {

@@ -6,6 +6,11 @@ import java.io.Serializable;
 
 import resources.ImgResources;
 
+/**
+ * Overall entity interface which all different entities are children of
+ * @author laudernich1
+ *
+ */
 public interface Entity extends Serializable {
 
 	/**
@@ -17,43 +22,35 @@ public interface Entity extends Serializable {
 	/**
 	 * Returns the x coordinate of the entity
 	 * @return
-	 * 		a float value of the x coordinate
+	 * 		a double value of the x coordinate
 	 */
 	public double getX();
 
 	/**
 	 * Returns the y coordinate of the entity
 	 * @return
-	 * 		a float value of the y coordinate
+	 * 		a double value of the y coordinate
 	 */
 	public double getY();
 
 	/**
 	 * Returns the width of the entity
 	 * @return
-	 * 		an int value of the entity dimensions
+	 * 		an double value of the entity width
 	 */
 	public double getWidth();
 
 	/**
-	 * Returns the width of the entity
+	 * Returns the height of the entity
 	 * @return
-	 * 		an int value of the entity dimensions
+	 * 		an double value of the entity height
 	 */
 	public double getHeight();
 
 	/**
-	 * Returns the name assigned to the entity
-	 * @return
-	 * 		a string name of the entity
-	 
-	public String getName();
-*/
-
-	/**
-	 * Sets the new image for the entity
+	 * Sets the new image reference for the entity
 	 * @param image
-	 * 		the image to use
+	 * 		the image reference to use
 	 */
 	public void setImage(ImgResources image);
 
@@ -61,15 +58,15 @@ public interface Entity extends Serializable {
 	/**
 	 * Returns the image assigned to the entity
 	 * @return
-	 * 		the image object
+	 * 		the image reference object
 	 */
 	public ImgResources getImage();
 
 
 	/**
-	 * Returns the image assigned to the entity
+	 * Returns the bounding box of the entity
 	 * @return
-	 * 		the image object
+	 * 		the rectangle that surrounds the entity
 	 */
 	public Rectangle2D.Double getBoundingBox();
 }

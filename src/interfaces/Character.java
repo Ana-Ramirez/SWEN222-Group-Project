@@ -3,16 +3,15 @@ package interfaces;
 /**
  * 
  * @author Tim Gastrell
+ * @author laudernich1
  *
  */
-public interface Character extends MoveableEntity{
-	
-	public boolean hit(int damage);
+public interface Character extends MoveableEntity {
 	
 	/**
-	 * Checks if the player has more than 0 lives
+	 * Checks if the character has more than 0 lives
 	 * @return
-	 * 		true if the player is alive
+	 * 		true if the character is alive
 	 */
 	public boolean isAlive();
 	

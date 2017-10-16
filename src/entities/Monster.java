@@ -8,10 +8,10 @@ import resources.ImgResources;
 
 /**
  * The monster object that can move around the level and attack the player
- * @author Nick Lauder
+ * @author laudernich1
  *
  */
-public class Monster extends Character {
+public class Monster extends CharacterEntity {
 	private static final long serialVersionUID = -4064250638229615542L;
 	private StrategyPattern pattern;
 	private int oldTick = 0;

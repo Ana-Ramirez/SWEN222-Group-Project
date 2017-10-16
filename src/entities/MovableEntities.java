@@ -5,7 +5,7 @@ import interfaces.EntityType;
 
 /**
  * Abstract class for a movable entity
- * @author Nick Lauder
+ * @author laudernich1
  *
  */
 public abstract class MovableEntities extends Entities implements MoveableEntity {

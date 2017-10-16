@@ -1,19 +1,20 @@
 package entities;
 
 import interfaces.EntityType;
+import interfaces.Character;
 
 /**
  * Abstract class of all different character types
- * @author Nick Lauder
+ * @author laudernich1
  *
  */
-public abstract class Character extends MovableEntities {
+public abstract class CharacterEntity extends MovableEntities implements Character {
 	private static final long serialVersionUID = 4776917612212761920L;
 	protected int lives;
 	private Pickupable hand;
 
 
-	protected Character(double x, double y, double width, double height, EntityType type, int lives) {
+	protected CharacterEntity(double x, double y, double width, double height, EntityType type, int lives) {
 		super(x, y, width, height, type);
 		this.lives = lives;
 		hand = null;
