@@ -1,7 +1,6 @@
 package view;
 
 import game.Game;
-import game.LoadHandler;
 import game.QuitToMenuHandler;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
