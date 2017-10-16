@@ -16,14 +16,10 @@ public class Player extends CharacterEntity {
 
 	/**
 	 * Creates a new playable character
-	 * @param x
-	 * 		the float x to use
-	 * @param y
-	 * 		the float y to use
-	 * @param width
-	 * 		the int width to use
-	 * @param height
-	 * 		the int height to use
+	 * @param box
+	 * 		the rectangle that provides the coordinates and size
+	 * @param img
+	 * 		the initial image for this player to use
 	 */
 	public Player(Rectangle2D.Double box, ImgResources img) {
 		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), null, 3);
@@ -36,8 +32,8 @@ public class Player extends CharacterEntity {
 	/**
 	 * Changes the players help item to
 	 * the given item in the inventory
-	 * @return
-	 * 		true if successful, else false
+	 * @param i
+	 * 		the int for the inventory slot to because the hand
 	 */
 	public void selectItem(int i) {
 		if (i >= 0 && i < backpack.length) {
@@ -133,8 +129,6 @@ public class Player extends CharacterEntity {
 
 	/**
 	 * Drops an item
-	 * @param item
-	 * 		the item to add
 	 * @return
 	 * 		the item removed from the inventory
 	 */
@@ -150,6 +144,7 @@ public class Player extends CharacterEntity {
 	/**
 	 * Returns a large bounding box used for the attack radius
 	 * @return
+	 * 		returns a larger bounding box
 	 */
 	public Rectangle2D.Double getExtendedBoundingBox() {
 		return new Rectangle2D.Double(getX()-30, getY()-30, getWidth()+60, getHeight()+60);
