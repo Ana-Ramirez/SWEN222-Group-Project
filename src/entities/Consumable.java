@@ -17,18 +17,12 @@ public class Consumable extends Pickupable {
 
 	/**
 	 * Creates a new consumable object
-	 * @param name
-	 * 		the name to use
-	 * @param x
-	 * 		the float x coordinate
-	 * @param y
-	 * 		the float y coordinate
-	 * @param width
-	 * 		the int width to use
-	 * @param height
-	 * 		the int height to use
-	 * @param type
-	 * 		the type to use
+	 * @param box
+	 * 		the rectangle that provides the coordinates and size
+	 * @param action
+	 * 		the action of what the consumable actually odes
+	 * @param img
+	 * 		the image reference to use
 	 */
 	public Consumable(Rectangle2D.Double box, String action, ImgResources img) {
 		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), null);
@@ -40,7 +34,7 @@ public class Consumable extends Pickupable {
 	private boolean checkAction(String action) {
 		String[] actionCommand = action.split("[, ]+");
 		if (actionCommand.length != 2) {
-			throw new IllegalArgumentException("Action command incorrect argument number");
+			return false;
 		}
 		try {
 			double val = Double.parseDouble(actionCommand[1]);
@@ -48,7 +42,7 @@ public class Consumable extends Pickupable {
 				throw new NumberFormatException();
 			}
 		} catch (NumberFormatException e){
-			throw new IllegalArgumentException("Action command value in not valid");
+			return false;
 		}
 		boolean valid = false;
 		for (int i = 0; i < commands.length; i++) {
@@ -58,7 +52,7 @@ public class Consumable extends Pickupable {
 			}
 		}
 		if (!valid) {
-			throw new IllegalArgumentException("Action command is not a valid command");
+			return false;
 		}
 		this.action = action;
 		return valid;

@@ -16,6 +16,7 @@ public interface Entity extends Serializable {
 	/**
 	 * Gets the type assigned to the object
 	 * @return
+	 * 		the type of the entity
 	 */
 	public EntityType getType();
 
