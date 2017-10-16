@@ -5,6 +5,8 @@ import java.util.List;
 
 import entities.Player;
 import game.Game;
+import interfaces.GameDataInterface;
+import interfaces.LevelInterface;
 import logic.Level;
 
 /**
@@ -12,12 +14,17 @@ import logic.Level;
  * 
  * @author Tim Gastrell
  */
-public class GameData implements Serializable{
+public class GameData implements GameDataInterface{
 	
+	/**
+	 * Serial ID
+	 */
+	private static final long serialVersionUID = 8731379856738382788L;
+
 	/**
 	 * List of Levels
 	 */
-	private List<Level> levels;
+	private List<LevelInterface> levels;
 	
 	/**
 	 * Current level
@@ -47,22 +54,22 @@ public class GameData implements Serializable{
 	 * @param levels list
 	 * @param currentLevel level
 	 */
-	public GameData(Player player, List<Level> levels, Level currentLevel) {
+	public GameData(Player player, List<LevelInterface> levels, Level currentLevel) {
 		this.levels = levels;
 		this.player = player;
 		this.currentLevel = currentLevel;
 	}
 	
 	/**
-	 * 
+	 * Returns list of levels containing game data
 	 * @return List of Levels
 	 */
-	public List<Level> getLevels() {
+	public List<LevelInterface> getLevels() {
 		return levels;
 	}
 	
 	/**
-	 * 
+	 * Returns the player
 	 * @return Player object
 	 */
 	public Player getPlayer() {
@@ -70,6 +77,7 @@ public class GameData implements Serializable{
 	}
 	
 	/**
+	 * Returns the level the player is currently in
 	 * @return Current Level object
 	 */
 	public Level getCurrentLevel() {

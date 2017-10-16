@@ -37,15 +37,5 @@ public class LevelTests {
 		Room room3 = level.getRoom(3);
 		assertEquals(room3, level.getRoom(3));
 	}
-	
-	/**
-	 * Test game not over on new level creation
-	 */
-	@Test
-	public void initialise3() {
-		Player player = new Player(new Rectangle2D.Double(10, 10, 10, 10), null);
-		Level level = new Level(player);
-		assertFalse(level.gameOver());
-	}
 
 }

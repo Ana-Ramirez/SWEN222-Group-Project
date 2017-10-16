@@ -368,6 +368,7 @@ public class EntitiesTest {
 			assertTrue(((Weapon) player.getHand()).attack(monster));
 		}
 		assertEquals(0, monster.getLives());
+		assertEquals(100, monster.getFullLives());
 		assertFalse(((Weapon) player.getHand()).attack(monster));
 	}
 
@@ -562,18 +563,18 @@ public class EntitiesTest {
 	public void validExtendedBoundingBox() {
 		Player player = new Player(new Rectangle2D.Double(5, 5, 5, 5), null);
 		Rectangle2D.Double box1 = player.getExtendedBoundingBox();
-		assertEquals(player.getX()-20, box1.getMinX(), 0);
-		assertEquals(player.getY()-20, box1.getMinY(), 0);
-		assertEquals(player.getWidth()+40, box1.getWidth(), 0);
-		assertEquals(player.getHeight()+40, box1.getHeight(), 0);
+		assertEquals(player.getX()-30, box1.getMinX(), 0);
+		assertEquals(player.getY()-30, box1.getMinY(), 0);
+		assertEquals(player.getWidth()+60, box1.getWidth(), 0);
+		assertEquals(player.getHeight()+60, box1.getHeight(), 0);
 
 		player.moveBy(10, 10);
 		Rectangle2D.Double box2 = player.getExtendedBoundingBox();
 
-		assertEquals(player.getX()-20, box2.getMinX(), 0);
-		assertEquals(player.getY()-20, box2.getMinY(), 0);
-		assertEquals(player.getWidth()+40, box2.getWidth(), 0);
-		assertEquals(player.getHeight()+40, box2.getHeight(), 0);
+		assertEquals(player.getX()-30, box2.getMinX(), 0);
+		assertEquals(player.getY()-30, box2.getMinY(), 0);
+		assertEquals(player.getWidth()+60, box2.getWidth(), 0);
+		assertEquals(player.getHeight()+60, box2.getHeight(), 0);
 	}
 
 
