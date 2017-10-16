@@ -147,7 +147,7 @@ public class Player extends CharacterEntity {
 	 * 		returns a larger bounding box
 	 */
 	public Rectangle2D.Double getExtendedBoundingBox() {
-		return new Rectangle2D.Double(getX()-30, getY()-30, getWidth()+50, getHeight()+50);
+		return new Rectangle2D.Double(getX()-30, getY()-30, getWidth()+60, getHeight()+60);
 	}
 
 
