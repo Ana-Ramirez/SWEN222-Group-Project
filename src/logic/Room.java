@@ -101,6 +101,11 @@ public class Room implements Serializable{
 				getPlayer().moveBy(x, y);
 			}
 		}
+		if (getPlayer().getLives() <= 1) {
+			getPlayer().setImage(ImgResources.PLAYERDOWNINJURED);
+		} else {
+			getPlayer().setImage(ImgResources.PLAYERDOWN);
+		}
 	}
 	
 	/**
@@ -119,6 +124,13 @@ public class Room implements Serializable{
 				} else if (b instanceof Character) {
 					if (e.getOwner() == ((Character)b)) {
 						continue;
+					}
+					if (b instanceof Monster && ((Monster)b).getLives() <= ((Monster)b).getFullLives()/2) {
+						if (b == level.getBoss()) {
+							b.setImage(ImgResources.MAOINJURED);
+						} else {
+							b.setImage(ImgResources.MONSTERINJURED);
+						}
 					}
 					e.attack(b);
 					toRemove.add(e);
@@ -327,6 +339,13 @@ public class Room implements Serializable{
 	private boolean attackMonster(Monster m, float x, float y) {
 		//TODO: implement directional hitting
 		((MeleeWeapon) getPlayer().getHand()).attack(m);
+		if (m.getLives() >= 50) {
+			if (m == level.getBoss()) {
+				m.setImage(ImgResources.MAOINJURED);
+			} else {
+				m.setImage(ImgResources.MONSTERINJURED);
+			}
+		}
 		return ((m).isAlive()) ? false : true;
 	}
 
