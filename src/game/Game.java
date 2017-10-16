@@ -97,7 +97,6 @@ public class Game extends Application {
 			level1 = new Level(player);
 			levels.add(level1);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -223,7 +222,6 @@ public class Game extends Application {
 	                	try {
 							pm.start(stage);
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 	                	break;

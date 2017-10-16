@@ -24,20 +24,18 @@ public class Gun extends Weapon {
 
 	/**
 	 * Creates a new projectile
-	 * @param name
-	 * 		the string name to use
-	 * @param x
-	 * 		the float x coordinate to use
-	 * @param y
-	 * 		the float y coordinate to use
-	 * @param width
-	 * 		the int width to use
-	 * @param height
-	 * 		the int height to use
+	 * @param box
+	 * 		a rectangle with the coordinates and size 
 	 * @param type
 	 * 		the type to use
 	 * @param damage
 	 * 		the base damage to use
+	 * @param ammoCount
+	 * 		the initial ammo count to use
+	 * @param img
+	 *		the img reference to use
+	 * @param ammoImg
+	 * 		the default projectile image to use
 	 */
 	public Gun(Rectangle2D.Double box, EntityType type, int damage, int ammoCount, ImgResources img, ImgResources ammoImg) {
 		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), type, damage);
@@ -49,10 +47,13 @@ public class Gun extends Weapon {
 
 
 	/**
-	 *
-	 * @param x
-	 * @param y
+	 * Creates a new projectile to shoot
+	 * @param targetX
+	 * 		the target x double
+	 * @param targetY
+	 * 		the target y double
 	 * @return
+	 * 		the newly created projectile
 	 */
 	public Projectile createProjectile(double targetX, double targetY) {
 		if (ammoCount != 0) {
@@ -63,6 +64,18 @@ public class Gun extends Weapon {
 		}
 	}
 	
+	
+	/**
+	 * Creates a new projectile to shoot, including specific image
+	 * @param ammoImg
+	 * 		the image reference to use with the projectile
+	 * @param targetX
+	 * 		the target x double
+	 * @param targetY
+	 * 		the target y double
+	 * @return
+	 * 		the newly created projectile
+	 */
 	
 	public Projectile createProjectile(ImgResources ammoImg, double targetX, double targetY) {
 		if (ammoCount != 0) {

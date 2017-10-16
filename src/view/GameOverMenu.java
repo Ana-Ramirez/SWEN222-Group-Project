@@ -41,12 +41,14 @@ public class GameOverMenu extends Application{
 		drawBG(g);
 		root.getChildren().add(canvas);
 
+		//Using a vbox to have each element display in a single column
 		vb = new VBox();
 		vb.setSpacing(8);
 		vb.setAlignment(Pos.CENTER);
 
 		root.getChildren().add(vb);
 
+		//Adds GAME OVER to the top of the screen
 		Text title = new Text("GAME OVER");
 	    title.setFont(Font.font("Arial", FontWeight.BOLD, 48));
 	    title.setFill(Color.RED);
@@ -57,6 +59,7 @@ public class GameOverMenu extends Application{
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
+		//Add the buttons
 		loadGameButton();
 		quitToMenuButton();
 	}
@@ -66,7 +69,7 @@ public class GameOverMenu extends Application{
 	}
 
 	/**
-	 * Loads a game from file
+	 * Adds a load game button
 	 */
 	private void loadGameButton(){
 		Button btn = new Button();
@@ -76,7 +79,7 @@ public class GameOverMenu extends Application{
 	}
 
 	/**
-	 * Quits to the main menu
+	 * Adds a quit to menu button
 	 */
 	private void quitToMenuButton(){
 		Button btn = new Button();
@@ -86,7 +89,7 @@ public class GameOverMenu extends Application{
 	}
 
 	/**
-	 * Draws the background for the pause menu
+	 * Draws the background for the game over menu
 	 * @param g
 	 */
 	private void drawBG(GraphicsContext g) {

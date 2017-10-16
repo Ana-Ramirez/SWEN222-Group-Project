@@ -15,16 +15,14 @@ public class MeleeWeapon extends Weapon {
 
 	/**
 	 * Create a new weapon
-	 * @param name
-	 * 		the string name to use
-	 * @param x
-	 * 		the float x coordinate to use
-	 * @param y
-	 * 		the float y coordinate to use
+	 * @param box
+	 * 		a rectangle with the coordinates and size to use
 	 * @param type
 	 * 		the type to use
 	 * @param damage
 	 * 		the int amount of damage to use
+	 * @param img
+	 * 		the img reference to use
 	 */
 	public MeleeWeapon(Rectangle2D.Double box, EntityType type, int damage, ImgResources img) {
 		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), type, damage);

@@ -8,7 +8,7 @@ import interfaces.StrategyPattern;
  * Class controlling the AI for the enemy patrols the screen and has a set path
  * to follow
  * 
- * @author Ana Ramirez
+ * @author ramireana
  * @author laudernich1
  */
 

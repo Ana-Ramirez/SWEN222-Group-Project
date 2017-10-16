@@ -34,20 +34,24 @@ public class YouWinMenu extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		this.primaryStage = primaryStage;
 
+		//For drawing the UI elements on top of the background
 		root = new StackPane();
 
 		Canvas canvas = new Canvas(800, 600);
 		GraphicsContext g = canvas.getGraphicsContext2D();
 
+		//Draws the black background
 		drawBG(g);
 		root.getChildren().add(canvas);
 
+		//For drawing the title and buttons in one column
 		vb = new VBox();
 		vb.setSpacing(8);
 		vb.setAlignment(Pos.CENTER);
 
 		root.getChildren().add(vb);
 
+		//Displays YOU WIN as the title
 		Text title = new Text("YOU WIN");
 	    title.setFont(Font.font("Arial", FontWeight.BOLD, 48));
 	    title.setFill(Color.GREEN);
@@ -58,26 +62,20 @@ public class YouWinMenu extends Application{
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
-		loadGameButton();
+		//Adds the buttons
 		quitToMenuButton();
 	}
 
+	/**
+	 * Constructor must take a game object so that the quitToMenu button will work
+	 * @param game
+	 */
 	public YouWinMenu(Game game){
 		this.game = game;
 	}
 
 	/**
-	 * Loads a game from file
-	 */
-	private void loadGameButton(){
-		Button btn = new Button();
-		btn.setText("Load Game");
-		btn.setOnAction(new LoadHandler<ActionEvent>(primaryStage));
-		vb.getChildren().add(btn);
-	}
-
-	/**
-	 * Quits to the main menu
+	 * Adds a quit to menu button
 	 */
 	private void quitToMenuButton(){
 		Button btn = new Button();
@@ -87,7 +85,7 @@ public class YouWinMenu extends Application{
 	}
 
 	/**
-	 * Draws the background for the pause menu
+	 * Draws the background for the you win menu (solid black)
 	 * @param g
 	 */
 	private void drawBG(GraphicsContext g) {

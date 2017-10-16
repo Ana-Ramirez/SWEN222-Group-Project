@@ -59,9 +59,9 @@ public abstract class CharacterEntity extends MovableEntities implements Charact
 	}
 	
 	/**
-	 * Returns the object currently in the players hand
-	 * @return
-	 * 		the pickupable object in the hand
+	 * Sets the characters hand
+	 * @param e
+	 * 		the item to put into the characters hand
 	 */
 	protected void setHand(Pickupable e) {
 		hand = e;

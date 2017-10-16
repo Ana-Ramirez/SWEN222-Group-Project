@@ -7,7 +7,7 @@ import interfaces.StrategyPattern;
 /**
  * Class controlling the AI for the enemy that follows the player
  * 
- * @author Ana Ramirez
+ * @author ramireana
  */
 
 public class FollowingEnemy implements StrategyPattern {

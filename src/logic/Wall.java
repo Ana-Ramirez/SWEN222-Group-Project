@@ -10,7 +10,9 @@ import resources.ImgResources;
  *
  */
 public class Wall extends Entities {
+	private static final long serialVersionUID = -9001742836653967062L;
 
+//<<<<<<< HEAD
 	String position = null;
 	
 	/**
@@ -24,16 +26,11 @@ public class Wall extends Entities {
 	public Wall(String pos, double x, double y, int width, int height){
 		super(x, y, width, height, null);
 
-		//TODO: check walls
 		switch(pos) {
 		case "top":
 			setImage(ImgResources.WALLTOP);
 			break;
-		case "bottom":
-			setImage(ImgResources.WALLBOT);
-			break;
-		case "left":
-		case "right":
+		case "other":
 			setImage(ImgResources.WALL);
 			break;
 		}
