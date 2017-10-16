@@ -74,6 +74,7 @@ public class Player extends Character {
 		String[] actionCommand = command.split("[, ]+");
 		if (actionCommand[0].equals("Lives")) {
 			lives += (int) Float.parseFloat(actionCommand[1]);
+			return true;
 		} else if (actionCommand[0].equals("Ammo")) {
 			for (int i = 0; i < backpack.length; i++) {
 				if (backpack[i] instanceof Gun) {
@@ -81,11 +82,8 @@ public class Player extends Character {
 					return true;
 				}
 			}
-			return false;
-		} else {
-			throw new UnsupportedOperationException("The player does not support this command");
-		}
-		return true;
+		} 
+		return false;
 	}
 
 

@@ -2,6 +2,7 @@ package entities;
 
 import java.awt.geom.Rectangle2D;
 
+import interfaces.EntityType;
 import resources.ImgResources;
 
 //***** Design Discussion *********
@@ -38,7 +39,7 @@ public class Gun extends Weapon {
 	 * @param damage
 	 * 		the base damage to use
 	 */
-	public Gun(Rectangle2D.Double box, Type type, int damage, int ammoCount, ImgResources img, ImgResources ammoImg) {
+	public Gun(Rectangle2D.Double box, EntityType type, int damage, int ammoCount, ImgResources img, ImgResources ammoImg) {
 		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), type, damage);
 		this.damage = damage;
 		setImage(img);
@@ -56,7 +57,17 @@ public class Gun extends Weapon {
 	public Projectile createProjectile(double targetX, double targetY) {
 		if (ammoCount != 0) {
 			ammoCount--;
-			return new Projectile(getOwner(), new Rectangle2D.Double(getX(), getY(), 8, 8), damage, ammoImg, targetX, targetY);
+			return new Projectile(getOwner(), new Rectangle2D.Double(getX(), getY(), 8, 8), damage, ammoImg, targetX, targetY, getType());
+		} else {
+			return null;
+		}
+	}
+	
+	
+	public Projectile createProjectile(ImgResources ammoImg, double targetX, double targetY) {
+		if (ammoCount != 0) {
+			ammoCount--;
+			return new Projectile(getOwner(), new Rectangle2D.Double(getX(), getY(), ammoImg.getWidth(), ammoImg.getHeight()), damage, ammoImg, targetX, targetY, getType());
 		} else {
 			return null;
 		}

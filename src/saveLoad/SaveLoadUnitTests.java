@@ -12,8 +12,8 @@ import org.junit.Test;
 import entities.MeleeWeapon;
 import entities.Monster;
 import entities.Player;
-import entities.Type;
 import interfaces.Entity;
+import interfaces.Type;
 import logic.Level;
 import logic.Room;
 

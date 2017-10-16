@@ -46,8 +46,10 @@ public class Room implements Serializable{
 
 	/**
 	 * Handles a tick in the game
-	 * @param x 	mouse x pos
-	 * @param y 	mouse y pos
+	 * @param x 		mouse x pos
+	 * @param y 		mouse y pos
+	 * @param tickNo	number of ticks in game
+	 * 
 	 */
 	public void tick(float x, float y, int tickNo) {
 		playerTick(x, y);
@@ -72,14 +74,19 @@ public class Room implements Serializable{
 	private List<Entity> bossAttack(Monster m) {
 		ArrayList<Entity> toAdd = new ArrayList<>();
 		if (m.getHand() instanceof Gun) {
-			toAdd.add(((Gun) m.getHand()).createProjectile(m.getX()+m.getWidth()/2d, m.getY()+m.getHeight()/2d+10d));
-			toAdd.add(((Gun) m.getHand()).createProjectile(m.getX()+m.getWidth()/2d, m.getY()+m.getHeight()/2d-10d));
-			toAdd.add(((Gun) m.getHand()).createProjectile(m.getX()+m.getWidth()/2d+10d, m.getY()+m.getHeight()/2d));
-			toAdd.add(((Gun) m.getHand()).createProjectile(m.getX()+m.getWidth()/2d-10d, m.getY()+m.getHeight()/2d));
+			toAdd.add(((Gun) m.getHand()).createProjectile(ImgResources.VLASER, m.getX()+m.getWidth()/2d, m.getY()+m.getHeight()/2d+10d));
+			toAdd.add(((Gun) m.getHand()).createProjectile(ImgResources.VLASER, m.getX()+m.getWidth()/2d, m.getY()+m.getHeight()/2d-10d));
+			toAdd.add(((Gun) m.getHand()).createProjectile(ImgResources.HLASER, m.getX()+m.getWidth()/2d+10d, m.getY()+m.getHeight()/2d));
+			toAdd.add(((Gun) m.getHand()).createProjectile(ImgResources.HLASER, m.getX()+m.getWidth()/2d-10d, m.getY()+m.getHeight()/2d));
 		}
 		return toAdd;
 	}
 	
+	/**
+	 * Decides which direction to move the player
+	 * @param x
+	 * @param y
+	 */
 	private void playerTick(float x, float y) {
 		getPlayer().tick();
 		if (x != 0 || y != 0) {
@@ -96,6 +103,12 @@ public class Room implements Serializable{
 		}
 	}
 	
+	/**
+	 * Calls actions on what should happen when a projectile hits 
+	 * different objects (i.e. bullet disappears on wall, but hurts monster)
+	 * @param e		the projectile
+	 * @return
+	 */
 	private ArrayList<Entity> projectileTick(Projectile e) {
 		ArrayList<Entity> toRemove = new ArrayList<>();
 		e.tick();
@@ -120,7 +133,7 @@ public class Room implements Serializable{
 
 
 	/**
-	 * Fills the walls array with wall objects where there should be walls
+	 * creates wall entities and adds them to the list of entities
 	 */
 	private void generateWalls(){
 		String pos = null;
@@ -149,6 +162,15 @@ public class Room implements Serializable{
 	 * @param d
 	 */
 	public void goThroughDoor(Door d){
+		if (d.isLocked() && (d.getUnlockItem() != getPlayer().getHand() || getPlayer().getHand() == null)) {
+			return;
+		}
+		
+		if (d.getUnlockItem() == getPlayer().getHand()) {
+			d.unlockDoor(getPlayer().getHand());
+			getPlayer().drop();
+		}
+		
 		ArrayList<Projectile> toRemove = new ArrayList<>();
 		for (Entity e : roomEntities) {
 			if (e instanceof Projectile) {
@@ -158,6 +180,11 @@ public class Room implements Serializable{
 		roomEntities.remove(getPlayer());
 		roomEntities.removeAll(toRemove);
 		Room gotoRoom = (this == d.getRoom1()) ? d.getRoom2() : d.getRoom1();
+		for (Entity e : level.getRoom(5).roomEntities) {
+			if (e instanceof Door) {
+				((Door) e).flipDoor();
+			}
+		}
 		level.gotoRoom(gotoRoom);
 	}
 
@@ -168,8 +195,10 @@ public class Room implements Serializable{
 	 * collided with
 	 */
 	private int movePlayer(float x, float y){
-		Rectangle2D.Double boxX = new Rectangle2D.Double(getPlayer().getX()+x*2, getPlayer().getY(), getPlayer().getWidth(), getPlayer().getHeight());
-		Rectangle2D.Double boxY = new Rectangle2D.Double(getPlayer().getX(), getPlayer().getY()+y*2, getPlayer().getWidth(), getPlayer().getHeight());
+		Rectangle2D.Double boxX = new Rectangle2D.Double(getPlayer().getX()+x*2, getPlayer().getY(), 
+														getPlayer().getWidth(), getPlayer().getHeight());
+		Rectangle2D.Double boxY = new Rectangle2D.Double(getPlayer().getX(), getPlayer().getY()+y*2, 
+														getPlayer().getWidth(), getPlayer().getHeight());
 
 		int collision = 1;
 
@@ -311,7 +340,9 @@ public class Room implements Serializable{
 		if (hand instanceof MeleeWeapon) {
 			ArrayList<Entity> toRemove = new ArrayList<>();
 			for(Entity e : this.roomEntities){
-				if(e.getBoundingBox().intersects(this.getPlayer().getExtendedBoundingBox()) && e instanceof Monster && attackMonster((Monster)e, x, y)){
+				if(e.getBoundingBox().intersects(this.getPlayer().getExtendedBoundingBox()) 
+						&& e instanceof Monster 
+						&& attackMonster((Monster)e, x, y)){
 					toRemove.add(e);
 				}
 			} //End of entities iteration

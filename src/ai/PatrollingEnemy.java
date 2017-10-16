@@ -14,16 +14,17 @@ import interfaces.StrategyPattern;
 public class PatrollingEnemy implements StrategyPattern {
 
 	private static final long serialVersionUID = 7378834863382700237L;
-	private double speed = 1.0f;
+	private double speed;
 	private Goal[] goals;
 	private int currentGoal;
 
-	public PatrollingEnemy(Goal[] goals) {
+	public PatrollingEnemy(Goal[] goals, double speed) {
 		if (goals.length < 2) {
 			throw new IllegalArgumentException("More than 1 goal must be given");
 		}
 		this.goals = goals;
 		currentGoal = 0;
+		this.speed = speed;
 	}
 
 	/**
