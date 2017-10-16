@@ -33,7 +33,7 @@ public class LevelInitialiser {
 	private static int maoHealth = 240;
 	
 	private static int gunStrength = 20;
-	private static int meleeStrength = 5;
+	private static int meleeStrength = 10;
 	
 	/**
 	 * create rooms and add to this level
