@@ -3,7 +3,7 @@ package interfaces;
 import java.io.Serializable;
 /**
 * Interface for all AI enemies
-* @author Ana Ramirez
+* @author ramireana
 */
 
 public interface StrategyPattern extends Serializable{
