@@ -177,9 +177,4 @@ public class GameInstructions extends Application {
 		g.setFill(Color.BLACK);
 		g.fillRect(0.0, 0.0, 800, 600);
 	}
-	
-	public static void main(String[] args) {
-		launch(args);
-	}
-
 }
