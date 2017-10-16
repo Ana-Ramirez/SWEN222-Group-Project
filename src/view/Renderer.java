@@ -3,17 +3,14 @@ package view;
 import java.io.Serializable;
 
 import entities.MeleeWeapon;
-import entities.Monster;
 import entities.Pickupable;
 import entities.Player;
 import interfaces.Entity;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import logic.Door;
 import logic.Level;
 import resources.ImgResources;
 
@@ -23,7 +20,11 @@ import resources.ImgResources;
  * @author Patrick
  *
  */
-public class Renderer implements Serializable{
+public class Renderer implements Serializable, interfaces.Renderer{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8988365628295662802L;
 	private GraphicsContext g;
 	private Level level;
 	private Scene scene;
@@ -52,10 +53,7 @@ public class Renderer implements Serializable{
 		animationFrame = 0;
 	}
 
-	/**
-	 * Actually draws the room and HUD. Should only need to be called once at the start,
-	 * after the renderer has been initialised
-	 */
+	@Override
 	public void initialDraw(){
 		drawRoom();
 		drawHUD();
@@ -85,23 +83,6 @@ public class Renderer implements Serializable{
 	 */
 	private void drawEntities(){
 		for (Entity e : level.getCurrentRoom().getEntities()){
-			if (e instanceof Monster){
-				if (((Monster) e).getLives() <= 50){
-					if (e.getWidth() == 75){ //Mao
-						e.setImage(ImgResources.MAOINJURED);
-					}
-					else{
-						e.setImage(ImgResources.MONSTERINJURED);
-					}
-				}
-			}
-			else if (e instanceof Player){
-				if (((Player) e).getLives() <= 1){
-					e.setImage(ImgResources.PLAYERDOWNINJURED);
-				} else {
-					e.setImage(ImgResources.PLAYERDOWN);
-				}
-			}
 			g.drawImage(e.getImage().img, e.getX(), HUD_HEIGHT + e.getY(), e.getWidth(), e.getHeight());
 		}
 	}
@@ -183,6 +164,7 @@ public class Renderer implements Serializable{
 		}
 	}
 	
+	@Override
 	public void animateSword(boolean fromGame){
 		Player player = level.getPlayer();
 		Pickupable e = player.getHand();
@@ -216,14 +198,13 @@ public class Renderer implements Serializable{
 		}
 	}
 
-	/**
-	 * Repaints the information that could change in a frame
-	 */
+	@Override
 	public void repaint(){
 		drawRoom();
 		drawHUD();
 	}
 
+	@Override
 	public Scene getScene() {
 		return this.scene;
 	}

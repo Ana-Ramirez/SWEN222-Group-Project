@@ -1,7 +1,11 @@
 package interfaces;
 
+/**
+ * Public interface for a movable entity allowing libraries to use this and be independtly testable
+ * @author laudernich1
+ * 
+ */
 public interface MoveableEntity extends Entity{
-	
 	
 	/**
 	 * Moves the entity a given amount on each axis

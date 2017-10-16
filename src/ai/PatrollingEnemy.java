@@ -9,6 +9,7 @@ import interfaces.StrategyPattern;
  * to follow
  * 
  * @author Ana Ramirez
+ * @author laudernich1
  */
 
 public class PatrollingEnemy implements StrategyPattern {

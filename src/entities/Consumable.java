@@ -6,7 +6,7 @@ import resources.ImgResources;
 
 /**
  * Entity type that can be consumed by a player, gives perk after being consumed
- * @author Nick Lauder
+ * @author laudernich1
  *
  */
 public class Consumable extends Pickupable {
