@@ -15,6 +15,7 @@ import entities.Projectile;
 import interfaces.Character;
 import interfaces.Entity;
 import interfaces.MoveableEntity;
+import interfaces.RoomInterface;
 import resources.ImgResources;
 import view.Renderer;
 
@@ -26,7 +27,7 @@ import view.Renderer;
  * @author laudernich1
  *
  */
-public class Room implements Serializable{
+public class Room implements RoomInterface, Serializable{
 
 	private static final long serialVersionUID = -5452360281885911070L;
 	private int roomNum;

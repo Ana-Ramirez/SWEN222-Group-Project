@@ -6,6 +6,8 @@ import java.util.List;
 
 import entities.Monster;
 import entities.Player;
+import interfaces.LevelInitialiser;
+import interfaces.LevelInterface;
 import view.Renderer;
 
 /**
@@ -15,12 +17,11 @@ import view.Renderer;
  * @author lewismcewan
  *
  */
-public class Level implements Serializable{
+public class Level implements LevelInterface, Serializable{
 
 	private List<Room> rooms;
 	private Player player;
 	private Room currentRoom;
-	private boolean gotPatrick = false;
 	private Monster boss;
 	private boolean isLeft;
 
@@ -97,13 +98,6 @@ public class Level implements Serializable{
 	 */
 	public Player getPlayer(){
 		return this.player;
-	}
-
-	/**
-	 * @return if Patrick has been reached and the game is over
-	 */
-	public boolean gameOver(){
-		return this.gotPatrick;
 	}
 
 	/**
