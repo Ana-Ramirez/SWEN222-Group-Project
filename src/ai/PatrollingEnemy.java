@@ -5,7 +5,7 @@ import interfaces.Moveable;
 import interfaces.StrategyPattern;
 
 /**
- * Class controlling the AI for the enemy patrols the screen and has a set path
+ * Class controlling the AI for the enemy patrols the window and has a set path
  * to follow
  * 
  * @author ramireana

@@ -6,7 +6,8 @@ import interfaces.Moveable;
 import interfaces.StrategyPattern;
 
 /**
- * Class controlling the AI for the enemy that follows the player
+ * Class controlling the AI for the boss monster
+ * AI follows the player and then when the player is a certain distance away, the AI charges at the player with increased speed
  * 
  * @author ramireana
  */
@@ -50,7 +51,7 @@ public class BossEnemy implements StrategyPattern {
 		}
 		
 		if((player.getX() - monster.getX() < 250) && (player.getX() - monster.getX() > -250) && (player.getY() - monster.getY() < 250) && (player.getY() - monster.getY() > -250)){
-			setSpeed(2);
+			setSpeed(2.5);
 			
 			if (monster.getX() > playerPointX) {
 				monster.moveBy(-speed, 0);
