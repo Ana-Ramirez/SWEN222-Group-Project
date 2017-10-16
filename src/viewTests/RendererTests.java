@@ -1,64 +1,135 @@
 package viewTests;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.geom.Rectangle2D;
 
 import org.junit.Test;
 
-import entities.Entity;
 import entities.Player;
-import game.Game;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import logic.Room;
+import logic.Level;
 import resources.ImgResources;
 import view.Renderer;
 
 /**
  * Tests for the renderer class
  * @author Patrick
- *
+ * <b>TESTS ADAPTED FROM CODE FOUND AT https://stackoverflow.com/a/18980655</b>
  */
-public class RendererTests {
+public class RendererTests{
+	
+	/**
+	 * Tries to call the initial draw method
+	 * @throws InterruptedException
+	 */
+	@Test
+	public void initialDrawTest() throws InterruptedException {
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				new JFXPanel(); // Initializes the JavaFx Platform
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							Renderer r = new Renderer(new Level(new Player(new Rectangle2D.Double(400, 200, 40, 40), ImgResources.PLAYERDOWN)));
+							r.initialDraw();
+						} 
+						catch (Exception e) {
+							e.printStackTrace();
+						}
 
-	/**
-	 * Makes sure the constructor can be called without error
-	 */
-	@Test
-	public void constructorTest(){
-		Player p = new Player(0.0f, 0.0f, 10, 10, ImgResources.PLAYERDOWN.img);
-		TestApplication.launch();
-		Renderer r = new Renderer();
+					}
+				});
+			}
+		});
+		thread.start();// Initialize the thread
 	}
 	
 	/**
-	 * Calls the drawEntities method to make sure it works
+	 * Tries to call the initial draw method
+	 * @throws InterruptedException
 	 */
 	@Test
-	public void drawEntitiesTest(){
-		GraphicsContext g = null;
-		List<Entity> entities = new ArrayList<>();
-		Renderer r = new Renderer();
-		r.renderRoom(entities, null);
-			
-		r.drawEntities();
+	public void animateSwordTest() throws InterruptedException {
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				new JFXPanel(); // Initializes the JavaFx Platform
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							Renderer r = new Renderer(new Level(new Player(new Rectangle2D.Double(400, 200, 40, 40), ImgResources.PLAYERDOWN)));
+							r.animateSword(true);
+							r.animateSword(false);
+						} 
+						catch (Exception e) {
+							e.printStackTrace();
+						}
+
+					}
+				});
+			}
+		});
+		thread.start();// Initialize the thread
 	}
 	
 	/**
-	 * Calls the drawRoom method to make sure it works
+	 * Tries to call the initial draw method
+	 * @throws InterruptedException
 	 */
 	@Test
-	public void drawRoomTest(){
-		GraphicsContext g = null;
-		List<Entity> entities = new ArrayList<>();
-		Room room = new Room(0);
-		Scene scene= new Scene(new StackPane());
-		Renderer r = new Renderer();
-			
-		r.drawRoom();
+	public void repaintTest() throws InterruptedException {
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				new JFXPanel(); // Initializes the JavaFx Platform
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							Renderer r = new Renderer(new Level(new Player(new Rectangle2D.Double(400, 200, 40, 40), ImgResources.PLAYERDOWN)));
+							r.repaint();
+						} 
+						catch (Exception e) {
+							e.printStackTrace();
+						}
+
+					}
+				});
+			}
+		});
+		thread.start();// Initialize the thread
+	}
+	
+	/**
+	 * Tries to call the initial draw method
+	 * @throws InterruptedException
+	 */
+	@Test
+	public void getSceneTest() throws InterruptedException {
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				new JFXPanel(); // Initializes the JavaFx Platform
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							Renderer r = new Renderer(new Level(new Player(new Rectangle2D.Double(400, 200, 40, 40), ImgResources.PLAYERDOWN)));
+							Scene scene = r.getScene();
+							assert (scene != null);
+						} 
+						catch (Exception e) {
+							e.printStackTrace();
+						}
+
+					}
+				});
+			}
+		});
+		thread.start();// Initialize the thread
 	}
 }

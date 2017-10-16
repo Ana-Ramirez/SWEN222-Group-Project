@@ -13,7 +13,7 @@ import entities.MeleeWeapon;
 import entities.Monster;
 import entities.Player;
 import interfaces.Entity;
-import interfaces.Type;
+import interfaces.EntityType;
 import logic.Level;
 import logic.Room;
 
@@ -78,8 +78,8 @@ public class SaveLoadUnitTests {
 		Player player = new Player(boundingBox, null);
 		List<Level> levels = generateLevels(player);
 		Level currentLevel = levels.get(0);	
-		MeleeWeapon melee = new MeleeWeapon(boundingBox, Type.WATER, 40, null);
-		Monster monster = new Monster(boundingBox, 100, Type.WATER, melee, null, null);
+		MeleeWeapon melee = new MeleeWeapon(boundingBox, EntityType.WATER, 40, null);
+		Monster monster = new Monster(boundingBox, 100, EntityType.WATER, melee, null, null);
 		monster.attack(player, 120);
 		
 		GameData gd = new GameData(player, levels, currentLevel);

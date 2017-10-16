@@ -1,5 +1,6 @@
 package view;
 
+import game.GameInstructionHandler;
 import game.LoadHandler;
 import game.QuitHandler;
 import game.StartHandler;
@@ -10,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -69,6 +69,7 @@ public class MainMenu extends Application{
 
 		startGameButton();
 		loadGameButton();
+		gameInstructionsButton();
 		quitGameButton();
 	}
 
@@ -99,6 +100,16 @@ public class MainMenu extends Application{
 		Button btn = new Button();
 		btn.setText("Quit");
 		btn.setOnAction(new QuitHandler<ActionEvent>());
+		vb.getChildren().add(btn);
+	}
+	
+	/**
+	 * Displays Game Instructions
+	 */
+	private void gameInstructionsButton() {
+		Button btn = new Button();
+		btn.setText("Game Instructions");
+		btn.setOnAction(new GameInstructionHandler<ActionEvent>(primaryStage));
 		vb.getChildren().add(btn);
 	}
 

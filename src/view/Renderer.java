@@ -3,7 +3,6 @@ package view;
 import java.io.Serializable;
 
 import entities.MeleeWeapon;
-import entities.Monster;
 import entities.Pickupable;
 import entities.Player;
 import interfaces.Entity;
