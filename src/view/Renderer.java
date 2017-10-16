@@ -98,6 +98,8 @@ public class Renderer implements Serializable{
 			else if (e instanceof Player){
 				if (((Player) e).getLives() <= 1){
 					e.setImage(ImgResources.PLAYERDOWNINJURED);
+				} else {
+					e.setImage(ImgResources.PLAYERDOWN);
 				}
 			}
 			g.drawImage(e.getImage().img, e.getX(), HUD_HEIGHT + e.getY(), e.getWidth(), e.getHeight());
