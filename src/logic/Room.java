@@ -298,7 +298,6 @@ public class Room implements RoomInterface, Serializable{
 		return null;
 	}
 
-
 	/**
 	 * check if a door is locked
 	 * @return
@@ -306,7 +305,6 @@ public class Room implements RoomInterface, Serializable{
 	public boolean doorLocked(Door d){
 		return d.isLocked();
 	}
-
 
 	/**
 	 * @return the list of doors for this room

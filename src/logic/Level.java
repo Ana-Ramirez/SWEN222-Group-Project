@@ -114,12 +114,16 @@ public class Level implements LevelInterface, Serializable{
 		this.currentRoom = room;
 	}
 	
-	
+	/**
+	 * @return the boss
+	 */
 	public Monster getBoss() {
 		return boss;
 	}
 	
-	
+	/**
+	 * Set the boss for the level
+	 */
 	public void setBoss(Monster boss) {
 		this.boss = boss;
 	}
