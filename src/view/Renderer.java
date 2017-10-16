@@ -1,7 +1,5 @@
 package view;
 
-import java.io.Serializable;
-
 import entities.MeleeWeapon;
 import entities.Pickupable;
 import entities.Player;
@@ -20,11 +18,7 @@ import resources.ImgResources;
  * @author Patrick
  *
  */
-public class Renderer implements Serializable, interfaces.Renderer{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8988365628295662802L;
+public class Renderer implements interfaces.Renderer{
 	private GraphicsContext g;
 	private Level level;
 	private Scene scene;
