@@ -1,7 +1,5 @@
 package view;
 
-import java.io.Serializable;
-
 import entities.MeleeWeapon;
 import entities.Pickupable;
 import entities.Player;
@@ -20,11 +18,7 @@ import resources.ImgResources;
  * @author Patrick
  *
  */
-public class Renderer implements Serializable, interfaces.Renderer{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8988365628295662802L;
+public class Renderer implements interfaces.Renderer{
 	private GraphicsContext g;
 	private Level level;
 	private Scene scene;
@@ -50,6 +44,7 @@ public class Renderer implements Serializable, interfaces.Renderer{
 		root.getChildren().add(canvas);
 		this.scene = new Scene(root, 800, 600);
 		
+		//Initial animation frame is 0 as sword should be upright
 		animationFrame = 0;
 	}
 
@@ -95,14 +90,17 @@ public class Renderer implements Serializable, interfaces.Renderer{
 		g.setFill(Color.BLACK);
 		g.fillRect(0, 0, ROOM_WIDTH, HUD_HEIGHT);
 
+		//Inventory elements
 		g.setFill(Color.WHITE);
 		g.fillText("INVENTORY", 20, 20);
 		drawInventory(20, 30);
 
+		//Life elements
 		g.setFill(Color.WHITE);
 		g.fillText("LIVES", 420, 20);
 		drawLives(400, 30);
 		
+		//Info for item in player's hand
 		g.setStroke(Color.YELLOW);
 		drawItemInfo(200, 65);
 	}
@@ -142,20 +140,21 @@ public class Renderer implements Serializable, interfaces.Renderer{
 		}
 		
 		//Draw item in the player's hand
+		//Dependent on which direction the player is facing
 		Pickupable e = player.getHand();
 		if (e != null) {
 			ImgResources image = e.getImage();
 			if (!level.isLeft()){ //Player is facing right
-				if (e instanceof MeleeWeapon){
-					animateSword(false);
+				if (e instanceof MeleeWeapon){ //Player is holding a sword. Draws it larger than other items
+					animateSword(false); //Calls the animation method to animate the sword if needed
 					g.drawImage(image.img, player.getX() + player.getWidth() + 40, player.getY() + HUD_HEIGHT - 12, -48, 48);
 				} else {
 					g.drawImage(image.img, player.getX() + player.getWidth() + 17, player.getY() + player.getHeight() / 4d + HUD_HEIGHT, -24, 24);
 				}
 			}
 			else { //player is facing left
-				if (e instanceof MeleeWeapon){
-					animateSword(false);
+				if (e instanceof MeleeWeapon){ //Player is holding a sword. Draws it larger than other items
+					animateSword(false); //Calls the animation method to animate the sword if needed
 					g.drawImage(image.img, player.getX() - 40, player.getY() + HUD_HEIGHT - 12, 48, 48);
 				} else { 
 					g.drawImage(image.img, player.getX() - 17, player.getY() + player.getHeight() / 4d + HUD_HEIGHT, 24, 24);
@@ -168,19 +167,21 @@ public class Renderer implements Serializable, interfaces.Renderer{
 	public void animateSword(boolean fromGame){
 		Player player = level.getPlayer();
 		Pickupable e = player.getHand();
+		
+		//If player is holding a sword
 		if (e instanceof MeleeWeapon){
-			if (!fromGame && animationFrame == 0){
+			if (!fromGame && animationFrame == 0){ //Keep the sword up if it was already up and this method was called from this class
 				e.setImage(ImgResources.SWORDLEFTUP);
 			}
-			else if (fromGame && animationFrame == 0){
+			else if (fromGame && animationFrame == 0){ //If it's up but this method was called from the Game class, start the animation
 				animationFrame++;
 			}
 			if (animationFrame == 1){
-				e.setImage(ImgResources.SWORDLEFTDIAG);
+				e.setImage(ImgResources.SWORDLEFTDIAG); //Sword is diagonal
 				animationFrame++;
 			}
 			else if (animationFrame == 2){
-				e.setImage(ImgResources.SWORDLEFTDOWN);
+				e.setImage(ImgResources.SWORDLEFTDOWN); //Sword is horizontal. Has finished its slash and now returns to being upright
 				animationFrame = 0;
 			}
 		}

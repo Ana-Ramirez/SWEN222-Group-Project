@@ -20,20 +20,18 @@ public class Monster extends CharacterEntity {
 
 	/**
 	 * Creates a new Monster
-	 * @param name
-	 * 		the string name to use
-	 * @param x
-	 * 		the float x to use
-	 * @param y
-	 * 		the float y to use
-	 * @param width
-	 * 		the int width to use
-	 * @param height
-	 * 		the int height to use
+	 * @param box
+	 * 		the the rectangle that provides the coordinates and size
+	 * @param health
+	 * 		the base health to use
 	 * @param type
 	 * 		the type to use
 	 * @param weapon
 	 * 		the weapon to use
+	 * @param img
+	 * 		the image reference to use
+	 * @param strategy
+	 * 		the ai pattern to use
 	 */
 	public Monster(Rectangle2D.Double box, int health, EntityType type, Weapon weapon, ImgResources img, StrategyPattern strategy) {
 		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), type, health);
@@ -60,6 +58,8 @@ public class Monster extends CharacterEntity {
 	 * Initiates an attack onto another entitiy
 	 * @param victim
 	 * 		the entity to attack
+	 * @param tick
+	 * 		the int tick number
 	 * @return
 	 * 		true if successful
 	 */
@@ -72,6 +72,11 @@ public class Monster extends CharacterEntity {
 		}
 	}
 	
+	/**
+	 * Returns the amount lives this monster has at full health
+	 * @return
+	 * 		int number of max lives
+	 */
 	public int getFullLives() {
 		return fullLives;
 	}

@@ -14,6 +14,7 @@ import view.Renderer;
  */
 public class Door extends Entities {
 
+	private static final long serialVersionUID = 1434461830741351179L;
 	private Room room1, room2;
 	private boolean doorLocked = true;
 	private Pickupable unlockItem;
@@ -151,6 +152,11 @@ public class Door extends Entities {
 		return false;
 	}
 	
+	/**
+	 * Using the same door object for the two room objects
+	 * it connects, so have to flip door to place
+	 * in correct position inside the room being moved into.
+	 */
 	public void flipDoor() {
 		switch (position) {
 			case 0:

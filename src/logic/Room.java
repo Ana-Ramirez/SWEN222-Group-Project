@@ -66,6 +66,13 @@ public class Room implements Serializable{
 			} else if(e instanceof Monster && e.getBoundingBox().intersects(getPlayer().getBoundingBox())){
 				((Monster)e).attack(getPlayer(), tickNo);
 			} 
+			if (e instanceof Monster && ((Monster)e).getLives() <= ((Monster)e).getFullLives()/2) {
+				if (e == level.getBoss()) {
+					e.setImage(ImgResources.MAOINJURED);
+				} else {
+					e.setImage(ImgResources.MONSTERINJURED);
+				}
+			}
 		}
 		roomEntities.removeAll(toRemove);
 		roomEntities.addAll(toAdd);
@@ -119,21 +126,12 @@ public class Room implements Serializable{
 		e.tick();
 		for (Entity b : roomEntities) {
 			if (e.getBoundingBox().intersects(b.getBoundingBox())) {
-				if(b instanceof Wall) {
-					toRemove.add(e);
-				} else if (b instanceof Character) {
-					if (e.getOwner() == ((Character)b)) {
-						continue;
-					}
-					if (b instanceof Monster && ((Monster)b).getLives() <= ((Monster)b).getFullLives()/2) {
-						if (b == level.getBoss()) {
-							b.setImage(ImgResources.MAOINJURED);
-						} else {
-							b.setImage(ImgResources.MONSTERINJURED);
-						}
-					}
+				if (e.getOwner() == b || b instanceof Projectile) {
+					continue;
+				}
+				toRemove.add(e);
+				if (b instanceof Character) {
 					e.attack(b);
-					toRemove.add(e);
 					if (!((Character) b).isAlive()) {
 						toRemove.add(b);
 					}
@@ -148,22 +146,10 @@ public class Room implements Serializable{
 	 * creates wall entities and adds them to the list of entities
 	 */
 	private void generateWalls(){
-		String pos = null;
 		for(int i = 0; i < Renderer.FLOOR_WIDTH; i++){
 			for(int j = 0; j < Renderer.FLOOR_HEIGHT; j++){
 				if(i == 0 || i == Renderer.FLOOR_WIDTH-1 || j == 0 || j == Renderer.FLOOR_HEIGHT-1){
-					/**
-					if(i == 0) {
-						pos = "top";
-					} if (i == Renderer.FLOOR_WIDTH-1) {
-						pos = "right";
-					} if (j == 0) {
-						pos = "left";
-					} if (j == Renderer.FLOOR_HEIGHT-1) {
-						pos = "bottom";
-					}**/
-					pos = "top";
-					roomEntities.add(new Wall(pos, i*Renderer.TILE_SIZE, j*Renderer.TILE_SIZE, 32, 32));
+					roomEntities.add(new Wall(i*Renderer.TILE_SIZE, j*Renderer.TILE_SIZE, 32, 32));
 				}
 			}
 		}
@@ -174,15 +160,18 @@ public class Room implements Serializable{
 	 * @param d
 	 */
 	public void goThroughDoor(Door d){
+		//door locked and player doesn't have unlock item
 		if (d.isLocked() && (d.getUnlockItem() != getPlayer().getHand() || getPlayer().getHand() == null)) {
 			return;
 		}
 		
+		//unlock door
 		if (d.getUnlockItem() == getPlayer().getHand()) {
 			d.unlockDoor(getPlayer().getHand());
 			getPlayer().drop();
 		}
 		
+		//remove projectiles from room you're leaving
 		ArrayList<Projectile> toRemove = new ArrayList<>();
 		for (Entity e : roomEntities) {
 			if (e instanceof Projectile) {
@@ -191,6 +180,8 @@ public class Room implements Serializable{
 		}
 		roomEntities.remove(getPlayer());
 		roomEntities.removeAll(toRemove);
+		
+		//move rooms
 		Room gotoRoom = (this == d.getRoom1()) ? d.getRoom2() : d.getRoom1();
 		for (Entity e : level.getRoom(5).roomEntities) {
 			if (e instanceof Door) {
@@ -211,9 +202,7 @@ public class Room implements Serializable{
 														getPlayer().getWidth(), getPlayer().getHeight());
 		Rectangle2D.Double boxY = new Rectangle2D.Double(getPlayer().getX(), getPlayer().getY()+y*2, 
 														getPlayer().getWidth(), getPlayer().getHeight());
-
 		int collision = 1;
-
 		for(Entity e : roomEntities){
 			if((e.getBoundingBox().intersects(boxX) || e.getBoundingBox().intersects(boxY)) && e instanceof Door){
 				goThroughDoor((Door)e);
@@ -228,10 +217,7 @@ public class Room implements Serializable{
 				}
 			}
 		}
-		
 		return collision;
-		
-		
 	}
 
 	/**
@@ -339,13 +325,6 @@ public class Room implements Serializable{
 	private boolean attackMonster(Monster m, float x, float y) {
 		//TODO: implement directional hitting
 		((MeleeWeapon) getPlayer().getHand()).attack(m);
-		if (m.getLives() >= 50) {
-			if (m == level.getBoss()) {
-				m.setImage(ImgResources.MAOINJURED);
-			} else {
-				m.setImage(ImgResources.MONSTERINJURED);
-			}
-		}
 		return ((m).isAlive()) ? false : true;
 	}
 
@@ -373,7 +352,6 @@ public class Room implements Serializable{
 			}
 		} else if (hand instanceof Consumable) {
 			level.getPlayer().use();
-
 		}
 	}
 
