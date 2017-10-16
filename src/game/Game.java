@@ -18,6 +18,7 @@ import resources.ImgResources;
 import view.GameOverMenu;
 import view.PauseMenu;
 import view.Renderer;
+import view.YouWinMenu;
 
 /**
  * Main controller class
@@ -68,6 +69,11 @@ public class Game extends Application {
 	private GameOverMenu gom;
 	
 	/**
+	 * You Win Menu
+	 */
+	private YouWinMenu ywm;
+	
+	/**
 	 * Renderer
 	 */
 	private Renderer renderer;
@@ -113,6 +119,7 @@ public class Game extends Application {
 		Scene scene = renderer.getScene();
 		this.gom = new GameOverMenu(this);
     	this.pm = new PauseMenu(this);
+    	this.ywm = new YouWinMenu(this);
 
 
 		//Game loop
@@ -154,6 +161,14 @@ public class Game extends Application {
 					try {
 						this.stop();
 						gom.start(stage);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				
+				if (!currentLevel.getBoss().isAlive()){
+					try {
+						ywm.start(stage);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
