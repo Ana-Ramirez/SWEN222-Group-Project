@@ -22,7 +22,7 @@ import view.Renderer;
  * The Room class will be the basis for every room in the game
  * showing what objects are stored in a room and what doors
  * the room has.
- * @author LewisMcEwan
+ * @author lewismcewan
  * @author laudernich1
  *
  */
@@ -149,7 +149,11 @@ public class Room implements Serializable{
 		for(int i = 0; i < Renderer.FLOOR_WIDTH; i++){
 			for(int j = 0; j < Renderer.FLOOR_HEIGHT; j++){
 				if(i == 0 || i == Renderer.FLOOR_WIDTH-1 || j == 0 || j == Renderer.FLOOR_HEIGHT-1){
-					roomEntities.add(new Wall(i*Renderer.TILE_SIZE, j*Renderer.TILE_SIZE, 32, 32));
+					//choosing picture
+					String pos = "";
+					if(i == 0 || i == Renderer.FLOOR_WIDTH-1 || j == Renderer.FLOOR_HEIGHT-1){ pos = "other"; }
+					else if(j == 0){ pos = "top"; }
+					roomEntities.add(new Wall(pos, i*Renderer.TILE_SIZE, j*Renderer.TILE_SIZE, 32, 32));
 				}
 			}
 		}

@@ -36,7 +36,7 @@ public class GameInstructions extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		root = new StackPane();
 
-		Canvas canvas = new Canvas(800, 600);
+		Canvas canvas = new Canvas(816, 480);
 		GraphicsContext g = canvas.getGraphicsContext2D();
 
 		root.getChildren().add(canvas);
@@ -50,7 +50,7 @@ public class GameInstructions extends Application {
 	    
 		drawObjective();		
 
-		scene = new Scene(root, 800, 600);
+		scene = new Scene(root, 816, 480);
 		
 		setInputHandling(primaryStage);
 
@@ -170,11 +170,11 @@ public class GameInstructions extends Application {
 	}
 	
 	/**
-	 * Draws the background for the pause menu
+	 * Draws the background for the game instructions
 	 * @param g
 	 */
 	private void drawBG(GraphicsContext g) {
 		g.setFill(Color.BLACK);
-		g.fillRect(0.0, 0.0, 800, 600);
+		g.fillRect(0.0, 0.0, 816, 480);
 	}
 }
