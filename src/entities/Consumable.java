@@ -34,7 +34,7 @@ public class Consumable extends Pickupable {
 	private boolean checkAction(String action) {
 		String[] actionCommand = action.split("[, ]+");
 		if (actionCommand.length != 2) {
-			return false;
+			throw new IllegalArgumentException("Action command incorrect argument number");
 		}
 		try {
 			double val = Double.parseDouble(actionCommand[1]);
@@ -42,7 +42,7 @@ public class Consumable extends Pickupable {
 				throw new NumberFormatException();
 			}
 		} catch (NumberFormatException e){
-			return false;
+			throw new IllegalArgumentException("Action command value in not valid");
 		}
 		boolean valid = false;
 		for (int i = 0; i < commands.length; i++) {
@@ -52,11 +52,12 @@ public class Consumable extends Pickupable {
 			}
 		}
 		if (!valid) {
-			return false;
+			throw new IllegalArgumentException("Action command is not a valid command");
 		}
 		this.action = action;
 		return valid;
 	}
+
 
 
 	protected String use() {
