@@ -136,11 +136,11 @@ public class RendererTests{
 	}
 	
 	/**
-	 * Tries to draw an empty HUD
+	 * Draws the first room which contains the important elements for the renderer to display
 	 * @throws InterruptedException
 	 */
 	@Test
-	public void drawHUDTest() throws InterruptedException {
+	public void drawFirstRoomTest() throws InterruptedException {
 		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -149,6 +149,9 @@ public class RendererTests{
 					@Override
 					public void run() {
 						try {
+							for (int i = 0; i < ImgResources.values().length; i++) { //Initialises the images so they will display
+								ImgResources.values()[i].setImage();
+							}
 							new Game().start(new Stage());
 						} 
 						catch (Exception e) {
