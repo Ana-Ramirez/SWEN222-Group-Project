@@ -10,6 +10,12 @@ import javafx.stage.Stage;
 import saveLoad.GameData;
 import saveLoad.Load;
 
+/**
+ * 
+ * @author Tim Gastrell
+ *
+ * @param <T>
+ */
 public class LoadHandler<T extends Event> implements EventHandler<ActionEvent>{
 
 	private Stage stage;
