@@ -16,8 +16,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import resources.ImgResources;
 
+/**
+ * Displays the instructions for controls and game in a new scene
+ * 
+ * @author Tim Gastrell
+ *
+ */
 public class GameInstructions extends Application {
 	
 	private StackPane root;
@@ -25,10 +30,6 @@ public class GameInstructions extends Application {
 	private Scene scene;
 	
 	private VBox titleVb, controlsVb, objectiveVb;
-	
-	public GameInstructions() {
-		
-	}
 	
 
 	@Override
@@ -57,6 +58,11 @@ public class GameInstructions extends Application {
 		primaryStage.show();		
 	}
 	
+	/**
+	 * Initialises input handling
+	 * 
+	 * @param primaryStage
+	 */
 	private void setInputHandling(Stage primaryStage) {
 		scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
 
@@ -77,6 +83,11 @@ public class GameInstructions extends Application {
 		});
 	}
 	
+	/**
+	 * Exits current scene to main menu
+	 * 
+	 * @param primaryStage
+	 */
 	private void exitToMenu(Stage primaryStage) {		
 		try {
 			stop();
@@ -87,6 +98,9 @@ public class GameInstructions extends Application {
 		}
 	}
 	
+	/**
+	 * Draws title
+	 */
 	private void drawTitle() {
 		titleVb = new VBox();
 		titleVb.setSpacing(8);
@@ -100,6 +114,9 @@ public class GameInstructions extends Application {
 	    titleVb.getChildren().add(title);
 	}
 	
+	/**
+	 * Draws the control information
+	 */
 	private void drawControls() {
 		controlsVb = new VBox();
 		controlsVb.setSpacing(8);
@@ -125,6 +142,9 @@ public class GameInstructions extends Application {
 		controlsVb.getChildren().add(controls);
 	}
 	
+	/**
+	 * Draws the objective information
+	 */
 	private void drawObjective() {
 		objectiveVb = new VBox();
 		objectiveVb.setSpacing(8);

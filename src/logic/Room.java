@@ -174,15 +174,18 @@ public class Room implements Serializable{
 	 * @param d
 	 */
 	public void goThroughDoor(Door d){
+		//door locked and player doesn't have unlock item
 		if (d.isLocked() && (d.getUnlockItem() != getPlayer().getHand() || getPlayer().getHand() == null)) {
 			return;
 		}
 		
+		//unlock door
 		if (d.getUnlockItem() == getPlayer().getHand()) {
 			d.unlockDoor(getPlayer().getHand());
 			getPlayer().drop();
 		}
 		
+		//remove projectiles from room you're leaving
 		ArrayList<Projectile> toRemove = new ArrayList<>();
 		for (Entity e : roomEntities) {
 			if (e instanceof Projectile) {
@@ -191,6 +194,8 @@ public class Room implements Serializable{
 		}
 		roomEntities.remove(getPlayer());
 		roomEntities.removeAll(toRemove);
+		
+		//move rooms
 		Room gotoRoom = (this == d.getRoom1()) ? d.getRoom2() : d.getRoom1();
 		for (Entity e : level.getRoom(5).roomEntities) {
 			if (e instanceof Door) {
@@ -211,9 +216,7 @@ public class Room implements Serializable{
 														getPlayer().getWidth(), getPlayer().getHeight());
 		Rectangle2D.Double boxY = new Rectangle2D.Double(getPlayer().getX(), getPlayer().getY()+y*2, 
 														getPlayer().getWidth(), getPlayer().getHeight());
-
 		int collision = 1;
-
 		for(Entity e : roomEntities){
 			if((e.getBoundingBox().intersects(boxX) || e.getBoundingBox().intersects(boxY)) && e instanceof Door){
 				goThroughDoor((Door)e);
@@ -228,10 +231,7 @@ public class Room implements Serializable{
 				}
 			}
 		}
-		
 		return collision;
-		
-		
 	}
 
 	/**

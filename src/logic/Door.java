@@ -151,6 +151,11 @@ public class Door extends Entities {
 		return false;
 	}
 	
+	/**
+	 * Using the same door object for the two room objects
+	 * it connects, so have to flip door to place
+	 * in correct position inside the room being moved into.
+	 */
 	public void flipDoor() {
 		switch (position) {
 			case 0:

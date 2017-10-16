@@ -22,7 +22,7 @@ public class LevelTests {
 	 */
 	@Test
 	public void initialise1() {
-		Player player = new Player(new Rectangle2D.Double(100, 100, 1, 1), null);
+		Player player = new Player(new Rectangle2D.Double(10, 10, 10, 10), null);
 		Level level = new Level(player);
 		assertEquals(5, level.getRooms().size());
 	}
@@ -32,7 +32,7 @@ public class LevelTests {
 	 */
 	@Test
 	public void initialise2() {
-		Player player = new Player(new Rectangle2D.Double(100, 100, 1, 1), null);
+		Player player = new Player(new Rectangle2D.Double(10, 10, 10, 10), null);
 		Level level = new Level(player);
 		Room room3 = level.getRoom(3);
 		assertEquals(room3, level.getRoom(3));
@@ -43,11 +43,9 @@ public class LevelTests {
 	 */
 	@Test
 	public void initialise3() {
-		Player player = new Player(new Rectangle2D.Double(100, 100, 1, 1), null);
+		Player player = new Player(new Rectangle2D.Double(10, 10, 10, 10), null);
 		Level level = new Level(player);
 		assertFalse(level.gameOver());
 	}
-	
-	
 
 }
