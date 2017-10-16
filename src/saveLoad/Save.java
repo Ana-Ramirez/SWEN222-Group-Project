@@ -5,12 +5,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import interfaces.SaveInterface;
+
 /**
  * Functional class that writes the passed game object to a file.
  * @author Tim Gastrell
  *
  */
-public class Save {
+public class Save implements SaveInterface{
 	
 	/**
 	 * Game object to be written to file

@@ -5,13 +5,14 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 import game.GameException;
+import interfaces.LoadInterface;
 
 /**
  * Functional class that loads a saved game from a file
  * @author Tim Gastrell
  *
  */
-public class Load {
+public class Load implements LoadInterface{
 
 	/**
 	 * Name of save game file

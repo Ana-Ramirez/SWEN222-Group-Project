@@ -1,5 +1,6 @@
 package logic;
 
+import interfaces.DoorInterface;
 import interfaces.Entity;
 import entities.Entities;
 import entities.Pickupable;
@@ -12,7 +13,7 @@ import view.Renderer;
  * @author lewismcewan
  *
  */
-public class Door extends Entities {
+public class Door extends Entities implements DoorInterface {
 
 	private static final long serialVersionUID = 1434461830741351179L;
 	private Room room1, room2;

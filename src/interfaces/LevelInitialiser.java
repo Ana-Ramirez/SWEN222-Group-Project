@@ -1,4 +1,4 @@
-package logic;
+package interfaces;
 
 import java.awt.geom.Rectangle2D;
 import java.util.List;
@@ -12,8 +12,9 @@ import entities.Gun;
 import entities.MeleeWeapon;
 import entities.Monster;
 import entities.Player;
-import interfaces.EntityType;
-import interfaces.StrategyPattern;
+import logic.Door;
+import logic.Level;
+import logic.Room;
 import resources.ImgResources;
 import view.Renderer;
 
