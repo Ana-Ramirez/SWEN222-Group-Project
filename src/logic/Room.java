@@ -78,6 +78,12 @@ public class Room implements Serializable{
 		roomEntities.addAll(toAdd);
 	}
 	
+	/**
+	 * Creates a laser in 4 directions as a projectile for the boss
+	 * when the playing is battling him
+	 * @param m		the monster
+	 * @return		list of laser entities
+	 */
 	private List<Entity> bossAttack(Monster m) {
 		ArrayList<Entity> toAdd = new ArrayList<>();
 		if (m.getHand() instanceof Gun) {
@@ -144,6 +150,7 @@ public class Room implements Serializable{
 
 	/**
 	 * creates wall entities and adds them to the list of entities
+	 * Uses a different picture for the top line of walls to seem 3D
 	 */
 	private void generateWalls(){
 		for(int i = 0; i < Renderer.FLOOR_WIDTH; i++){
@@ -161,7 +168,7 @@ public class Room implements Serializable{
 
 	/**
 	 * When player wants to move room through a door
-	 * @param d
+	 * @param d		the door to move through
 	 */
 	public void goThroughDoor(Door d){
 		//door locked and player doesn't have unlock item
@@ -200,6 +207,8 @@ public class Room implements Serializable{
 	 * Checks if the player has collided with anything in the room
 	 * Different outcomes depending on what the player has
 	 * collided with
+	 * @param x 	x pos
+	 * @param y		y pos
 	 */
 	private int movePlayer(float x, float y){
 		Rectangle2D.Double boxX = new Rectangle2D.Double(getPlayer().getX()+x*2, getPlayer().getY(), 
@@ -249,7 +258,7 @@ public class Room implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * Adds item the player just dropped to the room
 	 */
 	public void dropItem() {
 		Pickupable toAdd = getPlayer().drop();
@@ -326,8 +335,14 @@ public class Room implements Serializable{
 		return this.roomEntities;
 	}
 	
+	/**
+	 * Attacks the monster
+	 * @param m		monster
+	 * @param x		x pos
+	 * @param y		y pos
+	 * @return		if monster alive or dead
+	 */
 	private boolean attackMonster(Monster m, float x, float y) {
-		//TODO: implement directional hitting
 		((MeleeWeapon) getPlayer().getHand()).attack(m);
 		return ((m).isAlive()) ? false : true;
 	}

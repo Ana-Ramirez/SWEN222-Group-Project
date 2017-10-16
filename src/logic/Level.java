@@ -41,8 +41,7 @@ public class Level implements Serializable{
 	/**
 	 * Return a specific room from this level
 	 * @param i		the room number
-	 * @return		the room			BoundingBox box = e.getBoundingBox();
-
+	 * @return		the room			
 	 */
 	public Room getRoom(int i){
 		for(Room r : this.rooms){

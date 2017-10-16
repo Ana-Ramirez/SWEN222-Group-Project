@@ -12,7 +12,6 @@ import resources.ImgResources;
 public class Wall extends Entities {
 	private static final long serialVersionUID = -9001742836653967062L;
 
-//<<<<<<< HEAD
 	String position = null;
 	
 	/**
