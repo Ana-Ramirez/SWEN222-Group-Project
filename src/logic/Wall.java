@@ -13,11 +13,11 @@ public class Wall extends Entities {
 		//TODO: check walls
 		switch(pos) {
 		case "top":
-			//setImage(ImgResources.WALLTOP.img);
-			//break;
+			setImage(ImgResources.WALLTOP);
+			break;
 		case "bottom":
-			//setImage(ImgResources.WALLBOT.img);
-			//break;
+			setImage(ImgResources.WALLBOT);
+			break;
 		case "left":
 		case "right":
 			setImage(ImgResources.WALL);

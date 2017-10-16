@@ -8,13 +8,16 @@ import org.junit.Test;
 
 import ai.FollowingEnemy;
 import entities.Consumable;
+import entities.Gun;
 import entities.MeleeWeapon;
 import entities.Monster;
 import entities.Player;
+import entities.Projectile;
 import interfaces.EntityType;
 import logic.Door;
 import logic.Level;
 import logic.Room;
+import logic.Wall;
 
 /**
  * This class tests the Room class
@@ -122,7 +125,101 @@ public class RoomTests {
 		Consumable food = new Consumable(new Rectangle2D.Double(10,  10,  10,  10), "Lives 1", null);		
 		Door door = new Door(room1, room2, food, 1, 1);
 		room1.addEntity(door);
+		assertEquals(door, room1.getDoor(1));
 		assertTrue(room1.doorLocked(door));
+	}
+	
+	
+	/**
+	 * Testing tick method with monster boss
+	 */
+	@Test
+	public void tick1() {
+		Player player = new Player(new Rectangle2D.Double(10, 10, 10, 10), null);
+		Level level = new Level(player);
+		Room room1 = new Room(4, level);
+		Gun	gun = new Gun(new Rectangle2D.Double(10, 10, 10, 10), null, 10, 10, null, null);	
+		Monster monster = new Monster(new Rectangle2D.Double(10, 10, 10, 10), 100, EntityType.EARTH, gun, null, new FollowingEnemy(player, 1));
+		level.setCurrentRoom(room1);
+		level.setBoss(monster);
+		room1.addEntity(monster);
+		player.pickup(gun);
+		room1.use(10, 10);
+		room1.tick(0, 0, 120);
+		assertTrue(room1.getEntities().contains(monster));
+	}
+	
+	/**
+	 * Testing playerTick
+	 */
+	@Test
+	public void tick2() {
+		Player player = new Player(new Rectangle2D.Double(0, 0, 800, 600), null);
+		Level level = new Level(player);
+		Room room1 = new Room(4, level);
+		Room room2 = new Room(3, level);
+		Consumable food = new Consumable(new Rectangle2D.Double(10,  10,  10,  10), "Lives 1", null);
+		Door door = new Door(room1, room2, food, 1, 0);
+		Wall wall = new Wall("top", 10, 10, 10, 10);
+		level.setCurrentRoom(room1);
+		room1.tick(10, 5, 120);
+		room1.tick(3, 5, 120);
+	}
+	
+	/**
+	 * Testing projectile tick
+	 */
+	@Test
+	public void tick3() {
+		Player player = new Player(new Rectangle2D.Double(100, 100, 10, 10), null);
+		Level level = new Level(player);
+		Room room1 = new Room(4, level);
+		level.setCurrentRoom(room1);
+		
+		Gun	gun = new Gun(new Rectangle2D.Double(10, 10, 10, 10), EntityType.EARTH, 10, 10, null, null);	
+		Wall wall = new Wall("top", 10, 10, 10, 10);
+		Monster monster = new Monster(new Rectangle2D.Double(10, 10, 10, 10), 100, EntityType.EARTH, gun, null, new FollowingEnemy(player, 1));
+		room1.addEntity(wall);
+		room1.addEntity(monster);
+		player.pickup(gun);
+		room1.addEntity(gun.createProjectile(10, 10));
+		room1.tick(10, 10, 120);
+		assertTrue(monster.isAlive());
+	}
+	
+	/**
+	 * Testing dropping item
+	 */
+	@Test
+	public void drop() {
+		Player player = new Player(new Rectangle2D.Double(100, 100, 10, 10), null);
+		Level level = new Level(player);
+		Room room1 = new Room(4, level);
+		level.setCurrentRoom(room1);
+		
+		Gun	gun = new Gun(new Rectangle2D.Double(10, 10, 10, 10), EntityType.EARTH, 10, 10, null, null);	
+		player.pickup(gun);
+		int oldSize = room1.getEntities().size();
+		room1.dropItem();
+		assertEquals(oldSize + 1, room1.getEntities().size());
+	}
+	
+	/**
+	 * Testing the use method
+	 */
+	@Test
+	public void use() {
+		Player player = new Player(new Rectangle2D.Double(100, 100, 10, 10), null);
+		Level level = new Level(player);
+		Room room1 = new Room(4, level);
+		level.setCurrentRoom(room1);
+		MeleeWeapon melee = new MeleeWeapon(new Rectangle2D.Double(10, 10, 10, 10), EntityType.EARTH, 10, null);
+		Monster monster = new Monster(new Rectangle2D.Double(10, 10, 10, 10), 100, EntityType.EARTH, melee, null, new FollowingEnemy(player, 1));
+		room1.addEntity(monster);
+		
+		player.pickup(melee);
+		room1.use(100, 100);
+		assertTrue(melee.attack(monster));
 	}
 
 }

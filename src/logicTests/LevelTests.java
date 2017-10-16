@@ -47,7 +47,5 @@ public class LevelTests {
 		Level level = new Level(player);
 		assertFalse(level.gameOver());
 	}
-	
-	
 
 }
