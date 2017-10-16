@@ -7,7 +7,7 @@ import resources.ImgResources;
 
 /**
  * The object of a melee weapon. Which can be used to attack other entities
- * @author Nick Lauder
+ * @author laudernich1
  *
  */
 public class MeleeWeapon extends Weapon {

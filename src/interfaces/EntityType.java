@@ -2,7 +2,7 @@ package interfaces;
 
 /**
  * Enum for the different types a entity can be
- * @author Nick Lauder
+ * @author laudernich1
  *
  */
 public enum EntityType {

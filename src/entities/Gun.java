@@ -13,7 +13,7 @@ import resources.ImgResources;
 /**
  * Gun object, handles a weapon that
  * fires projectiles in a given direction
- * @author Nick Lauder
+ * @author laudernich1
  *
  */
 public class Gun extends Weapon {

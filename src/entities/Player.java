@@ -6,10 +6,10 @@ import resources.ImgResources;
 
 /**
  * Player object, the entity that is controlled by the user
- * @author Nick Lauder
+ * @author laudernich1
  *
  */
-public class Player extends Character {
+public class Player extends CharacterEntity {
 	private static final long serialVersionUID = 1364726060443658475L;
 	private Pickupable[] backpack;
 

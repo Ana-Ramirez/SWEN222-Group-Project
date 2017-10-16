@@ -5,16 +5,16 @@ import interfaces.EntityType;
 
 /**
  * Abstract class for all the different types of weapons
- * @author Nick Lauder
+ * @author laudernich1
  *
  */
 public abstract class Weapon extends Pickupable{
 	private static final long serialVersionUID = -3336903366847446135L;
 	private int baseDamage;
-	private Character owner;
+	private CharacterEntity owner;
 
 
-	public Weapon(double x, double y, double width, double height, EntityType type, int damage) {
+	Weapon(double x, double y, double width, double height, EntityType type, int damage) {
 		super(x, y, width, height, type);
 		this.baseDamage = damage;
 	}
@@ -84,11 +84,16 @@ public abstract class Weapon extends Pickupable{
 		return baseDamage;
 	}
 	
-	protected void setOwner(Character c) {
+	void setOwner(CharacterEntity c) {
 		owner = c;
 	}
 	
-	public Character getOwner() {
+	/**
+	 * Returns the character that owns the entity 
+	 * @return
+	 * 		The CharacterEntity object
+	 */
+	public CharacterEntity getOwner() {
 		return owner;
 	}
 }
