@@ -170,7 +170,7 @@ public class GameInstructions extends Application {
 	}
 	
 	/**
-	 * Draws the background for the pause menu
+	 * Draws the background for the game instructions
 	 * @param g
 	 */
 	private void drawBG(GraphicsContext g) {
