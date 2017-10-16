@@ -63,7 +63,6 @@ public class YouWinMenu extends Application{
 		primaryStage.show();
 
 		//Adds the buttons
-		loadGameButton();
 		quitToMenuButton();
 	}
 
@@ -73,16 +72,6 @@ public class YouWinMenu extends Application{
 	 */
 	public YouWinMenu(Game game){
 		this.game = game;
-	}
-
-	/**
-	 * Adds a load game button
-	 */
-	private void loadGameButton(){
-		Button btn = new Button();
-		btn.setText("Load Game");
-		btn.setOnAction(new LoadHandler<ActionEvent>(primaryStage));
-		vb.getChildren().add(btn);
 	}
 
 	/**

@@ -22,6 +22,19 @@ public abstract class Entities implements Entity {
 	private EntityType type;
 	private ImgResources image;
 
+	/**
+	 * Protected constructor for entities
+	 * @param x
+	 * 		the x coordinate to use
+	 * @param y
+	 * 		the y coordinate to use
+	 * @param width
+	 * 		the width to use
+	 * @param height
+	 * 		the height to use
+	 * @param type
+	 * 		the type to use
+	 */
 	protected Entities (double x, double y, double width, double height, EntityType type) {
 		this.x = x;
 		this.y = y;
@@ -31,7 +44,7 @@ public abstract class Entities implements Entity {
 	}
 	
 	/**
-	 * Public constructor for entities
+	 * Public constructor for entities, including an image reference
 	 * @param x
 	 * 		the x coordinate to use
 	 * @param y
@@ -54,80 +67,44 @@ public abstract class Entities implements Entity {
 		this.image = img;
 	}
 
-	/**
-	 * Gets the type assigned to the object
-	 * @return
-	 */
 	public EntityType getType() {
 		return type;
 	}
 
-	/**
-	 * Returns the x coordinate of the entity
-	 * @return
-	 * 		a float value of the x coordinate
-	 */
 	public double getX() {
 		return x;
 	}
 
-	/**
-	 * Returns the y coordinate of the entity
-	 * @return
-	 * 		a float value of the y coordinate
-	 */
 	public double getY() {
 		return y;
 	}
 
-	/**
-	 * Returns the width of the entity
-	 * @return
-	 * 		an int value of the entity dimensions
-	 */
 	public double getWidth() {
 		return width;
 	}
 
-	/**
-	 * Returns the width of the entity
-	 * @return
-	 * 		an int value of the entity dimensions
-	 */
 	public double getHeight() {
 		return height;
 	}
 
-
-	/**
-	 * Sets the new image for the entity
-	 * @param image
-	 * 		the image to use
-	 */
 	public void setImage(ImgResources image) {
 		this.image = image;
 	}
 
-
-	/**
-	 * Returns the image assigned to the entity
-	 * @return
-	 * 		the image object
-	 */
 	public ImgResources getImage() {
 		return image;
 	}
 
-
-	/**
-	 * Returns the image assigned to the entity
-	 * @return
-	 * 		the image object
-	 */
 	public Rectangle2D.Double getBoundingBox() {
 		return new Rectangle2D.Double(getX(), getY(), getWidth(), getHeight());
 	}
 
-
+	/**
+	 * Handles hitting an entity with a given amount of damage
+	 * @param damage
+	 * 		the damage to apply
+	 * @return
+	 * 		true if the hit dealt damage
+	 */
 	protected abstract boolean hit(int damage);
 }

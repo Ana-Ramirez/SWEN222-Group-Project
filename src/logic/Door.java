@@ -14,6 +14,7 @@ import view.Renderer;
  */
 public class Door extends Entities {
 
+	private static final long serialVersionUID = 1434461830741351179L;
 	private Room room1, room2;
 	private boolean doorLocked = true;
 	private Pickupable unlockItem;
