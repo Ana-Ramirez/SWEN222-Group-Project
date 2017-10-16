@@ -4,7 +4,6 @@ package interfaces;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
-import entities.Type;
 import resources.ImgResources;
 
 public interface Entity extends Serializable {
@@ -13,7 +12,7 @@ public interface Entity extends Serializable {
 	 * Gets the type assigned to the object
 	 * @return
 	 */
-	public Type getType();
+	public EntityType getType();
 
 	/**
 	 * Returns the x coordinate of the entity

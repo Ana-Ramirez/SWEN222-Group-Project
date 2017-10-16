@@ -1,6 +1,7 @@
 package entities;
 
 import interfaces.Entity;
+import interfaces.EntityType;
 
 /**
  * Abstract class for all the different types of weapons
@@ -13,7 +14,7 @@ public abstract class Weapon extends Pickupable{
 	private Character owner;
 
 
-	public Weapon(double x, double y, double width, double height, Type type, int damage) {
+	public Weapon(double x, double y, double width, double height, EntityType type, int damage) {
 		super(x, y, width, height, type);
 		this.baseDamage = damage;
 	}
@@ -60,13 +61,13 @@ public abstract class Weapon extends Pickupable{
 		
 		switch (victim.getType()) {
 		case EARTH:
-			modifier = (getType() == Type.WATER) ? 0.5f : 2;
+			modifier = (getType() == EntityType.WATER) ? 0.5f : 2;
 			break;
 		case FIRE:
-			modifier = (getType() == Type.EARTH) ? 0.5f : 2;
+			modifier = (getType() == EntityType.EARTH) ? 0.5f : 2;
 			break;
 		case WATER:
-			modifier = (getType() == Type.FIRE) ? 0.5f : 2;
+			modifier = (getType() == EntityType.FIRE) ? 0.5f : 2;
 			break;
 		}
 	

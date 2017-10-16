@@ -9,8 +9,8 @@ import entities.Gun;
 import entities.MeleeWeapon;
 import entities.Monster;
 import entities.Player;
-import entities.Type;
 import interfaces.StrategyPattern;
+import interfaces.EntityType;
 import resources.ImgResources;
 import view.Renderer;
 
@@ -85,37 +85,37 @@ public class LevelInitialiser {
 		rooms.add(room5);
 		
 		//create entities to add
-		Gun gunEarth = new Gun(new Rectangle2D.Double(300, 300, 32, 32), Type.EARTH, 10, 20, ImgResources.GUN, ImgResources.BULLET);
-		Gun gunFire = new Gun(new Rectangle2D.Double(200, 300, 32, 32), Type.FIRE, 20, 20, ImgResources.GUN, ImgResources.BULLET);
-		Gun bossGun = new Gun(new Rectangle2D.Double(200, 300, 32, 32), Type.FIRE, 20, -1, ImgResources.GUN, ImgResources.BULLET);
+		Gun gunEarth = new Gun(new Rectangle2D.Double(300, 300, 32, 32), EntityType.EARTH, 10, 20, ImgResources.GUN, ImgResources.BULLET);
+		Gun gunFire = new Gun(new Rectangle2D.Double(200, 300, 32, 32), EntityType.FIRE, 20, 20, ImgResources.GUN, ImgResources.BULLET);
+		Gun bossGun = new Gun(new Rectangle2D.Double(200, 300, 32, 32), EntityType.FIRE, 20, -1, ImgResources.GUN, ImgResources.BULLET);
 
 		StrategyPattern pattern = new FollowingEnemy(player, 1d);
-		Monster boss = new Monster(new Rectangle2D.Double(400, 200, 75, 75), maoHealth, Type.FIRE, bossGun, ImgResources.MAO, pattern);
+		Monster boss = new Monster(new Rectangle2D.Double(400, 200, 75, 75), maoHealth, EntityType.FIRE, bossGun, ImgResources.MAO, pattern);
 		level.setBoss(boss);
 
 
 		//add to rooms
-		room1.addEntity(new Gun(new Rectangle2D.Double(200, 200, Renderer.TILE_SIZE, Renderer.TILE_SIZE), Type.FIRE, gunStrength, 20, ImgResources.GUN, ImgResources.BULLET));
+		room1.addEntity(new Gun(new Rectangle2D.Double(200, 200, Renderer.TILE_SIZE, Renderer.TILE_SIZE), EntityType.FIRE, gunStrength, 20, ImgResources.GUN, ImgResources.BULLET));
 		room1.addEntity(key1);
 //		room1.addEntity(new Consumable(new Rectangle2D.Double(500, 250, 32, 32), "Speed 10", ImgResources.POTION));
-		room1.addEntity(new MeleeWeapon(new Rectangle2D.Double(400, 300, 32, 32), Type.WATER, meleeStrength, ImgResources.SWORDLEFTUP));
+		room1.addEntity(new MeleeWeapon(new Rectangle2D.Double(400, 300, 32, 32), EntityType.WATER, meleeStrength, ImgResources.SWORDLEFTUP));
 		
 		room2.addEntity(new Consumable(new Rectangle2D.Double(50, 50, Renderer.TILE_SIZE, Renderer.TILE_SIZE), "Lives 1", ImgResources.LIFE));
-		room2.addEntity(new Monster(new Rectangle2D.Double(500, 250, 75, 75), monsterMedHealth, Type.EARTH, gunEarth, ImgResources.MONSTER, pattern));
-		room2.addEntity(new Monster(new Rectangle2D.Double(50, 50, 40, 40), monsterEasyHealth, Type.EARTH, gunEarth, ImgResources.MONSTER, pattern));
+		room2.addEntity(new Monster(new Rectangle2D.Double(500, 250, 30, 58), monsterMedHealth, EntityType.EARTH, gunEarth, ImgResources.MONSTER, pattern));
+		room2.addEntity(new Monster(new Rectangle2D.Double(50, 50, 22, 44), monsterEasyHealth, EntityType.EARTH, gunEarth, ImgResources.MONSTER, pattern));
 		room2.addEntity(key4);
 		
 		room3.addEntity(new Consumable(new Rectangle2D.Double(700, 300, 32, 32), "Lives 1", ImgResources.LIFE));
-		room3.addEntity(new Monster(new Rectangle2D.Double(500, 250, 75, 75), monsterHardHealth, Type.FIRE, gunFire, ImgResources.MONSTER, pattern));
+		room3.addEntity(new Monster(new Rectangle2D.Double(500, 250, 45, 87), monsterHardHealth, EntityType.FIRE, gunFire, ImgResources.MONSTER, pattern));
 		room3.addEntity(key2);
 //		
 		room4.addEntity(boss);
 		room4.addEntity(new Consumable(new Rectangle2D.Double(600, 400, Renderer.TILE_SIZE, Renderer.TILE_SIZE), "Ammo 10", ImgResources.AMMO));
 //		
-		room5.addEntity(new Monster(new Rectangle2D.Double(400, 150, 75, 75), monsterEasyHealth, Type.FIRE, gunFire, ImgResources.MONSTER, pattern));
+		room5.addEntity(new Monster(new Rectangle2D.Double(400, 150, 22, 44), monsterEasyHealth, EntityType.FIRE, gunFire, ImgResources.MONSTER, pattern));
 //		room5.addEntity(new Consumable(new Rectangle2D.Double(150, 350, 32, 32), "Speed 10", ImgResources.POTION));
 		room5.addEntity(new Consumable(new Rectangle2D.Double(500, 100, 32, 32), "Lives 1", ImgResources.LIFE));
-		room5.addEntity(new Gun(new Rectangle2D.Double(650, 350, 32, 32), Type.EARTH, gunStrength, 20, ImgResources.GUN, ImgResources.BULLET));
+		room5.addEntity(new Gun(new Rectangle2D.Double(650, 350, 32, 32), EntityType.EARTH, gunStrength, 20, ImgResources.GUN, ImgResources.BULLET));
 		room5.addEntity(key3);
 		
 		room1.addEntity(player);

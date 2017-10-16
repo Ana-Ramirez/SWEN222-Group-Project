@@ -10,16 +10,11 @@ import ai.FollowingEnemy;
 import entities.Consumable;
 import entities.MeleeWeapon;
 import entities.Monster;
-import entities.Pickupable;
 import entities.Player;
-//import entities.StationaryEntity;
-import entities.Type;
-import entities.Weapon;
-import interfaces.StrategyPattern;
+import interfaces.EntityType;
 import logic.Door;
 import logic.Level;
 import logic.Room;
-import resources.ImgResources;
 
 /**
  * This class tests the Room class
@@ -86,8 +81,8 @@ public class RoomTests {
 	@Test
 	public void move3() {
 		Player player = new Player(new Rectangle2D.Double(10, 10, 10, 10), null);
-		MeleeWeapon weapon = new MeleeWeapon(new Rectangle2D.Double(10, 10, 10, 10), Type.EARTH, 100, null);
-		Monster monster = new Monster(new Rectangle2D.Double(10, 10, 10, 10), 100, Type.EARTH, weapon, null, new FollowingEnemy(player, 5));
+		MeleeWeapon weapon = new MeleeWeapon(new Rectangle2D.Double(10, 10, 10, 10), EntityType.EARTH, 100, null);
+		Monster monster = new Monster(new Rectangle2D.Double(10, 10, 10, 10), 100, EntityType.EARTH, weapon, null, new FollowingEnemy(player, 1));
 		Level level = new Level(player);
 		Room room1 = new Room(4, level);
 		level.setCurrentRoom(room1);

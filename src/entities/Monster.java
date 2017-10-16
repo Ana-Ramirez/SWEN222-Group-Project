@@ -3,6 +3,7 @@ package entities;
 import java.awt.geom.Rectangle2D;
 
 import interfaces.StrategyPattern;
+import interfaces.EntityType;
 import resources.ImgResources;
 
 /**
@@ -33,7 +34,7 @@ public class Monster extends Character {
 	 * @param weapon
 	 * 		the weapon to use
 	 */
-	public Monster(Rectangle2D.Double box, int health, Type type, Weapon weapon, ImgResources img, StrategyPattern strategy) {
+	public Monster(Rectangle2D.Double box, int health, EntityType type, Weapon weapon, ImgResources img, StrategyPattern strategy) {
 		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), type, health);
 		setImage(img);
 		setHand(weapon);

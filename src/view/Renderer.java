@@ -3,6 +3,7 @@ package view;
 import java.io.Serializable;
 
 import entities.MeleeWeapon;
+import entities.Monster;
 import entities.Pickupable;
 import entities.Player;
 import interfaces.Entity;
@@ -83,8 +84,22 @@ public class Renderer implements Serializable{
 	 * Draws the entities in the room
 	 */
 	private void drawEntities(){
-
 		for (Entity e : level.getCurrentRoom().getEntities()){
+			if (e instanceof Monster){
+				if (((Monster) e).getLives() <= 50){
+					if (e.getWidth() == 75){ //Mao
+						e.setImage(ImgResources.MAOINJURED);
+					}
+					else{
+						e.setImage(ImgResources.MONSTERINJURED);
+					}
+				}
+			}
+			else if (e instanceof Player){
+				if (((Player) e).getLives() <= 1){
+					e.setImage(ImgResources.PLAYERDOWNINJURED);
+				}
+			}
 			g.drawImage(e.getImage().img, e.getX(), HUD_HEIGHT + e.getY(), e.getWidth(), e.getHeight());
 		}
 	}

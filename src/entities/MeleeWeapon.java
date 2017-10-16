@@ -2,6 +2,7 @@ package entities;
 
 import java.awt.geom.Rectangle2D;
 
+import interfaces.EntityType;
 import resources.ImgResources;
 
 /**
@@ -25,7 +26,7 @@ public class MeleeWeapon extends Weapon {
 	 * @param damage
 	 * 		the int amount of damage to use
 	 */
-	public MeleeWeapon(Rectangle2D.Double box, Type type, int damage, ImgResources img) {
+	public MeleeWeapon(Rectangle2D.Double box, EntityType type, int damage, ImgResources img) {
 		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), type, damage);
 		setImage(img);
 	}

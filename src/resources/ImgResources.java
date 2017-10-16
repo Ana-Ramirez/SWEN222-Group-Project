@@ -53,7 +53,8 @@ public enum ImgResources {
 	//CONSUMABLES
 	POTION("potion.png"),
 	//PLAYER
-	PLAYERDOWN("playerDown.png");
+	PLAYERDOWN("playerDown.png"),
+	PLAYERDOWNINJURED("playerDownInjured.png");
 
 	public final String imgPath;
 	public Image img;
