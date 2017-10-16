@@ -49,7 +49,7 @@ public class BossEnemy implements StrategyPattern {
 			monster.moveBy(0, +speed);
 		}
 		
-		if((player.getX() - monster.getX() < 250) && (player.getX() - monster.getX() > 250) && (player.getY() - monster.getY() < 250) && (player.getY() - monster.getY() > 250)){
+		if((player.getX() - monster.getX() < 250) && (player.getX() - monster.getX() > -250) && (player.getY() - monster.getY() < 250) && (player.getY() - monster.getY() > -250)){
 			setSpeed(2);
 			
 			if (monster.getX() > playerPointX) {

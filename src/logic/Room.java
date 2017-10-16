@@ -57,6 +57,9 @@ public class Room implements Serializable{
 		ArrayList<Entity> toRemove = new ArrayList<>();
 		ArrayList<Entity> toAdd = new ArrayList<>();
 		for(Entity e : roomEntities){
+			if (e == level.getBoss()) { //Returns mao to his normal non-red self
+				e.setImage(ImgResources.MAO);
+			}
 			if (e instanceof Projectile) {
 				toRemove.addAll(projectileTick((Projectile)e));
 			} else if(e instanceof MoveableEntity) {
@@ -65,7 +68,7 @@ public class Room implements Serializable{
 				toAdd.addAll(bossAttack((Monster)e));
 			} else if(e instanceof Monster && e.getBoundingBox().intersects(getPlayer().getBoundingBox())){
 				((Monster)e).attack(getPlayer(), tickNo);
-			} 
+			}
 			if (e instanceof Monster && ((Monster)e).getLives() <= ((Monster)e).getFullLives()/2) {
 				if (e == level.getBoss()) {
 					e.setImage(ImgResources.MAOINJURED);
@@ -140,6 +143,9 @@ public class Room implements Serializable{
 					e.attack(b);
 					if (!((Character) b).isAlive()) {
 						toRemove.add(b);
+					}
+					if (b == level.getBoss()){
+						b.setImage(ImgResources.MAOHIT); //Makes mao turn red when he gets hit
 					}
 				}
 			}
@@ -344,6 +350,9 @@ public class Room implements Serializable{
 	 */
 	private boolean attackMonster(Monster m, float x, float y) {
 		((MeleeWeapon) getPlayer().getHand()).attack(m);
+		if (m == level.getBoss()){
+			m.setImage(ImgResources.MAOHIT); //Makes mao turn red when he gets hit
+		}
 		return ((m).isAlive()) ? false : true;
 	}
 

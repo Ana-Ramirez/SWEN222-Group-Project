@@ -3,17 +3,17 @@ package logic;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 
+import ai.BossEnemy;
 import ai.FollowingEnemy;
 import ai.Goal;
 import ai.PatrollingEnemy;
-import ai.RunawayEnemy;
 import entities.Consumable;
 import entities.Gun;
 import entities.MeleeWeapon;
 import entities.Monster;
 import entities.Player;
-import interfaces.StrategyPattern;
 import interfaces.EntityType;
+import interfaces.StrategyPattern;
 import resources.ImgResources;
 import view.Renderer;
 
@@ -88,9 +88,9 @@ public class LevelInitialiser {
 		
 		Goal goals[] = new Goal[] {new Goal(50, 50), new Goal(150, 350), new Goal(600, 50), new Goal(600, 350)};
 		StrategyPattern followPattern = new FollowingEnemy(player, 1d),
-				runAwayPattern = new RunawayEnemy(player, 1d),
+				bossPattern = new BossEnemy(player, 1d),
 				patrolPattern = new PatrollingEnemy(goals, 2d);
-		Monster boss = new Monster(new Rectangle2D.Double(400, 200, 75, 75), maoHealth, EntityType.FIRE, bossGun, ImgResources.MAO, followPattern);
+		Monster boss = new Monster(new Rectangle2D.Double(400, 200, 75, 75), maoHealth, EntityType.FIRE, bossGun, ImgResources.MAO, bossPattern);
 		level.setBoss(boss);
 
 
