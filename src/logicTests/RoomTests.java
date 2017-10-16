@@ -50,6 +50,7 @@ public class RoomTests {
 		Room room2 = new Room(3, level);
 		Consumable food = new Consumable(new Rectangle2D.Double(10,  10,  10,  10), "Lives 1", null);
 		Door door = new Door(room1, room2, food, 1, 1);
+		player.pickup(food);
 		room1.addEntity(door);
 		room2.addEntity(door);
 		room1.addEntity(food);
@@ -86,7 +87,7 @@ public class RoomTests {
 	public void move3() {
 		Player player = new Player(new Rectangle2D.Double(10, 10, 10, 10), null);
 		MeleeWeapon weapon = new MeleeWeapon(new Rectangle2D.Double(10, 10, 10, 10), Type.EARTH, 100, null);
-		Monster monster = new Monster(new Rectangle2D.Double(10, 10, 10, 10), 100, Type.EARTH, weapon, null, new FollowingEnemy(player));
+		Monster monster = new Monster(new Rectangle2D.Double(10, 10, 10, 10), 100, Type.EARTH, weapon, null, new FollowingEnemy(player, 5));
 		Level level = new Level(player);
 		Room room1 = new Room(4, level);
 		level.setCurrentRoom(room1);
