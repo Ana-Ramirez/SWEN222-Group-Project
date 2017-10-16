@@ -4,7 +4,7 @@ import java.awt.geom.Rectangle2D;
 
 import org.junit.Test;
 
-import entities.Player;
+import entities.PlayerEntity;
 import game.Game;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
@@ -35,7 +35,7 @@ public class RendererTests{
 					@Override
 					public void run() {
 						try {
-							Renderer r = new Renderer(new Level(new Player(new Rectangle2D.Double(400, 200, 40, 40), ImgResources.PLAYERDOWN)));
+							Renderer r = new Renderer(new Level(new PlayerEntity(new Rectangle2D.Double(400, 200, 40, 40), ImgResources.PLAYERDOWN)));
 							r.initialDraw();
 						} 
 						catch (Exception e) {
@@ -63,7 +63,7 @@ public class RendererTests{
 					@Override
 					public void run() {
 						try {
-							Renderer r = new Renderer(new Level(new Player(new Rectangle2D.Double(400, 200, 40, 40), ImgResources.PLAYERDOWN)));
+							Renderer r = new Renderer(new Level(new PlayerEntity(new Rectangle2D.Double(400, 200, 40, 40), ImgResources.PLAYERDOWN)));
 							r.animateSword(true);
 							r.animateSword(false);
 						} 
@@ -92,7 +92,7 @@ public class RendererTests{
 					@Override
 					public void run() {
 						try {
-							Renderer r = new Renderer(new Level(new Player(new Rectangle2D.Double(400, 200, 40, 40), ImgResources.PLAYERDOWN)));
+							Renderer r = new Renderer(new Level(new PlayerEntity(new Rectangle2D.Double(400, 200, 40, 40), ImgResources.PLAYERDOWN)));
 							r.repaint();
 						} 
 						catch (Exception e) {
@@ -120,7 +120,7 @@ public class RendererTests{
 					@Override
 					public void run() {
 						try {
-							Renderer r = new Renderer(new Level(new Player(new Rectangle2D.Double(400, 200, 40, 40), ImgResources.PLAYERDOWN)));
+							Renderer r = new Renderer(new Level(new PlayerEntity(new Rectangle2D.Double(400, 200, 40, 40), ImgResources.PLAYERDOWN)));
 							Scene scene = r.getScene();
 							assert (scene != null);
 						} 

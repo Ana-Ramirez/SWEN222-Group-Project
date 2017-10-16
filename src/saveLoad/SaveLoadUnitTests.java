@@ -9,12 +9,13 @@ import java.util.List;
 
 import org.junit.Test;
 
-import entities.MeleeWeapon;
-import entities.Monster;
-import entities.Player;
+import entities.MeleeWeaponEntity;
+import entities.MonsterEntity;
+import entities.PlayerEntity;
 import interfaces.Entity;
 import interfaces.EntityType;
 import interfaces.LevelInterface;
+import interfaces.Player;
 import logic.Level;
 import logic.Room;
 
@@ -29,7 +30,7 @@ public class SaveLoadUnitTests {
 	 */
 	@Test
 	public void testGameSavingPlayerPosition() {
-		Player player = new Player(boundingBox, null);
+		Player player = new PlayerEntity(boundingBox, null);
 		List<LevelInterface> levels = generateLevels(player);
 		Level currentLevel = (Level) levels.get(0);
 		
@@ -53,7 +54,7 @@ public class SaveLoadUnitTests {
 	 */
 	@Test
 	public void testGameSavingRoom() {
-		Player player = new Player(boundingBox, null);
+		Player player = new PlayerEntity(boundingBox, null);
 		List<LevelInterface> levels = generateLevels(player);
 		Level currentLevel = (Level) levels.get(0);
 		currentLevel.setCurrentRoom(currentLevel.getRoom(3));
@@ -76,11 +77,11 @@ public class SaveLoadUnitTests {
 	 */
 	@Test
 	public void testGameSavingLives() {
-		Player player = new Player(boundingBox, null);
+		Player player = new PlayerEntity(boundingBox, null);
 		List<LevelInterface> levels = generateLevels(player);
 		Level currentLevel = (Level) levels.get(0);	
-		MeleeWeapon melee = new MeleeWeapon(boundingBox, EntityType.WATER, 40, null);
-		Monster monster = new Monster(boundingBox, 100, EntityType.WATER, melee, null, null);
+		MeleeWeaponEntity melee = new MeleeWeaponEntity(boundingBox, EntityType.WATER, 40, null);
+		MonsterEntity monster = new MonsterEntity(boundingBox, 100, EntityType.WATER, melee, null, null);
 		monster.attack(player, 120);
 		
 		GameData gd = new GameData(player, levels, currentLevel);
@@ -100,7 +101,7 @@ public class SaveLoadUnitTests {
 	 */
 	@Test
 	public void testGameSavingRoomEntities() {
-		Player player = new Player(boundingBox, null);
+		Player player = new PlayerEntity(boundingBox, null);
 		List<LevelInterface> levels = generateLevels(player);
 		Level currentLevel = (Level) levels.get(0);
 		
@@ -149,7 +150,7 @@ public class SaveLoadUnitTests {
 	@Test
 	public void testGameOverwrite() {
 		//1st save
-		Player player = new Player(boundingBox, null);
+		Player player = new PlayerEntity(boundingBox, null);
 		List<LevelInterface> levels = generateLevels(player);
 		Level currentLevel = (Level) levels.get(0);
 		
@@ -161,7 +162,7 @@ public class SaveLoadUnitTests {
 		save.saveGame();
 		
 		//Second save over first
-		Player newPlayer = new Player(boundingBox, null);
+		Player newPlayer = new PlayerEntity(boundingBox, null);
 		List<LevelInterface> newLevels = generateLevels(player);
 		Level newCurrentLevel = (Level) levels.get(0);
 		

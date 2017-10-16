@@ -6,8 +6,8 @@ import java.awt.geom.Rectangle2D;
 
 import org.junit.Test;
 
-import entities.MeleeWeapon;
-import entities.Player;
+import entities.MeleeWeaponEntity;
+import entities.PlayerEntity;
 import interfaces.EntityType;
 import logic.Door;
 import logic.Level;
@@ -26,9 +26,9 @@ public class DoorTests {
 	 */
 	@Test
 	public void create() {
-		Player player = new Player(new Rectangle2D.Double(10, 10, 10, 10), null);
+		PlayerEntity player = new PlayerEntity(new Rectangle2D.Double(10, 10, 10, 10), null);
 		Level level = new Level(player);
-		MeleeWeapon weapon = new MeleeWeapon(new Rectangle2D.Double(10, 10, 10, 10), EntityType.EARTH, 10, null);
+		MeleeWeaponEntity weapon = new MeleeWeaponEntity(new Rectangle2D.Double(10, 10, 10, 10), EntityType.EARTH, 10, null);
 		Room room1 = new Room(1, level);
 		Room room2 = new Room(2, level);
 		Door door = new Door(room1, room2, weapon, 1, 3);
@@ -44,9 +44,9 @@ public class DoorTests {
 	 */
 	@Test
 	public void setPosition() {
-		Player player = new Player(new Rectangle2D.Double(10, 10, 10, 10), null);
+		PlayerEntity player = new PlayerEntity(new Rectangle2D.Double(10, 10, 10, 10), null);
 		Level level = new Level(player);
-		MeleeWeapon weapon = new MeleeWeapon(new Rectangle2D.Double(10, 10, 10, 10), EntityType.EARTH, 10, null);
+		MeleeWeaponEntity weapon = new MeleeWeaponEntity(new Rectangle2D.Double(10, 10, 10, 10), EntityType.EARTH, 10, null);
 		Room room1 = new Room(1, level);
 		Room room2 = new Room(2, level);
 		Door door = new Door(room1, room2, weapon, 1, 3);
@@ -60,9 +60,9 @@ public class DoorTests {
 	 */
 	@Test
 	public void unlock() {
-		Player player = new Player(new Rectangle2D.Double(10, 10, 10, 10), null);
+		PlayerEntity player = new PlayerEntity(new Rectangle2D.Double(10, 10, 10, 10), null);
 		Level level = new Level(player);
-		MeleeWeapon weapon = new MeleeWeapon(new Rectangle2D.Double(10, 10, 10, 10), EntityType.EARTH, 10, null);
+		MeleeWeaponEntity weapon = new MeleeWeaponEntity(new Rectangle2D.Double(10, 10, 10, 10), EntityType.EARTH, 10, null);
 		Room room1 = new Room(1, level);
 		Room room2 = new Room(2, level);
 		Door door = new Door(room1, room2, weapon, 1, 3);
@@ -76,9 +76,9 @@ public class DoorTests {
 	 */
 	@Test
 	public void flip() {
-		Player player = new Player(new Rectangle2D.Double(10, 10, 10, 10), null);
+		PlayerEntity player = new PlayerEntity(new Rectangle2D.Double(10, 10, 10, 10), null);
 		Level level = new Level(player);
-		MeleeWeapon weapon = new MeleeWeapon(new Rectangle2D.Double(10, 10, 10, 10), EntityType.EARTH, 10, null);
+		MeleeWeaponEntity weapon = new MeleeWeaponEntity(new Rectangle2D.Double(10, 10, 10, 10), EntityType.EARTH, 10, null);
 		Room room1 = new Room(1, level);
 		Room room2 = new Room(2, level);
 		Door door = new Door(room1, room2, weapon, 0, 0);
@@ -99,9 +99,9 @@ public class DoorTests {
 	 */
 	@Test
 	public void setRooms() {
-		Player player = new Player(new Rectangle2D.Double(10, 10, 10, 10), null);
+		PlayerEntity player = new PlayerEntity(new Rectangle2D.Double(10, 10, 10, 10), null);
 		Level level = new Level(player);
-		MeleeWeapon weapon = new MeleeWeapon(new Rectangle2D.Double(10, 10, 10, 10), EntityType.EARTH, 10, null);
+		MeleeWeaponEntity weapon = new MeleeWeaponEntity(new Rectangle2D.Double(10, 10, 10, 10), EntityType.EARTH, 10, null);
 		Room room1 = new Room(1, level);
 		Room room2 = new Room(2, level);
 		Door door = new Door(null, null, weapon, 0, 0);

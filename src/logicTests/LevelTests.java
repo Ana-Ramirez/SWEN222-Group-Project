@@ -6,7 +6,7 @@ import java.awt.geom.Rectangle2D;
 
 import org.junit.Test;
 
-import entities.Player;
+import entities.PlayerEntity;
 import logic.Level;
 import logic.Room;
 
@@ -22,7 +22,7 @@ public class LevelTests {
 	 */
 	@Test
 	public void initialise1() {
-		Player player = new Player(new Rectangle2D.Double(10, 10, 10, 10), null);
+		PlayerEntity player = new PlayerEntity(new Rectangle2D.Double(10, 10, 10, 10), null);
 		Level level = new Level(player);
 		assertEquals(5, level.getRooms().size());
 	}
@@ -32,7 +32,7 @@ public class LevelTests {
 	 */
 	@Test
 	public void initialise2() {
-		Player player = new Player(new Rectangle2D.Double(10, 10, 10, 10), null);
+		PlayerEntity player = new PlayerEntity(new Rectangle2D.Double(10, 10, 10, 10), null);
 		Level level = new Level(player);
 		Room room3 = level.getRoom(3);
 		assertEquals(room3, level.getRoom(3));
