@@ -39,24 +39,29 @@ public class MainMenu extends Application{
 		this.primaryStage = primaryStage;
 		primaryStage.setTitle("Trouble in ChinaTown");
 
+		//Initialises the values for the ImgResources class so the images will display
 		for (int i = 0; i < ImgResources.values().length; i++) {
 			ImgResources.values()[i].setImage();
 		}
 
+		//A stackpane is used to stack the UI elements on top of the background
 		root = new StackPane();
 
 		Canvas canvas = new Canvas(816, 480);
 		GraphicsContext g = canvas.getGraphicsContext2D();
 
+		//Draw the background
 		drawBG(g);
 		root.getChildren().add(canvas);
 
+		//VBox for 1 column of title and buttons
 		vb = new VBox();
 		vb.setSpacing(8);
 		vb.setAlignment(Pos.CENTER);
 
 		root.getChildren().add(vb);
 
+		//Title for the game
 		Text title = new Text("TROUBLE IN CHINATOWN");
 	    title.setFont(Font.font("Arial", FontWeight.BOLD, 48));
 	    title.setFill(Color.WHITE);
@@ -67,6 +72,7 @@ public class MainMenu extends Application{
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
+		//Add the buttons
 		startGameButton();
 		loadGameButton();
 		gameInstructionsButton();
@@ -74,7 +80,7 @@ public class MainMenu extends Application{
 	}
 
 	/**
-	 * Starts a new game
+	 * Adds a start game button
 	 */
 	private void startGameButton(){
 		Button btn = new Button();
@@ -84,7 +90,7 @@ public class MainMenu extends Application{
 	}
 
 	/**
-	 * Loads a game from file
+	 * Adds a load game button
 	 */
 	private void loadGameButton(){
 		Button btn = new Button();
@@ -94,7 +100,7 @@ public class MainMenu extends Application{
 	}
 
 	/**
-	 * Exits the application
+	 * Adds a quit game button
 	 */
 	private void quitGameButton(){
 		Button btn = new Button();
@@ -104,7 +110,7 @@ public class MainMenu extends Application{
 	}
 	
 	/**
-	 * Displays Game Instructions
+	 * Adds a game instructions button
 	 */
 	private void gameInstructionsButton() {
 		Button btn = new Button();

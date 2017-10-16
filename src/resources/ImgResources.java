@@ -1,6 +1,5 @@
 package resources;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -59,11 +58,17 @@ public enum ImgResources {
 	public final String imgPath;
 	public Image img;
 
+	/**
+	 * Used to retrieve the images
+	 * @param resourceName name of the image
+	 */
 	ImgResources(String resourceName) {
 		imgPath = ImgResources.class.getResource(resourceName).getPath();
 	}
 	
-	
+	/**
+	 * @return width of the image
+	 */
 	public int getWidth() {
 		try {
 			return ImageIO.read(new File(imgPath)).getWidth();
@@ -72,6 +77,9 @@ public enum ImgResources {
 		}
 	}
 	
+	/**
+	 * @return height of the image
+	 */
 	public int getHeight() {
 		try {
 			return ImageIO.read(new File(imgPath)).getHeight();
@@ -80,6 +88,9 @@ public enum ImgResources {
 		}
 	}
 	
+	/**
+	 * sets the img field to the current imgPath
+	 */
 	public void setImage() {
 		img = new Image("file:"+imgPath);
 	}
