@@ -10,7 +10,7 @@ import resources.ImgResources;
  * @author laudernich1
  *
  */
-public class MeleeWeapon extends Weapon {
+public class MeleeWeapon extends WeaponEntity {
 	private static final long serialVersionUID = -7531191138324291062L;
 
 	/**

@@ -2,6 +2,8 @@ package entities;
 
 import java.awt.geom.Rectangle2D;
 
+import interfaces.Pickupable;
+import interfaces.Player;
 import resources.ImgResources;
 
 /**
@@ -9,7 +11,7 @@ import resources.ImgResources;
  * @author laudernich1
  *
  */
-public class Player extends CharacterEntity {
+public class PlayerEntity extends CharacterEntity implements Player{
 	private static final long serialVersionUID = 1364726060443658475L;
 	private Pickupable[] backpack;
 
@@ -21,10 +23,10 @@ public class Player extends CharacterEntity {
 	 * @param img
 	 * 		the initial image for this player to use
 	 */
-	public Player(Rectangle2D.Double box, ImgResources img) {
+	public PlayerEntity(Rectangle2D.Double box, ImgResources img) {
 		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), null, 3);
 		setImage(img);
-		backpack = new Pickupable[2];
+		backpack = new PickupableEntity[2];
 		this.speed = 2;
 	}
 
@@ -54,8 +56,8 @@ public class Player extends CharacterEntity {
 	 * 		True if the consumable was successfully used
 	 */
 	public boolean use() {
-		if (getHand() instanceof Consumable) {
-			boolean success = parseCommand(((Consumable)getHand()).use());
+		if (getHand() instanceof ConsumableEntity) {
+			boolean success = parseCommand(((ConsumableEntity)getHand()).use());
 			if (success) {setHand(null);}
 			return success;
 		} else {
@@ -73,8 +75,8 @@ public class Player extends CharacterEntity {
 			return true;
 		} else if (actionCommand[0].equals("Ammo")) {
 			for (int i = 0; i < backpack.length; i++) {
-				if (backpack[i] instanceof Gun) {
-					((Gun) backpack[i]).resupply((int) Float.parseFloat(actionCommand[1]));
+				if (backpack[i] instanceof GunEntity) {
+					((GunEntity) backpack[i]).resupply((int) Float.parseFloat(actionCommand[1]));
 					return true;
 				}
 			}
@@ -103,8 +105,8 @@ public class Player extends CharacterEntity {
 	 * 		the item replaced in inventory
 	 */
 	public Pickupable pickup(Pickupable item) {
-		if (item instanceof Weapon) {
-			((Weapon) item).setOwner(this);
+		if (item instanceof WeaponEntity) {
+			((WeaponEntity) item).setOwner(this);
 		}
 		if (getHand() == null) {
 			setHand(item);
@@ -135,8 +137,8 @@ public class Player extends CharacterEntity {
 	public Pickupable drop() {
 		Pickupable holder = getHand();
 		setHand(null);
-		if (holder instanceof Weapon) {
-			((Weapon) holder).setOwner(null);
+		if (holder instanceof WeaponEntity) {
+			((WeaponEntity) holder).setOwner(null);
 		}
 		return holder;
 	}

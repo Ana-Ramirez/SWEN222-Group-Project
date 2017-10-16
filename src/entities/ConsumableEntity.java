@@ -2,6 +2,7 @@ package entities;
 
 import java.awt.geom.Rectangle2D;
 
+import interfaces.Consumable;
 import resources.ImgResources;
 
 /**
@@ -9,7 +10,7 @@ import resources.ImgResources;
  * @author laudernich1
  *
  */
-public class Consumable extends Pickupable {
+public class ConsumableEntity extends PickupableEntity implements Consumable {
 	private static final long serialVersionUID = -4391782330871728287L;
 	private static final String[] commands = {"Lives", "Speed", "Ammo", "Key"};
 	private String action;
@@ -24,7 +25,7 @@ public class Consumable extends Pickupable {
 	 * @param img
 	 * 		the image reference to use
 	 */
-	public Consumable(Rectangle2D.Double box, String action, ImgResources img) {
+	public ConsumableEntity(Rectangle2D.Double box, String action, ImgResources img) {
 		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), null);
 		setImage(img);
 		checkAction(action);
@@ -68,11 +69,7 @@ public class Consumable extends Pickupable {
 		}
 	}
 
-	/**
-	 * Returns whether or not the consumable can still be used
-	 * @return
-	 * 		true if can use
-	 */
+
 	public boolean canUse() {
 		return uses > 0;
 	}

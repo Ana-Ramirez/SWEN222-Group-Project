@@ -2,30 +2,24 @@ package entities;
 
 import interfaces.Entity;
 import interfaces.EntityType;
+import interfaces.Weapon;
 
 /**
  * Abstract class for all the different types of weapons
  * @author laudernich1
  *
  */
-public abstract class Weapon extends Pickupable{
+public abstract class WeaponEntity extends PickupableEntity implements Weapon  {
 	private static final long serialVersionUID = -3336903366847446135L;
 	private int baseDamage;
 	private CharacterEntity owner;
 
 
-	Weapon(double x, double y, double width, double height, EntityType type, int damage) {
+	WeaponEntity(double x, double y, double width, double height, EntityType type, int damage) {
 		super(x, y, width, height, type);
 		this.baseDamage = damage;
 	}
 
-	/**
-	 * Deals damage to a given entity
-	 * @param victim
-	 * 		the entity to attack
-	 * @return
-	 * 		true if damage dealt, else false
-	 */
 	public boolean attack(Entity victim) {
 		return ((Entities)victim).hit(getDamage(victim));
 		
@@ -75,11 +69,6 @@ public abstract class Weapon extends Pickupable{
 		
 	}
 
-	/**
-	 * Gets the base damage (without modifier) of the weapon
-	 * @return
-	 * 		the int value of the damage
-	 */
 	public int getBaseDamage() {
 		return baseDamage;
 	}
@@ -87,12 +76,7 @@ public abstract class Weapon extends Pickupable{
 	void setOwner(CharacterEntity c) {
 		owner = c;
 	}
-	
-	/**
-	 * Returns the character that owns the entity 
-	 * @return
-	 * 		The CharacterEntity object
-	 */
+
 	public CharacterEntity getOwner() {
 		return owner;
 	}

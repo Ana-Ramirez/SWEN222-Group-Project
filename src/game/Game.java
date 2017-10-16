@@ -4,7 +4,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import entities.Player;
+import entities.PlayerEntity;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -31,7 +31,7 @@ public class Game extends Application {
 	/**
 	 * Player object
 	 */
-	private Player player;
+	private PlayerEntity player;
 
 	/**
 	 * All the levels in the game
@@ -82,7 +82,7 @@ public class Game extends Application {
 	 * Constructs a new Game object
 	 */
 	public Game() {
-		this.player = new Player(new Rectangle2D.Double(50, 50, 32, 48), ImgResources.PLAYERDOWN);
+		this.player = new PlayerEntity(new Rectangle2D.Double(50, 50, 32, 48), ImgResources.PLAYERDOWN);
 		generateLevels();
 	}
 

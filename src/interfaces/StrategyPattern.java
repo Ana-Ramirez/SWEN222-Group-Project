@@ -12,7 +12,7 @@ public interface StrategyPattern extends Serializable{
 	 * 
 	 * @param monster
 	 */
-	public void tick(MoveableEntity monster);
+	public void tick(Moveable monster);
 	
 	/**
 	 * 

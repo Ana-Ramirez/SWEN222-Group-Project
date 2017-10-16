@@ -6,7 +6,7 @@ package interfaces;
  * @author laudernich1
  *
  */
-public interface Character extends MoveableEntity {
+public interface Character extends Moveable {
 	
 	/**
 	 * Checks if the character has more than 0 lives

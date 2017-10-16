@@ -2,7 +2,9 @@ package entities;
 
 import java.awt.geom.Rectangle2D;
 
+import interfaces.Entity;
 import interfaces.EntityType;
+import interfaces.Gun;
 import resources.ImgResources;
 
 //***** Design Discussion *********
@@ -16,7 +18,7 @@ import resources.ImgResources;
  * @author laudernich1
  *
  */
-public class Gun extends Weapon {
+public class GunEntity extends WeaponEntity implements Gun {
 	private static final long serialVersionUID = 1557911205592499799L;
 	private int damage;
 	private ImgResources ammoImg;
@@ -37,7 +39,7 @@ public class Gun extends Weapon {
 	 * @param ammoImg
 	 * 		the default projectile image to use
 	 */
-	public Gun(Rectangle2D.Double box, EntityType type, int damage, int ammoCount, ImgResources img, ImgResources ammoImg) {
+	public GunEntity(Rectangle2D.Double box, EntityType type, int damage, int ammoCount, ImgResources img, ImgResources ammoImg) {
 		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), type, damage);
 		this.damage = damage;
 		setImage(img);

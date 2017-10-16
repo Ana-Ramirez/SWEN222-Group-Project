@@ -3,7 +3,9 @@ package entities;
 import java.awt.geom.Rectangle2D;
 
 import interfaces.StrategyPattern;
+import interfaces.Entity;
 import interfaces.EntityType;
+import interfaces.Monster;
 import resources.ImgResources;
 
 /**
@@ -11,7 +13,7 @@ import resources.ImgResources;
  * @author laudernich1
  *
  */
-public class Monster extends CharacterEntity {
+public class MonsterEntity extends CharacterEntity implements Monster {
 	private static final long serialVersionUID = -4064250638229615542L;
 	private StrategyPattern pattern;
 	private int oldTick = 0;
@@ -33,7 +35,7 @@ public class Monster extends CharacterEntity {
 	 * @param strategy
 	 * 		the ai pattern to use
 	 */
-	public Monster(Rectangle2D.Double box, int health, EntityType type, Weapon weapon, ImgResources img, StrategyPattern strategy) {
+	public MonsterEntity(Rectangle2D.Double box, int health, EntityType type, WeaponEntity weapon, ImgResources img, StrategyPattern strategy) {
 		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), type, health);
 		setImage(img);
 		setHand(weapon);
@@ -53,30 +55,15 @@ public class Monster extends CharacterEntity {
 		}
 	}
 
-
-	/**
-	 * Initiates an attack onto another entitiy
-	 * @param victim
-	 * 		the entity to attack
-	 * @param tick
-	 * 		the int tick number
-	 * @return
-	 * 		true if successful
-	 */
-	public boolean attack(Entities victim, int tick) {
+	public boolean attack(Entity victim, int tick) {
 		if ((tick-oldTick) >= 120) {
 			oldTick = tick;
-			return ((Weapon)getHand()).attack(victim);
+			return ((WeaponEntity)getHand()).attack(victim);
 		} else {
 			return false;
 		}
 	}
-	
-	/**
-	 * Returns the amount lives this monster has at full health
-	 * @return
-	 * 		int number of max lives
-	 */
+
 	public int getFullLives() {
 		return fullLives;
 	}

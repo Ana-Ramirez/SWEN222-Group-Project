@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import entities.Monster;
-import entities.Player;
+import interfaces.Monster;
+import interfaces.Player;
 import view.Renderer;
 
 /**

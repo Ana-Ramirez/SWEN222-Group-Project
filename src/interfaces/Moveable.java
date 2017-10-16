@@ -5,7 +5,7 @@ package interfaces;
  * @author laudernich1
  * 
  */
-public interface MoveableEntity extends Entity{
+public interface Moveable extends Entity{
 	
 	/**
 	 * Moves the entity a given amount on each axis

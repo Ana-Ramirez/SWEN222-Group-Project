@@ -1,6 +1,7 @@
 package entities;
 
 import interfaces.EntityType;
+import interfaces.Pickupable;
 import interfaces.Character;
 
 /**
@@ -8,7 +9,7 @@ import interfaces.Character;
  * @author laudernich1
  *
  */
-public abstract class CharacterEntity extends MovableEntities implements Character {
+public abstract class CharacterEntity extends MovableEntity implements Character {
 	private static final long serialVersionUID = 4776917612212761920L;
 	protected int lives;
 	private Pickupable hand;
@@ -60,11 +61,11 @@ public abstract class CharacterEntity extends MovableEntities implements Charact
 	
 	/**
 	 * Sets the characters hand
-	 * @param e
+	 * @param item
 	 * 		the item to put into the characters hand
 	 */
-	protected void setHand(Pickupable e) {
-		hand = e;
+	protected void setHand(Pickupable item) {
+		hand = item;
 		
 	}
 

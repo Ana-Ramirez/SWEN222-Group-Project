@@ -1,8 +1,7 @@
 package logic;
 
 import interfaces.Entity;
-import entities.Entities;
-import entities.Pickupable;
+import interfaces.Pickupable;
 import resources.ImgResources;
 import view.Renderer;
 

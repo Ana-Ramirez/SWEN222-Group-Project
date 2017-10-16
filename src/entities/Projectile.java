@@ -10,7 +10,7 @@ import resources.ImgResources;
  * @author laudernich1
  *
  */
-public class Projectile extends Weapon {
+public class Projectile extends WeaponEntity {
 	private static final long serialVersionUID = 1620202643777534005L;
 	private double angle;
 

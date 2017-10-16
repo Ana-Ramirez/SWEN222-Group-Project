@@ -183,7 +183,11 @@ public class aiTests {
 	
 	/**
 	 * External tests
-	 * @author Nick Lauder
+	 * @author laudernich1
+	 * 
+	 * 
+	 * 
+	 * 
 	 */
 	
 	@Test

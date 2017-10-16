@@ -1,6 +1,6 @@
 package entities;
 
-import interfaces.MoveableEntity;
+import interfaces.Moveable;
 import interfaces.EntityType;
 
 /**
@@ -8,11 +8,11 @@ import interfaces.EntityType;
  * @author laudernich1
  *
  */
-public abstract class MovableEntities extends Entities implements MoveableEntity {
+public abstract class MovableEntity extends Entities implements Moveable {
 	private static final long serialVersionUID = -8759622030110383707L;
 	protected double speed = 1;
 
-	MovableEntities(double x, double y, double width, double height, EntityType type) {
+	MovableEntity(double x, double y, double width, double height, EntityType type) {
 		super(x, y, width, height, type);
 	}
 	

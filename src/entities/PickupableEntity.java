@@ -1,16 +1,17 @@
 package entities;
 
 import interfaces.EntityType;
+import interfaces.Pickupable;
 
 /**
  * Abstract class for a pickupable object
  * @author laudernich1
  *
  */
-public abstract class Pickupable extends MovableEntities {
+public abstract class PickupableEntity extends MovableEntity implements Pickupable {
 	private static final long serialVersionUID = 1654057472702704263L;
 
-	Pickupable(double x, double y, double width, double height, EntityType type) {
+	PickupableEntity(double x, double y, double width, double height, EntityType type) {
 		super(x, y, width, height, type);
 	}
 
@@ -19,10 +20,4 @@ public abstract class Pickupable extends MovableEntities {
 		return false;
 	}
 
-	/**
-	 * Gets the general information of the item
-	 * @return
-	 * 		a string info description
-	 */
-	public abstract String getInfo();
 }

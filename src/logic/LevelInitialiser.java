@@ -7,11 +7,12 @@ import ai.BossEnemy;
 import ai.FollowingEnemy;
 import ai.Goal;
 import ai.PatrollingEnemy;
-import entities.Consumable;
-import entities.Gun;
-import entities.MeleeWeapon;
-import entities.Monster;
-import entities.Player;
+import entities.ConsumableEntity;
+import interfaces.Consumable;
+import interfaces.Gun;
+import interfaces.MeleeWeapon;
+import interfaces.Monster;
+import interfaces.Player;
 import interfaces.EntityType;
 import interfaces.StrategyPattern;
 import resources.ImgResources;
@@ -45,10 +46,10 @@ public class LevelInitialiser {
 	public static void initialise(Level level, List<Room> rooms, Player player){
 
 		//Create keys for rooms
-		Consumable key1 = new Consumable(new Rectangle2D.Double(400, 200, 40, 40), "Key 1", ImgResources.KEY);
-		Consumable key2 = new Consumable(new Rectangle2D.Double(400, 200, 40, 40), "Key 2", ImgResources.KEY);
-		Consumable key3 = new Consumable(new Rectangle2D.Double(400, 200, 40, 40), "Key 3", ImgResources.KEY);
-		Consumable key4 = new Consumable(new Rectangle2D.Double(400, 200, 40, 40), "Key 4", ImgResources.KEY);
+		Consumable key1 = new ConsumableEntity(new Rectangle2D.Double(400, 200, 40, 40), "Key 1", ImgResources.KEY);
+		Consumable key2 = new ConsumableEntity(new Rectangle2D.Double(400, 200, 40, 40), "Key 2", ImgResources.KEY);
+		Consumable key3 = new ConsumableEntity(new Rectangle2D.Double(400, 200, 40, 40), "Key 3", ImgResources.KEY);
+		Consumable key4 = new ConsumableEntity(new Rectangle2D.Double(400, 200, 40, 40), "Key 4", ImgResources.KEY);
 		
 		//create rooms
 		Room room1 = new Room(1, level);
