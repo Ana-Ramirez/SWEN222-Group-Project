@@ -22,7 +22,7 @@ import view.Renderer;
  * The Room class will be the basis for every room in the game
  * showing what objects are stored in a room and what doors
  * the room has.
- * @author LewisMcEwan
+ * @author lewismcewan
  * @author laudernich1
  *
  */

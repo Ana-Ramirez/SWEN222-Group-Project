@@ -12,7 +12,7 @@ import view.Renderer;
  * This class is the Model of our MVC patterned game
  * Level acts as a container for all the classes handling
  * making up the layout of the game. It ties them all together
- * @author Lewis
+ * @author lewismcewan
  *
  */
 public class Level implements Serializable{
