@@ -11,8 +11,8 @@ public interface Renderer{
 	public void initialDraw();
 	
 	/**
-	 * 
-	 * @param fromGame
+	 * Animates the sword in the player's hand
+	 * @param fromGame true if this method is called from the game class, false otherwise
 	 */
 	public void animateSword(boolean fromGame);
 	
@@ -22,8 +22,7 @@ public interface Renderer{
 	public void repaint();
 
 	/**
-	 * 
-	 * @return
+	 * @return the scene the renderer is using to draw images
 	 */
 	public Scene getScene();
 	
