@@ -10,10 +10,8 @@ import interfaces.Entity;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import logic.Door;
 import logic.Level;
 import resources.ImgResources;
 
@@ -23,7 +21,11 @@ import resources.ImgResources;
  * @author Patrick
  *
  */
-public class Renderer implements Serializable{
+public class Renderer implements Serializable, interfaces.Renderer{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8988365628295662802L;
 	private GraphicsContext g;
 	private Level level;
 	private Scene scene;
@@ -52,10 +54,7 @@ public class Renderer implements Serializable{
 		animationFrame = 0;
 	}
 
-	/**
-	 * Actually draws the room and HUD. Should only need to be called once at the start,
-	 * after the renderer has been initialised
-	 */
+	@Override
 	public void initialDraw(){
 		drawRoom();
 		drawHUD();
@@ -166,6 +165,7 @@ public class Renderer implements Serializable{
 		}
 	}
 	
+	@Override
 	public void animateSword(boolean fromGame){
 		Player player = level.getPlayer();
 		Pickupable e = player.getHand();
@@ -199,14 +199,13 @@ public class Renderer implements Serializable{
 		}
 	}
 
-	/**
-	 * Repaints the information that could change in a frame
-	 */
+	@Override
 	public void repaint(){
 		drawRoom();
 		drawHUD();
 	}
 
+	@Override
 	public Scene getScene() {
 		return this.scene;
 	}
