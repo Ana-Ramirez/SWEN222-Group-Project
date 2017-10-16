@@ -1,2 +1,11 @@
+ai
 entities
+game
 interfaces
+logic
+logicTests
+resources
+saveLoad
+tests
+view
+viewTests

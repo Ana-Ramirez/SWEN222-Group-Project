@@ -2,7 +2,6 @@ package entities;
 
 import java.awt.geom.Rectangle2D;
 
-import interfaces.Entity;
 import interfaces.EntityType;
 import interfaces.Gun;
 import interfaces.Projectile;

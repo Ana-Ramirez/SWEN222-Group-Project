@@ -12,8 +12,6 @@ import entities.GunEntity;
 import entities.MeleeWeaponEntity;
 import entities.MonsterEntity;
 import interfaces.Consumable;
-import interfaces.Gun;
-import interfaces.MeleeWeapon;
 import interfaces.Monster;
 import interfaces.Player;
 import interfaces.EntityType;

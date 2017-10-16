@@ -2,7 +2,6 @@ package entities;
 
 import java.awt.geom.Rectangle2D;
 
-import interfaces.Character;
 import interfaces.EntityType;
 import interfaces.MeleeWeapon;
 import resources.ImgResources;

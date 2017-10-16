@@ -12,7 +12,6 @@ import entities.GunEntity;
 import entities.MeleeWeaponEntity;
 import entities.MonsterEntity;
 import entities.PlayerEntity;
-import entities.ProjectileEntity;
 import interfaces.EntityType;
 import logic.Door;
 import logic.Level;
@@ -152,6 +151,7 @@ public class RoomTests {
 	/**
 	 * Testing playerTick
 	 */
+	@SuppressWarnings("unused")
 	@Test
 	public void tick2() {
 		PlayerEntity player = new PlayerEntity(new Rectangle2D.Double(0, 0, 800, 600), null);

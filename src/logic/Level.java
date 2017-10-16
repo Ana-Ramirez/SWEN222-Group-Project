@@ -19,6 +19,7 @@ import view.Renderer;
  */
 public class Level implements LevelInterface, Serializable{
 
+	private static final long serialVersionUID = -7319236979714599808L;
 	private List<Room> rooms;
 	private Player player;
 	private Room currentRoom;
