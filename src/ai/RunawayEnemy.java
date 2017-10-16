@@ -7,7 +7,7 @@ import interfaces.StrategyPattern;
 /**
  * Class controlling the AI for the enemy that runs away from the player
  * 
- * @author Ana Ramirez
+ * @author ramireana
  */
 
 public class RunawayEnemy implements StrategyPattern {
