@@ -5,16 +5,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import entities.Consumable;
-import entities.Gun;
-import entities.MeleeWeapon;
-import entities.Monster;
-import entities.Pickupable;
-import entities.Player;
-import entities.Projectile;
+import interfaces.Consumable;
+import interfaces.Gun;
+import interfaces.MeleeWeapon;
+import interfaces.Monster;
+import interfaces.Pickupable;
+import interfaces.Player;
+import interfaces.Projectile;
 import interfaces.Character;
 import interfaces.Entity;
-import interfaces.MoveableEntity;
+import interfaces.Moveable;
+import interfaces.RoomInterface;
 import resources.ImgResources;
 import view.Renderer;
 
@@ -26,7 +27,7 @@ import view.Renderer;
  * @author laudernich1
  *
  */
-public class Room implements Serializable{
+public class Room implements RoomInterface, Serializable{
 
 	private static final long serialVersionUID = -5452360281885911070L;
 	private int roomNum;
@@ -62,8 +63,8 @@ public class Room implements Serializable{
 			}
 			if (e instanceof Projectile) {
 				toRemove.addAll(projectileTick((Projectile)e));
-			} else if(e instanceof MoveableEntity) {
-				((MoveableEntity) e).tick();
+			} else if(e instanceof Moveable) {
+				((Moveable) e).tick();
 			} if (e == level.getBoss() && tickNo % 120 == 0) {
 				toAdd.addAll(bossAttack((Monster)e));
 			} else if(e instanceof Monster && e.getBoundingBox().intersects(getPlayer().getBoundingBox())){
@@ -297,7 +298,6 @@ public class Room implements Serializable{
 		return null;
 	}
 
-
 	/**
 	 * check if a door is locked
 	 * @return
@@ -305,7 +305,6 @@ public class Room implements Serializable{
 	public boolean doorLocked(Door d){
 		return d.isLocked();
 	}
-
 
 	/**
 	 * @return the list of doors for this room
@@ -353,7 +352,7 @@ public class Room implements Serializable{
 		if (m == level.getBoss()){
 			m.setImage(ImgResources.MAOHIT); //Makes mao turn red when he gets hit
 		}
-		return ((m).isAlive()) ? false : true;
+		return ((m).isAlive()) ? false : true; 
 	}
 
 	/**

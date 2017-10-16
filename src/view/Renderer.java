@@ -1,8 +1,8 @@
 package view;
 
-import entities.MeleeWeapon;
-import entities.Pickupable;
-import entities.Player;
+import interfaces.MeleeWeapon;
+import interfaces.Pickupable;
+import interfaces.Player;
 import interfaces.Entity;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;

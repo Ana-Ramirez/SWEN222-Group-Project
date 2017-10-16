@@ -2,7 +2,9 @@ package entities;
 
 import java.awt.geom.Rectangle2D;
 
+import interfaces.Character;
 import interfaces.EntityType;
+import interfaces.MeleeWeapon;
 import resources.ImgResources;
 
 /**
@@ -10,7 +12,7 @@ import resources.ImgResources;
  * @author laudernich1
  *
  */
-public class MeleeWeapon extends WeaponEntity {
+public class MeleeWeaponEntity extends WeaponEntity implements MeleeWeapon {
 	private static final long serialVersionUID = -7531191138324291062L;
 
 	/**
@@ -24,7 +26,7 @@ public class MeleeWeapon extends WeaponEntity {
 	 * @param img
 	 * 		the img reference to use
 	 */
-	public MeleeWeapon(Rectangle2D.Double box, EntityType type, int damage, ImgResources img) {
+	public MeleeWeaponEntity(Rectangle2D.Double box, EntityType type, int damage, ImgResources img) {
 		super(box.getMinX(), box.getMinY(), box.getWidth(), box.getHeight(), type, damage);
 		setImage(img);
 	}
@@ -38,5 +40,4 @@ public class MeleeWeapon extends WeaponEntity {
 	public String getInfo() {
 		return "Melee Weapon";
 	}
-
 }

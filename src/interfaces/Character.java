@@ -9,12 +9,13 @@ package interfaces;
 public interface Character extends Moveable {
 	
 	/**
-	 * Checks if the character has more than 0 lives
+	 * Checks if the player has more than 0 lives
 	 * @return
-	 * 		true if the character is alive
+	 * 		true if the player is alive
 	 */
 	public boolean isAlive();
-	
+
+
 	/**
 	 * Returns the amount of health the character has left
 	 * @return
@@ -22,4 +23,10 @@ public interface Character extends Moveable {
 	 */
 	public int getLives();
 	
+	/**
+	 * Returns the object currently in the players hand
+	 * @return
+	 * 		the pickupable object in the hand
+	 */
+	public Pickupable getHand();	
 }

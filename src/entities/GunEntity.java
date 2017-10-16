@@ -5,6 +5,7 @@ import java.awt.geom.Rectangle2D;
 import interfaces.Entity;
 import interfaces.EntityType;
 import interfaces.Gun;
+import interfaces.Projectile;
 import resources.ImgResources;
 
 //***** Design Discussion *********
@@ -47,42 +48,19 @@ public class GunEntity extends WeaponEntity implements Gun {
 		this.ammoCount = ammoCount;
 	}
 
-
-	/**
-	 * Creates a new projectile to shoot
-	 * @param targetX
-	 * 		the target x double
-	 * @param targetY
-	 * 		the target y double
-	 * @return
-	 * 		the newly created projectile
-	 */
 	public Projectile createProjectile(double targetX, double targetY) {
 		if (ammoCount != 0) {
 			ammoCount--;
-			return new Projectile(getOwner(), new Rectangle2D.Double(getX(), getY(), 8, 8), damage, ammoImg, targetX, targetY, getType());
+			return new ProjectileEntity(getOwner(), new Rectangle2D.Double(getX(), getY(), 8, 8), damage, ammoImg, targetX, targetY, getType());
 		} else {
 			return null;
 		}
 	}
 	
-	
-	/**
-	 * Creates a new projectile to shoot, including specific image
-	 * @param ammoImg
-	 * 		the image reference to use with the projectile
-	 * @param targetX
-	 * 		the target x double
-	 * @param targetY
-	 * 		the target y double
-	 * @return
-	 * 		the newly created projectile
-	 */
-	
 	public Projectile createProjectile(ImgResources ammoImg, double targetX, double targetY) {
 		if (ammoCount != 0) {
 			ammoCount--;
-			return new Projectile(getOwner(), new Rectangle2D.Double(getX(), getY(), ammoImg.getWidth(), ammoImg.getHeight()), damage, ammoImg, targetX, targetY, getType());
+			return new ProjectileEntity(getOwner(), new Rectangle2D.Double(getX(), getY(), ammoImg.getWidth(), ammoImg.getHeight()), damage, ammoImg, targetX, targetY, getType());
 		} else {
 			return null;
 		}

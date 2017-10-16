@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entities.PlayerEntity;
+import interfaces.LevelInterface;
+import interfaces.Player;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -31,12 +33,12 @@ public class Game extends Application {
 	/**
 	 * Player object
 	 */
-	private PlayerEntity player;
+	private Player player;
 
 	/**
 	 * All the levels in the game
 	 */
-	private List<Level> levels;
+	private List<LevelInterface> levels;
 
 	/**
 	 * Direction of player movement
@@ -91,7 +93,7 @@ public class Game extends Application {
 	 * Initialises list of levels
 	 */
 	private void generateLevels() {
-		levels = new ArrayList<Level>();
+		levels = new ArrayList<LevelInterface>();
 		Level level1 = null;
 		try {
 			level1 = new Level(player);
@@ -255,11 +257,11 @@ public class Game extends Application {
 		this.player = player;
 	}
 
-	public List<Level> getLevels() {
+	public List<LevelInterface> getLevels() {
 		return levels;
 	}
 
-	public void setLevels(List<Level> levels) {
+	public void setLevels(List<LevelInterface> levels) {
 		this.levels = levels;
 	}
 

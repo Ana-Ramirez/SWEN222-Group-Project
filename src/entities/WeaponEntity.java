@@ -3,6 +3,7 @@ package entities;
 import interfaces.Entity;
 import interfaces.EntityType;
 import interfaces.Weapon;
+import interfaces.Character;
 
 /**
  * Abstract class for all the different types of weapons
@@ -12,7 +13,7 @@ import interfaces.Weapon;
 public abstract class WeaponEntity extends PickupableEntity implements Weapon  {
 	private static final long serialVersionUID = -3336903366847446135L;
 	private int baseDamage;
-	private CharacterEntity owner;
+	private Character owner;
 
 
 	WeaponEntity(double x, double y, double width, double height, EntityType type, int damage) {
@@ -73,11 +74,11 @@ public abstract class WeaponEntity extends PickupableEntity implements Weapon  {
 		return baseDamage;
 	}
 	
-	void setOwner(CharacterEntity c) {
+	public void setOwner(Character c) {
 		owner = c;
 	}
 
-	public CharacterEntity getOwner() {
+	public Character getOwner() {
 		return owner;
 	}
 }

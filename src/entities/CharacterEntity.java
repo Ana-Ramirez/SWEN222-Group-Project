@@ -30,31 +30,14 @@ public abstract class CharacterEntity extends MovableEntity implements Character
 		return false;
 	}
 
-
-	/**
-	 * Checks if the player has more than 0 lives
-	 * @return
-	 * 		true if the player is alive
-	 */
 	public boolean isAlive() {
 		return lives > 0;
 	}
 
-
-	/**
-	 * Returns the amount of health the character has left
-	 * @return
-	 * 		the int of the characters remaining lives
-	 */
 	public int getLives() {
 		return lives;
 	}
-	
-	/**
-	 * Returns the object currently in the players hand
-	 * @return
-	 * 		the pickupable object in the hand
-	 */
+
 	public Pickupable getHand() {
 		return hand;
 	}

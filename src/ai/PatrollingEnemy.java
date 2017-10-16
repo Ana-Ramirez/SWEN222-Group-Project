@@ -1,7 +1,7 @@
 package ai;
 
 
-import interfaces.MoveableEntity;
+import interfaces.Moveable;
 import interfaces.StrategyPattern;
 
 /**
@@ -31,7 +31,7 @@ public class PatrollingEnemy implements StrategyPattern {
 	/**
 	 * Do relevant movement
 	 */
-	public void tick(MoveableEntity monster) {
+	public void tick(Moveable monster) {
 		
 		if(monster == null){
 			return;

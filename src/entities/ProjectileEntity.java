@@ -2,7 +2,9 @@ package entities;
 
 import java.awt.geom.Rectangle2D;
 
+import interfaces.Character;
 import interfaces.EntityType;
+import interfaces.Projectile;
 import resources.ImgResources;
 
 /**
@@ -10,11 +12,11 @@ import resources.ImgResources;
  * @author laudernich1
  *
  */
-public class Projectile extends WeaponEntity {
+public class ProjectileEntity extends WeaponEntity implements Projectile{
 	private static final long serialVersionUID = 1620202643777534005L;
 	private double angle;
 
-	protected Projectile(CharacterEntity owner, Rectangle2D.Double box, int damage, ImgResources img, double targetX, double targetY, EntityType type) {
+	protected ProjectileEntity(Character owner, Rectangle2D.Double box, int damage, ImgResources img, double targetX, double targetY, EntityType type) {
 		super(box.getMinX()+owner.getWidth()/2d, box.getMinY()+owner.getHeight()/2d, box.getWidth(), box.getHeight(), type, damage);
 		setImage(img);
 		angle = Math.toDegrees(Math.atan2((targetY)-(getY()), (targetX)-(getX())));

@@ -7,9 +7,9 @@ import ai.Goal;
 import ai.PatrollingEnemy;
 import ai.RunawayEnemy;
 import interfaces.Entity;
-import interfaces.MoveableEntity;
 import interfaces.StrategyPattern;
 import interfaces.EntityType;
+import interfaces.Moveable;
 import resources.ImgResources;
 
 import static org.junit.Assert.*;
@@ -46,7 +46,7 @@ public class aiTests {
 	}
 	
 	
-	private class TestMoveableEntity implements MoveableEntity {
+	private class TestMoveableEntity implements Moveable {
 		private double x, y, width, height, speed = 1;
 		private StrategyPattern pattern;
 		public TestMoveableEntity(double x, double y, double width, double height, StrategyPattern pattern) {

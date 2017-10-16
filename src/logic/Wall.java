@@ -1,6 +1,7 @@
 package logic;
 
 import entities.Entities;
+import interfaces.WallInterface;
 import resources.ImgResources;
 
 /**
@@ -9,7 +10,7 @@ import resources.ImgResources;
  * @author lewismcewan
  *
  */
-public class Wall extends Entities {
+public class Wall extends Entities implements WallInterface {
 	private static final long serialVersionUID = -9001742836653967062L;
 
 	String position = null;
