@@ -1,11 +1,15 @@
 package resources;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+
 
 /**
  * Contains the image resources for the game.
@@ -55,7 +59,7 @@ public enum ImgResources {
 	PLAYERDOWN("playerDown.png"),
 	PLAYERDOWNINJURED("playerDownInjured.png");
 
-	public final String imgPath;
+	public final URL imgPath;
 	public Image img;
 
 	/**
@@ -63,7 +67,7 @@ public enum ImgResources {
 	 * @param resourceName name of the image
 	 */
 	ImgResources(String resourceName) {
-		imgPath = ImgResources.class.getResource(resourceName).getPath();
+		imgPath = getClass().getResource(resourceName);
 	}
 	
 	/**
@@ -71,7 +75,7 @@ public enum ImgResources {
 	 */
 	public int getWidth() {
 		try {
-			return ImageIO.read(new File(imgPath)).getWidth();
+			return ImageIO.read(imgPath).getWidth();
 		} catch (IOException e) {
 			return 0;
 		}
@@ -82,7 +86,7 @@ public enum ImgResources {
 	 */
 	public int getHeight() {
 		try {
-			return ImageIO.read(new File(imgPath)).getHeight();
+			return ImageIO.read(imgPath).getHeight();
 		} catch (IOException e) {
 			return 0;
 		}
@@ -92,6 +96,11 @@ public enum ImgResources {
 	 * sets the img field to the current imgPath
 	 */
 	public void setImage() {
-		img = new Image("file:"+imgPath);
+		try {
+			img = SwingFXUtils.toFXImage(ImageIO.read(imgPath), null);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
