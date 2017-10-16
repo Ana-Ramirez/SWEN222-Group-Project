@@ -42,15 +42,18 @@ public class PauseMenu extends Application{
 		Canvas canvas = new Canvas(800, 600);
 		GraphicsContext g = canvas.getGraphicsContext2D();
 
+		//Draws the black background
 		drawBG(g);
 		root.getChildren().add(canvas);
 
+		//VBox for title and buttons in one column
 		vb = new VBox();
 		vb.setSpacing(8);
 		vb.setAlignment(Pos.CENTER);
 
 		root.getChildren().add(vb);
 
+		//Writes PAUSED at the top of the screen
 		Text title = new Text("PAUSED");
 	    title.setFont(Font.font("Arial", FontWeight.BOLD, 48));
 	    title.setFill(Color.WHITE);
@@ -61,6 +64,7 @@ public class PauseMenu extends Application{
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
+		//Resumes the game when the escape key is pressed again
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
@@ -68,7 +72,6 @@ public class PauseMenu extends Application{
 				case ESCAPE : try {
 					game.start(primaryStage);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} 
 				break;
@@ -78,17 +81,22 @@ public class PauseMenu extends Application{
 			}			
 		});
 
+		//Adds the buttons
 		resumeGameButton();
 		saveGameButton();
 		quitToMenuButton();
 	}
 
+	/**
+	 * Constructor
+	 * @param game to return to when game is resumed
+	 */
 	public PauseMenu(Game game){
 		this.game = game;
 	}
 
 	/**
-	 * Resumes the game
+	 * Adds a resume game button
 	 */
 	private void resumeGameButton(){
 		Button btn = new Button();
@@ -98,7 +106,7 @@ public class PauseMenu extends Application{
 	}
 
 	/**
-	 * Saves the game
+	 * Adds a save game button
 	 * @param game
 	 */
 	private void saveGameButton(){
@@ -109,7 +117,7 @@ public class PauseMenu extends Application{
 	}
 
 	/**
-	 * Quits to the main menu
+	 * Adds a quit to menu button
 	 */
 	private void quitToMenuButton(){
 		Button btn = new Button();
@@ -119,7 +127,7 @@ public class PauseMenu extends Application{
 	}
 
 	/**
-	 * Draws the background for the pause menu
+	 * Draws the background for the pause menu (solid black)
 	 * @param g
 	 */
 	private void drawBG(GraphicsContext g) {
