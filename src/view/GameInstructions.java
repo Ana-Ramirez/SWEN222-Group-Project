@@ -132,7 +132,7 @@ public class GameInstructions extends Application {
 		
 		Text controls = new Text("Movement - W A S D\n"
 								+"Attack/Use - Left Mouse Button\n"
-								+ "Aim - Mouse Mouse\n"
+								+ "Aim - Mouse Position\n"
 								+ "Pickup Item - E\n"
 								+ "Drop Item - X\n"
 								+ "Equip Item - 1 and 2\n"
